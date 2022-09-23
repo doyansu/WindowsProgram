@@ -10,7 +10,7 @@ namespace LibraryManagementSystem
     {
         public BookItem()
         {
-            this._book = new Book();
+            this._book = null;
             this._quantity = 0;
         }
 
@@ -20,16 +20,19 @@ namespace LibraryManagementSystem
             this._quantity = quantity;
         }
 
-        // Borrow books
-        public BookItem BorrowBook(int quantity)
+        // tage book form this objedct
+        public BookItem TakeBookItem(int quantity)
         {
-            BookItem borrowingBook = null;
-            if (this._quantity >= quantity)
+            if (this._quantity < quantity)
+            {
+                quantity = this._quantity;
+                this._quantity = 0;
+            }
+            else
             {
                 this._quantity -= quantity;
-                borrowingBook = new BookItem(this._book, quantity);
             }
-            return borrowingBook;
+            return new BookItem(this._book, quantity);
         }
 
         // getter and setter

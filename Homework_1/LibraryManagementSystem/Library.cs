@@ -78,13 +78,7 @@ namespace LibraryManagementSystem
         public void JoinBorrowingList()
         {
             if (this._selectedBookItem != null)
-            {
-                BookItem bookItem = this._selectedBookItem.BorrowBook(1);
-                if (bookItem != null)
-                {
-                    this._borrowingList.Add(bookItem);
-                }
-            }
+                this._borrowingList.Add(this._selectedBookItem.TakeBookItem(1));
         }
 
         // output
@@ -128,7 +122,10 @@ namespace LibraryManagementSystem
         public string GetBorrowingListQuantityString()
         {
             const string TITLE = "借書數量 : ";
-            return TITLE + this._borrowingList.Count;
+            int quantity = 0;
+            foreach (BookItem bookItem in this._borrowingList)
+                quantity += bookItem.GetQuantity();
+            return TITLE + quantity;
         }
 
         private BookItem _selectedBookItem;
