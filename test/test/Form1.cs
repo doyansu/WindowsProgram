@@ -16,5 +16,12 @@ namespace test
         {
             InitializeComponent();
         }
+
+        // test click
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            String TEST = "TEST";
+            this._testLabel.Text = TEST;
+        }
     }
 }
