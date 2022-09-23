@@ -115,7 +115,7 @@ namespace LibraryManagementSystem
             // 
             this._borrowingBookQuantityLabel.AutoSize = true;
             this._borrowingBookQuantityLabel.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._borrowingBookQuantityLabel.Location = new System.Drawing.Point(314, 410);
+            this._borrowingBookQuantityLabel.Location = new System.Drawing.Point(316, 415);
             this._borrowingBookQuantityLabel.Name = "_borrowingBookQuantityLabel";
             this._borrowingBookQuantityLabel.Size = new System.Drawing.Size(96, 24);
             this._borrowingBookQuantityLabel.TabIndex = 1;
@@ -140,9 +140,12 @@ namespace LibraryManagementSystem
             this._bookNumber,
             this._bookAuthor,
             this._bookPublicationItem});
-            this._bookInformationDataGridView.Location = new System.Drawing.Point(318, 49);
+            this._bookInformationDataGridView.Location = new System.Drawing.Point(320, 50);
             this._bookInformationDataGridView.Name = "_bookInformationDataGridView";
+            this._bookInformationDataGridView.ReadOnly = true;
+            this._bookInformationDataGridView.RowHeadersVisible = false;
             this._bookInformationDataGridView.RowTemplate.Height = 24;
+            this._bookInformationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._bookInformationDataGridView.Size = new System.Drawing.Size(470, 350);
             this._bookInformationDataGridView.TabIndex = 3;
             // 
@@ -150,26 +153,30 @@ namespace LibraryManagementSystem
             // 
             this._bookName.HeaderText = "書籍名稱";
             this._bookName.Name = "_bookName";
+            this._bookName.ReadOnly = true;
             // 
             // _bookNumber
             // 
             this._bookNumber.HeaderText = "書籍編號";
             this._bookNumber.Name = "_bookNumber";
+            this._bookNumber.ReadOnly = true;
             // 
             // _bookAuthor
             // 
             this._bookAuthor.HeaderText = "作者";
             this._bookAuthor.Name = "_bookAuthor";
+            this._bookAuthor.ReadOnly = true;
             // 
             // _bookPublicationItem
             // 
             this._bookPublicationItem.HeaderText = "出版項";
             this._bookPublicationItem.Name = "_bookPublicationItem";
+            this._bookPublicationItem.ReadOnly = true;
             // 
             // _confirmBorrowingButton
             // 
             this._confirmBorrowingButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._confirmBorrowingButton.Location = new System.Drawing.Point(693, 406);
+            this._confirmBorrowingButton.Location = new System.Drawing.Point(695, 406);
             this._confirmBorrowingButton.Name = "_confirmBorrowingButton";
             this._confirmBorrowingButton.Size = new System.Drawing.Size(95, 35);
             this._confirmBorrowingButton.TabIndex = 4;

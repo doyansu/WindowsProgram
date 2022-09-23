@@ -87,7 +87,7 @@ namespace LibraryManagementSystem
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
             foreach (BookCategory bookCategory in this._bookCategoryDictionary.Values)
-                data[bookCategory.GetCategory()] = bookCategory.GetCategoryCount();
+                data[bookCategory.GetCategory()] = bookCategory.GetBookCount();
             return data;
         }
 
@@ -128,11 +128,16 @@ namespace LibraryManagementSystem
             return TITLE + quantity;
         }
 
+        // get selectedBookItem state
+        public bool IsSelectedBookItemLeft()
+        {
+            return _selectedBookItem != null && _selectedBookItem.GetQuantity() > 0;
+        }
+
         private BookItem _selectedBookItem;
         private List<Book> _bookList;
         private List<BookItem> _borrowingList;
         private List<BookItem> _bookItemList;
-        //private List<BookCategory> _bookCategoryList;
         private Dictionary<string, BookCategory> _bookCategoryDictionary;
     }
 }

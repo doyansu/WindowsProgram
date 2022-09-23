@@ -20,7 +20,7 @@ namespace LibraryManagementSystem
             this._quantity = quantity;
         }
 
-        // tage book form this objedct
+        // tage book form this object
         public BookItem TakeBookItem(int quantity)
         {
             if (this._quantity < quantity)

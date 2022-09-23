@@ -25,6 +25,7 @@ namespace LibraryManagementSystem
             this._model.LoadBookData();
             // add tabpages
             this.SpanAllTabPage();
+            this.UpdateAddBookButtonEnable();
         }
 
         // span all tabpage 
@@ -64,6 +65,7 @@ namespace LibraryManagementSystem
         {
             this._model.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
             this.UpdateBookInformation();
+            this.UpdateAddBookButtonEnable();
         }
 
         // update BookInfomation and remainingBookQuantity
@@ -80,6 +82,13 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.Rows.Add(this._model.GetSelectedBookInformationArray());
             this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
             this.UpdateBookInformation();
+            this.UpdateAddBookButtonEnable();
+        }
+
+        // Update AddBookButton Enable
+        private void UpdateAddBookButtonEnable()
+        {
+            this._addBookButton.Enabled = this._model.IsSelectedBookItemLeft();
         }
 
         private Library _model;

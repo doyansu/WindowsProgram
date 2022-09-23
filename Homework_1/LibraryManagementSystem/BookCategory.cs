@@ -46,7 +46,7 @@ namespace LibraryManagementSystem
         }
 
         // get category count
-        public int GetCategoryCount()
+        public int GetBookCount()
         {
             return this._bookList.Count;
         }
