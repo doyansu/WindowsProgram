@@ -12,22 +12,17 @@ namespace LibraryManagementSystem
 {
     public partial class BookBorrowingFrom : System.Windows.Forms.Form
     {
+        private Library _model;
+
         public BookBorrowingFrom(Library model)
         {
             InitializeComponent();
             this._model = model;
+            this._model._updateView += this.UpdateBookInformation;
+            this._model._updateView += this.UpdateAddBookButtonEnable;
         }
 
-        // Form Load initialization
-        private void BookBorrowingFromLoad(object sender, EventArgs e)
-        {
-            // load data
-            this._model.LoadBookData();
-            // add tabpages
-            this.SpanAllTabPage();
-            this.UpdateAddBookButtonEnable();
-        }
-
+        #region Private Function
         // span all tabpage 
         private void SpanAllTabPage()
         {
@@ -60,24 +55,6 @@ namespace LibraryManagementSystem
             return button;
         }
 
-        // tabpage button onClick
-        private void ClickTabPageButton(object sender, EventArgs e)
-        {
-            this._model.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
-            this.UpdateBookInformation();
-            this.UpdateAddBookButtonEnable();
-        }
-
-        // AddBookButtonClick
-        private void ClickAddBookButton(object sender, EventArgs e)
-        {
-            this._model.JoinBorrowingList();
-            this._bookInformationDataGridView.Rows.Add(this._model.GetSelectedBookInformationArray());
-            this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
-            this.UpdateBookInformation();
-            this.UpdateAddBookButtonEnable();
-        }
-
         // update BookInfomation and remainingBookQuantity
         private void UpdateBookInformation()
         {
@@ -90,7 +67,37 @@ namespace LibraryManagementSystem
         {
             this._addBookButton.Enabled = this._model.IsSelectedBookItemLeft();
         }
+        #endregion
 
-        private Library _model;
+        #region Event
+        // Form Load initialization
+        private void BookBorrowingFromLoad(object sender, EventArgs e)
+        {
+            // load data
+            this._model.LoadBookData();
+            // add tabpages
+            this.SpanAllTabPage();
+        }
+
+        // tabpage button onClick
+        private void ClickTabPageButton(object sender, EventArgs e)
+        {
+            this._model.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
+        }
+
+        // AddBookButtonClick
+        private void ClickAddBookButton(object sender, EventArgs e)
+        {
+            this._model.JoinBorrowingList();
+            this._bookInformationDataGridView.Rows.Add(this._model.GetSelectedBookInformationArray());
+            this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
+        }
+
+        // BookCategoryTabControl SelectedIndex is Changed
+        private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this._model.BookCategoryTabControlSelectedIndexChanged();
+        }
+        #endregion
     }
 }

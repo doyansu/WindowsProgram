@@ -10,6 +10,19 @@ namespace LibraryManagementSystem
     // model class
     public class Library
     {
+        #region Event
+        public event ModelEventHandler _updateView;
+        public delegate void ModelEventHandler();
+        #endregion
+
+        #region Book Data
+        private BookItem _selectedBookItem;
+        private List<Book> _bookList;
+        private List<BookItem> _borrowingList;
+        private List<BookItem> _bookItemList;
+        private Dictionary<string, BookCategory> _bookCategoryDictionary;
+        #endregion
+
         public Library()
         {
             this._selectedBookItem = null;
@@ -19,7 +32,7 @@ namespace LibraryManagementSystem
             this._bookCategoryDictionary = new Dictionary<string, BookCategory>();
         }
 
-        // Process
+        #region Process
         // load books data from hw1_books_source.txt
         public void LoadBookData()
         {
@@ -72,6 +85,7 @@ namespace LibraryManagementSystem
                     break;
                 }
             }
+            this.UpdateView();
         }
 
         // add book to BorrowingList
@@ -79,9 +93,18 @@ namespace LibraryManagementSystem
         {
             if (this._selectedBookItem != null)
                 this._borrowingList.Add(this._selectedBookItem.TakeBookItem(1));
+            this.UpdateView();
         }
 
-        // output
+        // BookCategoryTabControl SelectedIndex is Changed
+        public void BookCategoryTabControlSelectedIndexChanged()
+        {
+            this._selectedBookItem = null;
+            this.UpdateView();
+        }
+        #endregion
+
+        #region output
         // get tabpage data (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetTabPageData()
         {
@@ -114,7 +137,7 @@ namespace LibraryManagementSystem
         public string GetSelectedBookQuantityString()
         {
             const string QUANTITY_TEXT = "剩餘數量 : ";
-            const string NO_BOOK_ITEM = "NULL";
+            const string NO_BOOK_ITEM = "";
             return QUANTITY_TEXT + (this._selectedBookItem != null ? this._selectedBookItem.GetQuantity().ToString() : NO_BOOK_ITEM);
         }
 
@@ -133,11 +156,15 @@ namespace LibraryManagementSystem
         {
             return _selectedBookItem != null && _selectedBookItem.GetQuantity() > 0;
         }
+        #endregion
 
-        private BookItem _selectedBookItem;
-        private List<Book> _bookList;
-        private List<BookItem> _borrowingList;
-        private List<BookItem> _bookItemList;
-        private Dictionary<string, BookCategory> _bookCategoryDictionary;
+        #region Event Handle
+        // handle _updateView evnet
+        private void UpdateView()
+        {
+            if (_updateView != null)
+                _updateView.Invoke();
+        }
+        #endregion
     }
 }

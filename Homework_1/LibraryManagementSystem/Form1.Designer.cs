@@ -68,9 +68,11 @@ namespace LibraryManagementSystem
             this._bookCategoryTabControl.SelectedIndex = 0;
             this._bookCategoryTabControl.Size = new System.Drawing.Size(270, 150);
             this._bookCategoryTabControl.TabIndex = 2;
+            this._bookCategoryTabControl.SelectedIndexChanged += new System.EventHandler(this.BookCategoryTabControlSelectedIndexChanged);
             // 
             // _addBookButton
             // 
+            this._addBookButton.Enabled = false;
             this._addBookButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addBookButton.Location = new System.Drawing.Point(180, 395);
             this._addBookButton.Name = "_addBookButton";
