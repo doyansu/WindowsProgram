@@ -68,21 +68,21 @@ namespace LibraryManagementSystem
             this.UpdateAddBookButtonEnable();
         }
 
-        // update BookInfomation and remainingBookQuantity
-        private void UpdateBookInformation()
-        {
-            this._bookIntroductionRichTextBox.Text = this._model.GetSelectedBookInformation();
-            this._remainingBookQuantityLabel.Text = this._model.GetSelectedBookQuantityString();
-        }
-
         // AddBookButtonClick
-        private void AddBookButtonClick(object sender, EventArgs e)
+        private void ClickAddBookButton(object sender, EventArgs e)
         {
             this._model.JoinBorrowingList();
             this._bookInformationDataGridView.Rows.Add(this._model.GetSelectedBookInformationArray());
             this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
             this.UpdateBookInformation();
             this.UpdateAddBookButtonEnable();
+        }
+
+        // update BookInfomation and remainingBookQuantity
+        private void UpdateBookInformation()
+        {
+            this._bookIntroductionRichTextBox.Text = this._model.GetSelectedBookInformation();
+            this._remainingBookQuantityLabel.Text = this._model.GetSelectedBookQuantityString();
         }
 
         // Update AddBookButton Enable
@@ -92,6 +92,5 @@ namespace LibraryManagementSystem
         }
 
         private Library _model;
-
     }
 }

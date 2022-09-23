@@ -78,7 +78,7 @@ namespace LibraryManagementSystem
             this._addBookButton.TabIndex = 1;
             this._addBookButton.Text = "加入借書單";
             this._addBookButton.UseVisualStyleBackColor = true;
-            this._addBookButton.Click += new System.EventHandler(this.AddBookButtonClick);
+            this._addBookButton.Click += new System.EventHandler(this.ClickAddBookButton);
             // 
             // _bookIntroductionGroupBox
             // 

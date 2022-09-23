@@ -128,7 +128,7 @@ namespace LibraryManagementSystem
             return TITLE + quantity;
         }
 
-        // get selectedBookItem state
+        // get selectedBookItem quantity state
         public bool IsSelectedBookItemLeft()
         {
             return _selectedBookItem != null && _selectedBookItem.GetQuantity() > 0;
