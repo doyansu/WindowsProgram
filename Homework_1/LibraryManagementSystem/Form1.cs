@@ -30,29 +30,30 @@ namespace LibraryManagementSystem
         // span all tabpage 
         private void SpanAllTabPage()
         {
-            const int BUTTON_OFFSET = 87;
             Dictionary<string, int> tabPageData = this._model.GetTabPageData();
             foreach (KeyValuePair<string, int> data in tabPageData)
             {
                 TabPage tabPage = new TabPage(data.Key);
 
                 for (int id = 0; id < data.Value; id++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(id, new Point(BUTTON_OFFSET * id, 0)));
+                    tabPage.Controls.Add(this.CreateTabPageButton(id));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
         }
 
         // create tabpagebutton
-        private Button CreateTabPageButton(int buttonID, Point buttonLocation)
+        private Button CreateTabPageButton(int buttonID)
         {
             const string BUTTON_NAME = "book";
             string buttonName = BUTTON_NAME + buttonID;
+            const int BUTTON_OFFSET = 87;
             const int BUTTON_WIDTH = 85;
             const int BUTTON_HEIGHT = 120;
+
             Button button = new Button();
             button.Text = buttonName;
             button.Tag = buttonID;
-            button.Location = buttonLocation;
+            button.Location = new Point(BUTTON_OFFSET * buttonID, 0);
             button.Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT);
             button.Click += ClickTabPageButton;
             return button;
