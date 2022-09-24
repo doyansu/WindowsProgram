@@ -40,6 +40,18 @@ namespace LibraryManagementSystem
             }
             return new BookItem(this._book, quantity);
         }
+
+        // add Quantity by int
+        public void AddQuantity(BookItem otherItem)
+        {
+            this._quantity += otherItem._quantity;
+        }
+
+        // check book equal
+        public bool IsBookEquals(BookItem otherItem)
+        {
+            return this._book == otherItem._book;
+        }
         #endregion
 
         #region Getter and Setter

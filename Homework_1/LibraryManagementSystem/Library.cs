@@ -12,6 +12,7 @@ namespace LibraryManagementSystem
     {
         #region Event
         public event ModelEventHandler _updateView;
+        public event ModelEventHandler _updateBorrowingList;
         public delegate void ModelEventHandler();
         #endregion
 
@@ -46,18 +47,18 @@ namespace LibraryManagementSystem
             while (!file.EndOfStream)
             {
                 string line = file.ReadLine();
-                List<string> bookData = new List<string>();
                 if (line == BOOK)
                 {
+                    List<string> bookData = new List<string>();
                     for (int i = 0; i < DATA_ROWS; i++)
                         bookData.Add(file.ReadLine());
-                    this.CollectBooks(bookData);
+                    this.SaveBooks(bookData);
                 }
             }
         }
 
         // save book data
-        private void CollectBooks(List<string> bookData)
+        private void SaveBooks(List<string> bookData)
         {
             int index = 0;
             int quantity = int.Parse(bookData[index++]);
@@ -90,15 +91,18 @@ namespace LibraryManagementSystem
             {
                 return bookItem.GetBook() == bookCategoryQuery.First().GetBookByIndex(index);
             })).ToList();
+
             this._selectedBookItem = bookItemQuery.First();
             this.UpdateView();
         }
 
         // add book to BorrowingList
-        public void JoinBorrowingList()
+        public void ClickAddBookButton()
         {
             if (this._selectedBookItem != null)
                 this._borrowingList.Add(this._selectedBookItem.TakeBookItem(1));
+            this.UpdateBorrowingList();
+            //this._selectedBookItem = null;
             this.UpdateView();
         }
 
@@ -110,13 +114,24 @@ namespace LibraryManagementSystem
         }
 
         // ConfirmBorrowingButton Click
-        public void ConfirmBorrowingButtonClick()
+        public void ClickConfirmBorrowingButton()
         {
-            // now do nothing
+            // return book to _bookItemList
+            foreach (BookItem returnBook in this._borrowingList)
+            {
+                BookItem book = this._bookItemList.Where(new Func<BookItem, bool>((bookItem) =>
+                {
+                    return bookItem.IsBookEquals(returnBook);
+                })).First();
+                book.AddQuantity(returnBook);
+            }
+            this._borrowingList.Clear();
+            this.UpdateBorrowingList();
+            this.UpdateView();
         }
         #endregion
 
-        #region output
+        #region Output
         // get tabpage data (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetTabPageData()
         {
@@ -136,13 +151,12 @@ namespace LibraryManagementSystem
         }
 
         // get SelectedBook's InformationArray
-        public string[] GetSelectedBookInformationArray()
+        public List<string[]> GetBorrowingListInformationList()
         {
-            const string NULL = "null";
-            string[] information = { NULL, NULL, NULL, NULL };
-            if (this._selectedBookItem != null)
-                information = this._selectedBookItem.GetBook().GetBookInformationArray();
-            return information;
+            List<string[]> informationList = new List<string[]>();
+            foreach (BookItem bookItem in this._borrowingList)
+                informationList.Add(bookItem.GetBook().GetBookInformationArray());
+            return informationList;
         }
 
         // get Selected Book Quantity
@@ -166,16 +180,23 @@ namespace LibraryManagementSystem
         // get selectedBookItem quantity state
         public bool IsAddBookButtonEnabled()
         {
-            return _selectedBookItem != null && _selectedBookItem.GetQuantity() > 0;
+            return this._selectedBookItem != null && this._selectedBookItem.GetQuantity() > 0;
         }
         #endregion
 
-        #region Event Handle
+        #region Event Handle Function
         // handle _updateView evnet
         private void UpdateView()
         {
-            if (_updateView != null)
+            if (this._updateView != null)
                 _updateView.Invoke();
+        }
+
+        // handle _updateBorrowingList evnet
+        private void UpdateBorrowingList()
+        {
+            if (this._updateBorrowingList != null)
+                this._updateBorrowingList.Invoke();
         }
         #endregion
     }

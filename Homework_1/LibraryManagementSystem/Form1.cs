@@ -21,12 +21,13 @@ namespace LibraryManagementSystem
             this._model = model;
             this._model._updateView += this.UpdateBookInformation;
             this._model._updateView += this.UpdateAddBookButtonEnable;
+            this._model._updateBorrowingList += this.UpdateBorrowingList;
         }
         #endregion
 
         #region Private Function
         // span all tabpage 
-        private void SpanAllTabPage()
+        private void CreateAllTabPage()
         {
             Dictionary<string, int> tabPageData = this._model.GetTabPageData();
             foreach (KeyValuePair<string, int> data in tabPageData)
@@ -70,6 +71,16 @@ namespace LibraryManagementSystem
         {
             this._addBookButton.Enabled = this._model.IsAddBookButtonEnabled();
         }
+
+        // Update BorrowingList
+        private void UpdateBorrowingList()
+        {
+            this._bookInformationDataGridView.Rows.Clear();
+            List<string[]> borrowingList = this._model.GetBorrowingListInformationList();
+            foreach (string[] row in borrowingList)
+                this._bookInformationDataGridView.Rows.Add(row);
+            this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
+        }
         #endregion
 
         #region Event
@@ -77,7 +88,7 @@ namespace LibraryManagementSystem
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
             this._model.LoadBookData();
-            this.SpanAllTabPage();
+            this.CreateAllTabPage();
         }
 
         // tabpage button onClick
@@ -89,9 +100,7 @@ namespace LibraryManagementSystem
         // AddBookButtonClick
         private void ClickAddBookButton(object sender, EventArgs e)
         {
-            this._model.JoinBorrowingList();
-            this._bookInformationDataGridView.Rows.Add(this._model.GetSelectedBookInformationArray());
-            this._borrowingBookQuantityLabel.Text = this._model.GetBorrowingListQuantityString();
+            this._model.ClickAddBookButton();
         }
 
         // BookCategoryTabControl SelectedIndex is Changed
@@ -101,9 +110,11 @@ namespace LibraryManagementSystem
         }
 
         // ConfirmBorrowingButton Click
-        private void ConfirmBorrowingButtonClick(object sender, EventArgs e)
+        private void ClickConfirmBorrowingButton(object sender, EventArgs e)
         {
-            this._model.ConfirmBorrowingButtonClick();
+            this._model.ClickConfirmBorrowingButton();
+            const string MESSAGE = "借書功能尚未實作";
+            MessageBox.Show(MESSAGE);
         }
         #endregion
     }

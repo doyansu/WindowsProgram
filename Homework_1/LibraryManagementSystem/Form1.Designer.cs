@@ -184,7 +184,7 @@ namespace LibraryManagementSystem
             this._confirmBorrowingButton.TabIndex = 4;
             this._confirmBorrowingButton.Text = "確認借書";
             this._confirmBorrowingButton.UseVisualStyleBackColor = true;
-            this._confirmBorrowingButton.Click += new System.EventHandler(this.ConfirmBorrowingButtonClick);
+            this._confirmBorrowingButton.Click += new System.EventHandler(this.ClickConfirmBorrowingButton);
             // 
             // BookBorrowingFrom
             // 
