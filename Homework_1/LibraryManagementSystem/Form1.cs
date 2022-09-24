@@ -65,7 +65,7 @@ namespace LibraryManagementSystem
         // Update AddBookButton Enable
         private void UpdateAddBookButtonEnable()
         {
-            this._addBookButton.Enabled = this._model.IsSelectedBookItemLeft();
+            this._addBookButton.Enabled = this._model.IsAddBookButtonEnabled();
         }
         #endregion
 
@@ -73,9 +73,7 @@ namespace LibraryManagementSystem
         // Form Load initialization
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
-            // load data
             this._model.LoadBookData();
-            // add tabpages
             this.SpanAllTabPage();
         }
 

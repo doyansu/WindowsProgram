@@ -152,7 +152,7 @@ namespace LibraryManagementSystem
         }
 
         // get selectedBookItem quantity state
-        public bool IsSelectedBookItemLeft()
+        public bool IsAddBookButtonEnabled()
         {
             return _selectedBookItem != null && _selectedBookItem.GetQuantity() > 0;
         }
