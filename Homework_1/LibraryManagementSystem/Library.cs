@@ -133,7 +133,7 @@ namespace LibraryManagementSystem
 
         #region Output
         // get tabpage data (return Dictionary<Category, BookCount>)
-        public Dictionary<string, int> GetTabPageData()
+        public Dictionary<string, int> GetCategoryQuantityPair()
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
             foreach (BookCategory bookCategory in this._bookCategoryList)

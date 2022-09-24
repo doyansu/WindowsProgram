@@ -29,12 +29,11 @@ namespace LibraryManagementSystem
         // span all tabpage 
         private void CreateAllTabPage()
         {
-            Dictionary<string, int> tabPageData = this._model.GetTabPageData();
-            foreach (KeyValuePair<string, int> data in tabPageData)
+            Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
+            foreach (string category in categoryQuantity.Keys)
             {
-                TabPage tabPage = new TabPage(data.Key);
-
-                for (int index = 0; index < data.Value; index++)
+                TabPage tabPage = new TabPage(category);
+                for (int index = 0; index < categoryQuantity[category]; index++)
                     tabPage.Controls.Add(this.CreateTabPageButton(index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
