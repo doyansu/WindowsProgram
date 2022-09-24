@@ -64,10 +64,10 @@ namespace LibraryManagementSystem
             int quantity = int.Parse(bookData[index++]);
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
-            List<BookCategory> bookCategoryQueryResult = _bookCategoryList.Where(new Func<BookCategory, bool>((bookCategory) =>
+            List<BookCategory> bookCategoryQueryResult = _bookCategoryList.Where(bookCategory =>
             {
                 return bookCategory.GetCategory() == category;
-            })).ToList();
+            }).ToList();
 
             _bookList.Add(book);
             _bookItemList.Add(new BookItem(book, quantity));
@@ -83,14 +83,14 @@ namespace LibraryManagementSystem
         public void ClickTabPageButton(string category, object buttonTag)
         {
             int index = int.Parse(buttonTag.ToString());
-            List<BookCategory> bookCategoryQuery = _bookCategoryList.Where(new Func<BookCategory, bool>((bookCategory) =>
+            List<BookCategory> bookCategoryQuery = _bookCategoryList.Where(bookCategory =>
             {
                 return bookCategory.GetCategory() == category;
-            })).ToList();
-            List<BookItem> bookItemQuery = _bookItemList.Where(new Func<BookItem, bool>((bookItem) =>
+            }).ToList();
+            List<BookItem> bookItemQuery = _bookItemList.Where(bookItem =>
             {
                 return bookItem.GetBook() == bookCategoryQuery.First().GetBookByIndex(index);
-            })).ToList();
+            }).ToList();
 
             this._selectedBookItem = bookItemQuery.First();
             this.UpdateView();
@@ -119,10 +119,10 @@ namespace LibraryManagementSystem
             // return book to _bookItemList
             foreach (BookItem returnBook in this._borrowingList)
             {
-                BookItem book = this._bookItemList.Where(new Func<BookItem, bool>((bookItem) =>
+                BookItem book = this._bookItemList.Where(bookItem =>
                 {
                     return bookItem.IsBookEquals(returnBook);
-                })).First();
+                }).First();
                 book.AddQuantity(returnBook);
             }
             this._borrowingList.Clear();
