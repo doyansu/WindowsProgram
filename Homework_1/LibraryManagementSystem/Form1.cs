@@ -30,10 +30,13 @@ namespace LibraryManagementSystem
         private void CreateAllTabPage()
         {
             Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
-            foreach (string category in categoryQuantity.Keys)
+            foreach (var data in categoryQuantity)
             {
+                string category = data.Key;
+                int quantity = data.Value;
                 TabPage tabPage = new TabPage(category);
-                for (int index = 0; index < categoryQuantity[category]; index++)
+
+                for (int index = 0; index < quantity; index++)
                     tabPage.Controls.Add(this.CreateTabPageButton(index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
