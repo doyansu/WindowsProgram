@@ -8,6 +8,10 @@ namespace LibraryManagementSystem
 {
     public class BookItem
     {
+        private Book _book;
+        private int _quantity;
+
+        #region Constrctor
         public BookItem()
         {
             this._book = null;
@@ -19,7 +23,9 @@ namespace LibraryManagementSystem
             this._book = book;
             this._quantity = quantity;
         }
+        #endregion
 
+        #region Member Function
         // tage book form this object
         public BookItem TakeBookItem(int quantity)
         {
@@ -34,8 +40,9 @@ namespace LibraryManagementSystem
             }
             return new BookItem(this._book, quantity);
         }
+        #endregion
 
-        // getter and setter
+        #region Getter and Setter
         // get quantity
         public int GetQuantity()
         {
@@ -59,8 +66,6 @@ namespace LibraryManagementSystem
         {
             this._book = value;
         }
-
-        private Book _book;
-        private int _quantity;
+        #endregion
     }
 }

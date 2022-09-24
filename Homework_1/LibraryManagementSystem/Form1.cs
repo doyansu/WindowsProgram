@@ -14,6 +14,7 @@ namespace LibraryManagementSystem
     {
         private Library _model;
 
+        #region Constrctor
         public BookBorrowingFrom(Library model)
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace LibraryManagementSystem
             this._model._updateView += this.UpdateBookInformation;
             this._model._updateView += this.UpdateAddBookButtonEnable;
         }
+        #endregion
 
         #region Private Function
         // span all tabpage 
@@ -31,25 +33,26 @@ namespace LibraryManagementSystem
             {
                 TabPage tabPage = new TabPage(data.Key);
 
-                for (int id = 0; id < data.Value; id++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(id));
+                for (int index = 0; index < data.Value; index++)
+                    tabPage.Controls.Add(this.CreateTabPageButton(index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
         }
 
         // create tabpagebutton
-        private Button CreateTabPageButton(int buttonID)
+        private Button CreateTabPageButton(int buttonIndex)
         {
             const string BUTTON_NAME = "book";
-            string buttonName = BUTTON_NAME + buttonID;
+            string buttonName = BUTTON_NAME + buttonIndex;
             const int BUTTON_OFFSET = 87;
+            const int BUTTON_OFFSET_HEIGHT = 0;
             const int BUTTON_WIDTH = 85;
             const int BUTTON_HEIGHT = 120;
 
             Button button = new Button();
             button.Text = buttonName;
-            button.Tag = buttonID;
-            button.Location = new Point(BUTTON_OFFSET * buttonID, 0);
+            button.Tag = buttonIndex;
+            button.Location = new Point(BUTTON_OFFSET * buttonIndex, BUTTON_OFFSET_HEIGHT);
             button.Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT);
             button.Click += ClickTabPageButton;
             return button;
@@ -95,6 +98,12 @@ namespace LibraryManagementSystem
         private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
             this._model.BookCategoryTabControlSelectedIndexChanged();
+        }
+
+        // ConfirmBorrowingButton Click
+        private void ConfirmBorrowingButtonClick(object sender, EventArgs e)
+        {
+            this._model.ConfirmBorrowingButtonClick();
         }
         #endregion
     }

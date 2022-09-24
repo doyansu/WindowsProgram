@@ -20,35 +20,36 @@ namespace LibraryManagementSystem
         private List<Book> _bookList;
         private List<BookItem> _borrowingList;
         private List<BookItem> _bookItemList;
-        private Dictionary<string, BookCategory> _bookCategoryDictionary;
+        private List<BookCategory> _bookCategoryList;
         #endregion
 
+        #region Constrctor
         public Library()
         {
             this._selectedBookItem = null;
             this._bookList = new List<Book>();
             this._bookItemList = new List<BookItem>();
             this._borrowingList = new List<BookItem>();
-            this._bookCategoryDictionary = new Dictionary<string, BookCategory>();
+            this._bookCategoryList = new List<BookCategory>();
         }
+        #endregion
 
         #region Process
         // load books data from hw1_books_source.txt
         public void LoadBookData()
         {
             const string FILE_NAME = "../../../hw1_books_source.txt";
+            const string BOOK = "BOOK";
+            const int DATA_ROWS = 6;
             StreamReader file = new StreamReader(@FILE_NAME);
 
             while (!file.EndOfStream)
             {
-                const string BOOK = "BOOK";
                 string line = file.ReadLine();
-
+                List<string> bookData = new List<string>();
                 if (line == BOOK)
                 {
-                    List<string> bookData = new List<string>();
-                    const int dataRows = 6;
-                    for (int i = 0; i < dataRows; i++)
+                    for (int i = 0; i < DATA_ROWS; i++)
                         bookData.Add(file.ReadLine());
                     this.CollectBooks(bookData);
                 }
@@ -58,33 +59,38 @@ namespace LibraryManagementSystem
         // save book data
         private void CollectBooks(List<string> bookData)
         {
-            int quantity = int.Parse(bookData[0]);
-            string category = bookData[1];
-            const int NAME_INDEX = 2;
-            const int BOOK_NUMBER_INDEX = 3;
-            const int AUTHOR_INDEX = 4;
-            const int PUBLICATION_ITEM_INDEX = 5;
-            Book book = new Book(bookData[NAME_INDEX], bookData[BOOK_NUMBER_INDEX], bookData[AUTHOR_INDEX], bookData[PUBLICATION_ITEM_INDEX]);
-            
+            int index = 0;
+            int quantity = int.Parse(bookData[index++]);
+            string category = bookData[index++];
+            Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
+            List<BookCategory> bookCategoryQueryResult = _bookCategoryList.Where(new Func<BookCategory, bool>((bookCategory) =>
+            {
+                return bookCategory.GetCategory() == category;
+            })).ToList();
+
             _bookList.Add(book);
             _bookItemList.Add(new BookItem(book, quantity));
-            if (!_bookCategoryDictionary.ContainsKey(category))
-                _bookCategoryDictionary[category] = new BookCategory(category);
-            _bookCategoryDictionary[category].AddBook(book);
+            if (bookCategoryQueryResult.Count == 0)
+            {
+                _bookCategoryList.Add(new BookCategory(category));
+                bookCategoryQueryResult.Add(_bookCategoryList.Last());
+            }
+            bookCategoryQueryResult.First().AddBook(book);
         }
 
         // process TabPageButton onClick
         public void ClickTabPageButton(string category, object buttonTag)
         {
-            int index = int.Parse(buttonTag.ToString()); 
-            foreach (BookItem bookItem in this._bookItemList)
+            int index = int.Parse(buttonTag.ToString());
+            List<BookCategory> bookCategoryQuery = _bookCategoryList.Where(new Func<BookCategory, bool>((bookCategory) =>
             {
-                if (bookItem.GetBook() == this._bookCategoryDictionary[category].GetBookByIndex(index))
-                {
-                    this._selectedBookItem = bookItem;
-                    break;
-                }
-            }
+                return bookCategory.GetCategory() == category;
+            })).ToList();
+            List<BookItem> bookItemQuery = _bookItemList.Where(new Func<BookItem, bool>((bookItem) =>
+            {
+                return bookItem.GetBook() == bookCategoryQuery.First().GetBookByIndex(index);
+            })).ToList();
+            this._selectedBookItem = bookItemQuery.First();
             this.UpdateView();
         }
 
@@ -102,6 +108,12 @@ namespace LibraryManagementSystem
             this._selectedBookItem = null;
             this.UpdateView();
         }
+
+        // ConfirmBorrowingButton Click
+        public void ConfirmBorrowingButtonClick()
+        {
+            // now do nothing
+        }
         #endregion
 
         #region output
@@ -109,7 +121,7 @@ namespace LibraryManagementSystem
         public Dictionary<string, int> GetTabPageData()
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
-            foreach (BookCategory bookCategory in this._bookCategoryDictionary.Values)
+            foreach (BookCategory bookCategory in this._bookCategoryList)
                 data[bookCategory.GetCategory()] = bookCategory.GetBookCount();
             return data;
         }

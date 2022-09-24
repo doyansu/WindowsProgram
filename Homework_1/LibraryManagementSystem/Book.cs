@@ -8,6 +8,13 @@ namespace LibraryManagementSystem
 {
     public class Book
     {
+        private string _name;
+        // ISBN
+        private string _internationalStandardBookNumber;
+        private string _author;
+        private string _publicationItem;
+
+        #region Cosntrctor
         public Book()
         {
             this._internationalStandardBookNumber = this._name = this._author = this._publicationItem = null;
@@ -20,8 +27,33 @@ namespace LibraryManagementSystem
             this._author = author;
             this._publicationItem = publicationItem;
         }
+        #endregion
 
-        // getter and setter
+        #region Member Function
+        // get BookInformation Array
+        public string[] GetBookInformationArray()
+        {
+            string[] informationList = { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
+            return informationList;
+        }
+
+        // get a format information string
+        public string GetFormatInformation()
+        {
+            const string BOOK_NUMBER_TITLE = "編號 : ";
+            const string AUTHOR_TITLE = "作者 : ";
+            const char NEW_LINE = '\n';
+            string information = "";
+
+            information += this._name + NEW_LINE;
+            information += BOOK_NUMBER_TITLE + this._internationalStandardBookNumber + NEW_LINE;
+            information += AUTHOR_TITLE + this._author + NEW_LINE;
+            information += this._publicationItem;
+            return information;
+        }
+        #endregion
+
+        #region Getter and Setter
         // get internationalStandardBookNumber
         public string GetInternationalStandardBookNumber()
         {
@@ -69,33 +101,6 @@ namespace LibraryManagementSystem
         {
             this._publicationItem = value;
         }
-
-        // output
-        public string[] GetBookInformationArray()
-        {
-            string[] informationList = { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
-            return informationList;
-        }
-
-        // get a format information string
-        public string GetFormatInformation()
-        {
-            const string BOOK_NUMBER_TITLE = "編號 : ";
-            const string AUTHOR_TITLE = "作者 : ";
-            const char NEW_LINE = '\n';
-            string information = "";
-
-            information += this._name + NEW_LINE;
-            information += BOOK_NUMBER_TITLE + this._internationalStandardBookNumber + NEW_LINE;
-            information += AUTHOR_TITLE + this._author + NEW_LINE;
-            information += this._publicationItem;
-            return information;
-        }
-
-        private string _name;
-        // ISBN
-        private string _internationalStandardBookNumber;
-        private string _author;
-        private string _publicationItem;
+        #endregion
     }
 }

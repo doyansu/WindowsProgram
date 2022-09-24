@@ -8,6 +8,10 @@ namespace LibraryManagementSystem
 {
     public class BookCategory
     {
+        private List<Book> _bookList;
+        private string _category;
+
+        #region Constrctor
         public BookCategory()
         {
             this._bookList = new List<Book>();
@@ -25,14 +29,17 @@ namespace LibraryManagementSystem
             this._bookList = bookList;
             this._category = category;
         }
+        #endregion
 
+        #region Member Function
         // add book
         public void AddBook(Book book)
         {
             this._bookList.Add(book);
         }
+        #endregion
 
-        // getter and setter
+        #region Getter and Setter
         // get quantity
         public string GetCategory()
         {
@@ -56,8 +63,6 @@ namespace LibraryManagementSystem
         {
             return (index >= 0 && index < this._bookList.Count) ? this._bookList[index] : null;
         }
-
-        private List<Book> _bookList;
-        private string _category;
+        #endregion
     }
 }
