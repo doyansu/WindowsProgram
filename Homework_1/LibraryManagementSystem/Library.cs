@@ -63,17 +63,17 @@ namespace LibraryManagementSystem
             int quantity = int.Parse(bookData[index++]);
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
-            List<BookCategory> bookCategoryQueryResult = _bookCategoryList.Where(bookCategory =>
+            List<BookCategory> bookCategoryQueryResult = this._bookCategoryList.Where(bookCategory =>
             {
                 return bookCategory.GetCategory() == category;
             }).ToList();
 
-            _bookList.Add(book);
-            _bookItemList.Add(new BookItem(book, quantity));
+            this._bookList.Add(book);
+            this._bookItemList.Add(new BookItem(book, quantity));
             if (bookCategoryQueryResult.Count == 0)
             {
-                _bookCategoryList.Add(new BookCategory(category));
-                bookCategoryQueryResult.Add(_bookCategoryList.Last());
+                this._bookCategoryList.Add(new BookCategory(category));
+                bookCategoryQueryResult.Add(this._bookCategoryList.Last());
             }
             bookCategoryQueryResult.First().AddBook(book);
         }
@@ -81,11 +81,11 @@ namespace LibraryManagementSystem
         // process TabPageButton onClick
         public void SelectBookItem(string category, int index)
         {
-            List<BookCategory> bookCategoryQuery = _bookCategoryList.Where(bookCategory =>
+            List<BookCategory> bookCategoryQuery = this._bookCategoryList.Where(bookCategory =>
             {
                 return bookCategory.GetCategory() == category;
             }).ToList();
-            List<BookItem> bookItemQuery = _bookItemList.Where(bookItem =>
+            List<BookItem> bookItemQuery = this._bookItemList.Where(bookItem =>
             {
                 return bookItem.GetBook() == bookCategoryQuery.First().GetBookByIndex(index);
             }).ToList();
