@@ -97,7 +97,7 @@ namespace LibraryManagementSystem
         public void JoinSelectedBookItemToBorrowingList()
         {
             if (this._selectedBookItem != null)
-                this._borrowingList.Add(this._selectedBookItem.TakeBookItem(1));
+                this._borrowingList.Add(this._selectedBookItem.Take(1));
         }
 
         // Unselected BookItem
@@ -144,7 +144,7 @@ namespace LibraryManagementSystem
         {
             List<string[]> informationList = new List<string[]>();
             foreach (BookItem bookItem in this._borrowingList)
-                informationList.Add(bookItem.GetBook().GetBookInformationArray());
+                informationList.Add(bookItem.GetBook().GetInformationArray());
             return informationList;
         }
 

@@ -27,7 +27,7 @@ namespace LibraryManagementSystem
 
         #region Member Function
         // tage book form this object
-        public BookItem TakeBookItem(int quantity)
+        public BookItem Take(int quantity)
         {
             if (this._quantity < quantity)
             {

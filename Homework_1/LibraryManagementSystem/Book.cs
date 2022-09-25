@@ -31,7 +31,7 @@ namespace LibraryManagementSystem
 
         #region Member Function
         // get BookInformation Array
-        public string[] GetBookInformationArray()
+        public string[] GetInformationArray()
         {
             string[] informationList = { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
             return informationList;
