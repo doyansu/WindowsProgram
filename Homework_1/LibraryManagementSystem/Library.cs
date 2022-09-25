@@ -34,15 +34,16 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region Process
+        #region View Process
         // load books data from hw1_books_source.txt
-        public void LoadBookData()
+        public void LoadsBooksData()
         {
             const string FILE_NAME = "../../../hw1_books_source.txt";
             const string BOOK = "BOOK";
             const int DATA_ROWS = 6;
             StreamReader file = new StreamReader(@FILE_NAME);
 
+            this.ClearAllData();
             while (!file.EndOfStream)
             {
                 string line = file.ReadLine();
@@ -56,41 +57,12 @@ namespace LibraryManagementSystem
             }
         }
 
-        // save book data
-        private void SaveBooks(List<string> bookData)
-        {
-            int index = 0;
-            int quantity = int.Parse(bookData[index++]);
-            string category = bookData[index++];
-            Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
-            List<BookCategory> bookCategoryQueryResult = this._bookCategoryList.Where(bookCategory =>
-            {
-                return bookCategory.GetCategory() == category;
-            }).ToList();
-
-            this._bookList.Add(book);
-            this._bookItemList.Add(new BookItem(book, quantity));
-            if (bookCategoryQueryResult.Count == 0)
-            {
-                this._bookCategoryList.Add(new BookCategory(category));
-                bookCategoryQueryResult.Add(this._bookCategoryList.Last());
-            }
-            bookCategoryQueryResult.First().AddBook(book);
-        }
-
         // process TabPageButton onClick
         public void SelectBookItem(string category, int index)
         {
-            List<BookCategory> bookCategoryQuery = this._bookCategoryList.Where(bookCategory =>
-            {
-                return bookCategory.GetCategory() == category;
-            }).ToList();
-            List<BookItem> bookItemQuery = this._bookItemList.Where(bookItem =>
-            {
-                return bookItem.GetBook() == bookCategoryQuery.First().GetBookByIndex(index);
-            }).ToList();
-
-            this._selectedBookItem = bookItemQuery.First();
+            BookCategory bookCategoryQuery = this._bookCategoryList.Find(t => t.GetCategory() == category);
+            BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.GetBook() == bookCategoryQuery.GetBookByIndex(index));
+            this._selectedBookItem = bookItemQuery;
         }
 
         // add book to BorrowingList
@@ -111,14 +83,39 @@ namespace LibraryManagementSystem
         {
             // return book to _bookItemList
             foreach (BookItem returnBook in this._borrowingList)
-            {
-                BookItem book = this._bookItemList.Where(bookItem =>
-                {
-                    return bookItem.IsBookEquals(returnBook);
-                }).First();
-                book.AddQuantity(returnBook);
-            }
+                this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnBook)).AddQuantity(returnBook);
             this._borrowingList.Clear();
+        }
+        #endregion
+
+        #region Private Function
+        // save book data
+        private void SaveBooks(List<string> bookData)
+        {
+            int index = 0;
+            int quantity = int.Parse(bookData[index++]);
+            string category = bookData[index++];
+            Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
+            BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.GetCategory() == category);
+
+            this._bookList.Add(book);
+            this._bookItemList.Add(new BookItem(book, quantity));
+            if (bookCategoryQueryResult == null)
+            {
+                bookCategoryQueryResult = new BookCategory(category);
+                this._bookCategoryList.Add(bookCategoryQueryResult);
+            }
+            bookCategoryQueryResult.AddBook(book);
+        }
+
+        // clear all of Library's data
+        private void ClearAllData()
+        {
+            this._selectedBookItem = null;
+            this._bookList.Clear();
+            this._borrowingList.Clear();
+            this._bookItemList.Clear();
+            this._bookCategoryList.Clear();
         }
         #endregion
 

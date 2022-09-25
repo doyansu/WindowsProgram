@@ -33,8 +33,7 @@ namespace LibraryManagementSystem
         // get BookInformation Array
         public string[] GetInformationArray()
         {
-            string[] informationList = { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
-            return informationList;
+            return new string[] { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
         }
 
         // get a format information string

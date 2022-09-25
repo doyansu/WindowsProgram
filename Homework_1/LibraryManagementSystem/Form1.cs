@@ -20,7 +20,9 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._model = model;
             this._model._updateView += this.UpdateView;
+            this._model.LoadsBooksData();
 
+            this.CreateAllTabPage();
             this.UpdateControls();
         }
         #endregion
@@ -29,6 +31,7 @@ namespace LibraryManagementSystem
         // span all tabpage 
         private void CreateAllTabPage()
         {
+            this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
             foreach (var data in categoryQuantity)
             {
@@ -97,8 +100,7 @@ namespace LibraryManagementSystem
         // Form Load initialization
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
-            this._model.LoadBookData();
-            this.CreateAllTabPage();
+            // now do nothing
         }
 
         // tabpage button Clicked
