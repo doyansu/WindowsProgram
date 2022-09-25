@@ -12,7 +12,6 @@ namespace LibraryManagementSystem
     {
         #region Event
         public event ModelEventHandler _updateView;
-        public event ModelEventHandler _updateBorrowingList;
         public delegate void ModelEventHandler();
         #endregion
 
@@ -80,9 +79,8 @@ namespace LibraryManagementSystem
         }
 
         // process TabPageButton onClick
-        public void ClickTabPageButton(string category, object buttonTag)
+        public void SelectBookItem(string category, int index)
         {
-            int index = int.Parse(buttonTag.ToString());
             List<BookCategory> bookCategoryQuery = _bookCategoryList.Where(bookCategory =>
             {
                 return bookCategory.GetCategory() == category;
@@ -93,28 +91,23 @@ namespace LibraryManagementSystem
             }).ToList();
 
             this._selectedBookItem = bookItemQuery.First();
-            this.UpdateView();
         }
 
         // add book to BorrowingList
-        public void ClickAddBookButton()
+        public void JoinSelectedBookItemToBorrowingList()
         {
             if (this._selectedBookItem != null)
                 this._borrowingList.Add(this._selectedBookItem.TakeBookItem(1));
-            this.UpdateBorrowingList();
-            //this._selectedBookItem = null;
-            this.UpdateView();
         }
 
-        // BookCategoryTabControl SelectedIndex is Changed
-        public void BookCategoryTabControlSelectedIndexChanged()
+        // Unselected BookItem
+        public void UnselectedBookItem()
         {
             this._selectedBookItem = null;
-            this.UpdateView();
         }
 
-        // ConfirmBorrowingButton Click
-        public void ClickConfirmBorrowingButton()
+        // Borrow Books
+        public void BorrowBooks()
         {
             // return book to _bookItemList
             foreach (BookItem returnBook in this._borrowingList)
@@ -126,8 +119,6 @@ namespace LibraryManagementSystem
                 book.AddQuantity(returnBook);
             }
             this._borrowingList.Clear();
-            this.UpdateBorrowingList();
-            this.UpdateView();
         }
         #endregion
 
@@ -141,16 +132,14 @@ namespace LibraryManagementSystem
             return data;
         }
 
-        // get Selected Book infomation
+        // get Selected Book's infomation
         public string GetSelectedBookInformation()
         {
-            string information = "";
-            if (this._selectedBookItem != null)
-                information += this._selectedBookItem.GetBook().GetFormatInformation();
-            return information;
+            const string NULL_VALUE = "";
+            return this._selectedBookItem != null ? this._selectedBookItem.GetBook().GetFormatInformation() : NULL_VALUE;
         }
 
-        // get SelectedBook's InformationArray
+        // get orrowingList's InformationArray
         public List<string[]> GetBorrowingListInformationList()
         {
             List<string[]> informationList = new List<string[]>();
@@ -192,12 +181,6 @@ namespace LibraryManagementSystem
                 _updateView.Invoke();
         }
 
-        // handle _updateBorrowingList evnet
-        private void UpdateBorrowingList()
-        {
-            if (this._updateBorrowingList != null)
-                this._updateBorrowingList.Invoke();
-        }
         #endregion
     }
 }
