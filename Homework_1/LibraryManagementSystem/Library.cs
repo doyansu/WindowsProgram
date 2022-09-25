@@ -148,7 +148,7 @@ namespace LibraryManagementSystem
             return informationList;
         }
 
-        // get Selected Book Quantity
+        // get Selected Book's Quantity String
         public string GetSelectedBookQuantityString()
         {
             const string QUANTITY_TEXT = "剩餘數量 : ";
@@ -166,10 +166,16 @@ namespace LibraryManagementSystem
             return TITLE + quantity;
         }
 
-        // get selectedBookItem quantity state
+        // get selectedBookItem state (this function have to move to Presentation Model)
         public bool IsAddBookButtonEnabled()
         {
             return this._selectedBookItem != null && this._selectedBookItem.GetQuantity() > 0;
+        }
+
+        // get ConfirmBorrowingButton state (this function have to move to Presentation Model)
+        public bool IsConfirmBorrowingButtonEnabled()
+        {
+            return this._borrowingList.Count > 0;
         }
         #endregion
 
