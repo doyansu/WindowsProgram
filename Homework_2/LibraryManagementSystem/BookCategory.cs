@@ -15,19 +15,19 @@ namespace LibraryManagementSystem
         public BookCategory()
         {
             this._bookList = new List<Book>();
-            this._category = null;
+            this.Category = null;
         }
 
         public BookCategory(string category)
         {
             this._bookList = new List<Book>();
-            this._category = category;
+            this.Category = category;
         }
 
         public BookCategory(string category, List<Book> bookList)
         {
             this._bookList = bookList;
-            this._category = category;
+            this.Category = category;
         }
         #endregion
 
@@ -40,16 +40,16 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Getter and Setter
-        // get quantity
-        public string GetCategory()
+        public string Category 
         {
-            return this._category;
-        }
-
-        // set quantity
-        public void SetCategory(string value)
-        {
-            this._category = value;
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                _category = value;
+            }
         }
 
         // get category count

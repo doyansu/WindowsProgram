@@ -14,14 +14,14 @@ namespace LibraryManagementSystem
         #region Constrctor
         public BookItem()
         {
-            this._book = null;
-            this._quantity = 0;
+            this.Book = null;
+            this.Quantity = 0;
         }
 
         public BookItem(Book book, int quantity)
         {
-            this._book = book;
-            this._quantity = quantity;
+            this.Book = book;
+            this.Quantity = quantity;
         }
         #endregion
 
@@ -29,54 +29,54 @@ namespace LibraryManagementSystem
         // tage book form this object
         public BookItem Take(int quantity)
         {
-            if (this._quantity < quantity)
+            if (this.Quantity < quantity)
             {
-                quantity = this._quantity;
-                this._quantity = 0;
+                quantity = this.Quantity;
+                this.Quantity = 0;
             }
             else
             {
-                this._quantity -= quantity;
+                this.Quantity -= quantity;
             }
-            return new BookItem(this._book, quantity);
+            return new BookItem(this.Book, quantity);
         }
 
         // add Quantity by int
         public void AddQuantity(BookItem otherItem)
         {
-            this._quantity += otherItem._quantity;
+            this.Quantity += otherItem.Quantity;
         }
 
         // check book equal
         public bool IsBookEquals(BookItem otherItem)
         {
-            return this._book == otherItem._book;
+            return this.Book == otherItem.Book;
         }
         #endregion
 
         #region Getter and Setter
-        // get quantity
-        public int GetQuantity()
+        public Book Book 
         {
-            return this._quantity;
+            get
+            {
+                return _book;
+            }
+            set
+            {
+                _book = value;
+            }
         }
 
-        // get book
-        public Book GetBook()
+        public int Quantity 
         {
-            return this._book;
-        }
-
-        // set quantity
-        public void SetQuantity(int value)
-        {
-            this._quantity = value;
-        }
-
-        // set book
-        public void SetBook(Book value)
-        {
-            this._book = value;
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                _quantity = value;
+            }
         }
         #endregion
     }

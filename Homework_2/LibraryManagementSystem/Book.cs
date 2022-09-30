@@ -17,15 +17,15 @@ namespace LibraryManagementSystem
         #region Cosntrctor
         public Book()
         {
-            this._internationalStandardBookNumber = this._name = this._author = this._publicationItem = null;
+            this.InternationalStandardBookNumber = this.Name = this.Author = this.PublicationItem = null;
         }
 
         public Book(string name, string internationalStandardBookNumber, string author, string publicationItem)
         {
-            this._internationalStandardBookNumber = internationalStandardBookNumber;
-            this._name = name;
-            this._author = author;
-            this._publicationItem = publicationItem;
+            this.InternationalStandardBookNumber = internationalStandardBookNumber;
+            this.Name = name;
+            this.Author = author;
+            this.PublicationItem = publicationItem;
         }
         #endregion
 
@@ -33,7 +33,7 @@ namespace LibraryManagementSystem
         // get BookInformation Array
         public string[] GetInformationArray()
         {
-            return new string[] { this._name, this._internationalStandardBookNumber, this._author, this._publicationItem };
+            return new string[] { this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem };
         }
 
         // get a format information string
@@ -44,61 +44,61 @@ namespace LibraryManagementSystem
             const char NEW_LINE = '\n';
             string information = "";
 
-            information += this._name + NEW_LINE;
-            information += BOOK_NUMBER_TITLE + this._internationalStandardBookNumber + NEW_LINE;
-            information += AUTHOR_TITLE + this._author + NEW_LINE;
-            information += this._publicationItem;
+            information += this.Name + NEW_LINE;
+            information += BOOK_NUMBER_TITLE + this.InternationalStandardBookNumber + NEW_LINE;
+            information += AUTHOR_TITLE + this.Author + NEW_LINE;
+            information += this.PublicationItem;
             return information;
         }
         #endregion
 
         #region Getter and Setter
-        // get internationalStandardBookNumber
-        public string GetInternationalStandardBookNumber()
+        public string Name
         {
-            return this._internationalStandardBookNumber;
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
         }
 
-        // get name
-        public string GetName()
+        public string InternationalStandardBookNumber 
         {
-            return this._name;
+            get
+            {
+                return _internationalStandardBookNumber;
+            }
+            set 
+            {
+                _internationalStandardBookNumber = value;
+            }
         }
 
-        // get author
-        public string GetAuthor()
+        public string Author 
         {
-            return this._author;
+            get
+            {
+                return _author;
+            }
+            set
+            {
+                _author = value;
+            }
         }
 
-        // get publicationItem
-        public string GetPublicationItem()
+        public string PublicationItem
         {
-            return this._publicationItem;
-        }
-
-        // set internationalStandardBookNumber
-        public void SetInternationalStandardBookNumber(string value)
-        {
-            this._internationalStandardBookNumber = value;
-        }
-
-        // set name
-        public void SetName(string value)
-        {
-            this._name = value;
-        }
-
-        // set author
-        public void SetAuthor(string value)
-        {
-            this._author = value;
-        }
-
-        // set publicationItem
-        public void SetPublicationItem(string value)
-        {
-            this._publicationItem = value;
+            get
+            {
+                return _publicationItem;
+            }
+            set
+            {
+                _publicationItem = value;
+            }
         }
         #endregion
     }

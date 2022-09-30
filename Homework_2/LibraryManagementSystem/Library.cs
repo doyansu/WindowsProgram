@@ -60,8 +60,8 @@ namespace LibraryManagementSystem
         // process TabPageButton onClick
         public void SelectBookItem(string category, int index)
         {
-            BookCategory bookCategoryQuery = this._bookCategoryList.Find(t => t.GetCategory() == category);
-            BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.GetBook() == bookCategoryQuery.GetBookByIndex(index));
+            BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
+            BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.Book == bookCategoryQuery.GetBookByIndex(index));
             this._selectedBookItem = bookItemQuery;
         }
 
@@ -96,7 +96,7 @@ namespace LibraryManagementSystem
             int quantity = int.Parse(bookData[index++]);
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
-            BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.GetCategory() == category);
+            BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
 
             this._bookList.Add(book);
             this._bookItemList.Add(new BookItem(book, quantity));
@@ -125,7 +125,7 @@ namespace LibraryManagementSystem
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
             foreach (BookCategory bookCategory in this._bookCategoryList)
-                data[bookCategory.GetCategory()] = bookCategory.GetBookCount();
+                data[bookCategory.Category] = bookCategory.GetBookCount();
             return data;
         }
 
@@ -133,7 +133,7 @@ namespace LibraryManagementSystem
         public string GetSelectedBookInformation()
         {
             const string NULL_VALUE = "";
-            return this._selectedBookItem != null ? this._selectedBookItem.GetBook().GetFormatInformation() : NULL_VALUE;
+            return this._selectedBookItem != null ? this._selectedBookItem.Book.GetFormatInformation() : NULL_VALUE;
         }
 
         // get orrowingList's InformationArray
@@ -141,7 +141,7 @@ namespace LibraryManagementSystem
         {
             List<string[]> informationList = new List<string[]>();
             foreach (BookItem bookItem in this._borrowingList)
-                informationList.Add(bookItem.GetBook().GetInformationArray());
+                informationList.Add(bookItem.Book.GetInformationArray());
             return informationList;
         }
 
@@ -150,7 +150,7 @@ namespace LibraryManagementSystem
         {
             const string QUANTITY_TEXT = "剩餘數量 : ";
             const string NO_BOOK_ITEM = "";
-            return QUANTITY_TEXT + (this._selectedBookItem != null ? this._selectedBookItem.GetQuantity().ToString() : NO_BOOK_ITEM);
+            return QUANTITY_TEXT + (this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NO_BOOK_ITEM);
         }
 
         // get borrowingList Quantity string
@@ -159,14 +159,14 @@ namespace LibraryManagementSystem
             const string TITLE = "借書數量 : ";
             int quantity = 0;
             foreach (BookItem bookItem in this._borrowingList)
-                quantity += bookItem.GetQuantity();
+                quantity += bookItem.Quantity;
             return TITLE + quantity;
         }
 
         // get selectedBookItem state (this function have to move to Presentation Model)
         public bool IsAddBookButtonEnabled()
         {
-            return this._selectedBookItem != null && this._selectedBookItem.GetQuantity() > 0;
+            return this._selectedBookItem != null && this._selectedBookItem.Quantity > 0;
         }
 
         // get ConfirmBorrowingButton state (this function have to move to Presentation Model)
