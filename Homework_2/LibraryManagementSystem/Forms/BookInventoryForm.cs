@@ -17,11 +17,6 @@ namespace LibraryManagementSystem
         {
             InitializeComponent();
         }
-
-        public BookInventoryForm(BookInventoryForm other)
-        {
-            InitializeComponent();
-        }
         #endregion
 
     }

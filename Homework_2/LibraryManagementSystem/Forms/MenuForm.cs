@@ -44,7 +44,7 @@ namespace LibraryManagementSystem
             this.Close();
         }
 
-        // 顯示借書視窗 new BookBorrowingFrom(this._bookBorrowingFrom).Show();
+        // 顯示借書視窗
         private void BookBorrowingSystemButtonClick(object sender, EventArgs e)
         {
             this._bookBorrowingFrom.Show();
@@ -52,7 +52,7 @@ namespace LibraryManagementSystem
             this.UpdateControls();
         }
 
-        // 顯示庫存視窗 new BookInventoryForm(this._bookInventoryForm).Show();
+        // 顯示庫存視窗
         private void BookInventorySystemButtonClick(object sender, EventArgs e)
         {
             this._bookInventoryForm.Show();

@@ -22,14 +22,6 @@ namespace LibraryManagementSystem
             this.CreateAllTabPage();
             this.UpdateControls();
         }
-
-        public BookBorrowingFrom(BookBorrowingFrom other)
-        {
-            InitializeComponent();
-            this._model = other._model;
-            this.CreateAllTabPage();
-            this.UpdateControls();
-        }
         #endregion
 
         #region Private Function
