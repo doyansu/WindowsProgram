@@ -9,8 +9,8 @@ namespace LibraryManagementSystem
     public class BookBorrowingFormPresentationModel
     {
         private Library _model;
-        private bool _isAddBookButtonEnabled = true;
-        private bool _isConfirmBorrowingButtonEnabled = true;
+        private bool _isAddBookButtonEnabled = false;
+        private bool _isConfirmBorrowingButtonEnabled = false;
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
@@ -24,27 +24,47 @@ namespace LibraryManagementSystem
         public void ClickTabPageButton(string category, object tag)
         {
             this._model.SelectBookItem(category, int.Parse(tag.ToString()));
+            this.UpdateAddBookButtonEnabled();
         }
 
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
             this._model.JoinSelectedBookItemToBorrowingList();
+            this.UpdateConfirmBorrowingButtonEnabled();
+            this.UpdateAddBookButtonEnabled();
         }
 
         // 切換 Tabpage
         public void BookCategoryTabControlSelectedIndexChanged()
         {
             this._model.UnselectedBookItem();
+            this.UpdateAddBookButtonEnabled();
         }
 
         // 點擊確認借書
         public void ClickConfirmBorrowingButton()
         {
             this._model.BorrowBooks();
+            this.UpdateConfirmBorrowingButtonEnabled();
+            this.UpdateAddBookButtonEnabled();
         }
         #endregion
-        
+
+        #region Private Function
+        // 更新 AddBookButtonEnabled
+        private void UpdateAddBookButtonEnabled()
+        {
+            this._isAddBookButtonEnabled = this._model.GetSelectedBookQuantity() > 0;
+        }
+
+        // 更新 ConfirmBorrowingButtonEnabled
+        private void UpdateConfirmBorrowingButtonEnabled()
+        {
+            this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
+        }
+        #endregion
+
         #region Output
         // get tabpage data (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetCategoryQuantityPair()
@@ -67,27 +87,27 @@ namespace LibraryManagementSystem
         // get Selected Book's Quantity String
         public string GetSelectedBookQuantityString()
         {
-            return this._model.GetSelectedBookQuantityString();
+            const string QUANTITY_TEXT = "剩餘數量 : ";
+            return QUANTITY_TEXT + this._model.GetSelectedBookQuantityString();
         }
 
         // get borrowingList Quantity string
         public string GetBorrowingListQuantityString()
         {
-            return this._model.GetBorrowingListQuantityString();
+            const string TITLE = "借書數量 : ";
+            return TITLE + this._model.GetBorrowingListQuantity();
         }
 
-        // get selectedBookItem state (this function have to move to Presentation Model)
+        // get selectedBookItem state
         public bool IsAddBookButtonEnabled()
         {
-            //return this._selectedBookItem != null && this._selectedBookItem.Quantity > 0;
             return this._isAddBookButtonEnabled;
         }
 
-        // get ConfirmBorrowingButton state (this function have to move to Presentation Model)
+        // get ConfirmBorrowingButton state
         public bool IsConfirmBorrowingButtonEnabled()
         {
             return this._isConfirmBorrowingButtonEnabled;
-            //return this._borrowingList.Count > 0;
         }
         #endregion
     }

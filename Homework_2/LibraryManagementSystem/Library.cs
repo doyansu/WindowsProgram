@@ -37,7 +37,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region View Process
-        // load books data from hw1_books_source.txt
+        // 從 hw1_books_source.txt 下載資料
         public void LoadsBooksData()
         {
             const string FILE_NAME = "../../../hw1_books_source.txt";
@@ -59,7 +59,7 @@ namespace LibraryManagementSystem
             }
         }
 
-        // process TabPageButton onClick
+        // 透過類別選擇書籍
         public void SelectBookItem(string category, int index)
         {
             BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
@@ -67,20 +67,20 @@ namespace LibraryManagementSystem
             this._selectedBookItem = bookItemQuery;
         }
 
-        // add book to BorrowingList
+        // 將選擇的書籍加入借書單
         public void JoinSelectedBookItemToBorrowingList()
         {
             if (this._selectedBookItem != null)
                 this._borrowingList.Add(this._selectedBookItem.Take(1));
         }
 
-        // Unselected BookItem
+        // 不選擇任何書籍
         public void UnselectedBookItem()
         {
             this._selectedBookItem = null;
         }
 
-        // Borrow Books
+        // 借書
         public void BorrowBooks()
         {
             // return book to _bookItemList
@@ -91,7 +91,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Private Function
-        // save book data
+        // 存取書籍資料
         private void SaveBooks(List<string> bookData)
         {
             int index = 0;
@@ -110,7 +110,7 @@ namespace LibraryManagementSystem
             bookCategoryQueryResult.AddBook(book);
         }
 
-        // clear all of Library's data
+        // 清空所有資料
         private void ClearAllData()
         {
             this._selectedBookItem = null;
@@ -122,7 +122,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Output
-        // get tabpage data (return Dictionary<Category, BookCount>)
+        // 取得每類書籍對映的數量鍵值對 (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetCategoryQuantityPair()
         {
             Dictionary<string, int> data = new Dictionary<string, int>();
@@ -131,14 +131,28 @@ namespace LibraryManagementSystem
             return data;
         }
 
-        // get Selected Book's infomation
+        // 取得所選書籍的書籍資訊
         public string GetSelectedBookInformation()
         {
             const string NULL_VALUE = "";
             return this._selectedBookItem != null ? this._selectedBookItem.Book.GetFormatInformation() : NULL_VALUE;
         }
 
-        // get orrowingList's InformationArray
+        // 取得所選書籍的剩餘數量
+        public int GetSelectedBookQuantity()
+        {
+            const int NULL_VALUE = -1;
+            return this._selectedBookItem != null ? this._selectedBookItem.Quantity : NULL_VALUE;
+        }
+
+        // 取得所選書籍的剩餘數量字串
+        public string GetSelectedBookQuantityString()
+        {
+            const string NULL_VALUE = "";
+            return this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NULL_VALUE;
+        }
+
+        // 取得借書單的資料陣列
         public List<string[]> GetBorrowingListInformationList()
         {
             List<string[]> informationList = new List<string[]>();
@@ -147,34 +161,19 @@ namespace LibraryManagementSystem
             return informationList;
         }
 
-        // get Selected Book's Quantity String
-        public string GetSelectedBookQuantityString()
+        // 取得借書單總共有幾本書
+        public int GetBorrowingListQuantity()
         {
-            const string QUANTITY_TEXT = "剩餘數量 : ";
-            const string NO_BOOK_ITEM = "";
-            return QUANTITY_TEXT + (this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NO_BOOK_ITEM);
-        }
-
-        // get borrowingList Quantity string
-        public string GetBorrowingListQuantityString()
-        {
-            const string TITLE = "借書數量 : ";
             int quantity = 0;
             foreach (BookItem bookItem in this._borrowingList)
                 quantity += bookItem.Quantity;
-            return TITLE + quantity;
+            return quantity;
         }
 
-        // get selectedBookItem state (this function have to move to Presentation Model)
-        public bool IsAddBookButtonEnabled()
+        // 取得借書單有幾種書
+        public int GetBorrowedListCount()
         {
-            return this._selectedBookItem != null && this._selectedBookItem.Quantity > 0;
-        }
-
-        // get ConfirmBorrowingButton state (this function have to move to Presentation Model)
-        public bool IsConfirmBorrowingButtonEnabled()
-        {
-            return this._borrowingList.Count > 0;
+            return this._borrowingList.Count;
         }
         #endregion
 
