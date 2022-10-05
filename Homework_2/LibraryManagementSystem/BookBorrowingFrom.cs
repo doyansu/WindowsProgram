@@ -19,9 +19,14 @@ namespace LibraryManagementSystem
         {
             InitializeComponent();
             this._model = model;
-            this._model._updateView += this.UpdateView;
-            this._model.LoadsBooksData();
+            this.CreateAllTabPage();
+            this.UpdateControls();
+        }
 
+        public BookBorrowingFrom(BookBorrowingFrom other)
+        {
+            InitializeComponent();
+            this._model = other._model;
             this.CreateAllTabPage();
             this.UpdateControls();
         }

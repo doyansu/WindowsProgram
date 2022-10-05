@@ -43,6 +43,7 @@ namespace LibraryManagementSystem
             this._bookBorrowingSystemButton.TabIndex = 0;
             this._bookBorrowingSystemButton.Text = "Book Borrowing System";
             this._bookBorrowingSystemButton.UseVisualStyleBackColor = true;
+            this._bookBorrowingSystemButton.Click += new System.EventHandler(this.BookBorrowingSystemButtonClick);
             // 
             // _bookInventorySystemButton
             // 
@@ -53,6 +54,7 @@ namespace LibraryManagementSystem
             this._bookInventorySystemButton.TabIndex = 1;
             this._bookInventorySystemButton.Text = "Book Inventory System";
             this._bookInventorySystemButton.UseVisualStyleBackColor = true;
+            this._bookInventorySystemButton.Click += new System.EventHandler(this.BookInventorySystemButtonClick);
             // 
             // _exitButton
             // 
@@ -63,6 +65,7 @@ namespace LibraryManagementSystem
             this._exitButton.TabIndex = 2;
             this._exitButton.Text = "Exit";
             this._exitButton.UseVisualStyleBackColor = true;
+            this._exitButton.Click += new System.EventHandler(this.ExitButtonClick);
             // 
             // MenuForm
             // 

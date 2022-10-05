@@ -12,9 +12,17 @@ namespace LibraryManagementSystem
 {
     public partial class BookInventoryForm : Form
     {
+        #region Constructor
         public BookInventoryForm()
         {
             InitializeComponent();
         }
+
+        public BookInventoryForm(BookInventoryForm other)
+        {
+            InitializeComponent();
+        }
+        #endregion
+
     }
 }
