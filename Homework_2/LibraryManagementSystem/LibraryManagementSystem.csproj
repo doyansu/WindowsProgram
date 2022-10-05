@@ -46,8 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackPackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackPackForm.Designer.cs">
+      <DependentUpon>BackPackForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Book.cs" />
     <Compile Include="BookCategory.cs" />
+    <Compile Include="BookInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookInventoryForm.Designer.cs">
+      <DependentUpon>BookInventoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BookItem.cs" />
     <Compile Include="BorrowedItem.cs" />
     <Compile Include="BorrowedList.cs" />
@@ -58,10 +70,25 @@
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Library.cs" />
+    <Compile Include="MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BackPackForm.resx">
+      <DependentUpon>BackPackForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BookBorrowingFrom.resx">
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookInventoryForm.resx">
+      <DependentUpon>BookInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
