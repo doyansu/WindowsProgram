@@ -19,7 +19,7 @@ namespace LibraryManagementSystem
 
             Library model = new Library();
             model.LoadsBooksData();
-            Application.Run(new MenuForm(new MenuFormPresentationModel(), new BookBorrowingFrom(model), new BookInventoryForm()));
+            Application.Run(new MenuForm(new MenuFormPresentationModel(), new BookBorrowingFrom(new BookBorrowingFormPresentationModel(model)), new BookInventoryForm()));
         }
     }
 }

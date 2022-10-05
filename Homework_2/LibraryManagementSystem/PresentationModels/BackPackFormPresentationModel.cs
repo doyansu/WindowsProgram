@@ -8,11 +8,11 @@ namespace LibraryManagementSystem
 {
     public class BackPackFormPresentationModel
     {
-        private Library _model;
+        private Library _presentationModel;
 
-        public BackPackFormPresentationModel(Library model)
+        public BackPackFormPresentationModel(Library presentationModel)
         {
-            this._model = model;
+            this._presentationModel = presentationModel;
         }
     }
 }
