@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagementSystem.NewFolder1
+namespace LibraryManagementSystem
 {
     public class MenuFormPresentationModel
     {
+        public MenuFormPresentationModel()
+        {
+
+        }
     }
 }
