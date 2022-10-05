@@ -16,10 +16,10 @@ namespace LibraryManagementSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
             Library model = new Library();
             BookBorrowingFrom bookBorrowingFrom = new BookBorrowingFrom(model);
             Application.Run(bookBorrowingFrom);
+
         }
     }
 }

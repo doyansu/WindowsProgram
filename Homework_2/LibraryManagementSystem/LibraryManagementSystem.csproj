@@ -49,6 +49,7 @@
     <Compile Include="Book.cs" />
     <Compile Include="BookCategory.cs" />
     <Compile Include="BookItem.cs" />
+    <Compile Include="BorrowedItem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
