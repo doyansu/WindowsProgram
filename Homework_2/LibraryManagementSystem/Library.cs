@@ -21,6 +21,7 @@ namespace LibraryManagementSystem
         private List<BookItem> _borrowingList;
         private List<BookItem> _bookItemList;
         private List<BookCategory> _bookCategoryList;
+        private BorrowedList _borrowedList;
         #endregion
 
         #region Constrctor
@@ -31,6 +32,7 @@ namespace LibraryManagementSystem
             this._bookItemList = new List<BookItem>();
             this._borrowingList = new List<BookItem>();
             this._bookCategoryList = new List<BookCategory>();
+            this._borrowedList = new BorrowedList();
         }
         #endregion
 

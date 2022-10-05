@@ -6,7 +6,29 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem
 {
-    class BorrowedItem
+    public class BorrowedItem
     {
+        private DateTime _date;
+
+        #region Constructor
+        public BorrowedItem()
+        {
+            this.Date = new DateTime();
+        }
+        #endregion
+
+        #region Getter and Setter
+        public DateTime Date 
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                _date = value;
+            }
+        }
+        #endregion
     }
 }
