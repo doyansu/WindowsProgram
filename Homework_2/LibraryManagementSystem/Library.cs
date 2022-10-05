@@ -37,10 +37,10 @@ namespace LibraryManagementSystem
         #endregion
 
         #region View Process
-        // 從 hw1_books_source.txt 下載資料
+        // 從 hw2_books_source.txt 下載資料
         public void LoadsBooksData()
         {
-            const string FILE_NAME = "../../../hw1_books_source.txt";
+            const string FILE_NAME = "../../../hw2_books_source.txt";
             const string BOOK = "BOOK";
             const int DATA_ROWS = 6;
             StreamReader file = new StreamReader(@FILE_NAME);

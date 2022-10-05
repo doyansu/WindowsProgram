@@ -44,6 +44,9 @@ namespace LibraryManagementSystem
             this._bookPublicationItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._confirmBorrowingButton = new System.Windows.Forms.Button();
             this._backPackButton = new System.Windows.Forms.Button();
+            this._nextPageButton = new System.Windows.Forms.Button();
+            this._lastPageButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this._bookInformationGroupBox.SuspendLayout();
             this._bookIntroductionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
@@ -51,6 +54,9 @@ namespace LibraryManagementSystem
             // 
             // _bookInformationGroupBox
             // 
+            this._bookInformationGroupBox.Controls.Add(this.label1);
+            this._bookInformationGroupBox.Controls.Add(this._lastPageButton);
+            this._bookInformationGroupBox.Controls.Add(this._nextPageButton);
             this._bookInformationGroupBox.Controls.Add(this._bookCategoryTabControl);
             this._bookInformationGroupBox.Controls.Add(this._addBookButton);
             this._bookInformationGroupBox.Controls.Add(this._bookIntroductionGroupBox);
@@ -75,7 +81,7 @@ namespace LibraryManagementSystem
             // 
             this._addBookButton.Enabled = false;
             this._addBookButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._addBookButton.Location = new System.Drawing.Point(180, 395);
+            this._addBookButton.Location = new System.Drawing.Point(188, 392);
             this._addBookButton.Name = "_addBookButton";
             this._addBookButton.Size = new System.Drawing.Size(106, 32);
             this._addBookButton.TabIndex = 1;
@@ -198,6 +204,38 @@ namespace LibraryManagementSystem
             this._backPackButton.UseVisualStyleBackColor = true;
             this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
             // 
+            // _nextPageButton
+            // 
+            this._nextPageButton.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._nextPageButton.Location = new System.Drawing.Point(127, 392);
+            this._nextPageButton.Name = "_nextPageButton";
+            this._nextPageButton.Size = new System.Drawing.Size(55, 31);
+            this._nextPageButton.TabIndex = 3;
+            this._nextPageButton.Text = "下一頁";
+            this._nextPageButton.UseVisualStyleBackColor = true;
+            this._nextPageButton.Click += new System.EventHandler(this.ClickNextPageButton);
+            // 
+            // _lastPageButton
+            // 
+            this._lastPageButton.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._lastPageButton.Location = new System.Drawing.Point(66, 392);
+            this._lastPageButton.Name = "_lastPageButton";
+            this._lastPageButton.Size = new System.Drawing.Size(55, 31);
+            this._lastPageButton.TabIndex = 4;
+            this._lastPageButton.Text = "上一頁";
+            this._lastPageButton.UseVisualStyleBackColor = true;
+            this._lastPageButton.Click += new System.EventHandler(this.ClickLastPageButton);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Location = new System.Drawing.Point(-3, 399);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 17);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Page : ";
+            // 
             // BookBorrowingFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -213,6 +251,7 @@ namespace LibraryManagementSystem
             this.Text = "借書";
             this.Load += new System.EventHandler(this.BookBorrowingFromLoad);
             this._bookInformationGroupBox.ResumeLayout(false);
+            this._bookInformationGroupBox.PerformLayout();
             this._bookIntroductionGroupBox.ResumeLayout(false);
             this._bookIntroductionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).EndInit();
@@ -238,6 +277,9 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthor;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItem;
         private System.Windows.Forms.Button _backPackButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button _lastPageButton;
+        private System.Windows.Forms.Button _nextPageButton;
     }
 }
 

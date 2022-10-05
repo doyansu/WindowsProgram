@@ -9,13 +9,18 @@ namespace LibraryManagementSystem
     public class BookBorrowingFormPresentationModel
     {
         private Library _model;
+        private List<List<bool>> _buttonVisibles;
         private bool _isAddBookButtonEnabled = false;
         private bool _isConfirmBorrowingButtonEnabled = false;
+        private int _pageCount = 0;
+        private int _tabPageIndex = 0;
+        private const int BUTTONS_PER_PAGE = 3;
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
+            this.InitializeButtonsVisible();
         }
         #endregion
 
@@ -36,9 +41,11 @@ namespace LibraryManagementSystem
         }
 
         // 切換 Tabpage
-        public void BookCategoryTabControlSelectedIndexChanged()
+        public void BookCategoryTabControlSelectedIndexChanged(int index)
         {
             this._model.UnselectedBookItem();
+            this._tabPageIndex = index;
+            this.UpdateButtonsVisible();
             this.UpdateAddBookButtonEnabled();
         }
 
@@ -49,9 +56,48 @@ namespace LibraryManagementSystem
             this.UpdateConfirmBorrowingButtonEnabled();
             this.UpdateAddBookButtonEnabled();
         }
+
+        // 點擊下一頁按鈕
+        public void ClickNextPageButton()
+        {
+            this._pageCount++;
+            this._model.UnselectedBookItem();
+            this.UpdateButtonsVisible();
+        }
+
+        // 點擊上一頁按鈕
+        public void ClickLastPageButton()
+        {
+            this._pageCount--;
+            this._model.UnselectedBookItem();
+            this.UpdateButtonsVisible();
+        }
         #endregion
 
         #region Private Function
+        // 初始化 buttonVisible
+        private void InitializeButtonsVisible()
+        {
+            this._buttonVisibles = new List<List<bool>>();
+            foreach (var data in this._model.GetCategoryQuantityPair())
+            {
+                List<bool> boolList = new List<bool>();
+                for (int i = 0; i < data.Value; i++)
+                    boolList.Add(false);
+                _buttonVisibles.Add(boolList);
+            }
+        }
+
+        // 更新 buttonVisible
+        private void UpdateButtonsVisible()
+        {
+            this._buttonVisibles[this._tabPageIndex] = this._buttonVisibles[this._tabPageIndex].Select(content => false).ToList();
+            int start = this._pageCount * BUTTONS_PER_PAGE;
+            for (int i = start; i < start + BUTTONS_PER_PAGE && i < this._buttonVisibles[this._tabPageIndex].Count; i++)
+                this._buttonVisibles[this._tabPageIndex][i] = true;
+            int a = 0;
+        }
+
         // 更新 AddBookButtonEnabled
         private void UpdateAddBookButtonEnabled()
         {
@@ -109,6 +155,24 @@ namespace LibraryManagementSystem
         {
             return this._isConfirmBorrowingButtonEnabled;
         }
+
+        #region Button Process
+        // 根據 buttonIndex 回傳按鈕位移
+        public int GetButtonOffset(int buttonIndex)
+        {
+            const int BUTTON_OFFSET = 87;
+            return BUTTON_OFFSET * (buttonIndex % BUTTONS_PER_PAGE);
+        }
+
+        // 取得按鈕可見陣列
+        public List<bool> GetButtonVisibleList(int tabPageIndex)
+        {
+            return this._buttonVisibles[tabPageIndex];
+        }
         #endregion
+
+        #endregion
+
+
     }
 }

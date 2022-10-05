@@ -32,6 +32,8 @@ namespace LibraryManagementSystem
         {
             this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._presentationModel.GetCategoryQuantityPair();
+            int totalIndex = 1;
+
             foreach (var data in categoryQuantity)
             {
                 string category = data.Key;
@@ -39,26 +41,24 @@ namespace LibraryManagementSystem
                 TabPage tabPage = new TabPage(category);
 
                 for (int index = 0; index < quantity; index++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(index));
+                    tabPage.Controls.Add(this.CreateTabPageButton(totalIndex++, index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
         }
 
         // 創建 tabpagebuttons
-        private Button CreateTabPageButton(int buttonIndex)
+        private Button CreateTabPageButton(int totalIndex, int categoryIndex)
         {
-            const string BUTTON_NAME = "book";
-            string buttonName = BUTTON_NAME + buttonIndex;
-            const int BUTTON_OFFSET = 87;
             const int BUTTON_OFFSET_HEIGHT = 0;
             const int BUTTON_WIDTH = 85;
             const int BUTTON_HEIGHT = 120;
+            string imageFileName = string.Format("../../../image/{0}.jpg", totalIndex);
 
             Button button = new Button();
-            button.Text = buttonName;
-            button.Tag = buttonIndex;
-            button.Location = new Point(BUTTON_OFFSET * buttonIndex, BUTTON_OFFSET_HEIGHT);
+            button.Tag = categoryIndex;
+            button.Location = new Point(this._presentationModel.GetButtonOffset(categoryIndex) , BUTTON_OFFSET_HEIGHT);
             button.Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT);
+            button.Image = Image.FromFile(imageFileName);
             button.Click += ClickTabPageButton;
             return button;
         }
@@ -93,6 +93,15 @@ namespace LibraryManagementSystem
             this._addBookButton.Enabled = this._presentationModel.IsAddBookButtonEnabled();
             this._confirmBorrowingButton.Enabled = this._presentationModel.IsConfirmBorrowingButtonEnabled();
         }
+
+        // 更新按鈕是否可見
+        private void UpdateButtonVisible()
+        {
+            int index = 0;
+            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList(this._bookCategoryTabControl.SelectedIndex);
+            foreach (object button in this._bookCategoryTabControl.SelectedTab.Controls)
+                ((Button)button).Visible = buttonVisibleList[index++];
+        }
         #endregion
 
         #region Event
@@ -121,9 +130,10 @@ namespace LibraryManagementSystem
         // 切換 Tabpage
         private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
-            this._presentationModel.BookCategoryTabControlSelectedIndexChanged();
+            this._presentationModel.BookCategoryTabControlSelectedIndexChanged(this._bookCategoryTabControl.SelectedIndex);
             this.UpdateBookInformation();
             this.UpdateControls();
+            this.UpdateButtonVisible();
         }
 
         // 點擊確認借書
@@ -141,7 +151,22 @@ namespace LibraryManagementSystem
         {
             this._backPackForm.ShowDialog();
         }
-        #endregion
+        
+        // 點擊下一頁按鈕
+        private void ClickNextPageButton(object sender, EventArgs e)
+        {
+            this._presentationModel.ClickNextPageButton();
+            this.UpdateBookInformation();
+            this.UpdateButtonVisible();
+        }
 
+        // 點擊上一頁按鈕
+        private void ClickLastPageButton(object sender, EventArgs e)
+        {
+            this._presentationModel.ClickLastPageButton();
+            this.UpdateBookInformation();
+            this.UpdateButtonVisible();
+        }
+        #endregion
     }
 }
