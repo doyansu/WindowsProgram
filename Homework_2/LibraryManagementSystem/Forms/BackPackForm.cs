@@ -12,9 +12,12 @@ namespace LibraryManagementSystem
 {
     public partial class BackPackForm : Form
     {
-        public BackPackForm()
+        private BackPackFormPresentationModel _presentationModel;
+
+        public BackPackForm(BackPackFormPresentationModel presentationModel)
         {
             InitializeComponent();
+            this._presentationModel = presentationModel;
         }
     }
 }

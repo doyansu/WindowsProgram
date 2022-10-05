@@ -76,6 +76,8 @@
     <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresentationModels\BackPackFormPresentationModel.cs" />
+    <Compile Include="PresentationModels\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModels\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
