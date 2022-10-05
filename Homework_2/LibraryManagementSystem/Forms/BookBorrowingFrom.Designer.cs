@@ -43,6 +43,7 @@ namespace LibraryManagementSystem
             this._bookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._confirmBorrowingButton = new System.Windows.Forms.Button();
+            this._backPackButton = new System.Windows.Forms.Button();
             this._bookInformationGroupBox.SuspendLayout();
             this._bookIntroductionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
@@ -186,11 +187,23 @@ namespace LibraryManagementSystem
             this._confirmBorrowingButton.UseVisualStyleBackColor = true;
             this._confirmBorrowingButton.Click += new System.EventHandler(this.ClickConfirmBorrowingButton);
             // 
+            // _backPackButton
+            // 
+            this._backPackButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._backPackButton.Location = new System.Drawing.Point(598, 407);
+            this._backPackButton.Name = "_backPackButton";
+            this._backPackButton.Size = new System.Drawing.Size(91, 35);
+            this._backPackButton.TabIndex = 5;
+            this._backPackButton.Text = "我的書包";
+            this._backPackButton.UseVisualStyleBackColor = true;
+            this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
+            // 
             // BookBorrowingFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._backPackButton);
             this.Controls.Add(this._confirmBorrowingButton);
             this.Controls.Add(this._bookInformationDataGridView);
             this.Controls.Add(this._borrowingListLabel);
@@ -224,6 +237,7 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthor;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItem;
+        private System.Windows.Forms.Button _backPackButton;
     }
 }
 

@@ -13,12 +13,14 @@ namespace LibraryManagementSystem
     public partial class BookBorrowingFrom : System.Windows.Forms.Form
     {
         private BookBorrowingFormPresentationModel _presentationModel;
+        private BackPackForm _backPackForm;
 
         #region Constrctor
-        public BookBorrowingFrom(BookBorrowingFormPresentationModel presentationModel)
+        public BookBorrowingFrom(BookBorrowingFormPresentationModel presentationModel, BackPackForm backPackForm)
         {
             InitializeComponent();
             this._presentationModel = presentationModel;
+            this._backPackForm = backPackForm;
             this.CreateAllTabPage();
             this.UpdateControls();
         }
@@ -133,6 +135,13 @@ namespace LibraryManagementSystem
             const string MESSAGE = "借書功能尚未實作";
             MessageBox.Show(MESSAGE);
         }
+
+        // 點擊我的書包
+        private void ClickBackPackButton(object sender, EventArgs e)
+        {
+            this._backPackForm.ShowDialog();
+        }
         #endregion
+
     }
 }

@@ -21,9 +21,9 @@ namespace LibraryManagementSystem
 
         #region View Process
         // 點擊書籍按鈕
-        public void ClickTabPageButton(string category, object Tag)
+        public void ClickTabPageButton(string category, object tag)
         {
-            this._model.SelectBookItem(category, int.Parse(Tag.ToString()));
+            this._model.SelectBookItem(category, int.Parse(tag.ToString()));
         }
 
         // 點擊加入借書單
@@ -44,7 +44,6 @@ namespace LibraryManagementSystem
             this._model.BorrowBooks();
         }
         #endregion
-        
         
         #region Output
         // get tabpage data (return Dictionary<Category, BookCount>)
