@@ -46,48 +46,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackPackForm.cs">
+    <Compile Include="Forms\BackPackForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BackPackForm.Designer.cs">
+    <Compile Include="Forms\BackPackForm.Designer.cs">
       <DependentUpon>BackPackForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Book.cs" />
     <Compile Include="BookCategory.cs" />
-    <Compile Include="BookInventoryForm.cs">
+    <Compile Include="Forms\BookInventoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookInventoryForm.Designer.cs">
+    <Compile Include="Forms\BookInventoryForm.Designer.cs">
       <DependentUpon>BookInventoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BookItem.cs" />
     <Compile Include="BorrowedItem.cs" />
     <Compile Include="BorrowedList.cs" />
-    <Compile Include="BookBorrowingFrom.cs">
+    <Compile Include="Forms\BookBorrowingFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookBorrowingFrom.Designer.cs">
+    <Compile Include="Forms\BookBorrowingFrom.Designer.cs">
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Library.cs" />
-    <Compile Include="MenuForm.cs">
+    <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuForm.Designer.cs">
+    <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresentationModels\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BackPackForm.resx">
+    <EmbeddedResource Include="Forms\BackPackForm.resx">
       <DependentUpon>BackPackForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BookBorrowingFrom.resx">
+    <EmbeddedResource Include="Forms\BookBorrowingFrom.resx">
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BookInventoryForm.resx">
+    <EmbeddedResource Include="Forms\BookInventoryForm.resx">
       <DependentUpon>BookInventoryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuForm.resx">
+    <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -112,5 +113,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
