@@ -66,36 +66,36 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Output
-        // get tabpage data (return Dictionary<Category, BookCount>)
+        // 取得每類書籍對映的數量鍵值對 (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetCategoryQuantityPair()
         {
             return this._model.GetCategoryQuantityPair();
         }
 
-        // get Selected Book's infomation
+        // 取得所選書籍的書籍資訊
         public string GetSelectedBookInformation()
         {
             return this._model.GetSelectedBookInformation();
         }
 
-        // get orrowingList's InformationArray
-        public List<string[]> GetBorrowingListInformationList()
-        {
-            return this._model.GetBorrowingListInformationList();
-        }
-
-        // get Selected Book's Quantity String
+        // 取得所選書籍的剩餘數量字串
         public string GetSelectedBookQuantityString()
         {
             const string QUANTITY_TEXT = "剩餘數量 : ";
             return QUANTITY_TEXT + this._model.GetSelectedBookQuantityString();
         }
 
-        // get borrowingList Quantity string
+        // 取得借書數量字串
         public string GetBorrowingListQuantityString()
         {
             const string TITLE = "借書數量 : ";
             return TITLE + this._model.GetBorrowingListQuantity();
+        }
+
+        // 取得借書單的資料陣列
+        public List<string[]> GetBorrowingListInformationList()
+        {
+            return this._model.GetBorrowingListInformationList();
         }
 
         // get selectedBookItem state
