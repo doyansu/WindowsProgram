@@ -22,6 +22,7 @@ namespace LibraryManagementSystem
             this._presentationModel = presentationModel;
             this._backPackForm = backPackForm;
             this.CreateAllTabPage();
+            this.InitializeDataGridView();
         }
         #endregion
 
@@ -60,6 +61,17 @@ namespace LibraryManagementSystem
             button.FlatStyle = FlatStyle.Flat;
             button.Click += ClickTabPageButton;
             return button;
+        }
+
+        // 初始化 DataGridView 物件
+        private void InitializeDataGridView()
+        {
+            const string DELETE = "刪除";
+            DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
+            deleteColumn.HeaderText = DELETE;
+            deleteColumn.Text = DELETE;
+            deleteColumn.UseColumnTextForButtonValue = true;
+            this._bookInformationDataGridView.Columns.Insert(0, deleteColumn);
         }
 
         // 更新借書單

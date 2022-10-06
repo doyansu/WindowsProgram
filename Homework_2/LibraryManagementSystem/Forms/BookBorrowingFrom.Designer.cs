@@ -41,12 +41,13 @@ namespace LibraryManagementSystem
             this._borrowingBookQuantityLabel = new System.Windows.Forms.Label();
             this._borrowingListLabel = new System.Windows.Forms.Label();
             this._bookInformationDataGridView = new System.Windows.Forms.DataGridView();
+            this._confirmBorrowingButton = new System.Windows.Forms.Button();
+            this._backPackButton = new System.Windows.Forms.Button();
             this._bookName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._confirmBorrowingButton = new System.Windows.Forms.Button();
-            this._backPackButton = new System.Windows.Forms.Button();
             this._bookInformationGroupBox.SuspendLayout();
             this._bookIntroductionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
@@ -174,10 +175,12 @@ namespace LibraryManagementSystem
             // 
             // _bookInformationDataGridView
             // 
+            this._bookInformationDataGridView.AllowUserToAddRows = false;
             this._bookInformationDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._bookInformationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._bookInformationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._bookName,
+            this._bookQuantity,
             this._bookNumber,
             this._bookAuthor,
             this._bookPublicationItem});
@@ -189,30 +192,6 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._bookInformationDataGridView.Size = new System.Drawing.Size(510, 407);
             this._bookInformationDataGridView.TabIndex = 3;
-            // 
-            // _bookName
-            // 
-            this._bookName.HeaderText = "書籍名稱";
-            this._bookName.Name = "_bookName";
-            this._bookName.ReadOnly = true;
-            // 
-            // _bookNumber
-            // 
-            this._bookNumber.HeaderText = "書籍編號";
-            this._bookNumber.Name = "_bookNumber";
-            this._bookNumber.ReadOnly = true;
-            // 
-            // _bookAuthor
-            // 
-            this._bookAuthor.HeaderText = "作者";
-            this._bookAuthor.Name = "_bookAuthor";
-            this._bookAuthor.ReadOnly = true;
-            // 
-            // _bookPublicationItem
-            // 
-            this._bookPublicationItem.HeaderText = "出版項";
-            this._bookPublicationItem.Name = "_bookPublicationItem";
-            this._bookPublicationItem.ReadOnly = true;
             // 
             // _confirmBorrowingButton
             // 
@@ -235,6 +214,36 @@ namespace LibraryManagementSystem
             this._backPackButton.Text = "我的書包";
             this._backPackButton.UseVisualStyleBackColor = true;
             this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
+            // 
+            // _bookName
+            // 
+            this._bookName.HeaderText = "書籍名稱";
+            this._bookName.Name = "_bookName";
+            this._bookName.ReadOnly = true;
+            // 
+            // _bookQuantity
+            // 
+            this._bookQuantity.HeaderText = "數量";
+            this._bookQuantity.Name = "_bookQuantity";
+            this._bookQuantity.ReadOnly = true;
+            // 
+            // _bookNumber
+            // 
+            this._bookNumber.HeaderText = "書籍編號";
+            this._bookNumber.Name = "_bookNumber";
+            this._bookNumber.ReadOnly = true;
+            // 
+            // _bookAuthor
+            // 
+            this._bookAuthor.HeaderText = "作者";
+            this._bookAuthor.Name = "_bookAuthor";
+            this._bookAuthor.ReadOnly = true;
+            // 
+            // _bookPublicationItem
+            // 
+            this._bookPublicationItem.HeaderText = "出版項";
+            this._bookPublicationItem.Name = "_bookPublicationItem";
+            this._bookPublicationItem.ReadOnly = true;
             // 
             // BookBorrowingFrom
             // 
@@ -272,14 +281,15 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button _confirmBorrowingButton;
         private System.Windows.Forms.TabControl _bookCategoryTabControl;
         private System.Windows.Forms.RichTextBox _bookIntroductionRichTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItem;
         private System.Windows.Forms.Button _backPackButton;
         private System.Windows.Forms.Label _pageLabel;
         private System.Windows.Forms.Button _lastPageButton;
         private System.Windows.Forms.Button _nextPageButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookQuantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItem;
     }
 }
 
