@@ -12,6 +12,8 @@ namespace LibraryManagementSystem
         private List<List<bool>> _buttonVisibles;
         private bool _isAddBookButtonEnabled = false;
         private bool _isConfirmBorrowingButtonEnabled = false;
+        private bool _isNextButtonEnabled = false;
+        private bool _isLastButtonEnabled = false;
         private int _pageCount = 0;
         private int _tabPageIndex = 0;
         private const int BUTTONS_PER_PAGE = 3;
@@ -21,6 +23,7 @@ namespace LibraryManagementSystem
         {
             this._model = model;
             this.InitializeButtonsVisible();
+            this.UpdateControls();
         }
         #endregion
 
@@ -47,7 +50,7 @@ namespace LibraryManagementSystem
             this._tabPageIndex = index;
             this._pageCount = 0;
             this.UpdateButtonsVisible();
-            this.UpdateAddBookButtonEnabled();
+            this.UpdateControls();
         }
 
         // 點擊確認借書
@@ -64,6 +67,7 @@ namespace LibraryManagementSystem
             this._pageCount++;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
+            this.UpdateControls();
         }
 
         // 點擊上一頁按鈕
@@ -72,6 +76,7 @@ namespace LibraryManagementSystem
             this._pageCount--;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
+            this.UpdateControls();
         }
         #endregion
 
@@ -108,6 +113,15 @@ namespace LibraryManagementSystem
         private void UpdateConfirmBorrowingButtonEnabled()
         {
             this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
+        }
+
+        // 更新所有控制 enable
+        private void UpdateControls()
+        {
+            this._isAddBookButtonEnabled = this._model.GetSelectedBookQuantity() > 0;
+            this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
+            this._isLastButtonEnabled = this._pageCount > 0;
+            this._isNextButtonEnabled = this._pageCount < (this._buttonVisibles[this._tabPageIndex].Count + 2) / BUTTONS_PER_PAGE - 1;
         }
         #endregion
 
@@ -154,6 +168,18 @@ namespace LibraryManagementSystem
         public bool IsConfirmBorrowingButtonEnabled()
         {
             return this._isConfirmBorrowingButtonEnabled;
+        }
+
+        // 取得 NextButtonButton Enabled
+        public bool IsNextButtonButtonEnabled()
+        {
+            return this._isNextButtonEnabled;
+        }
+
+        // 取得 LastButtonButton Enabled
+        public bool IsLastButtonButtonEnabled()
+        {
+            return this._isLastButtonEnabled;
         }
 
         #region Button Process

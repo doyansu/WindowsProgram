@@ -92,6 +92,8 @@ namespace LibraryManagementSystem
         {
             this._addBookButton.Enabled = this._presentationModel.IsAddBookButtonEnabled();
             this._confirmBorrowingButton.Enabled = this._presentationModel.IsConfirmBorrowingButtonEnabled();
+            this._nextPageButton.Enabled = this._presentationModel.IsNextButtonButtonEnabled();
+            this._lastPageButton.Enabled = this._presentationModel.IsLastButtonButtonEnabled();
         }
 
         // 更新按鈕是否可見
@@ -158,6 +160,7 @@ namespace LibraryManagementSystem
             this._presentationModel.ClickNextPageButton();
             this.UpdateBookInformation();
             this.UpdateButtonVisible();
+            this.UpdateControls();
         }
 
         // 點擊上一頁按鈕
@@ -166,6 +169,7 @@ namespace LibraryManagementSystem
             this._presentationModel.ClickLastPageButton();
             this.UpdateBookInformation();
             this.UpdateButtonVisible();
+            this.UpdateControls();
         }
         #endregion
     }
