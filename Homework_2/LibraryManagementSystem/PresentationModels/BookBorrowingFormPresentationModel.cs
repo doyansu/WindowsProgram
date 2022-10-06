@@ -95,7 +95,6 @@ namespace LibraryManagementSystem
             int start = this._pageCount * BUTTONS_PER_PAGE;
             for (int i = start; i < start + BUTTONS_PER_PAGE && i < this._buttonVisibles[this._tabPageIndex].Count; i++)
                 this._buttonVisibles[this._tabPageIndex][i] = true;
-            int a = 0;
         }
 
         // 更新 AddBookButtonEnabled
@@ -172,7 +171,6 @@ namespace LibraryManagementSystem
         #endregion
 
         #endregion
-
 
     }
 }
