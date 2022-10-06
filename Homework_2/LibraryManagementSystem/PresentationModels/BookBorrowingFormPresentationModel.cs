@@ -45,6 +45,7 @@ namespace LibraryManagementSystem
         {
             this._model.UnselectedBookItem();
             this._tabPageIndex = index;
+            this._pageCount = 0;
             this.UpdateButtonsVisible();
             this.UpdateAddBookButtonEnabled();
         }
