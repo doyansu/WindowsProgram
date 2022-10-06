@@ -80,6 +80,7 @@ namespace LibraryManagementSystem
                     boolList.Add(false);
                 _buttonVisibles.Add(boolList);
             }
+            this.UpdateButtonsVisible();
         }
 
         // 更新 buttonVisible

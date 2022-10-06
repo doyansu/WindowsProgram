@@ -22,7 +22,6 @@ namespace LibraryManagementSystem
             this._presentationModel = presentationModel;
             this._backPackForm = backPackForm;
             this.CreateAllTabPage();
-            this.UpdateControls();
         }
         #endregion
 
@@ -97,9 +96,9 @@ namespace LibraryManagementSystem
         // 更新所有 View
         private void UpdateView()
         {
+            this.UpdateButtonVisible();
             this.UpdateControls();
             this.UpdateBorrowingList();
-            this.UpdateButtonVisible();
         }
         #endregion
 
