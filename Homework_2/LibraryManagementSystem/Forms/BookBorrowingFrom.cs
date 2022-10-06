@@ -94,6 +94,7 @@ namespace LibraryManagementSystem
             this._confirmBorrowingButton.Enabled = this._presentationModel.IsConfirmBorrowingButtonEnabled();
             this._nextPageButton.Enabled = this._presentationModel.IsNextButtonButtonEnabled();
             this._lastPageButton.Enabled = this._presentationModel.IsLastButtonButtonEnabled();
+            this._pageLabel.Text = this._presentationModel.GetPageLabelString();
         }
 
         // 更新按鈕是否可見

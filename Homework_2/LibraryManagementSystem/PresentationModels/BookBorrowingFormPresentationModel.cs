@@ -121,7 +121,13 @@ namespace LibraryManagementSystem
             this._isAddBookButtonEnabled = this._model.GetSelectedBookQuantity() > 0;
             this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
             this._isLastButtonEnabled = this._pageCount > 0;
-            this._isNextButtonEnabled = this._pageCount < (this._buttonVisibles[this._tabPageIndex].Count + 2) / BUTTONS_PER_PAGE - 1;
+            this._isNextButtonEnabled = this._pageCount < this.GetMaxTabPageIndex();
+        }
+
+        // 取得當前頁面最大的 page index
+        private int GetMaxTabPageIndex()
+        {
+            return (this._buttonVisibles[this._tabPageIndex].Count + BUTTONS_PER_PAGE - 1) / BUTTONS_PER_PAGE - 1;
         }
         #endregion
 
@@ -156,6 +162,14 @@ namespace LibraryManagementSystem
         public List<string[]> GetBorrowingListInformationList()
         {
             return this._model.GetBorrowingListInformationList();
+        }
+
+        // 取得當前 page 標籤文字
+        public string GetPageLabelString()
+        {
+            const string PAGE = "Page : ";
+            const string SLASH = " / ";
+            return PAGE + (this._pageCount + 1) + SLASH + (this.GetMaxTabPageIndex() + 1);
         }
 
         // get selectedBookItem state
