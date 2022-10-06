@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace LibraryManagementSystem
 {
@@ -198,10 +199,16 @@ namespace LibraryManagementSystem
 
         #region Button Process
         // 根據 buttonIndex 回傳按鈕位移
-        public int GetButtonOffset(int buttonIndex)
+        public int GetButtonOffset(int tabPageWidth, int buttonIndex)
         {
-            const int BUTTON_OFFSET = 87;
-            return BUTTON_OFFSET * (buttonIndex % BUTTONS_PER_PAGE);
+            return (tabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (buttonIndex % BUTTONS_PER_PAGE);
+        }
+
+        // t
+        public Size GetButtonSize(Size tabPageSize)
+        {
+            const int BUTTON_HEIGHT_ZOOM = 5;
+            return new Size(tabPageSize.Width / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE, tabPageSize.Height * (BUTTON_HEIGHT_ZOOM - 1) / BUTTON_HEIGHT_ZOOM);
         }
 
         // 取得按鈕可見陣列

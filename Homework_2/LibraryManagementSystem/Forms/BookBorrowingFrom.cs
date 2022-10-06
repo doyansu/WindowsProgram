@@ -50,15 +50,13 @@ namespace LibraryManagementSystem
         private Button CreateTabPageButton(int totalIndex, int categoryIndex)
         {
             const int BUTTON_OFFSET_HEIGHT = 0;
-            const int BUTTON_WIDTH = 85;
-            const int BUTTON_HEIGHT = 120;
             string imageFileName = string.Format("../../../image/{0}.jpg", totalIndex);
 
             Button button = new Button();
-            button.Tag = categoryIndex;
-            button.Location = new Point(this._presentationModel.GetButtonOffset(categoryIndex) , BUTTON_OFFSET_HEIGHT);
-            button.Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT);
             button.Image = Image.FromFile(imageFileName);
+            button.Tag = categoryIndex;
+            button.Location = new Point(this._presentationModel.GetButtonOffset(this._bookCategoryTabControl.Size.Width, categoryIndex) , BUTTON_OFFSET_HEIGHT);
+            button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
             button.Click += ClickTabPageButton;
             return button;
         }
