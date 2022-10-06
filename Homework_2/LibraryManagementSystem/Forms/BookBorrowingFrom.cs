@@ -57,6 +57,9 @@ namespace LibraryManagementSystem
             button.Tag = categoryIndex;
             button.Location = new Point(this._presentationModel.GetButtonOffset(this._bookCategoryTabControl.Size.Width, categoryIndex) , BUTTON_OFFSET_HEIGHT);
             button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
+            button.ImageAlign = ContentAlignment.MiddleRight;
+            button.TextAlign = ContentAlignment.MiddleLeft;
+            button.FlatStyle = FlatStyle.Flat;
             button.Click += ClickTabPageButton;
             return button;
         }

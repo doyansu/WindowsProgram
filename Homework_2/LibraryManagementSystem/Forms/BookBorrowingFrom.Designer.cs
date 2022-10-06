@@ -105,7 +105,7 @@ namespace LibraryManagementSystem
             this._bookCategoryTabControl.Location = new System.Drawing.Point(16, 22);
             this._bookCategoryTabControl.Name = "_bookCategoryTabControl";
             this._bookCategoryTabControl.SelectedIndex = 0;
-            this._bookCategoryTabControl.Size = new System.Drawing.Size(376, 168);
+            this._bookCategoryTabControl.Size = new System.Drawing.Size(376, 195);
             this._bookCategoryTabControl.TabIndex = 2;
             this._bookCategoryTabControl.SelectedIndexChanged += new System.EventHandler(this.BookCategoryTabControlSelectedIndexChanged);
             // 
@@ -126,9 +126,9 @@ namespace LibraryManagementSystem
             this._bookIntroductionGroupBox.Controls.Add(this._bookIntroductionRichTextBox);
             this._bookIntroductionGroupBox.Controls.Add(this._remainingBookQuantityLabel);
             this._bookIntroductionGroupBox.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._bookIntroductionGroupBox.Location = new System.Drawing.Point(6, 196);
+            this._bookIntroductionGroupBox.Location = new System.Drawing.Point(6, 223);
             this._bookIntroductionGroupBox.Name = "_bookIntroductionGroupBox";
-            this._bookIntroductionGroupBox.Size = new System.Drawing.Size(392, 240);
+            this._bookIntroductionGroupBox.Size = new System.Drawing.Size(392, 213);
             this._bookIntroductionGroupBox.TabIndex = 0;
             this._bookIntroductionGroupBox.TabStop = false;
             this._bookIntroductionGroupBox.Text = "書籍介紹";
@@ -138,7 +138,7 @@ namespace LibraryManagementSystem
             this._bookIntroductionRichTextBox.BackColor = System.Drawing.SystemColors.Menu;
             this._bookIntroductionRichTextBox.Location = new System.Drawing.Point(4, 22);
             this._bookIntroductionRichTextBox.Name = "_bookIntroductionRichTextBox";
-            this._bookIntroductionRichTextBox.Size = new System.Drawing.Size(382, 169);
+            this._bookIntroductionRichTextBox.Size = new System.Drawing.Size(382, 155);
             this._bookIntroductionRichTextBox.TabIndex = 1;
             this._bookIntroductionRichTextBox.Text = "";
             // 
@@ -146,7 +146,7 @@ namespace LibraryManagementSystem
             // 
             this._remainingBookQuantityLabel.AutoSize = true;
             this._remainingBookQuantityLabel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._remainingBookQuantityLabel.Location = new System.Drawing.Point(0, 203);
+            this._remainingBookQuantityLabel.Location = new System.Drawing.Point(0, 180);
             this._remainingBookQuantityLabel.Name = "_remainingBookQuantityLabel";
             this._remainingBookQuantityLabel.Size = new System.Drawing.Size(82, 21);
             this._remainingBookQuantityLabel.TabIndex = 0;

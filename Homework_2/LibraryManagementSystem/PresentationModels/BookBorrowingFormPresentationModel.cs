@@ -11,10 +11,6 @@ namespace LibraryManagementSystem
     {
         private Library _model;
         private List<List<bool>> _buttonVisibles;
-        private bool _isAddBookButtonEnabled = false;
-        private bool _isConfirmBorrowingButtonEnabled = false;
-        private bool _isNextButtonEnabled = false;
-        private bool _isLastButtonEnabled = false;
         private int _pageCount = 0;
         private int _tabPageIndex = 0;
         private const int BUTTONS_PER_PAGE = 3;
@@ -24,7 +20,6 @@ namespace LibraryManagementSystem
         {
             this._model = model;
             this.InitializeButtonsVisible();
-            this.UpdateControls();
         }
         #endregion
 
@@ -33,15 +28,12 @@ namespace LibraryManagementSystem
         public void ClickTabPageButton(string category, object tag)
         {
             this._model.SelectBookItem(category, int.Parse(tag.ToString()));
-            this.UpdateAddBookButtonEnabled();
         }
 
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
             this._model.JoinSelectedBookItemToBorrowingList();
-            this.UpdateConfirmBorrowingButtonEnabled();
-            this.UpdateAddBookButtonEnabled();
         }
 
         // 切換 Tabpage
@@ -51,15 +43,12 @@ namespace LibraryManagementSystem
             this._tabPageIndex = index;
             this._pageCount = 0;
             this.UpdateButtonsVisible();
-            this.UpdateControls();
         }
 
         // 點擊確認借書
         public void ClickConfirmBorrowingButton()
         {
             this._model.BorrowBooks();
-            this.UpdateConfirmBorrowingButtonEnabled();
-            this.UpdateAddBookButtonEnabled();
         }
 
         // 點擊下一頁按鈕
@@ -68,7 +57,6 @@ namespace LibraryManagementSystem
             this._pageCount++;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
-            this.UpdateControls();
         }
 
         // 點擊上一頁按鈕
@@ -77,7 +65,6 @@ namespace LibraryManagementSystem
             this._pageCount--;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
-            this.UpdateControls();
         }
         #endregion
 
@@ -102,27 +89,6 @@ namespace LibraryManagementSystem
             int start = this._pageCount * BUTTONS_PER_PAGE;
             for (int i = start; i < start + BUTTONS_PER_PAGE && i < this._buttonVisibles[this._tabPageIndex].Count; i++)
                 this._buttonVisibles[this._tabPageIndex][i] = true;
-        }
-
-        // 更新 AddBookButtonEnabled
-        private void UpdateAddBookButtonEnabled()
-        {
-            this._isAddBookButtonEnabled = this._model.GetSelectedBookQuantity() > 0;
-        }
-
-        // 更新 ConfirmBorrowingButtonEnabled
-        private void UpdateConfirmBorrowingButtonEnabled()
-        {
-            this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
-        }
-
-        // 更新所有控制 enable
-        private void UpdateControls()
-        {
-            this._isAddBookButtonEnabled = this._model.GetSelectedBookQuantity() > 0;
-            this._isConfirmBorrowingButtonEnabled = this._model.GetBorrowedListCount() > 0;
-            this._isLastButtonEnabled = this._pageCount > 0;
-            this._isNextButtonEnabled = this._pageCount < this.GetMaxTabPageIndex();
         }
 
         // 取得當前頁面最大的 page index
@@ -176,25 +142,25 @@ namespace LibraryManagementSystem
         // get selectedBookItem state
         public bool IsAddBookButtonEnabled()
         {
-            return this._isAddBookButtonEnabled;
+            return this._model.GetSelectedBookQuantity() > 0;
         }
 
         // get ConfirmBorrowingButton state
         public bool IsConfirmBorrowingButtonEnabled()
         {
-            return this._isConfirmBorrowingButtonEnabled;
+            return this._model.GetBorrowedListCount() > 0;
         }
 
         // 取得 NextButtonButton Enabled
         public bool IsNextButtonButtonEnabled()
         {
-            return this._isNextButtonEnabled;
+            return this._pageCount < this.GetMaxTabPageIndex();
         }
 
         // 取得 LastButtonButton Enabled
         public bool IsLastButtonButtonEnabled()
         {
-            return this._isLastButtonEnabled;
+            return this._pageCount > 0;
         }
 
         #region Button Process
