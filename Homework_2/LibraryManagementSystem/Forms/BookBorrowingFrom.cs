@@ -49,26 +49,18 @@ namespace LibraryManagementSystem
         // 創建 tabpagebuttons
         private Button CreateTabPageButton(int totalIndex, int categoryIndex)
         {
-            const int BUTTON_OFFSET_HEIGHT = 0;
             string imageFileName = string.Format("../../../image/{0}.jpg", totalIndex);
 
             Button button = new Button();
-            button.Image = Image.FromFile(imageFileName);
             button.Tag = categoryIndex;
-            button.Location = new Point(this._presentationModel.GetButtonOffset(this._bookCategoryTabControl.Size.Width, categoryIndex) , BUTTON_OFFSET_HEIGHT);
+            button.Image = Image.FromFile(imageFileName);
+            button.Location = this._presentationModel.GetButtonLocation(this._bookCategoryTabControl.Size.Width, categoryIndex);
             button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
             button.ImageAlign = ContentAlignment.MiddleRight;
             button.TextAlign = ContentAlignment.MiddleLeft;
             button.FlatStyle = FlatStyle.Flat;
             button.Click += ClickTabPageButton;
             return button;
-        }
-
-        // 更新書籍資訊
-        private void UpdateBookInformation()
-        {
-            this._bookIntroductionRichTextBox.Text = this._presentationModel.GetSelectedBookInformation();
-            this._remainingBookQuantityLabel.Text = this._presentationModel.GetSelectedBookQuantityString();
         }
 
         // 更新借書單
@@ -81,11 +73,13 @@ namespace LibraryManagementSystem
             this._borrowingBookQuantityLabel.Text = this._presentationModel.GetBorrowingListQuantityString();
         }
 
-        // 更新所有 View
-        private void UpdateView()
+        // 更新按鈕是否可見
+        private void UpdateButtonVisible()
         {
-            this.UpdateBookInformation();
-            this.UpdateBorrowingList();
+            int index = 0;
+            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList(this._bookCategoryTabControl.SelectedIndex);
+            foreach (object button in this._bookCategoryTabControl.SelectedTab.Controls)
+                ((Button)button).Visible = buttonVisibleList[index++];
         }
 
         // 更新所有 Controls Enable
@@ -96,30 +90,30 @@ namespace LibraryManagementSystem
             this._nextPageButton.Enabled = this._presentationModel.IsNextButtonButtonEnabled();
             this._lastPageButton.Enabled = this._presentationModel.IsLastButtonButtonEnabled();
             this._pageLabel.Text = this._presentationModel.GetPageLabelString();
+            this._bookIntroductionRichTextBox.Text = this._presentationModel.GetSelectedBookInformation();
+            this._remainingBookQuantityLabel.Text = this._presentationModel.GetSelectedBookQuantityString();
         }
 
-        // 更新按鈕是否可見
-        private void UpdateButtonVisible()
+        // 更新所有 View
+        private void UpdateView()
         {
-            int index = 0;
-            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList(this._bookCategoryTabControl.SelectedIndex);
-            foreach (object button in this._bookCategoryTabControl.SelectedTab.Controls)
-                ((Button)button).Visible = buttonVisibleList[index++];
+            this.UpdateControls();
+            this.UpdateBorrowingList();
+            this.UpdateButtonVisible();
         }
         #endregion
 
         #region Event
-        // Form Load initialization
+        // 載入 Form
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
-            // now do nothing
+            this.UpdateView();
         }
 
         // 點擊書籍按鈕
         private void ClickTabPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
-            this.UpdateBookInformation();
             this.UpdateControls();
         }
 
@@ -128,14 +122,12 @@ namespace LibraryManagementSystem
         {
             this._presentationModel.ClickAddBookButton();
             this.UpdateView();
-            this.UpdateControls();
         }
 
         // 切換 Tabpage
         private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
             this._presentationModel.BookCategoryTabControlSelectedIndexChanged(this._bookCategoryTabControl.SelectedIndex);
-            this.UpdateBookInformation();
             this.UpdateControls();
             this.UpdateButtonVisible();
         }
@@ -145,7 +137,6 @@ namespace LibraryManagementSystem
         {
             this._presentationModel.ClickConfirmBorrowingButton();
             this.UpdateView();
-            this.UpdateControls();
             const string MESSAGE = "借書功能尚未實作";
             MessageBox.Show(MESSAGE);
         }
@@ -160,18 +151,16 @@ namespace LibraryManagementSystem
         private void ClickNextPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickNextPageButton();
-            this.UpdateBookInformation();
-            this.UpdateButtonVisible();
             this.UpdateControls();
+            this.UpdateButtonVisible();
         }
 
         // 點擊上一頁按鈕
         private void ClickLastPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickLastPageButton();
-            this.UpdateBookInformation();
-            this.UpdateButtonVisible();
             this.UpdateControls();
+            this.UpdateButtonVisible();
         }
         #endregion
     }

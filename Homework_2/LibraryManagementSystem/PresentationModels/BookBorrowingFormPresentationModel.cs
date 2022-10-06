@@ -164,13 +164,13 @@ namespace LibraryManagementSystem
         }
 
         #region Button Process
-        // 根據 buttonIndex 回傳按鈕位移
-        public int GetButtonOffset(int tabPageWidth, int buttonIndex)
+        // 取得 ButtonLocation
+        public Point GetButtonLocation(int tabPageWidth, int buttonIndex)
         {
-            return (tabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (buttonIndex % BUTTONS_PER_PAGE);
+            return new Point((tabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (buttonIndex % BUTTONS_PER_PAGE), 0); 
         }
 
-        // t
+        // 取得 ButtonSize
         public Size GetButtonSize(Size tabPageSize)
         {
             const int BUTTON_HEIGHT_ZOOM = 5;

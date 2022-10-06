@@ -156,7 +156,7 @@ namespace LibraryManagementSystem
             // 
             this._borrowingBookQuantityLabel.AutoSize = true;
             this._borrowingBookQuantityLabel.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._borrowingBookQuantityLabel.Location = new System.Drawing.Point(458, 458);
+            this._borrowingBookQuantityLabel.Location = new System.Drawing.Point(422, 455);
             this._borrowingBookQuantityLabel.Name = "_borrowingBookQuantityLabel";
             this._borrowingBookQuantityLabel.Size = new System.Drawing.Size(96, 24);
             this._borrowingBookQuantityLabel.TabIndex = 1;
