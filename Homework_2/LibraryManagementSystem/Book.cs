@@ -31,24 +31,22 @@ namespace LibraryManagementSystem
 
         #region Member Function
         // get BookInformation Array
-        public string[] GetInformationArray()
+        public List<string> GetInformationList()
         {
-            return new string[] { this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem };
+            return new List<string> 
+            { 
+                this.Name, 
+                this.InternationalStandardBookNumber, 
+                this.Author, 
+                this.PublicationItem 
+            };
         }
 
         // get a format information string
         public string GetFormatInformation()
         {
-            const string BOOK_NUMBER_TITLE = "編號 : ";
-            const string AUTHOR_TITLE = "作者 : ";
-            const char NEW_LINE = '\n';
-            string information = "";
-
-            information += this.Name + NEW_LINE;
-            information += BOOK_NUMBER_TITLE + this.InternationalStandardBookNumber + NEW_LINE;
-            information += AUTHOR_TITLE + this.Author + NEW_LINE;
-            information += this.PublicationItem;
-            return information;
+            const string FORMAT_STRING = "{0}\n編號 : {1}\n作者 : {2}\n{3}";
+            return string.Format(FORMAT_STRING, this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem);
         }
         #endregion
 

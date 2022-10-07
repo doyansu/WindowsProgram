@@ -152,12 +152,12 @@ namespace LibraryManagementSystem
             return this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NULL_VALUE;
         }
 
-        // 取得借書單的資料陣列
-        public List<string[]> GetBorrowingListInformationList()
+        // 取得借書單的資料清單
+        public List<List<string>> GetBorrowingListInformationList()
         {
-            List<string[]> informationList = new List<string[]>();
+            List<List<string> > informationList = new List<List<string>>();
             foreach (BookItem bookItem in this._borrowingList)
-                informationList.Add(bookItem.Book.GetInformationArray());
+                informationList.Add(bookItem.GetInformationList());
             return informationList;
         }
 

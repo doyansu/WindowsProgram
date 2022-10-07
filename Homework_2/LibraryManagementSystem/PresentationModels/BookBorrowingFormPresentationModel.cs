@@ -129,7 +129,15 @@ namespace LibraryManagementSystem
         // 取得借書單的資料陣列
         public List<string[]> GetBorrowingListInformationList()
         {
-            return this._model.GetBorrowingListInformationList();
+            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
+            List<string[]> informationArray = new List<string[]>();
+            const string BUTTON_VALUE = "";
+            foreach (List<string> stringList in informationList)
+            {
+                stringList.Insert(0, BUTTON_VALUE);
+                informationArray.Add(stringList.ToArray());
+            }
+            return informationArray;
         }
 
         // 取得當前 page 標籤文字

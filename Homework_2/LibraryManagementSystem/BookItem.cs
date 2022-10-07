@@ -52,6 +52,14 @@ namespace LibraryManagementSystem
         {
             return this.Book == otherItem.Book;
         }
+
+        // 取得資訊陣列
+        public List<string> GetInformationList()
+        {
+            List<string> informationList = this.Book.GetInformationList();
+            informationList.Insert(1, this.Quantity.ToString());
+            return informationList;
+        }
         #endregion
 
         #region Getter and Setter
