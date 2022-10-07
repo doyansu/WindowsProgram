@@ -20,6 +20,7 @@ namespace LibraryManagementSystem
         {
             InitializeComponent();
             this._presentationModel = presentationModel;
+            this._presentationModel._showMessage += ShowMessage;
             this._backPackForm = backPackForm;
             this.CreateAllTabPage();
             this.InitializeDataGridView();
@@ -27,6 +28,12 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Private Function
+        // 顯示訊息
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
         // 生成所有 tabpage 
         private void CreateAllTabPage()
         {

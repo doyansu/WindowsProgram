@@ -12,7 +12,7 @@ namespace LibraryManagementSystem
     {
         #region Event
         public event Action _updateView;
-        public event Action<string> _showMessage;
+        
         #endregion
 
         #region Book Data
@@ -68,10 +68,19 @@ namespace LibraryManagementSystem
         }
 
         // 將選擇的書籍加入借書單
-        public void JoinSelectedBookItemToBorrowingList()
+        public string JoinSelectedBookItemToBorrowingList()
         {
-            if (this._selectedBookItem != null)
+            const int LIST_LIMIT = 5;
+            const string BORROWING_LIST_IS_FULL = "每次借書限借五本，您的借書單已滿";
+            const string UNSELECT_BOOK = "未選擇書籍";
+            string errorMessage = null;
+            if (this._selectedBookItem == null)
+                errorMessage = UNSELECT_BOOK;
+            if (this._borrowingList.Count >= LIST_LIMIT)
+                errorMessage = BORROWING_LIST_IS_FULL;
+            if (errorMessage == null)
                 this._borrowingList.Add(this._selectedBookItem.Take(1));
+            return errorMessage;
         }
 
         // 刪除借書單內的 item
@@ -198,9 +207,8 @@ namespace LibraryManagementSystem
         private void UpdateView()
         {
             if (this._updateView != null)
-                _updateView.Invoke();
+                this._updateView.Invoke();
         }
-
         #endregion
     }
 }

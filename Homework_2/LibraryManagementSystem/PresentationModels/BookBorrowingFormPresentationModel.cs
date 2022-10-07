@@ -9,6 +9,10 @@ namespace LibraryManagementSystem
 {
     public class BookBorrowingFormPresentationModel
     {
+        #region Event
+        public event Action<string> _showMessage;
+        #endregion
+
         private Library _model;
         private List<List<bool>> _buttonVisibles;
         private int _pageCount = 0;
@@ -33,7 +37,10 @@ namespace LibraryManagementSystem
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
-            this._model.JoinSelectedBookItemToBorrowingList();
+            string errorMessage;
+            errorMessage = this._model.JoinSelectedBookItemToBorrowingList();
+            if (errorMessage != null)
+                this.ShowMessage(errorMessage);
         }
 
         // 切換 Tabpage
@@ -154,13 +161,13 @@ namespace LibraryManagementSystem
             return PAGE + (this._pageCount + 1) + SLASH + (this.GetMaxTabPageIndex() + 1);
         }
 
-        // get selectedBookItem state
+        // 取得 selectedBookItem Enabled
         public bool IsAddBookButtonEnabled()
         {
             return this._model.GetSelectedBookQuantity() > 0;
         }
 
-        // get ConfirmBorrowingButton state
+        // 取得 ConfirmBorrowingButton Enabled
         public bool IsConfirmBorrowingButtonEnabled()
         {
             return this._model.GetBorrowedListCount() > 0;
@@ -201,5 +208,13 @@ namespace LibraryManagementSystem
 
         #endregion
 
+        #region Event Handle Function
+        // 顯示 Message
+        private void ShowMessage(string message)
+        {
+            if (this._showMessage != null)
+                this._showMessage.Invoke(message);
+        }
+        #endregion
     }
 }
