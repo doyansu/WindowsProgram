@@ -66,6 +66,12 @@ namespace LibraryManagementSystem
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
         }
+
+        // 點擊借書單的刪除按鈕
+        public void ClickDataGridView1CellContent(int rowIndex)
+        {
+            this._model.DeleteBorrowingListItem(rowIndex);
+        }
         #endregion
 
         #region Private Function

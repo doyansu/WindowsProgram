@@ -11,8 +11,8 @@ namespace LibraryManagementSystem
     public class Library
     {
         #region Event
-        public event ModelEventHandler _updateView;
-        public delegate void ModelEventHandler();
+        public event Action _updateView;
+        public event Action<string> _showMessage;
         #endregion
 
         #region Book Data
@@ -74,6 +74,16 @@ namespace LibraryManagementSystem
                 this._borrowingList.Add(this._selectedBookItem.Take(1));
         }
 
+        // 刪除借書單內的 item
+        public void DeleteBorrowingListItem(int index)
+        {
+            if (index >= 0 && index < this._borrowingList.Count)
+            {
+                this.ReturnBookItem(this._borrowingList[index]);
+                this._borrowingList.RemoveAt(index);
+            }
+        }
+
         // 不選擇任何書籍
         public void UnselectedBookItem()
         {
@@ -85,7 +95,7 @@ namespace LibraryManagementSystem
         {
             // return book to _bookItemList
             foreach (BookItem returnBook in this._borrowingList)
-                this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnBook)).AddQuantity(returnBook);
+                this.ReturnBookItem(returnBook);
             this._borrowingList.Clear();
         }
         #endregion
@@ -118,6 +128,12 @@ namespace LibraryManagementSystem
             this._borrowingList.Clear();
             this._bookItemList.Clear();
             this._bookCategoryList.Clear();
+        }
+
+        // 將書籍還回 _bookItemList 清單
+        private void ReturnBookItem(BookItem returnItem)
+        {
+            this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnItem)).AddQuantity(returnItem);
         }
         #endregion
 

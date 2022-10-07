@@ -33,7 +33,6 @@ namespace LibraryManagementSystem
             this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._presentationModel.GetCategoryQuantityPair();
             int totalIndex = 1;
-
             foreach (var data in categoryQuantity)
             {
                 string category = data.Key;
@@ -72,6 +71,7 @@ namespace LibraryManagementSystem
             deleteColumn.UseColumnTextForButtonValue = true;
             this._bookInformationDataGridView.Columns.Insert(0, deleteColumn);
             this._bookInformationDataGridView.CellPainting += PatingDataGridView;
+            this._bookInformationDataGridView.CellContentClick += ClickDataGridView1CellContent;
         }
 
         // 繪製刪除按鈕圖片
@@ -85,8 +85,8 @@ namespace LibraryManagementSystem
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 var w = img.Width;
                 var h = img.Height;
-                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
-                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
+                var x = e.CellBounds.Left + ((e.CellBounds.Width - w) >> 1);
+                var y = e.CellBounds.Top + ((e.CellBounds.Height - h) >> 1);
                 e.Graphics.DrawImage(img, new Rectangle(x, y, w, h));
                 e.Handled = true;
             }
@@ -190,6 +190,17 @@ namespace LibraryManagementSystem
             this._presentationModel.ClickLastPageButton();
             this.UpdateControls();
             this.UpdateButtonVisible();
+        }
+
+        // 點擊借書單的刪除按鈕
+        private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
+        {
+            if (((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
+                this.UpdateBorrowingList();
+                this.UpdateControls();
+            }
         }
         #endregion
     }
