@@ -36,7 +36,7 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region View Process
+        #region Member Function
         // 透過類別選擇書籍
         public void SelectBookItem(string category, int index)
         {
@@ -187,6 +187,12 @@ namespace LibraryManagementSystem
         public int GetBorrowedListCount()
         {
             return this._borrowingList.Count;
+        }
+
+        // 取得 BorrowingList 是否包含 SelectedBook
+        public bool IsBorrowingListContainsSelectedBook()
+        {
+            return this._selectedBookItem != null ? this._borrowingList.Where(bookItem => bookItem.IsBookEquals(this._selectedBookItem)).Count() > 0 : false;
         }
         #endregion
 

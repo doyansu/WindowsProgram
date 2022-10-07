@@ -13,11 +13,15 @@ namespace LibraryManagementSystem
         public event Action<string> _showMessage;
         #endregion
 
+        #region Const
+        private const int BUTTONS_PER_PAGE = 3;
+        #endregion
+
         private Library _model;
         private List<List<bool>> _buttonVisibles;
         private int _pageCount = 0;
         private int _tabPageIndex = 0;
-        private const int BUTTONS_PER_PAGE = 3;
+        private bool _isAddBookButtonEnabled = false;
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
@@ -37,10 +41,13 @@ namespace LibraryManagementSystem
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
-            string errorMessage;
-            errorMessage = this._model.JoinSelectedBookItemToBorrowingList();
-            if (errorMessage != null)
-                this.ShowMessage(errorMessage);
+            this.ShowMessage(this._model.JoinSelectedBookItemToBorrowingList());
+        }
+
+        // 點擊借書單的刪除按鈕
+        public void ClickDataGridView1CellContent(int rowIndex)
+        {
+            this._model.DeleteBorrowingListItem(rowIndex);
         }
 
         // 切換 Tabpage
@@ -72,12 +79,6 @@ namespace LibraryManagementSystem
             this._pageCount--;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
-        }
-
-        // 點擊借書單的刪除按鈕
-        public void ClickDataGridView1CellContent(int rowIndex)
-        {
-            this._model.DeleteBorrowingListItem(rowIndex);
         }
         #endregion
 
@@ -164,7 +165,7 @@ namespace LibraryManagementSystem
         // 取得 selectedBookItem Enabled
         public bool IsAddBookButtonEnabled()
         {
-            return this._model.GetSelectedBookQuantity() > 0;
+            return this._model.GetSelectedBookQuantity() > 0 && !this._model.IsBorrowingListContainsSelectedBook();
         }
 
         // 取得 ConfirmBorrowingButton Enabled
@@ -212,7 +213,7 @@ namespace LibraryManagementSystem
         // 顯示 Message
         private void ShowMessage(string message)
         {
-            if (this._showMessage != null)
+            if (this._showMessage != null && message != null)
                 this._showMessage.Invoke(message);
         }
         #endregion
