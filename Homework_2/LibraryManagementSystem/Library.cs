@@ -12,7 +12,6 @@ namespace LibraryManagementSystem
     {
         #region Event
         public event Action _updateView;
-        
         #endregion
 
         #region Book Data
@@ -33,32 +32,11 @@ namespace LibraryManagementSystem
             this._borrowingList = new List<BookItem>();
             this._bookCategoryList = new List<BookCategory>();
             this._borrowedList = new BorrowedList();
+            this.LoadsBooksData();
         }
         #endregion
 
         #region View Process
-        // 從 hw2_books_source.txt 下載資料
-        public void LoadsBooksData()
-        {
-            const string FILE_NAME = "../../../hw2_books_source.txt";
-            const string BOOK = "BOOK";
-            const int DATA_ROWS = 6;
-            StreamReader file = new StreamReader(@FILE_NAME);
-
-            this.ClearAllData();
-            while (!file.EndOfStream)
-            {
-                string line = file.ReadLine();
-                if (line == BOOK)
-                {
-                    List<string> bookData = new List<string>();
-                    for (int i = 0; i < DATA_ROWS; i++)
-                        bookData.Add(file.ReadLine());
-                    this.SaveBooks(bookData);
-                }
-            }
-        }
-
         // 透過類別選擇書籍
         public void SelectBookItem(string category, int index)
         {
@@ -110,6 +88,26 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Private Function
+        // 從 hw2_books_source.txt 下載資料
+        private void LoadsBooksData()
+        {
+            const string FILE_NAME = "../../../hw2_books_source.txt";
+            const string BOOK = "BOOK";
+            const int DATA_ROWS = 6;
+            StreamReader file = new StreamReader(@FILE_NAME);
+            while (!file.EndOfStream)
+            {
+                string line = file.ReadLine();
+                if (line == BOOK)
+                {
+                    List<string> bookData = new List<string>();
+                    for (int i = 0; i < DATA_ROWS; i++)
+                        bookData.Add(file.ReadLine());
+                    this.SaveBooks(bookData);
+                }
+            }
+        }
+
         // 存取書籍資料
         private void SaveBooks(List<string> bookData)
         {
@@ -127,16 +125,6 @@ namespace LibraryManagementSystem
                 this._bookCategoryList.Add(bookCategoryQueryResult);
             }
             bookCategoryQueryResult.AddBook(book);
-        }
-
-        // 清空所有資料
-        private void ClearAllData()
-        {
-            this._selectedBookItem = null;
-            this._bookList.Clear();
-            this._borrowingList.Clear();
-            this._bookItemList.Clear();
-            this._bookCategoryList.Clear();
         }
 
         // 將書籍還回 _bookItemList 清單
