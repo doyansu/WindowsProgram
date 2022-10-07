@@ -69,9 +69,27 @@ namespace LibraryManagementSystem
             const string DELETE = "刪除";
             DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
             deleteColumn.HeaderText = DELETE;
-            deleteColumn.Text = DELETE;
             deleteColumn.UseColumnTextForButtonValue = true;
             this._bookInformationDataGridView.Columns.Insert(0, deleteColumn);
+            this._bookInformationDataGridView.CellPainting += PatingDataGridView;
+        }
+
+        // 繪製刪除按鈕圖片
+        private void PatingDataGridView(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0) 
+                return;
+            if (e.ColumnIndex == 0)
+            {
+                Image img = Image.FromFile("../../../image/trash_can.png");
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                var w = img.Width;
+                var h = img.Height;
+                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
+                e.Graphics.DrawImage(img, new Rectangle(x, y, w, h));
+                e.Handled = true;
+            }
         }
 
         // 更新借書單
