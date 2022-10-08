@@ -21,6 +21,7 @@ namespace LibraryManagementSystem
         private List<List<bool>> _buttonVisibles;
         private int _pageCount = 0;
         private int _tabPageIndex = 0;
+        private bool _isBackPackButtonEnabled = true;
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
@@ -79,6 +80,19 @@ namespace LibraryManagementSystem
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
         }
+
+        // 點擊我的書包
+        public void ClickBackPackButton()
+        {
+            this._isBackPackButtonEnabled = false;
+        }
+
+        // 關閉我的書包視窗
+        public void BackPackFormClosing()
+        {
+            this._isBackPackButtonEnabled = true;
+        }
+
         #endregion
 
         #region Private Function
@@ -183,6 +197,12 @@ namespace LibraryManagementSystem
         public bool IsLastButtonButtonEnabled()
         {
             return this._pageCount > 0;
+        }
+
+        // 取得 BackPackButton Enabled
+        public bool IsBackPackButtonEnabled()
+        {
+            return this._isBackPackButtonEnabled;
         }
 
         #region Button Process

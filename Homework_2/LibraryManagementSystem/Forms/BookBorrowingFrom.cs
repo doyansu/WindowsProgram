@@ -22,8 +22,10 @@ namespace LibraryManagementSystem
             this._presentationModel = presentationModel;
             this._presentationModel._showMessage += ShowMessage;
             this._backPackForm = backPackForm;
+            this._backPackForm.FormClosing += BackPackFormClosing;
             this.CreateAllTabPage();
-            this.InitializeDataGridView();
+            this._bookInformationDataGridView.CellPainting += PatingDataGridView;
+            this._bookInformationDataGridView.CellContentClick += ClickDataGridView1CellContent;
         }
         #endregion
 
@@ -69,24 +71,10 @@ namespace LibraryManagementSystem
             return button;
         }
 
-        // 初始化 DataGridView 物件
-        private void InitializeDataGridView()
-        {
-            const string DELETE = "刪除";
-            DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
-            deleteColumn.HeaderText = DELETE;
-            deleteColumn.UseColumnTextForButtonValue = true;
-            this._bookInformationDataGridView.Columns.Insert(0, deleteColumn);
-            this._bookInformationDataGridView.CellPainting += PatingDataGridView;
-            this._bookInformationDataGridView.CellContentClick += ClickDataGridView1CellContent;
-        }
-
         // 繪製刪除按鈕圖片
         private void PatingDataGridView(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex < 0) 
-                return;
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 Image image = Image.FromFile("../../../image/trash_can.png");
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
@@ -121,6 +109,7 @@ namespace LibraryManagementSystem
             this._confirmBorrowingButton.Enabled = this._presentationModel.IsConfirmBorrowingButtonEnabled();
             this._nextPageButton.Enabled = this._presentationModel.IsNextButtonButtonEnabled();
             this._lastPageButton.Enabled = this._presentationModel.IsLastButtonButtonEnabled();
+            this._backPackButton.Enabled = this._presentationModel.IsBackPackButtonEnabled();
             this._pageLabel.Text = this._presentationModel.GetPageLabelString();
             this._bookIntroductionRichTextBox.Text = this._presentationModel.GetSelectedBookInformation();
             this._remainingBookQuantityLabel.Text = this._presentationModel.GetSelectedBookQuantityString();
