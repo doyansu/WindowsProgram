@@ -19,5 +19,17 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._presentationModel = presentationModel;
         }
+
+        // 更新所有 View (書包資訊)
+        public void UpdateView()
+        {
+            this._backPackDataGridView.Rows.Clear();
+            List<string[]> borrowedList = this._presentationModel.GetBorrowedListInformationList();
+            foreach (string[] row in borrowedList)
+                this._backPackDataGridView.Rows.Add(row);
+        }
+
+        #region Event
+        #endregion
     }
 }

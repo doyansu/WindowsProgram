@@ -62,6 +62,13 @@ namespace LibraryManagementSystem
         // 點擊確認借書
         public void ClickConfirmBorrowingButton()
         {
+            const string STRING_FORMAT_MESSAGE = "[{0}]{1}\n\n{2}本書已成功借出";
+            const string STRING_FORMAT_BOOK = " 、 [{0}]";
+            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
+            string books = "";
+            for (int i = 1; i < informationList.Count; i++)
+                books += string.Format(STRING_FORMAT_BOOK, informationList[i][0]);
+            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, informationList[0][0], books, informationList.Count));
             this._model.BorrowBooks();
         }
 

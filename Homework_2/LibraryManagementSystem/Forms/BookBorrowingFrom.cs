@@ -157,15 +157,17 @@ namespace LibraryManagementSystem
         private void ClickConfirmBorrowingButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickConfirmBorrowingButton();
+            this._backPackForm.UpdateView();
             this.UpdateView();
-            const string MESSAGE = "借書功能尚未實作";
-            MessageBox.Show(MESSAGE);
         }
 
         // 點擊我的書包
         private void ClickBackPackButton(object sender, EventArgs e)
         {
-            this._backPackForm.ShowDialog();
+            this._backPackForm.UpdateView();
+            this._backPackForm.Show();
+            this._presentationModel.ClickBackPackButton();
+            this.UpdateControls();
         }
         
         // 點擊下一頁按鈕
@@ -187,12 +189,22 @@ namespace LibraryManagementSystem
         // 點擊借書單的刪除按鈕
         private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
         {
-            if (((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            // ((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
                 this.UpdateBorrowingList();
                 this.UpdateControls();
             }
+        }
+
+        // 關閉我的書包視窗
+        private void BackPackFormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            ((Form)sender).Hide();
+            this._presentationModel.BackPackFormClosing();
+            this.UpdateControls();
         }
         #endregion
     }

@@ -29,34 +29,118 @@ namespace LibraryManagementSystem
         /// </summary>
         private void InitializeComponent()
         {
-            this._backPackDataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView1)).BeginInit();
+            this._backPackDataGridView = new System.Windows.Forms.DataGridView();
+            this._returnBookColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._bookNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookQuantityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._borrowDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._returnDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookAuthorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookPublicationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // _backPackDataGridView1
+            // _backPackDataGridView
             // 
-            this._backPackDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._backPackDataGridView1.Location = new System.Drawing.Point(12, 12);
-            this._backPackDataGridView1.Name = "_backPackDataGridView1";
-            this._backPackDataGridView1.RowTemplate.Height = 24;
-            this._backPackDataGridView1.Size = new System.Drawing.Size(776, 426);
-            this._backPackDataGridView1.TabIndex = 0;
+            this._backPackDataGridView.AllowUserToAddRows = false;
+            this._backPackDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this._backPackDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._backPackDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._returnBookColumn,
+            this._bookNameColumn,
+            this._bookQuantityColumn,
+            this._borrowDateColumn,
+            this._returnDateColumn,
+            this._bookNumberColumn,
+            this._bookAuthorColumn,
+            this._bookPublicationColumn});
+            this._backPackDataGridView.Location = new System.Drawing.Point(12, 12);
+            this._backPackDataGridView.Name = "_backPackDataGridView";
+            this._backPackDataGridView.ReadOnly = true;
+            this._backPackDataGridView.RowHeadersVisible = false;
+            this._backPackDataGridView.RowTemplate.Height = 24;
+            this._backPackDataGridView.Size = new System.Drawing.Size(776, 426);
+            this._backPackDataGridView.TabIndex = 0;
+            // 
+            // _returnBookColumn
+            // 
+            this._returnBookColumn.FillWeight = 50F;
+            this._returnBookColumn.HeaderText = "還書";
+            this._returnBookColumn.Name = "_returnBookColumn";
+            this._returnBookColumn.ReadOnly = true;
+            this._returnBookColumn.Text = "歸還";
+            this._returnBookColumn.UseColumnTextForButtonValue = true;
+            // 
+            // _bookNameColumn
+            // 
+            this._bookNameColumn.FillWeight = 180F;
+            this._bookNameColumn.HeaderText = "書籍名稱";
+            this._bookNameColumn.Name = "_bookNameColumn";
+            this._bookNameColumn.ReadOnly = true;
+            // 
+            // _bookQuantityColumn
+            // 
+            this._bookQuantityColumn.FillWeight = 50F;
+            this._bookQuantityColumn.HeaderText = "數量";
+            this._bookQuantityColumn.Name = "_bookQuantityColumn";
+            this._bookQuantityColumn.ReadOnly = true;
+            // 
+            // _borrowDateColumn
+            // 
+            this._borrowDateColumn.FillWeight = 75F;
+            this._borrowDateColumn.HeaderText = "借書日期";
+            this._borrowDateColumn.Name = "_borrowDateColumn";
+            this._borrowDateColumn.ReadOnly = true;
+            // 
+            // _returnDateColumn
+            // 
+            this._returnDateColumn.FillWeight = 75F;
+            this._returnDateColumn.HeaderText = "還書期限";
+            this._returnDateColumn.Name = "_returnDateColumn";
+            this._returnDateColumn.ReadOnly = true;
+            // 
+            // _bookNumberColumn
+            // 
+            this._bookNumberColumn.HeaderText = "書籍編號";
+            this._bookNumberColumn.Name = "_bookNumberColumn";
+            this._bookNumberColumn.ReadOnly = true;
+            // 
+            // _bookAuthorColumn
+            // 
+            this._bookAuthorColumn.HeaderText = "作者";
+            this._bookAuthorColumn.Name = "_bookAuthorColumn";
+            this._bookAuthorColumn.ReadOnly = true;
+            // 
+            // _bookPublicationColumn
+            // 
+            this._bookPublicationColumn.HeaderText = "出版項";
+            this._bookPublicationColumn.Name = "_bookPublicationColumn";
+            this._bookPublicationColumn.ReadOnly = true;
             // 
             // BackPackForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this._backPackDataGridView1);
+            this.Controls.Add(this._backPackDataGridView);
             this.Name = "BackPackForm";
             this.Text = "我的書包(還書)";
-            ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView _backPackDataGridView1;
+        private System.Windows.Forms.DataGridView _backPackDataGridView;
+        private System.Windows.Forms.DataGridViewButtonColumn _returnBookColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookQuantityColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _borrowDateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _returnDateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumberColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthorColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationColumn;
     }
 }

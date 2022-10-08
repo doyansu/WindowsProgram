@@ -80,9 +80,8 @@ namespace LibraryManagementSystem
         // 借書
         public void BorrowBooks()
         {
-            // return book to _bookItemList
-            foreach (BookItem returnBook in this._borrowingList)
-                this.ReturnBookItem(returnBook);
+            foreach (BookItem borrowedBook in this._borrowingList)
+                this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
             this._borrowingList.Clear();
         }
         #endregion
@@ -172,6 +171,12 @@ namespace LibraryManagementSystem
             foreach (BookItem bookItem in this._borrowingList)
                 informationList.Add(bookItem.GetInformationList());
             return informationList;
+        }
+
+        // 取得我的書包的資料清單
+        public List<List<string>> GetBorrowedInformationList()
+        {
+            return this._borrowedList.GetInformationList();
         }
 
         // 取得借書單總共有幾本書
