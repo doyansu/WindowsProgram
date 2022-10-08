@@ -84,6 +84,13 @@ namespace LibraryManagementSystem
                 this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
             this._borrowingList.Clear();
         }
+
+        // 歸還書籍
+        public void ReturnBorrowedBook(int index)
+        {
+            this.ReturnBookItem(new BookItem(this._borrowedList.GetBookAt(index), 1));
+            this._borrowedList.RemoveAt(index);
+        }
         #endregion
 
         #region Private Function
@@ -192,6 +199,13 @@ namespace LibraryManagementSystem
         public int GetBorrowedListCount()
         {
             return this._borrowingList.Count;
+        }
+
+        // 取得已借書籍名稱
+        public string GetBorrowedBookName(int index)
+        {
+            Book book = this._borrowedList.GetBookAt(index);
+            return book != null ? book.Name : null;
         }
 
         // 取得 BorrowingList 是否包含 SelectedBook

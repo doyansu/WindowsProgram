@@ -29,6 +29,18 @@ namespace LibraryManagementSystem
                 this._borrowedItems.RemoveAt(index);
         }
 
+        // 取得清單書本內數量
+        public int GetCount()
+        {
+            return this._borrowedItems.Count();
+        }
+
+        // 取得書本
+        public Book GetBookAt(int index)
+        {
+            return index >= 0 && index < this._borrowedItems.Count ? this._borrowedItems[index].Book : null;
+        }
+
         // 取得資料清單
         public List<List<string>> GetInformationList()
         {
