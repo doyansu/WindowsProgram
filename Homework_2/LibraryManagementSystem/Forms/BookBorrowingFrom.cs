@@ -63,12 +63,10 @@ namespace LibraryManagementSystem
 
             Button button = new Button();
             button.Tag = categoryIndex;
-            button.Image = Image.FromFile(imageFileName);
+            button.BackgroundImage = Image.FromFile(imageFileName);
+            button.BackgroundImageLayout = ImageLayout.Stretch;
             button.Location = this._presentationModel.GetButtonLocation(this._bookCategoryTabControl.Size.Width, categoryIndex);
             button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
-            button.ImageAlign = ContentAlignment.MiddleRight;
-            button.TextAlign = ContentAlignment.MiddleLeft;
-            button.FlatStyle = FlatStyle.Flat;
             button.Click += ClickTabPageButton;
             return button;
         }
