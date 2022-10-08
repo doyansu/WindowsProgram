@@ -21,7 +21,6 @@ namespace LibraryManagementSystem
         private List<List<bool>> _buttonVisibles;
         private int _pageCount = 0;
         private int _tabPageIndex = 0;
-        private bool _isAddBookButtonEnabled = false;
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
@@ -198,6 +197,14 @@ namespace LibraryManagementSystem
         {
             const int BUTTON_HEIGHT_ZOOM = 5;
             return new Size(tabPageSize.Width / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE, tabPageSize.Height * (BUTTON_HEIGHT_ZOOM - 1) / BUTTON_HEIGHT_ZOOM);
+        }
+
+        // 取得 delete 按鈕圖片 Rectangle
+        public Rectangle GetDeleteButtonRectangle(Image image, Rectangle cellBounds)
+        {
+            int width = image.Width;
+            int height = image.Height;
+            return new Rectangle(cellBounds.Left + ((cellBounds.Width - width) >> 1), cellBounds.Top + ((cellBounds.Height - height) >> 1), width, height);
         }
 
         // 取得按鈕可見陣列

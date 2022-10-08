@@ -88,13 +88,9 @@ namespace LibraryManagementSystem
                 return;
             if (e.ColumnIndex == 0)
             {
-                Image img = Image.FromFile("../../../image/trash_can.png");
+                Image image = Image.FromFile("../../../image/trash_can.png");
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                var w = img.Width;
-                var h = img.Height;
-                var x = e.CellBounds.Left + ((e.CellBounds.Width - w) >> 1);
-                var y = e.CellBounds.Top + ((e.CellBounds.Height - h) >> 1);
-                e.Graphics.DrawImage(img, new Rectangle(x, y, w, h));
+                e.Graphics.DrawImage(image, this._presentationModel.GetDeleteButtonRectangle(image, e.CellBounds));
                 e.Handled = true;
             }
         }
