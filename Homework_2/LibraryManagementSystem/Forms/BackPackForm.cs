@@ -25,7 +25,6 @@ namespace LibraryManagementSystem
             this._presentationModel = presentationModel;
             this._presentationModel._showMessage += ShowMessage;
             this._backPackDataGridView.CellContentClick += ClickDataGridView1CellContent;
-        
         }
 
         // 更新所有 View (書包資訊)

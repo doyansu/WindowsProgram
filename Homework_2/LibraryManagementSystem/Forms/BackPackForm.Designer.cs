@@ -30,7 +30,7 @@ namespace LibraryManagementSystem
         private void InitializeComponent()
         {
             this._backPackDataGridView = new System.Windows.Forms.DataGridView();
-            this._returnBookColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._returnBookButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._bookNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookQuantityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._borrowDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@ namespace LibraryManagementSystem
             this._backPackDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._backPackDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._backPackDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._returnBookColumn,
+            this._returnBookButtonColumn,
             this._bookNameColumn,
             this._bookQuantityColumn,
             this._borrowDateColumn,
@@ -63,14 +63,14 @@ namespace LibraryManagementSystem
             this._backPackDataGridView.Size = new System.Drawing.Size(776, 426);
             this._backPackDataGridView.TabIndex = 0;
             // 
-            // _returnBookColumn
+            // _returnBookButtonColumn
             // 
-            this._returnBookColumn.FillWeight = 50F;
-            this._returnBookColumn.HeaderText = "還書";
-            this._returnBookColumn.Name = "_returnBookColumn";
-            this._returnBookColumn.ReadOnly = true;
-            this._returnBookColumn.Text = "歸還";
-            this._returnBookColumn.UseColumnTextForButtonValue = true;
+            this._returnBookButtonColumn.FillWeight = 50F;
+            this._returnBookButtonColumn.HeaderText = "還書";
+            this._returnBookButtonColumn.Name = "_returnBookButtonColumn";
+            this._returnBookButtonColumn.ReadOnly = true;
+            this._returnBookButtonColumn.Text = "歸還";
+            this._returnBookButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // _bookNameColumn
             // 
@@ -134,7 +134,7 @@ namespace LibraryManagementSystem
         #endregion
 
         private System.Windows.Forms.DataGridView _backPackDataGridView;
-        private System.Windows.Forms.DataGridViewButtonColumn _returnBookColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn _returnBookButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookQuantityColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _borrowDateColumn;

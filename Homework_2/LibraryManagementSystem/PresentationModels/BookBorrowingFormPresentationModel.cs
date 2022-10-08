@@ -14,6 +14,7 @@ namespace LibraryManagementSystem.PresentationModel
         #endregion
 
         #region Const
+        // 每頁書籍按鈕數
         private const int BUTTONS_PER_PAGE = 3;
         #endregion
 
