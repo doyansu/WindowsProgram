@@ -90,8 +90,12 @@ namespace LibraryManagementSystem
         {
             this._bookInformationDataGridView.Rows.Clear();
             List<string[]> borrowingList = this._presentationModel.GetBorrowingListInformationList();
+            int index = 0;
             foreach (string[] row in borrowingList)
+            {
                 this._bookInformationDataGridView.Rows.Add(row);
+                this._bookInformationDataGridView.Rows[index].Tag = index++;
+            }
             this._borrowingBookQuantityLabel.Text = this._presentationModel.GetBorrowingListQuantityString();
         }
 
@@ -194,7 +198,7 @@ namespace LibraryManagementSystem
             // ((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
+                this._presentationModel.ClickDataGridView1CellContent(((DataGridView)sender).Rows[e.RowIndex].Tag);
                 this.UpdateBorrowingList();
                 this.UpdateControls();
             }

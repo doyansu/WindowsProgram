@@ -32,8 +32,12 @@ namespace LibraryManagementSystem
         {
             this._backPackDataGridView.Rows.Clear();
             List<string[]> borrowedList = this._presentationModel.GetBorrowedListInformationList();
+            int index = 0;
             foreach (string[] row in borrowedList)
+            {
                 this._backPackDataGridView.Rows.Add(row);
+                this._backPackDataGridView.Rows[index].Tag = index++;
+            }
         }
 
         // 顯示訊息
@@ -46,10 +50,9 @@ namespace LibraryManagementSystem
         // 點擊書包的歸還按鈕
         private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
         {
-            
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
+                this._presentationModel.ClickDataGridView1CellContent(((DataGridView)sender).Rows[e.RowIndex].Tag);
                 this.UpdateView();
                 this.UpdateBorrowingFormView();
             }

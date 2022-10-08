@@ -46,9 +46,9 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         // 點擊借書單的刪除按鈕
-        public void ClickDataGridView1CellContent(int rowIndex)
+        public void ClickDataGridView1CellContent(object rowTag)
         {
-            this._model.DeleteBorrowingListItem(rowIndex);
+            this._model.DeleteBorrowingListItem(int.Parse(rowTag.ToString()));
         }
 
         // 切換 Tabpage

@@ -24,9 +24,10 @@ namespace LibraryManagementSystem.PresentationModel
         {
             List<List<string>> informationList = this._model.GetBorrowedInformationList();
             List<string[]> informationArray = new List<string[]>();
+            const string NULL_VALUE = "";
             foreach (List<string> stringList in informationList)
             {
-                stringList.Insert(0, stringList[0]);
+                stringList.Insert(0, NULL_VALUE);
                 informationArray.Add(stringList.ToArray());
             }
             return informationArray;
@@ -34,11 +35,12 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region View Process
         // 點擊書包的歸還按鈕
-        public void ClickDataGridView1CellContent(int index)
+        public void ClickDataGridView1CellContent(object rowTag)
         {
+            int rowIndex = int.Parse(rowTag.ToString());
             const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
-            this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(index)));
-            this._model.ReturnBorrowedBook(index);
+            this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
+            this._model.ReturnBorrowedBook(rowIndex);
         }
         #endregion
 
