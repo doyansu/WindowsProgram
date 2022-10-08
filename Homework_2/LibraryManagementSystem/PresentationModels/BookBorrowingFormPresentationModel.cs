@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace LibraryManagementSystem
+namespace LibraryManagementSystem.PresentationModel
 {
     public class BookBorrowingFormPresentationModel
     {

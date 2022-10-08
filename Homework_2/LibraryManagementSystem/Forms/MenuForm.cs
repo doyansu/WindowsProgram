@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibraryManagementSystem.PresentationModel;
 
 namespace LibraryManagementSystem
 {
@@ -37,7 +38,7 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region Event
+        #region Form Event
         // 點擊按鈕離開圖書館系統
         private void ExitButtonClick(object sender, EventArgs e)
         {

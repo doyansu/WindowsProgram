@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibraryManagementSystem.PresentationModel;
 
 namespace LibraryManagementSystem
 {
@@ -23,6 +24,7 @@ namespace LibraryManagementSystem
             this._presentationModel._showMessage += ShowMessage;
             this._backPackForm = backPackForm;
             this._backPackForm.FormClosing += BackPackFormClosing;
+            this._backPackForm._updateBorrowingFormView += this.UpdateView;
             this.CreateAllTabPage();
             this._bookInformationDataGridView.CellPainting += PatingDataGridView;
             this._bookInformationDataGridView.CellContentClick += ClickDataGridView1CellContent;
@@ -124,7 +126,7 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region Event
+        #region Form Event
         // 載入 Form
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
