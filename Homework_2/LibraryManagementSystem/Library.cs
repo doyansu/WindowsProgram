@@ -208,10 +208,10 @@ namespace LibraryManagementSystem
             return book != null ? book.Name : null;
         }
 
-        // 取得 BorrowingList 是否包含 SelectedBook
-        public bool IsBorrowingListContainsSelectedBook()
+        // 取得當前選擇的書籍是否可加入至借書單
+        public bool IsSelectedBookCanBorrowed()
         {
-            return this._selectedBookItem != null ? this._borrowingList.Where(bookItem => bookItem.IsBookEquals(this._selectedBookItem)).Count() > 0 : false;
+            return this._selectedBookItem != null ? this._selectedBookItem.Quantity > 0 && !(this._borrowingList.Where(bookItem => bookItem.IsBookEquals(this._selectedBookItem)).Count() > 0) : false;
         }
         #endregion
 

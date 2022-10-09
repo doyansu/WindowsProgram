@@ -186,7 +186,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 取得 selectedBookItem Enabled
         public bool IsAddBookButtonEnabled()
         {
-            return this._model.GetSelectedBookQuantity() > 0 && !this._model.IsBorrowingListContainsSelectedBook();
+            return this._model.IsSelectedBookCanBorrowed();
         }
 
         // 取得 ConfirmBorrowingButton Enabled
