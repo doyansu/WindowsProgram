@@ -40,7 +40,7 @@ namespace LibraryManagementSystem.PresentationModel
             int rowIndex = int.Parse(rowTag.ToString());
             const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
             this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
-            this._model.ReturnBorrowedBook(rowIndex);
+            this._model.ReturnBorrowedListItem(rowIndex);
         }
         #endregion
 

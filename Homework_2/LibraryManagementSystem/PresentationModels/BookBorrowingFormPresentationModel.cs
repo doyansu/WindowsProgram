@@ -20,8 +20,8 @@ namespace LibraryManagementSystem.PresentationModel
 
         private Library _model;
         private List<List<bool>> _buttonVisibles;
-        private int _pageCount = 0;
-        private int _tabPageIndex = 0;
+        private int _buttonPageIndex = 0;
+        private int _selectedTabPageIndex = 0;
         private bool _isBackPackButtonEnabled = true;
 
         #region Constructor
@@ -33,6 +33,12 @@ namespace LibraryManagementSystem.PresentationModel
         #endregion
 
         #region View Process
+        // 第一次載入 Form
+        public void BookBorrowingFromLoad()
+        {
+            // now do nothing
+        }
+
         // 點擊書籍按鈕
         public void ClickTabPageButton(string category, object tag)
         {
@@ -48,15 +54,15 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊借書單的刪除按鈕
         public void ClickDataGridView1CellContent(object rowTag)
         {
-            this._model.DeleteBorrowingListItem(int.Parse(rowTag.ToString()));
+            this._model.ReturnBorrowingListItem(int.Parse(rowTag.ToString()));
         }
 
         // 切換 Tabpage
         public void BookCategoryTabControlSelectedIndexChanged(int index)
         {
             this._model.UnselectedBookItem();
-            this._tabPageIndex = index;
-            this._pageCount = 0;
+            this._selectedTabPageIndex = index;
+            this._buttonPageIndex = 0;
             this.UpdateButtonsVisible();
         }
 
@@ -76,7 +82,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊下一頁按鈕
         public void ClickNextPageButton()
         {
-            this._pageCount++;
+            this._buttonPageIndex++;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
         }
@@ -84,7 +90,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊上一頁按鈕
         public void ClickLastPageButton()
         {
-            this._pageCount--;
+            this._buttonPageIndex--;
             this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
         }
@@ -93,6 +99,14 @@ namespace LibraryManagementSystem.PresentationModel
         public void ClickBackPackButton()
         {
             this._isBackPackButtonEnabled = false;
+        }
+
+        // 關閉借書視窗
+        public void BookBorrowingFromClosing()
+        {
+            this._buttonPageIndex = this._selectedTabPageIndex = 0;
+            this._model.ReturnAllBorrowingListItem();
+            this._model.UnselectedBookItem();
         }
 
         // 關閉我的書包視窗
@@ -121,16 +135,16 @@ namespace LibraryManagementSystem.PresentationModel
         // 更新 buttonVisible
         private void UpdateButtonsVisible()
         {
-            this._buttonVisibles[this._tabPageIndex] = this._buttonVisibles[this._tabPageIndex].Select(content => false).ToList();
-            int start = this._pageCount * BUTTONS_PER_PAGE;
-            for (int i = start; i < start + BUTTONS_PER_PAGE && i < this._buttonVisibles[this._tabPageIndex].Count; i++)
-                this._buttonVisibles[this._tabPageIndex][i] = true;
+            this._buttonVisibles[this._selectedTabPageIndex] = this._buttonVisibles[this._selectedTabPageIndex].Select(content => false).ToList();
+            int start = this._buttonPageIndex * BUTTONS_PER_PAGE;
+            for (int i = start; i < start + BUTTONS_PER_PAGE && i < this._buttonVisibles[this._selectedTabPageIndex].Count; i++)
+                this._buttonVisibles[this._selectedTabPageIndex][i] = true;
         }
 
         // 取得當前頁面最大的 page index
         private int GetMaxTabPageIndex()
         {
-            return (this._buttonVisibles[this._tabPageIndex].Count + BUTTONS_PER_PAGE - 1) / BUTTONS_PER_PAGE - 1;
+            return (this._buttonVisibles[this._selectedTabPageIndex].Count + BUTTONS_PER_PAGE - 1) / BUTTONS_PER_PAGE - 1;
         }
         #endregion
 
@@ -180,7 +194,19 @@ namespace LibraryManagementSystem.PresentationModel
         {
             const string PAGE = "Page : ";
             const string SLASH = " / ";
-            return PAGE + (this._pageCount + 1) + SLASH + (this.GetMaxTabPageIndex() + 1);
+            return PAGE + (this._buttonPageIndex + 1) + SLASH + (this.GetMaxTabPageIndex() + 1);
+        }
+
+        // 取得按鈕可見陣列
+        public List<bool> GetButtonVisibleList(int tabPageIndex)
+        {
+            return this._buttonVisibles[tabPageIndex];
+        }
+
+        // 取得所選 TabPage 的 index
+        public int GetSelectTabPageIndex()
+        {
+            return this._selectedTabPageIndex;
         }
 
         // 取得 selectedBookItem Enabled
@@ -198,13 +224,13 @@ namespace LibraryManagementSystem.PresentationModel
         // 取得 NextButtonButton Enabled
         public bool IsNextButtonButtonEnabled()
         {
-            return this._pageCount < this.GetMaxTabPageIndex();
+            return this._buttonPageIndex < this.GetMaxTabPageIndex();
         }
 
         // 取得 LastButtonButton Enabled
         public bool IsLastButtonButtonEnabled()
         {
-            return this._pageCount > 0;
+            return this._buttonPageIndex > 0;
         }
 
         // 取得 BackPackButton Enabled
@@ -213,7 +239,7 @@ namespace LibraryManagementSystem.PresentationModel
             return this._isBackPackButtonEnabled;
         }
 
-        #region Button Process
+        #region Button Style Process
         // 取得 ButtonLocation
         public Point GetButtonLocation(int tabPageWidth, int buttonIndex)
         {
@@ -233,12 +259,6 @@ namespace LibraryManagementSystem.PresentationModel
             int width = image.Width;
             int height = image.Height;
             return new Rectangle(cellBounds.Left + ((cellBounds.Width - width) >> 1), cellBounds.Top + ((cellBounds.Height - height) >> 1), width, height);
-        }
-
-        // 取得按鈕可見陣列
-        public List<bool> GetButtonVisibleList(int tabPageIndex)
-        {
-            return this._buttonVisibles[tabPageIndex];
         }
         #endregion
 

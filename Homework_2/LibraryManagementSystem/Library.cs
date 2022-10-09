@@ -45,6 +45,12 @@ namespace LibraryManagementSystem
             this._selectedBookItem = bookItemQuery;
         }
 
+        // 不選擇任何書籍
+        public void UnselectedBookItem()
+        {
+            this._selectedBookItem = null;
+        }
+
         // 將選擇的書籍加入借書單
         public string JoinSelectedBookItemToBorrowingList()
         {
@@ -61,22 +67,6 @@ namespace LibraryManagementSystem
             return errorMessage;
         }
 
-        // 刪除借書單內的 item
-        public void DeleteBorrowingListItem(int index)
-        {
-            if (index >= 0 && index < this._borrowingList.Count)
-            {
-                this.ReturnBookItem(this._borrowingList[index]);
-                this._borrowingList.RemoveAt(index);
-            }
-        }
-
-        // 不選擇任何書籍
-        public void UnselectedBookItem()
-        {
-            this._selectedBookItem = null;
-        }
-
         // 借書
         public void BorrowBooks()
         {
@@ -85,8 +75,25 @@ namespace LibraryManagementSystem
             this._borrowingList.Clear();
         }
 
+        // 刪除全部借書單內的 item
+        public void ReturnAllBorrowingListItem()
+        {
+            while (this._borrowingList.Count > 0)
+                ReturnBorrowingListItem(0);
+        }
+
+        // 刪除借書單內的 item
+        public void ReturnBorrowingListItem(int index)
+        {
+            if (index >= 0 && index < this._borrowingList.Count)
+            {
+                this.ReturnBookItem(this._borrowingList[index]);
+                this._borrowingList.RemoveAt(index);
+            }
+        }
+
         // 歸還書籍
-        public void ReturnBorrowedBook(int index)
+        public void ReturnBorrowedListItem(int index)
         {
             this.ReturnBookItem(new BookItem(this._borrowedList.GetBookAt(index), 1));
             this._borrowedList.RemoveAt(index);

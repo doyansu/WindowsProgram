@@ -20,14 +20,15 @@ namespace LibraryManagementSystem
         public BookBorrowingFrom(BookBorrowingFormPresentationModel presentationModel, BackPackForm backPackForm)
         {
             InitializeComponent();
+            this.FormClosing += this.BookBorrowingFormClosing;
             this._presentationModel = presentationModel;
-            this._presentationModel._showMessage += ShowMessage;
+            this._presentationModel._showMessage += this.ShowMessage;
             this._backPackForm = backPackForm;
-            this._backPackForm.FormClosing += BackPackFormClosing;
+            this._backPackForm.FormClosing += this.BackPackFormClosing;
             this._backPackForm._updateBorrowingFormView += this.UpdateView;
             this.CreateAllTabPage();
-            this._bookInformationDataGridView.CellPainting += PatingDataGridView;
-            this._bookInformationDataGridView.CellContentClick += ClickDataGridView1CellContent;
+            this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
+            this._bookInformationDataGridView.CellContentClick += this.ClickDataGridView1CellContent;
         }
         #endregion
 
@@ -129,9 +130,10 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Form Event
-        // 載入 Form
+        // 第一次載入 Form
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
+            this._presentationModel.BookBorrowingFromLoad();
             this.UpdateView();
         }
 
@@ -209,6 +211,15 @@ namespace LibraryManagementSystem
             ((Form)sender).Hide();
             this._presentationModel.BackPackFormClosing();
             this.UpdateControls();
+        }
+
+        // 關閉借書視窗
+        private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
+        {
+            this._presentationModel.BookBorrowingFromClosing();
+            // 改變 SelectedIndex 會觸發 tabpage 切換事件 (this.BookCategoryTabControlSelectedIndexChanged)
+            this._bookCategoryTabControl.SelectedIndex = this._presentationModel.GetSelectTabPageIndex();
+            this.UpdateView();
         }
         #endregion
     }
