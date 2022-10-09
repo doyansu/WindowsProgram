@@ -106,7 +106,7 @@ namespace LibraryManagementSystem
                 ((Button)button).Visible = buttonVisibleList[index++];
         }
 
-        // 更新所有 Controls Enable
+        // 更新所有 Controls Enable、Text
         private void UpdateControls()
         {
             this._addBookButton.Enabled = this._presentationModel.IsAddBookButtonEnabled();
@@ -140,7 +140,7 @@ namespace LibraryManagementSystem
         private void ClickTabPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
-            this.UpdateControls();
+            this.UpdateView();
         }
 
         // 點擊加入借書單
@@ -154,8 +154,7 @@ namespace LibraryManagementSystem
         private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
             this._presentationModel.BookCategoryTabControlSelectedIndexChanged(this._bookCategoryTabControl.SelectedIndex);
-            this.UpdateControls();
-            this.UpdateButtonVisible();
+            this.UpdateView();
         }
 
         // 點擊確認借書
@@ -172,23 +171,21 @@ namespace LibraryManagementSystem
             this._backPackForm.UpdateView();
             this._backPackForm.Show();
             this._presentationModel.ClickBackPackButton();
-            this.UpdateControls();
+            this.UpdateView();
         }
         
         // 點擊下一頁按鈕
         private void ClickNextPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickNextPageButton();
-            this.UpdateControls();
-            this.UpdateButtonVisible();
+            this.UpdateView();
         }
 
         // 點擊上一頁按鈕
         private void ClickLastPageButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickLastPageButton();
-            this.UpdateControls();
-            this.UpdateButtonVisible();
+            this.UpdateView();
         }
 
         // 點擊借書單的刪除按鈕
@@ -198,8 +195,7 @@ namespace LibraryManagementSystem
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 this._presentationModel.ClickDataGridView1CellContent(((DataGridView)sender).Rows[e.RowIndex].Tag);
-                this.UpdateBorrowingList();
-                this.UpdateControls();
+                this.UpdateView();
             }
         }
 
@@ -209,7 +205,7 @@ namespace LibraryManagementSystem
             e.Cancel = true;
             ((Form)sender).Hide();
             this._presentationModel.BackPackFormClosing();
-            this.UpdateControls();
+            this.UpdateView();
         }
 
         // 關閉借書視窗
