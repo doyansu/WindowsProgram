@@ -50,7 +50,6 @@ namespace LibraryManagementSystem
                 string category = data.Key;
                 int quantity = data.Value;
                 TabPage tabPage = new TabPage(category);
-
                 for (int index = 0; index < quantity; index++)
                     tabPage.Controls.Add(this.CreateTabPageButton(totalIndex++, index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
@@ -102,7 +101,7 @@ namespace LibraryManagementSystem
         private void UpdateButtonVisible()
         {
             int index = 0;
-            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList(this._bookCategoryTabControl.SelectedIndex);
+            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList();
             foreach (object button in this._bookCategoryTabControl.SelectedTab.Controls)
                 ((Button)button).Visible = buttonVisibleList[index++];
         }
@@ -217,7 +216,7 @@ namespace LibraryManagementSystem
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
             this._presentationModel.BookBorrowingFromClosing();
-            // 改變 SelectedIndex 會觸發 tabpage 切換事件 (this.BookCategoryTabControlSelectedIndexChanged)
+            // 改變 SelectedIndex 會觸發 tabpage 切換事件 (this.BookCategoryTabControlSelectedIndexChanged) (值未改變不會觸發)
             this._bookCategoryTabControl.SelectedIndex = this._presentationModel.GetSelectTabPageIndex();
             this.UpdateView();
         }

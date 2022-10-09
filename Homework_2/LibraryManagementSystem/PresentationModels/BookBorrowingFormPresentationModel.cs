@@ -107,6 +107,7 @@ namespace LibraryManagementSystem.PresentationModel
             this._buttonPageIndex = this._selectedTabPageIndex = 0;
             this._model.ReturnAllBorrowingListItem();
             this._model.UnselectedBookItem();
+            this.UpdateButtonsVisible();
         }
 
         // 關閉我的書包視窗
@@ -198,9 +199,9 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         // 取得按鈕可見陣列
-        public List<bool> GetButtonVisibleList(int tabPageIndex)
+        public List<bool> GetButtonVisibleList()
         {
-            return this._buttonVisibles[tabPageIndex];
+            return this._buttonVisibles[this._selectedTabPageIndex];
         }
 
         // 取得所選 TabPage 的 index
