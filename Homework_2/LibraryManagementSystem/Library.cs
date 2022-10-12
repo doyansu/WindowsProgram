@@ -14,24 +14,18 @@ namespace LibraryManagementSystem
         public event Action _updateView;
         #endregion
 
-        #region Book Data
-        private BookItem _selectedBookItem;
-        private List<Book> _bookList;
-        private List<BookItem> _borrowingList;
-        private List<BookItem> _bookItemList;
-        private List<BookCategory> _bookCategoryList;
-        private BorrowedList _borrowedList;
+        #region Attributes
+        private BookItem _selectedBookItem = null;
+        private List<Book> _bookList = new List<Book>();
+        private List<BookItem> _borrowingList = new List<BookItem>();
+        private List<BookItem> _bookItemList = new List<BookItem>();
+        private List<BookCategory> _bookCategoryList = new List<BookCategory>();
+        private BorrowedList _borrowedList = new BorrowedList();
         #endregion
 
         #region Constrctor
         public Library()
         {
-            this._selectedBookItem = null;
-            this._bookList = new List<Book>();
-            this._bookItemList = new List<BookItem>();
-            this._borrowingList = new List<BookItem>();
-            this._bookCategoryList = new List<BookCategory>();
-            this._borrowedList = new BorrowedList();
             this.LoadsBooksData();
         }
         #endregion
@@ -222,7 +216,7 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region Event Handle Function
+        #region Event Invoke Function
         // handle _updateView evnet
         private void UpdateView()
         {
