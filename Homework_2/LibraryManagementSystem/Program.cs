@@ -19,9 +19,7 @@ namespace LibraryManagementSystem
             Application.SetCompatibleTextRenderingDefault(false);
 
             Library model = new Library();
-            BackPackForm backPackForm = new BackPackForm(new BackPackFormPresentationModel(model));
-            BookBorrowingFrom bookBorrowingFrom = new BookBorrowingFrom(new BookBorrowingFormPresentationModel(model), backPackForm);
-            Application.Run(new MenuForm(new MenuFormPresentationModel(), bookBorrowingFrom, new BookInventoryForm()));
+            Application.Run(new MenuForm(model));
         }
     }
 }

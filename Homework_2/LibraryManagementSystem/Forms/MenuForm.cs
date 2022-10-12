@@ -18,13 +18,13 @@ namespace LibraryManagementSystem
         private MenuFormPresentationModel _menuFormPresentationModel;
 
         #region Constructor
-        public MenuForm(MenuFormPresentationModel menuFormPresentationModel, BookBorrowingFrom bookBorrowingFrom, BookInventoryForm bookInventoryForm)
+        public MenuForm(Library model)
         {
             InitializeComponent();
-            this._menuFormPresentationModel = menuFormPresentationModel;
-            this._bookBorrowingFrom = bookBorrowingFrom;
+            this._menuFormPresentationModel = new MenuFormPresentationModel();
+            this._bookBorrowingFrom = new BookBorrowingFrom(model);
             this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
-            this._bookInventoryForm = bookInventoryForm;
+            this._bookInventoryForm = new BookInventoryForm();
             this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
         }
         #endregion

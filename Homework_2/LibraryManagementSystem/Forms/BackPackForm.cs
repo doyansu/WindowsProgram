@@ -19,10 +19,10 @@ namespace LibraryManagementSystem
 
         private BackPackFormPresentationModel _presentationModel;
 
-        public BackPackForm(BackPackFormPresentationModel presentationModel)
+        public BackPackForm(Library model)
         {
             InitializeComponent();
-            this._presentationModel = presentationModel;
+            this._presentationModel = new BackPackFormPresentationModel(model);
             this._presentationModel._showMessage += ShowMessage;
             this._backPackDataGridView.CellContentClick += ClickDataGridView1CellContent;
         }

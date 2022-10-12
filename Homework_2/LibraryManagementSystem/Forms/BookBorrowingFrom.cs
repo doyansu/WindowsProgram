@@ -17,13 +17,13 @@ namespace LibraryManagementSystem
         private BackPackForm _backPackForm;
 
         #region Constrctor
-        public BookBorrowingFrom(BookBorrowingFormPresentationModel presentationModel, BackPackForm backPackForm)
+        public BookBorrowingFrom(Library model)
         {
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
-            this._presentationModel = presentationModel;
+            this._presentationModel = new BookBorrowingFormPresentationModel(model);
             this._presentationModel._showMessage += this.ShowMessage;
-            this._backPackForm = backPackForm;
+            this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
             this._backPackForm._updateBorrowingFormView += this.UpdateView;
             this.CreateAllTabPage();
