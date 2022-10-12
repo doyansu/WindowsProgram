@@ -42,9 +42,9 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         // 點擊書籍按鈕
-        public void ClickTabPageButton(string category, object tag)
+        public void ClickTabPageButton(string category, object buttonTag)
         {
-            this._model.SelectBookItem(category, int.Parse(tag.ToString()));
+            this._model.SelectBookItem(category, int.Parse(buttonTag.ToString()));
         }
 
         // 點擊加入借書單
