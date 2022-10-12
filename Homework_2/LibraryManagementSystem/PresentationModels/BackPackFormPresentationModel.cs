@@ -12,13 +12,29 @@ namespace LibraryManagementSystem.PresentationModel
         public event Action<string> _showMessage;
         #endregion
 
+        #region Attributes
         private Library _model;
+        #endregion
 
+        #region Constructor
         public BackPackFormPresentationModel(Library model)
         {
             this._model = model;
         }
+        #endregion
 
+        #region View Process
+        // 點擊書包的歸還按鈕
+        public void ClickDataGridView1CellContent(object rowTag)
+        {
+            int rowIndex = int.Parse(rowTag.ToString());
+            const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
+            this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
+            this._model.ReturnBorrowedListItem(rowIndex);
+        }
+        #endregion
+
+        #region Output
         // 取得書包資訊
         public List<string[]> GetBorrowedListInformationList()
         {
@@ -32,19 +48,9 @@ namespace LibraryManagementSystem.PresentationModel
             }
             return informationArray;
         }
-
-        #region View Process
-        // 點擊書包的歸還按鈕
-        public void ClickDataGridView1CellContent(object rowTag)
-        {
-            int rowIndex = int.Parse(rowTag.ToString());
-            const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
-            this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
-            this._model.ReturnBorrowedListItem(rowIndex);
-        }
         #endregion
 
-        #region Event Handle Function
+        #region Event Invoke Function
         // 顯示 Message
         private void ShowMessage(string message)
         {

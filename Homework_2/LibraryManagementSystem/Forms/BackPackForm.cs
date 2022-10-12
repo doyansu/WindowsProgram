@@ -17,8 +17,11 @@ namespace LibraryManagementSystem
         public event Action _updateBorrowingFormView;
         #endregion
 
+        #region Attributes
         private BackPackFormPresentationModel _presentationModel;
+        #endregion
 
+        #region Constrctor
         public BackPackForm(Library model)
         {
             InitializeComponent();
@@ -26,6 +29,7 @@ namespace LibraryManagementSystem
             this._presentationModel._showMessage += ShowMessage;
             this._backPackDataGridView.CellContentClick += ClickDataGridView1CellContent;
         }
+        #endregion
 
         // 更新所有 View (書包資訊)
         public void UpdateView()
@@ -59,7 +63,7 @@ namespace LibraryManagementSystem
         }
         #endregion
 
-        #region Event Handle Function
+        #region Event Invoke Function
         // 顯示 Message
         private void UpdateBorrowingFormView()
         {

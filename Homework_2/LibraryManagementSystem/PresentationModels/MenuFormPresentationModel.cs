@@ -8,8 +8,10 @@ namespace LibraryManagementSystem.PresentationModel
 {
     public class MenuFormPresentationModel
     {
+        #region Attributes
         private bool _isBorrowingEnabled = true;
         private bool _isInventoryEnabled = true;
+        #endregion
 
         #region Constructor
         public MenuFormPresentationModel()

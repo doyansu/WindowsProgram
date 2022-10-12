@@ -13,9 +13,11 @@ namespace LibraryManagementSystem
 {
     public partial class MenuForm : Form
     {
+        #region Attributes
         private BookBorrowingFrom _bookBorrowingFrom;
         private BookInventoryForm _bookInventoryForm;
         private MenuFormPresentationModel _menuFormPresentationModel;
+        #endregion
 
         #region Constructor
         public MenuForm(Library model)

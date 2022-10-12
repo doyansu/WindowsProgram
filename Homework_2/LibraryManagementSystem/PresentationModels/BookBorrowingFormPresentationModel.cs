@@ -13,16 +13,18 @@ namespace LibraryManagementSystem.PresentationModel
         public event Action<string> _showMessage;
         #endregion
 
-        #region Const
+        #region Const Attributes
         // 每頁書籍按鈕數
         private const int BUTTONS_PER_PAGE = 3;
         #endregion
 
+        #region Attributes
         private Library _model;
         private List<List<bool>> _buttonVisibles;
         private int _buttonPageIndex = 0;
         private int _selectedTabPageIndex = 0;
         private bool _isBackPackButtonEnabled = true;
+        #endregion
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
@@ -265,7 +267,7 @@ namespace LibraryManagementSystem.PresentationModel
 
         #endregion
 
-        #region Event Handle Function
+        #region Event Invoke Function
         // 顯示 Message
         private void ShowMessage(string message)
         {

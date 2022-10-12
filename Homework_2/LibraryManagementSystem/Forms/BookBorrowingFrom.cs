@@ -13,8 +13,10 @@ namespace LibraryManagementSystem
 {
     public partial class BookBorrowingFrom : System.Windows.Forms.Form
     {
+        #region Attributes
         private BookBorrowingFormPresentationModel _presentationModel;
         private BackPackForm _backPackForm;
+        #endregion
 
         #region Constrctor
         public BookBorrowingFrom(Library model)
