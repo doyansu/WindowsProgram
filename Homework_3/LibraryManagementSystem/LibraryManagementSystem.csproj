@@ -52,24 +52,24 @@
     <Compile Include="Forms\BackPackForm.Designer.cs">
       <DependentUpon>BackPackForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Book.cs" />
-    <Compile Include="BookCategory.cs" />
+    <Compile Include="Model\Book.cs" />
+    <Compile Include="Model\BookCategory.cs" />
     <Compile Include="Forms\BookInventoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\BookInventoryForm.Designer.cs">
       <DependentUpon>BookInventoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BookItem.cs" />
-    <Compile Include="BorrowedItem.cs" />
-    <Compile Include="BorrowedList.cs" />
+    <Compile Include="Model\BookItem.cs" />
+    <Compile Include="Model\BorrowedItem.cs" />
+    <Compile Include="Model\BorrowedList.cs" />
     <Compile Include="Forms\BookBorrowingFrom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\BookBorrowingFrom.Designer.cs">
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
     </Compile>
-    <Compile Include="Library.cs" />
+    <Compile Include="Model\Library.cs" />
     <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,7 +79,7 @@
     <Compile Include="PresentationModels\BackPackFormPresentationModel.cs" />
     <Compile Include="PresentationModels\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModels\MenuFormPresentationModel.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Model\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BackPackForm.resx">
       <DependentUpon>BackPackForm.cs</DependentUpon>
