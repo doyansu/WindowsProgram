@@ -42,19 +42,19 @@ namespace LibraryManagementSystem
             this._borrowingBookQuantityLabel = new System.Windows.Forms.Label();
             this._borrowingListLabel = new System.Windows.Forms.Label();
             this._bookInformationDataGridView = new System.Windows.Forms.DataGridView();
-            this._confirmBorrowingButton = new System.Windows.Forms.Button();
-            this._backPackButton = new System.Windows.Forms.Button();
             this._deleteButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._borrowingCountDataGridViewTextBoxColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
             this._bookNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookAuthorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.borrowingListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._borrowingListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._confirmBorrowingButton = new System.Windows.Forms.Button();
+            this._backPackButton = new System.Windows.Forms.Button();
             this._bookInformationGroupBox.SuspendLayout();
             this._bookIntroductionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.borrowingListRowBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._borrowingListRowBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _bookInformationGroupBox
@@ -190,7 +190,7 @@ namespace LibraryManagementSystem
             this._bookNumberDataGridViewTextBoxColumn,
             this._bookAuthorDataGridViewTextBoxColumn,
             this._bookPublicationItemDataGridViewTextBoxColumn});
-            this._bookInformationDataGridView.DataSource = this.borrowingListRowBindingSource;
+            this._bookInformationDataGridView.DataSource = this._borrowingListRowBindingSource;
             this._bookInformationDataGridView.Location = new System.Drawing.Point(422, 41);
             this._bookInformationDataGridView.Name = "_bookInformationDataGridView";
             this._bookInformationDataGridView.ReadOnly = true;
@@ -199,28 +199,6 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._bookInformationDataGridView.Size = new System.Drawing.Size(510, 407);
             this._bookInformationDataGridView.TabIndex = 3;
-            // 
-            // _confirmBorrowingButton
-            // 
-            this._confirmBorrowingButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._confirmBorrowingButton.Location = new System.Drawing.Point(837, 454);
-            this._confirmBorrowingButton.Name = "_confirmBorrowingButton";
-            this._confirmBorrowingButton.Size = new System.Drawing.Size(95, 35);
-            this._confirmBorrowingButton.TabIndex = 4;
-            this._confirmBorrowingButton.Text = "確認借書";
-            this._confirmBorrowingButton.UseVisualStyleBackColor = true;
-            this._confirmBorrowingButton.Click += new System.EventHandler(this.ClickConfirmBorrowingButton);
-            // 
-            // _backPackButton
-            // 
-            this._backPackButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._backPackButton.Location = new System.Drawing.Point(717, 454);
-            this._backPackButton.Name = "_backPackButton";
-            this._backPackButton.Size = new System.Drawing.Size(114, 35);
-            this._backPackButton.TabIndex = 5;
-            this._backPackButton.Text = "查看我的書包";
-            this._backPackButton.UseVisualStyleBackColor = true;
-            this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
             // 
             // _deleteButtonColumn
             // 
@@ -271,9 +249,31 @@ namespace LibraryManagementSystem
             this._bookPublicationItemDataGridViewTextBoxColumn.Name = "_bookPublicationItemDataGridViewTextBoxColumn";
             this._bookPublicationItemDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // borrowingListRowBindingSource
+            // _borrowingListRowBindingSource
             // 
-            this.borrowingListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BorrowingListRow);
+            this._borrowingListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BorrowingListRow);
+            // 
+            // _confirmBorrowingButton
+            // 
+            this._confirmBorrowingButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._confirmBorrowingButton.Location = new System.Drawing.Point(837, 454);
+            this._confirmBorrowingButton.Name = "_confirmBorrowingButton";
+            this._confirmBorrowingButton.Size = new System.Drawing.Size(95, 35);
+            this._confirmBorrowingButton.TabIndex = 4;
+            this._confirmBorrowingButton.Text = "確認借書";
+            this._confirmBorrowingButton.UseVisualStyleBackColor = true;
+            this._confirmBorrowingButton.Click += new System.EventHandler(this.ClickConfirmBorrowingButton);
+            // 
+            // _backPackButton
+            // 
+            this._backPackButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._backPackButton.Location = new System.Drawing.Point(717, 454);
+            this._backPackButton.Name = "_backPackButton";
+            this._backPackButton.Size = new System.Drawing.Size(114, 35);
+            this._backPackButton.TabIndex = 5;
+            this._backPackButton.Text = "查看我的書包";
+            this._backPackButton.UseVisualStyleBackColor = true;
+            this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
             // 
             // BookBorrowingFrom
             // 
@@ -294,7 +294,7 @@ namespace LibraryManagementSystem
             this._bookIntroductionGroupBox.ResumeLayout(false);
             this._bookIntroductionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.borrowingListRowBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._borrowingListRowBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,7 +322,7 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItemDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource borrowingListRowBindingSource;
+        private System.Windows.Forms.BindingSource _borrowingListRowBindingSource;
     }
 }
 
