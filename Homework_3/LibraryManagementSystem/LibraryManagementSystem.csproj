@@ -79,7 +79,7 @@
     <Compile Include="PresentationModels\BackPackFormPresentationModel.cs" />
     <Compile Include="PresentationModels\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModels\MenuFormPresentationModel.cs" />
-    <Compile Include="Model\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BackPackForm.resx">
       <DependentUpon>BackPackForm.cs</DependentUpon>
