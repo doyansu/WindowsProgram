@@ -45,7 +45,7 @@ namespace LibraryManagementSystem
             this._backPackButton = new System.Windows.Forms.Button();
             this._deleteButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._bookNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookQuantityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookQuantityColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
             this._bookNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookAuthorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -238,6 +238,8 @@ namespace LibraryManagementSystem
             this._bookQuantityColumn.HeaderText = "數量";
             this._bookQuantityColumn.Name = "_bookQuantityColumn";
             this._bookQuantityColumn.ReadOnly = true;
+            this._bookQuantityColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this._bookQuantityColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // _bookNumberColumn
             // 
@@ -301,7 +303,7 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button _nextPageButton;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteButtonColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookQuantityColumn;
+        private DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn _bookQuantityColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumberColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthorColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItemColumn;

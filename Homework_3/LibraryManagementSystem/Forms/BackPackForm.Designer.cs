@@ -85,6 +85,7 @@ namespace LibraryManagementSystem
             this._bookQuantityColumn.HeaderText = "數量";
             this._bookQuantityColumn.Name = "_bookQuantityColumn";
             this._bookQuantityColumn.ReadOnly = true;
+            this._bookQuantityColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // _borrowDateColumn
             // 
