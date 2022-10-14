@@ -29,6 +29,7 @@ namespace LibraryManagementSystem
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this._bookInformationGroupBox = new System.Windows.Forms.GroupBox();
             this._pageLabel = new System.Windows.Forms.Label();
             this._lastPageButton = new System.Windows.Forms.Button();
@@ -44,14 +45,16 @@ namespace LibraryManagementSystem
             this._confirmBorrowingButton = new System.Windows.Forms.Button();
             this._backPackButton = new System.Windows.Forms.Button();
             this._deleteButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._bookNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookQuantityColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
-            this._bookNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookAuthorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookPublicationItemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._borrowingCountDataGridViewTextBoxColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
+            this._bookNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookAuthorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookPublicationItemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.borrowingListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._bookInformationGroupBox.SuspendLayout();
             this._bookIntroductionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrowingListRowBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _bookInformationGroupBox
@@ -177,15 +180,17 @@ namespace LibraryManagementSystem
             // _bookInformationDataGridView
             // 
             this._bookInformationDataGridView.AllowUserToAddRows = false;
+            this._bookInformationDataGridView.AutoGenerateColumns = false;
             this._bookInformationDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._bookInformationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._bookInformationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._deleteButtonColumn,
-            this._bookNameColumn,
-            this._bookQuantityColumn,
-            this._bookNumberColumn,
-            this._bookAuthorColumn,
-            this._bookPublicationItemColumn});
+            this._bookNameDataGridViewTextBoxColumn,
+            this._borrowingCountDataGridViewTextBoxColumn,
+            this._bookNumberDataGridViewTextBoxColumn,
+            this._bookAuthorDataGridViewTextBoxColumn,
+            this._bookPublicationItemDataGridViewTextBoxColumn});
+            this._bookInformationDataGridView.DataSource = this.borrowingListRowBindingSource;
             this._bookInformationDataGridView.Location = new System.Drawing.Point(422, 41);
             this._bookInformationDataGridView.Name = "_bookInformationDataGridView";
             this._bookInformationDataGridView.ReadOnly = true;
@@ -209,11 +214,11 @@ namespace LibraryManagementSystem
             // _backPackButton
             // 
             this._backPackButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._backPackButton.Location = new System.Drawing.Point(740, 454);
+            this._backPackButton.Location = new System.Drawing.Point(717, 454);
             this._backPackButton.Name = "_backPackButton";
-            this._backPackButton.Size = new System.Drawing.Size(91, 35);
+            this._backPackButton.Size = new System.Drawing.Size(114, 35);
             this._backPackButton.TabIndex = 5;
-            this._backPackButton.Text = "我的書包";
+            this._backPackButton.Text = "查看我的書包";
             this._backPackButton.UseVisualStyleBackColor = true;
             this._backPackButton.Click += new System.EventHandler(this.ClickBackPackButton);
             // 
@@ -225,41 +230,50 @@ namespace LibraryManagementSystem
             this._deleteButtonColumn.ReadOnly = true;
             this._deleteButtonColumn.UseColumnTextForButtonValue = true;
             // 
-            // _bookNameColumn
+            // _bookNameDataGridViewTextBoxColumn
             // 
-            this._bookNameColumn.FillWeight = 175F;
-            this._bookNameColumn.HeaderText = "書籍名稱";
-            this._bookNameColumn.Name = "_bookNameColumn";
-            this._bookNameColumn.ReadOnly = true;
+            this._bookNameDataGridViewTextBoxColumn.DataPropertyName = "BookName";
+            this._bookNameDataGridViewTextBoxColumn.FillWeight = 175F;
+            this._bookNameDataGridViewTextBoxColumn.HeaderText = "書籍名稱";
+            this._bookNameDataGridViewTextBoxColumn.Name = "_bookNameDataGridViewTextBoxColumn";
+            this._bookNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // _bookQuantityColumn
+            // _borrowingCountDataGridViewTextBoxColumn
             // 
-            this._bookQuantityColumn.FillWeight = 50F;
-            this._bookQuantityColumn.HeaderText = "數量";
-            this._bookQuantityColumn.Name = "_bookQuantityColumn";
-            this._bookQuantityColumn.ReadOnly = true;
-            this._bookQuantityColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this._bookQuantityColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this._borrowingCountDataGridViewTextBoxColumn.DataPropertyName = "BorrowingCount";
+            this._borrowingCountDataGridViewTextBoxColumn.FillWeight = 50F;
+            this._borrowingCountDataGridViewTextBoxColumn.HeaderText = "數量";
+            this._borrowingCountDataGridViewTextBoxColumn.Name = "_borrowingCountDataGridViewTextBoxColumn";
+            this._borrowingCountDataGridViewTextBoxColumn.ReadOnly = true;
+            this._borrowingCountDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this._borrowingCountDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // _bookNumberColumn
+            // _bookNumberDataGridViewTextBoxColumn
             // 
-            this._bookNumberColumn.HeaderText = "書籍編號";
-            this._bookNumberColumn.Name = "_bookNumberColumn";
-            this._bookNumberColumn.ReadOnly = true;
+            this._bookNumberDataGridViewTextBoxColumn.DataPropertyName = "BookNumber";
+            this._bookNumberDataGridViewTextBoxColumn.HeaderText = "書籍編號";
+            this._bookNumberDataGridViewTextBoxColumn.Name = "_bookNumberDataGridViewTextBoxColumn";
+            this._bookNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // _bookAuthorColumn
+            // _bookAuthorDataGridViewTextBoxColumn
             // 
-            this._bookAuthorColumn.FillWeight = 125F;
-            this._bookAuthorColumn.HeaderText = "作者";
-            this._bookAuthorColumn.Name = "_bookAuthorColumn";
-            this._bookAuthorColumn.ReadOnly = true;
+            this._bookAuthorDataGridViewTextBoxColumn.DataPropertyName = "BookAuthor";
+            this._bookAuthorDataGridViewTextBoxColumn.FillWeight = 125F;
+            this._bookAuthorDataGridViewTextBoxColumn.HeaderText = "作者";
+            this._bookAuthorDataGridViewTextBoxColumn.Name = "_bookAuthorDataGridViewTextBoxColumn";
+            this._bookAuthorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // _bookPublicationItemColumn
+            // _bookPublicationItemDataGridViewTextBoxColumn
             // 
-            this._bookPublicationItemColumn.FillWeight = 150F;
-            this._bookPublicationItemColumn.HeaderText = "出版項";
-            this._bookPublicationItemColumn.Name = "_bookPublicationItemColumn";
-            this._bookPublicationItemColumn.ReadOnly = true;
+            this._bookPublicationItemDataGridViewTextBoxColumn.DataPropertyName = "BookPublicationItem";
+            this._bookPublicationItemDataGridViewTextBoxColumn.FillWeight = 150F;
+            this._bookPublicationItemDataGridViewTextBoxColumn.HeaderText = "出版項";
+            this._bookPublicationItemDataGridViewTextBoxColumn.Name = "_bookPublicationItemDataGridViewTextBoxColumn";
+            this._bookPublicationItemDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // borrowingListRowBindingSource
+            // 
+            this.borrowingListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BorrowingListRow);
             // 
             // BookBorrowingFrom
             // 
@@ -280,6 +294,7 @@ namespace LibraryManagementSystem
             this._bookIntroductionGroupBox.ResumeLayout(false);
             this._bookIntroductionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrowingListRowBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,11 +317,12 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button _lastPageButton;
         private System.Windows.Forms.Button _nextPageButton;
         private System.Windows.Forms.DataGridViewButtonColumn _deleteButtonColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameColumn;
-        private DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn _bookQuantityColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumberColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthorColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItemColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameDataGridViewTextBoxColumn;
+        private DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn _borrowingCountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookAuthorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookPublicationItemDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource borrowingListRowBindingSource;
     }
 }
 

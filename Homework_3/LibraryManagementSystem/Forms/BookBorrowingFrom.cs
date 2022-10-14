@@ -86,19 +86,6 @@ namespace LibraryManagementSystem
             }
         }
 
-        // 更新借書單
-        private void UpdateBorrowingList()
-        {
-            this._bookInformationDataGridView.Rows.Clear();
-            List<string[]> borrowingList = this._presentationModel.GetBorrowingListInformationList();
-            int index = 0;
-            foreach (string[] row in borrowingList)
-            {
-                this._bookInformationDataGridView.Rows.Add(row);
-                this._bookInformationDataGridView.Rows[index].Tag = index++;
-            }
-        }
-
         // 更新按鈕是否可見
         private void UpdateButtonVisible()
         {
@@ -122,13 +109,13 @@ namespace LibraryManagementSystem
             this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookInformation");
             this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
             this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "BorrowingListQuantityString");
+            this._bookInformationDataGridView.DataSource = this._presentationModel.BorrowingList;
         }
 
         // 更新所有 View
         private void UpdateView()
         {
             this.UpdateButtonVisible();
-            this.UpdateBorrowingList();
         }
         #endregion
 

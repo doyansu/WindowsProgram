@@ -16,7 +16,7 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Attributes
         private Library _model;
-        BindingList<BackPackBookRow> _backPackList = new BindingList<BackPackBookRow>();
+        BindingList<BackPackRow> _backPackList = new BindingList<BackPackRow>();
         #endregion
 
         #region Constructor
@@ -29,24 +29,26 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region View Process
         // 點擊書包的歸還按鈕
-        public void ClickDataGridView1CellContent(object rowTag)
+        public void ClickDataGridView1CellContent(int rowIndex)
         {
-            int rowIndex = int.Parse(rowTag.ToString());
             const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
             this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
             this._model.ReturnBorrowedListItem(rowIndex);
         }
         #endregion
 
-        #region Output
-        // 取得書包資訊
-        public void UpdateBackPackList()
+        #region Private Function
+        // 更新書包資訊
+        private void UpdateBackPackList()
         {
             List<List<string>> informationList = this._model.GetBorrowedInformationList();
             this._backPackList.Clear();
             foreach (List<string> stringList in informationList)
-                this._backPackList.Add(new BackPackBookRow(stringList));
+                this._backPackList.Add(new BackPackRow(stringList));
         }
+        #endregion
+
+        #region Output
         #endregion
 
         #region Property

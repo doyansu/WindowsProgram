@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.ComponentModel;
+using LibraryManagementSystem.PresentationModel.BindingListObject;
 
 namespace LibraryManagementSystem.PresentationModel
 {
@@ -21,6 +22,7 @@ namespace LibraryManagementSystem.PresentationModel
         private int _buttonPageIndex = 0;
         private int _selectedTabPageIndex = 0;
         private bool _isBackPackButtonEnabled = true;
+        BindingList<BorrowingListRow> _borrowingList = new BindingList<BorrowingListRow>();
 
         #region Const Attributes
         // 每頁書籍按鈕數
@@ -43,6 +45,7 @@ namespace LibraryManagementSystem.PresentationModel
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
+            this._model._modelChanged += this.UpdateBorrowingList;
             this._model._modelChanged += this.NotifyPropertyChanged;
             this.InitializeButtonsVisible();
         }
@@ -151,6 +154,15 @@ namespace LibraryManagementSystem.PresentationModel
             this.UpdateButtonsVisible();
         }
 
+        // 更新借書單的資料陣列
+        public void UpdateBorrowingList()
+        {
+            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
+            this._borrowingList.Clear();
+            foreach (List<string> stringList in informationList)
+                this._borrowingList.Add(new BorrowingListRow(stringList));
+        }
+
         // 更新 buttonVisible
         private void UpdateButtonsVisible()
         {
@@ -172,6 +184,51 @@ namespace LibraryManagementSystem.PresentationModel
         public Dictionary<string, int> GetCategoryQuantityPair()
         {
             return this._model.GetCategoryQuantityPair();
+        }
+
+        // 取得按鈕可見陣列
+        public List<bool> GetButtonVisibleList()
+        {
+            return this._buttonVisibles[this._selectedTabPageIndex];
+        }
+
+        // 取得所選 TabPage 的 index
+        public int GetSelectTabPageIndex()
+        {
+            return this._selectedTabPageIndex;
+        }
+
+        #region Button Style Process
+        // 取得 ButtonLocation
+        public Point GetButtonLocation(int tabPageWidth, int buttonIndex)
+        {
+            return new Point((tabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (buttonIndex % BUTTONS_PER_PAGE), 0); 
+        }
+
+        // 取得 ButtonSize
+        public Size GetButtonSize(Size tabPageSize)
+        {
+            const int BUTTON_HEIGHT_ZOOM = 5;
+            return new Size(tabPageSize.Width / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE, tabPageSize.Height * (BUTTON_HEIGHT_ZOOM - 1) / BUTTON_HEIGHT_ZOOM);
+        }
+
+        // 取得 delete 按鈕圖片 Rectangle
+        public Rectangle GetDeleteButtonRectangle(Image image, Rectangle cellBounds)
+        {
+            int width = image.Width;
+            int height = image.Height;
+            return new Rectangle(cellBounds.Left + ((cellBounds.Width - width) >> 1), cellBounds.Top + ((cellBounds.Height - height) >> 1), width, height);
+        }
+        #endregion
+        #endregion
+
+        #region Property
+        public IBindingList BorrowingList
+        {
+            get
+            {
+                return this._borrowingList;
+            }
         }
 
         // 取得所選書籍的書籍資訊
@@ -211,32 +268,6 @@ namespace LibraryManagementSystem.PresentationModel
                 const string PAGE_LABEL_STRING_FORMAT = "Page : {0} / {1}";
                 return string.Format(PAGE_LABEL_STRING_FORMAT, this._buttonPageIndex + 1, this.GetMaxTabPageIndex() + 1);
             }
-        }
-
-        // 取得借書單的資料陣列
-        public List<string[]> GetBorrowingListInformationList()
-        {
-            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
-            List<string[]> informationArray = new List<string[]>();
-            const string BUTTON_VALUE = "";
-            foreach (List<string> stringList in informationList)
-            {
-                stringList.Insert(0, BUTTON_VALUE);
-                informationArray.Add(stringList.ToArray());
-            }
-            return informationArray;
-        }
-
-        // 取得按鈕可見陣列
-        public List<bool> GetButtonVisibleList()
-        {
-            return this._buttonVisibles[this._selectedTabPageIndex];
-        }
-
-        // 取得所選 TabPage 的 index
-        public int GetSelectTabPageIndex()
-        {
-            return this._selectedTabPageIndex;
         }
 
         // 取得 selectedBookItem Enabled
@@ -283,30 +314,6 @@ namespace LibraryManagementSystem.PresentationModel
                 return this._isBackPackButtonEnabled;
             }
         }
-
-        #region Button Style Process
-        // 取得 ButtonLocation
-        public Point GetButtonLocation(int tabPageWidth, int buttonIndex)
-        {
-            return new Point((tabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (buttonIndex % BUTTONS_PER_PAGE), 0); 
-        }
-
-        // 取得 ButtonSize
-        public Size GetButtonSize(Size tabPageSize)
-        {
-            const int BUTTON_HEIGHT_ZOOM = 5;
-            return new Size(tabPageSize.Width / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE, tabPageSize.Height * (BUTTON_HEIGHT_ZOOM - 1) / BUTTON_HEIGHT_ZOOM);
-        }
-
-        // 取得 delete 按鈕圖片 Rectangle
-        public Rectangle GetDeleteButtonRectangle(Image image, Rectangle cellBounds)
-        {
-            int width = image.Width;
-            int height = image.Height;
-            return new Rectangle(cellBounds.Left + ((cellBounds.Width - width) >> 1), cellBounds.Top + ((cellBounds.Height - height) >> 1), width, height);
-        }
-        #endregion
-
         #endregion
 
         #region Event Invoke Function 
@@ -314,7 +321,7 @@ namespace LibraryManagementSystem.PresentationModel
         private void NotifyPropertyChanged()
         {
             foreach (string dataBinding in _notifyList)
-                NotifyPropertyChanged(dataBinding);
+                this.NotifyPropertyChanged(dataBinding);
         }
 
         // 通知 databing 改變
