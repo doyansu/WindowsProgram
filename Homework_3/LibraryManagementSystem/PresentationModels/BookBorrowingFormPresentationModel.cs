@@ -4,18 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace LibraryManagementSystem.PresentationModel
 {
-    public class BookBorrowingFormPresentationModel
+    public class BookBorrowingFormPresentationModel : INotifyPropertyChanged
     {
         #region Event
+        public event PropertyChangedEventHandler PropertyChanged;
         public event Action<string> _showMessage;
-        #endregion
-
-        #region Const Attributes
-        // 每頁書籍按鈕數
-        private const int BUTTONS_PER_PAGE = 3;
         #endregion
 
         #region Attributes
@@ -24,12 +21,29 @@ namespace LibraryManagementSystem.PresentationModel
         private int _buttonPageIndex = 0;
         private int _selectedTabPageIndex = 0;
         private bool _isBackPackButtonEnabled = true;
+
+        #region Const Attributes
+        // 每頁書籍按鈕數
+        private const int BUTTONS_PER_PAGE = 3;
+        // 所有需要的通知 databing 屬性
+        private readonly string[] _notifyList = {
+            "IsAddBookButtonEnabled",
+            "IsConfirmBorrowingButtonEnabled",
+            "IsNextButtonButtonEnabled",
+            "IsLastButtonButtonEnabled",
+            "IsBackPackButtonEnabled",
+            "PageLabelString",
+            "SelectedBookInformation",
+            "SelectedBookQuantityString",
+            "BorrowingListQuantityString" };
+        #endregion
         #endregion
 
         #region Constructor
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
+            this._model._modelChanged += this.NotifyPropertyChanged;
             this.InitializeButtonsVisible();
         }
         #endregion
@@ -38,7 +52,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 第一次載入 Form
         public void BookBorrowingFromLoad()
         {
-            // now do nothing
+            this.NotifyPropertyChanged();
         }
 
         // 點擊書籍按鈕
@@ -62,10 +76,10 @@ namespace LibraryManagementSystem.PresentationModel
         // 切換 Tabpage
         public void BookCategoryTabControlSelectedIndexChanged(int index)
         {
-            this._model.UnselectedBookItem();
             this._selectedTabPageIndex = index;
             this._buttonPageIndex = 0;
             this.UpdateButtonsVisible();
+            this._model.UnselectedBookItem();
         }
 
         // 點擊確認借書
@@ -85,37 +99,39 @@ namespace LibraryManagementSystem.PresentationModel
         public void ClickNextPageButton()
         {
             this._buttonPageIndex++;
-            this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
+            this._model.UnselectedBookItem();
         }
 
         // 點擊上一頁按鈕
         public void ClickLastPageButton()
         {
             this._buttonPageIndex--;
-            this._model.UnselectedBookItem();
             this.UpdateButtonsVisible();
+            this._model.UnselectedBookItem();
         }
 
         // 點擊我的書包
         public void ClickBackPackButton()
         {
             this._isBackPackButtonEnabled = false;
+            this.NotifyPropertyChanged();
         }
 
         // 關閉借書視窗
         public void BookBorrowingFromClosing()
         {
             this._buttonPageIndex = this._selectedTabPageIndex = 0;
+            this.UpdateButtonsVisible();
             this._model.ReturnAllBorrowingListItem();
             this._model.UnselectedBookItem();
-            this.UpdateButtonsVisible();
         }
 
         // 關閉我的書包視窗
         public void BackPackFormClosing()
         {
             this._isBackPackButtonEnabled = true;
+            this.NotifyPropertyChanged();
         }
 
         #endregion
@@ -159,23 +175,42 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         // 取得所選書籍的書籍資訊
-        public string GetSelectedBookInformation()
+        public string SelectedBookInformation
         {
-            return this._model.GetSelectedBookInformation();
+            get
+            {
+                return _model.GetSelectedBookInformation();
+            }
         }
 
         // 取得所選書籍的剩餘數量字串
-        public string GetSelectedBookQuantityString()
+        public string SelectedBookQuantityString
         {
-            const string QUANTITY_TEXT = "剩餘數量 : ";
-            return QUANTITY_TEXT + this._model.GetSelectedBookQuantityString();
+            get
+            {
+                const string QUANTITY_TEXT = "剩餘數量 : ";
+                return QUANTITY_TEXT + this._model.GetSelectedBookQuantityString();
+            }
         }
 
         // 取得借書數量字串
-        public string GetBorrowingListQuantityString()
+        public string BorrowingListQuantityString
         {
-            const string TITLE = "借書數量 : ";
-            return TITLE + this._model.GetBorrowingListQuantity();
+            get
+            {
+                const string TITLE = "借書數量 : ";
+                return TITLE + this._model.GetBorrowingListQuantity();
+            }
+        }
+
+        // 取得當前 page 標籤文字
+        public string PageLabelString
+        {
+            get
+            {
+                const string PAGE_LABEL_STRING_FORMAT = "Page : {0} / {1}";
+                return string.Format(PAGE_LABEL_STRING_FORMAT, this._buttonPageIndex + 1, this.GetMaxTabPageIndex() + 1);
+            }
         }
 
         // 取得借書單的資料陣列
@@ -192,14 +227,6 @@ namespace LibraryManagementSystem.PresentationModel
             return informationArray;
         }
 
-        // 取得當前 page 標籤文字
-        public string GetPageLabelString()
-        {
-            const string PAGE = "Page : ";
-            const string SLASH = " / ";
-            return PAGE + (this._buttonPageIndex + 1) + SLASH + (this.GetMaxTabPageIndex() + 1);
-        }
-
         // 取得按鈕可見陣列
         public List<bool> GetButtonVisibleList()
         {
@@ -213,33 +240,48 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         // 取得 selectedBookItem Enabled
-        public bool IsAddBookButtonEnabled()
+        public bool IsAddBookButtonEnabled
         {
-            return this._model.IsSelectedBookCanBorrowed();
+            get
+            {
+                return this._model.IsSelectedBookCanBorrowed();
+            }
         }
 
         // 取得 ConfirmBorrowingButton Enabled
-        public bool IsConfirmBorrowingButtonEnabled()
+        public bool IsConfirmBorrowingButtonEnabled
         {
-            return this._model.GetBorrowedListCount() > 0;
+            get
+            {
+                return this._model.GetBorrowedListCount() > 0;
+            }
         }
 
         // 取得 NextButtonButton Enabled
-        public bool IsNextButtonButtonEnabled()
+        public bool IsNextButtonButtonEnabled
         {
-            return this._buttonPageIndex < this.GetMaxTabPageIndex();
+            get
+            {
+                return this._buttonPageIndex < this.GetMaxTabPageIndex();
+            }
         }
 
         // 取得 LastButtonButton Enabled
-        public bool IsLastButtonButtonEnabled()
+        public bool IsLastButtonButtonEnabled
         {
-            return this._buttonPageIndex > 0;
+            get
+            {
+                return this._buttonPageIndex > 0;
+            }
         }
 
         // 取得 BackPackButton Enabled
-        public bool IsBackPackButtonEnabled()
+        public bool IsBackPackButtonEnabled
         {
-            return this._isBackPackButtonEnabled;
+            get
+            {
+                return this._isBackPackButtonEnabled;
+            }
         }
 
         #region Button Style Process
@@ -267,7 +309,21 @@ namespace LibraryManagementSystem.PresentationModel
 
         #endregion
 
-        #region Event Invoke Function
+        #region Event Invoke Function 
+        // 通知所有 databing 改變
+        private void NotifyPropertyChanged()
+        {
+            foreach (string dataBinding in _notifyList)
+                NotifyPropertyChanged(dataBinding);
+        }
+
+        // 通知 databing 改變
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         // 顯示 Message
         private void ShowMessage(string message)
         {

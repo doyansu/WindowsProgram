@@ -11,7 +11,7 @@ namespace LibraryManagementSystem
     public class Library
     {
         #region Event
-        public event Action _updateView;
+        public event Action _modelChanged;
         #endregion
 
         #region Attributes
@@ -37,12 +37,14 @@ namespace LibraryManagementSystem
             BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
             BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.Book == bookCategoryQuery.GetBookByIndex(index));
             this._selectedBookItem = bookItemQuery;
+            this._modelChanged();
         }
 
         // 不選擇任何書籍
         public void UnselectedBookItem()
         {
             this._selectedBookItem = null;
+            this._modelChanged();
         }
 
         // 將選擇的書籍加入借書單
@@ -58,6 +60,7 @@ namespace LibraryManagementSystem
                 errorMessage = BORROWING_LIST_IS_FULL;
             if (errorMessage == null)
                 this._borrowingList.Add(this._selectedBookItem.Take(1));
+            this._modelChanged();
             return errorMessage;
         }
 
@@ -67,6 +70,7 @@ namespace LibraryManagementSystem
             foreach (BookItem borrowedBook in this._borrowingList)
                 this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
             this._borrowingList.Clear();
+            this._modelChanged();
         }
 
         // 刪除全部借書單內的 item
@@ -74,6 +78,7 @@ namespace LibraryManagementSystem
         {
             while (this._borrowingList.Count > 0)
                 ReturnBorrowingListItem(0);
+            this._modelChanged();
         }
 
         // 刪除借書單內的 item
@@ -84,6 +89,7 @@ namespace LibraryManagementSystem
                 this.ReturnBookItem(this._borrowingList[index]);
                 this._borrowingList.RemoveAt(index);
             }
+            this._modelChanged();
         }
 
         // 歸還書籍
@@ -91,6 +97,7 @@ namespace LibraryManagementSystem
         {
             this.ReturnBookItem(new BookItem(this._borrowedList.GetBookAt(index), 1));
             this._borrowedList.RemoveAt(index);
+            this._modelChanged();
         }
         #endregion
 
@@ -98,7 +105,7 @@ namespace LibraryManagementSystem
         // 從 hw2_books_source.txt 下載資料
         private void LoadsBooksData()
         {
-            const string FILE_NAME = "../../../hw2_books_source.txt";
+            const string FILE_NAME = "../../../hw3_books_source.txt";
             const string BOOK = "BOOK";
             const int DATA_ROWS = 6;
             StreamReader file = new StreamReader(@FILE_NAME);
@@ -218,10 +225,10 @@ namespace LibraryManagementSystem
 
         #region Event Invoke Function
         // handle _updateView evnet
-        private void UpdateView()
+        private void ModelChanged()
         {
-            if (this._updateView != null)
-                this._updateView.Invoke();
+            if (this._modelChanged != null)
+                this._modelChanged.Invoke();
         }
         #endregion
     }

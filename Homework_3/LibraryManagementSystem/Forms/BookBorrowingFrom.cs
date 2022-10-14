@@ -31,6 +31,7 @@ namespace LibraryManagementSystem
             this.CreateAllTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.CellContentClick += this.ClickDataGridView1CellContent;
+            this.BindData();
         }
         #endregion
 
@@ -46,23 +47,23 @@ namespace LibraryManagementSystem
         {
             this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._presentationModel.GetCategoryQuantityPair();
-            int totalIndex = 1;
+            int imageName = 1;
             foreach (var data in categoryQuantity)
             {
                 string category = data.Key;
                 int quantity = data.Value;
                 TabPage tabPage = new TabPage(category);
                 for (int index = 0; index < quantity; index++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(totalIndex++, index));
+                    tabPage.Controls.Add(this.CreateTabPageButton(imageName++, index));
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
         }
 
         // 創建 tabpagebuttons
-        private Button CreateTabPageButton(int totalIndex, int categoryIndex)
+        private Button CreateTabPageButton(int imageName, int categoryIndex)
         {
-            string imageFileName = string.Format("../../../image/{0}.jpg", totalIndex);
-
+            const string BUTTON_IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
+            string imageFileName = string.Format(BUTTON_IMAGE_PATH_FORMAT, imageName);
             Button button = new Button();
             button.Tag = categoryIndex;
             button.BackgroundImage = Image.FromFile(imageFileName);
@@ -76,9 +77,10 @@ namespace LibraryManagementSystem
         // 繪製刪除按鈕圖片
         private void PatingDataGridView(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            const string TRASH_IMAGE_PATH = "../../../image/trash_can.png";
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                Image image = Image.FromFile("../../../image/trash_can.png");
+                Image image = Image.FromFile(TRASH_IMAGE_PATH);
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 e.Graphics.DrawImage(image, this._presentationModel.GetDeleteButtonRectangle(image, e.CellBounds));
                 e.Handled = true;
@@ -96,7 +98,6 @@ namespace LibraryManagementSystem
                 this._bookInformationDataGridView.Rows.Add(row);
                 this._bookInformationDataGridView.Rows[index].Tag = index++;
             }
-            this._borrowingBookQuantityLabel.Text = this._presentationModel.GetBorrowingListQuantityString();
         }
 
         // 更新按鈕是否可見
@@ -108,24 +109,26 @@ namespace LibraryManagementSystem
                 ((Button)button).Visible = buttonVisibleList[index++];
         }
 
-        // 更新所有 Controls Enable、Text
-        private void UpdateControls()
+        // data binding
+        private void BindData()
         {
-            this._addBookButton.Enabled = this._presentationModel.IsAddBookButtonEnabled();
-            this._confirmBorrowingButton.Enabled = this._presentationModel.IsConfirmBorrowingButtonEnabled();
-            this._nextPageButton.Enabled = this._presentationModel.IsNextButtonButtonEnabled();
-            this._lastPageButton.Enabled = this._presentationModel.IsLastButtonButtonEnabled();
-            this._backPackButton.Enabled = this._presentationModel.IsBackPackButtonEnabled();
-            this._pageLabel.Text = this._presentationModel.GetPageLabelString();
-            this._bookIntroductionRichTextBox.Text = this._presentationModel.GetSelectedBookInformation();
-            this._remainingBookQuantityLabel.Text = this._presentationModel.GetSelectedBookQuantityString();
+            const string BIND_ATTRIBUTE_ENABLED = "Enabled";
+            const string BIND_ATTRIBUTE_TEXT = "Text";
+            this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsAddBookButtonEnabled");
+            this._confirmBorrowingButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsConfirmBorrowingButtonEnabled");
+            this._nextPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsNextButtonButtonEnabled");
+            this._lastPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsLastButtonButtonEnabled");
+            this._backPackButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsBackPackButtonEnabled");
+            this._pageLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "PageLabelString");
+            this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookInformation");
+            this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
+            this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "BorrowingListQuantityString");
         }
 
         // 更新所有 View
         private void UpdateView()
         {
             this.UpdateButtonVisible();
-            this.UpdateControls();
             this.UpdateBorrowingList();
         }
         #endregion

@@ -28,15 +28,17 @@ namespace LibraryManagementSystem
             this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
             this._bookInventoryForm = new BookInventoryForm();
             this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
+            BindData();
         }
         #endregion
 
         #region Private Function
         // 更新按鈕啟用狀態
-        private void UpdateControls()
+        private void BindData()
         {
-            this._bookBorrowingSystemButton.Enabled = this._menuFormPresentationModel.IsBorrowingEnabled();
-            this._bookInventorySystemButton.Enabled = this._menuFormPresentationModel.IsInventoryEnabled();
+            const string BIND_ATTRIBUTE_ENABLED = "Enabled";
+            this._bookBorrowingSystemButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._menuFormPresentationModel, "IsBorrowingEnabled");
+            this._bookInventorySystemButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._menuFormPresentationModel, "IsInventoryEnabled");
         }
         #endregion
 
@@ -52,7 +54,6 @@ namespace LibraryManagementSystem
         {
             this._bookBorrowingFrom.Show();
             this._menuFormPresentationModel.ShowBorrowingForm();
-            this.UpdateControls();
         }
 
         // 顯示庫存視窗
@@ -60,7 +61,6 @@ namespace LibraryManagementSystem
         {
             this._bookInventoryForm.Show();
             this._menuFormPresentationModel.ShowInventoryForm();
-            this.UpdateControls();
         }
 
         // 關閉 BorrowingForm
@@ -71,7 +71,6 @@ namespace LibraryManagementSystem
             // 隱藏式窗，下次再show出
             ((Form)sender).Hide();
             this._menuFormPresentationModel.CloseBorrowingForm();
-            this.UpdateControls();
         }
 
         // 關閉 InventoryForm
@@ -80,7 +79,6 @@ namespace LibraryManagementSystem
             e.Cancel = true;
             ((Form)sender).Hide();
             this._menuFormPresentationModel.CloseInventoryForm();
-            this.UpdateControls();
         }
         #endregion
     }
