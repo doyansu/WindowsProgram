@@ -77,7 +77,8 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationModel\BackPackFormPresentationModel.cs" />
-    <Compile Include="PresentationModel\BindingListObject\BackPackBookRow.cs" />
+    <Compile Include="PresentationModel\BindingListObject\BackPackRow.cs" />
+    <Compile Include="PresentationModel\BindingListObject\BorrowingListRow.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
@@ -104,6 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.BackPackBookRow.datasource" />
+    <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.BorrowingListRow.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.PresentationModel.BindingListObject
 {
-    public class BackPackBookRow : INotifyPropertyChanged
+    public class BackPackRow : INotifyPropertyChanged
     {
         #region Event
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,13 +24,12 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         private string _bookPublicationItem;
 
         #region Const Attributes
-        private readonly string _notifyReturnCount = "ReturnCount";
-        private readonly string _returnButtonValue = "";
+        private const string NOTIFY_RETURN_COUNT = "ReturnCount";
         #endregion
         #endregion
 
         #region Constructor
-        public BackPackBookRow(List<string> data)
+        public BackPackRow(List<string> data)
         {
             int dataMappingIndex = 0;
             this._returnCount = 1;
@@ -48,14 +47,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Property
-        public string ReturnButton
-        {
-            get
-            {
-                return _returnButtonValue;
-            }
-        }
-
         public int ReturnCount 
         {
             get
@@ -65,7 +56,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             set
             {
                 _returnCount = value;
-                NotifyPropertyChanged(_notifyReturnCount);
+                NotifyPropertyChanged(NOTIFY_RETURN_COUNT);
             }
         }
 
