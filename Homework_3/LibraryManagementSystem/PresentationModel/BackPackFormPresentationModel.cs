@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryManagementSystem.PresentationModel.BindingListObject;
 
 namespace LibraryManagementSystem.PresentationModel
 {
@@ -14,12 +16,14 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Attributes
         private Library _model;
+        BindingList<BackPackBookRow> _backPackList = new BindingList<BackPackBookRow>();
         #endregion
 
         #region Constructor
         public BackPackFormPresentationModel(Library model)
         {
             this._model = model;
+            this._model._modelChanged += this.UpdateBackPackList;
         }
         #endregion
 
@@ -36,17 +40,22 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Output
         // 取得書包資訊
-        public List<string[]> GetBorrowedListInformationList()
+        public void UpdateBackPackList()
         {
             List<List<string>> informationList = this._model.GetBorrowedInformationList();
-            List<string[]> informationArray = new List<string[]>();
-            const string NULL_VALUE = "";
+            this._backPackList.Clear();
             foreach (List<string> stringList in informationList)
+                this._backPackList.Add(new BackPackBookRow(stringList));
+        }
+        #endregion
+
+        #region Property
+        public IBindingList BackPackList
+        {
+            get
             {
-                stringList.Insert(0, NULL_VALUE);
-                informationArray.Add(stringList.ToArray());
+                return this._backPackList;
             }
-            return informationArray;
         }
         #endregion
 

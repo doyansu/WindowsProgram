@@ -320,8 +320,8 @@ namespace LibraryManagementSystem.PresentationModel
         // 通知 databing 改變
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         // 顯示 Message

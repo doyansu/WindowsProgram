@@ -22,7 +22,7 @@ namespace LibraryManagementSystem.PresentationModel
             "IsBorrowingEnabled",
             "IsInventoryEnabled", };
         const string NOTIFY_BORROWING_ENABLED = "IsBorrowingEnabled";
-        const string NOTIFY_INVENTORTY_ENABLED = "IsInventoryEnabled";
+        const string NOTIFY_INVENTORY_ENABLED = "IsInventoryEnabled";
         #endregion
         #endregion
 
@@ -59,7 +59,7 @@ namespace LibraryManagementSystem.PresentationModel
         }
         #endregion
 
-        #region Output
+        #region Setter Getter
         // Borrowing button 的啟用狀態
         public bool IsBorrowingEnabled
         {
@@ -84,7 +84,7 @@ namespace LibraryManagementSystem.PresentationModel
             set 
             {
                 this._isInventoryEnabled = value;
-                this.NotifyPropertyChanged(NOTIFY_INVENTORTY_ENABLED);
+                this.NotifyPropertyChanged(NOTIFY_INVENTORY_ENABLED);
             }
         }
         #endregion
@@ -100,8 +100,8 @@ namespace LibraryManagementSystem.PresentationModel
         // 通知 databing 改變
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
