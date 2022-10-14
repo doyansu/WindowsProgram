@@ -7,24 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LibraryManagementSystem.PresentationModel;
+using LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels;
 
 namespace LibraryManagementSystem
 {
     public partial class BookBorrowingFrom : System.Windows.Forms.Form
     {
-        #region Attributes
-        private BookBorrowingFormPresentationModel _presentationModel;
-        private BackPackForm _backPackForm;
+        
+        #region PresentationModel
+        private BookBorrowingFormButtonPresentationModel _buttonPresentationModel;
+        private BookBorrowingFormTextPresentationModel _textPresentationModel;
+        private BookBorrowingFormBorrowingListPresentationModel _borrowingListPresentationModel;
+        private BookBorrowingFormControlPresentationModel _controlPresentationModel;
         #endregion
 
+        private BackPackForm _backPackForm;
+       
         #region Constrctor
         public BookBorrowingFrom(Library model)
         {
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
-            this._presentationModel = new BookBorrowingFormPresentationModel(model);
-            this._presentationModel._showMessage += this.ShowMessage;
+            this._controlPresentationModel = new BookBorrowingFormControlPresentationModel();
+            this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(model);
+            this._textPresentationModel = new BookBorrowingFormTextPresentationModel(model);
+            this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model);
+            this._borrowingListPresentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
             this.CreateAllTabPage();
@@ -44,8 +52,11 @@ namespace LibraryManagementSystem
         // 生成所有 tabpage 
         private void CreateAllTabPage()
         {
+            this._controlPresentationModel.TabPageWidth = this._bookCategoryTabControl.Size.Width;
+            this._controlPresentationModel.ButtonWidth = this._bookCategoryTabControl.Size.Width;
+            this._controlPresentationModel.ButtonHeight = this._bookCategoryTabControl.Size.Height;
             this._bookCategoryTabControl.TabPages.Clear();
-            Dictionary<string, int> categoryQuantity = this._presentationModel.GetCategoryQuantityPair();
+            Dictionary<string, int> categoryQuantity = this._buttonPresentationModel.GetCategoryQuantityPair();
             int imageName = 1;
             foreach (var data in categoryQuantity)
             {
@@ -65,14 +76,15 @@ namespace LibraryManagementSystem
         {
             const string BUTTON_IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
             string imageFileName = string.Format(BUTTON_IMAGE_PATH_FORMAT, imageName);
+            this._controlPresentationModel.ButtonIndex = categoryIndex;
             Button button = new Button();
             button.Tag = categoryIndex;
             button.BackgroundImage = Image.FromFile(imageFileName);
             button.BackgroundImageLayout = ImageLayout.Stretch;
-            button.Location = this._presentationModel.GetButtonLocation(this._bookCategoryTabControl.Size.Width, categoryIndex);
-            button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
+            button.Location = new Point(this._controlPresentationModel.GetButtonLocation(), 0);
+            button.Size = new Size(this._controlPresentationModel.ButtonWidth, this._controlPresentationModel.ButtonHeight);
             button.Click += ClickTabPageButton;
-            //button.DataBindings.Add("Visible", this._presentationModel., "IsVisible");
+            button.DataBindings.Add("Visible", this._buttonPresentationModel.CreateButtonBindingObject(), "IsVisible");
             return button;
         }
 
@@ -84,18 +96,11 @@ namespace LibraryManagementSystem
             {
                 Image image = Image.FromFile(TRASH_IMAGE_PATH);
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                e.Graphics.DrawImage(image, this._presentationModel.GetDeleteButtonRectangle(image, e.CellBounds));
+                this._controlPresentationModel.SetDeleteButtonSize(image.Width, image.Height);
+                this._controlPresentationModel.SetCell(e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Width, e.CellBounds.Height);
+                e.Graphics.DrawImage(image, new Rectangle(this._controlPresentationModel.DeleteButtonLocationLeft, this._controlPresentationModel.DeleteButtonLocationTop, this._controlPresentationModel.DeleteButtonWidth, this._controlPresentationModel.DeleteButtonHeight));
                 e.Handled = true;
             }
-        }
-
-        // 更新按鈕是否可見
-        private void UpdateButtonVisible()
-        {
-            int index = 0;
-            List<bool> buttonVisibleList = this._presentationModel.GetButtonVisibleList();
-            foreach (object button in this._bookCategoryTabControl.SelectedTab.Controls)
-                ((Button)button).Visible = buttonVisibleList[index++];
         }
 
         // data binding
@@ -104,23 +109,17 @@ namespace LibraryManagementSystem
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             const string BIND_ATTRIBUTE_TEXT = "Text";
             const string BIND_ATTRIBUTE_SELECTED_INDEX = "SelectedIndex";
-            this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsAddBookButtonEnabled");
-            this._confirmBorrowingButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsConfirmBorrowingButtonEnabled");
-            this._nextPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsNextButtonButtonEnabled");
-            this._lastPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsLastButtonButtonEnabled");
-            this._backPackButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsBackPackButtonEnabled");
-            this._pageLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "PageLabelString");
-            this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookInformation");
-            this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
-            this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "BorrowingListQuantityString");
-            this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._presentationModel, "SelectedTabPageIndex");
-            this._bookInformationDataGridView.DataSource = this._presentationModel.BorrowingList;
-        }
-
-        // 更新所有 View
-        private void UpdateView()
-        {
-            this.UpdateButtonVisible();
+            this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._borrowingListPresentationModel, "IsAddBookButtonEnabled");
+            this._confirmBorrowingButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._borrowingListPresentationModel, "IsConfirmBorrowingButtonEnabled");
+            this._nextPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsNextButtonButtonEnabled");
+            this._lastPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsLastButtonButtonEnabled");
+            this._backPackButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsBackPackButtonEnabled");
+            this._pageLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._buttonPresentationModel, "PageLabelString");
+            this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookInformation");
+            this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookQuantityString");
+            this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "BorrowingListQuantityString");
+            this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._buttonPresentationModel, "SelectedTabPageIndex");
+            this._bookInformationDataGridView.DataSource = this._borrowingListPresentationModel.BorrowingList;
         }
         #endregion
 
@@ -128,58 +127,50 @@ namespace LibraryManagementSystem
         // 第一次載入 Form
         private void BookBorrowingFromLoad(object sender, EventArgs e)
         {
-            this._presentationModel.BookBorrowingFromLoad();
-            this.UpdateView();
+            // now do nothing
         }
 
         // 點擊書籍按鈕
         private void ClickTabPageButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
-            this.UpdateView();
+            this._buttonPresentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
         }
 
         // 點擊加入借書單
         private void ClickAddBookButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickAddBookButton();
-            this.UpdateView();
+            this._borrowingListPresentationModel.ClickAddBookButton();
         }
 
         // 切換 Tabpage
         private void BookCategoryTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
-            this._presentationModel.BookCategoryTabControlSelectedIndexChanged(this._bookCategoryTabControl.SelectedIndex);
-            this.UpdateView();
+            this._buttonPresentationModel.BookCategoryTabControlSelectedIndexChanged(this._bookCategoryTabControl.SelectedIndex);
         }
 
         // 點擊確認借書
         private void ClickConfirmBorrowingButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickConfirmBorrowingButton();
-            this.UpdateView();
+            this._borrowingListPresentationModel.ClickConfirmBorrowingButton();
         }
 
         // 點擊我的書包
         private void ClickBackPackButton(object sender, EventArgs e)
         {
             this._backPackForm.Show();
-            this._presentationModel.ClickBackPackButton();
-            this.UpdateView();
+            this._buttonPresentationModel.ClickBackPackButton();
         }
         
         // 點擊下一頁按鈕
         private void ClickNextPageButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickNextPageButton();
-            this.UpdateView();
+            this._buttonPresentationModel.ClickNextPageButton();
         }
 
         // 點擊上一頁按鈕
         private void ClickLastPageButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickLastPageButton();
-            this.UpdateView();
+            this._buttonPresentationModel.ClickLastPageButton();
         }
 
         // 點擊借書單的刪除按鈕
@@ -187,10 +178,8 @@ namespace LibraryManagementSystem
         {
             // ((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
-            {
-                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
-                this.UpdateView();
-            }
+                this._borrowingListPresentationModel.ClickDataGridView1CellContent(e.RowIndex);
+            
         }
 
         // 關閉我的書包視窗
@@ -198,15 +187,13 @@ namespace LibraryManagementSystem
         {
             e.Cancel = true;
             ((Form)sender).Hide();
-            this._presentationModel.BackPackFormClosing();
-            this.UpdateView();
+            this._buttonPresentationModel.BackPackFormClosing();
         }
 
         // 關閉借書視窗
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
-            this._presentationModel.BookBorrowingFromClosing();
-            this.UpdateView();
+            this._buttonPresentationModel.BookBorrowingFromClosing();
         }
         #endregion
     }

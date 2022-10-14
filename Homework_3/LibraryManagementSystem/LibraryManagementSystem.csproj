@@ -79,7 +79,11 @@
     <Compile Include="PresentationModel\BackPackFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BindingListObject\BackPackRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\BorrowingListRow.cs" />
-    <Compile Include="PresentationModel\BookBorrowingFormPresentationModel.cs" />
+    <Compile Include="PresentationModel\BindingListObject\TabPageButtonVisible.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormButtonPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormControlPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormTextPresentationModel.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

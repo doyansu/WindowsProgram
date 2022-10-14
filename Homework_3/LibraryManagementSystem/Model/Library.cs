@@ -48,20 +48,10 @@ namespace LibraryManagementSystem
         }
 
         // 將選擇的書籍加入借書單
-        public string JoinSelectedBookItemToBorrowingList()
+        public void JoinSelectedBookItemToBorrowingList()
         {
-            const int LIST_LIMIT = 5;
-            const string BORROWING_LIST_IS_FULL = "每次借書限借五本，您的借書單已滿";
-            const string UNSELECT_BOOK = "未選擇書籍";
-            string errorMessage = null;
-            if (this._selectedBookItem == null)
-                errorMessage = UNSELECT_BOOK;
-            if (this._borrowingList.Count >= LIST_LIMIT)
-                errorMessage = BORROWING_LIST_IS_FULL;
-            if (errorMessage == null)
-                this._borrowingList.Add(this._selectedBookItem.Take(1));
+            this._borrowingList.Add(this._selectedBookItem.Take(1));
             this._modelChanged();
-            return errorMessage;
         }
 
         // 借書
@@ -158,10 +148,17 @@ namespace LibraryManagementSystem
             return data;
         }
 
+        // 取得所選書籍的書籍名稱
+        public string GetSelectedBookName()
+        {
+            const string NULL_VALUE = null;
+            return this._selectedBookItem != null ? this._selectedBookItem.Book.Name : NULL_VALUE;
+        }
+
         // 取得所選書籍的書籍資訊
         public string GetSelectedBookInformation()
         {
-            const string NULL_VALUE = "";
+            const string NULL_VALUE = null;
             return this._selectedBookItem != null ? this._selectedBookItem.Book.GetFormatInformation() : NULL_VALUE;
         }
 
@@ -214,12 +211,6 @@ namespace LibraryManagementSystem
         {
             Book book = this._borrowedList.GetBookAt(index);
             return book != null ? book.Name : null;
-        }
-
-        // 取得當前選擇的書籍是否可加入至借書單
-        public bool IsSelectedBookCanBorrowed()
-        {
-            return this._selectedBookItem != null ? this._selectedBookItem.Quantity > 0 && !(this._borrowingList.Where(bookItem => bookItem.IsBookEquals(this._selectedBookItem)).Count() > 0) : false;
         }
         #endregion
 
