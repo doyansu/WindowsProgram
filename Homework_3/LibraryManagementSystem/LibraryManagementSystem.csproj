@@ -116,7 +116,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataGridViewNumericUpDownElements\DataGridViewNumericUpDownElements.csproj">
+    <ProjectReference Include="..\..\DataGridViewNumericUpDownElements\DataGridViewNumericUpDownElements.csproj">
       <Project>{82b50731-be90-433f-bb6e-9b509c5f3b7c}</Project>
       <Name>DataGridViewNumericUpDownElements</Name>
     </ProjectReference>

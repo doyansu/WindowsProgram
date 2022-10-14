@@ -18,9 +18,11 @@ namespace LibraryManagementSystem.PresentationModel
         private bool _isInventoryEnabled = true;
 
         #region Const Attributes
-        private readonly string[] _notifyList = {
+        private readonly string[] _notifyList = { 
             "IsBorrowingEnabled",
             "IsInventoryEnabled", };
+        const string NOTIFY_BORROWING_ENABLED = "IsBorrowingEnabled";
+        const string NOTIFY_INVENTORTY_ENABLED = "IsInventoryEnabled";
         #endregion
         #endregion
 
@@ -35,29 +37,25 @@ namespace LibraryManagementSystem.PresentationModel
         // 顯示 Borrowing Form
         public void ShowBorrowingForm()
         {
-            _isBorrowingEnabled = false;
-            this.NotifyPropertyChanged();
+            this.IsBorrowingEnabled = false;
         }
 
         // 關閉 Borrowing Form
         public void CloseBorrowingForm()
         {
-            _isBorrowingEnabled = true;
-            this.NotifyPropertyChanged();
+            this.IsBorrowingEnabled = true;
         }
 
         // 顯示 Inventory Form
         public void ShowInventoryForm()
         {
-            _isInventoryEnabled = false;
-            this.NotifyPropertyChanged();
+            this.IsInventoryEnabled = false;
         }
 
         // 關閉 Inventory Form
         public void CloseInventoryForm()
         {
-            _isInventoryEnabled = true;
-            this.NotifyPropertyChanged();
+            this.IsInventoryEnabled = true;
         }
         #endregion
 
@@ -69,6 +67,11 @@ namespace LibraryManagementSystem.PresentationModel
             {
                 return this._isBorrowingEnabled;
             }
+            set
+            {
+                this._isBorrowingEnabled = value;
+                this.NotifyPropertyChanged(NOTIFY_BORROWING_ENABLED);
+            }
         }
 
         // Inventory button 的啟用狀態
@@ -77,6 +80,11 @@ namespace LibraryManagementSystem.PresentationModel
             get
             {
                 return this._isInventoryEnabled;
+            }
+            set 
+            {
+                this._isInventoryEnabled = value;
+                this.NotifyPropertyChanged(NOTIFY_INVENTORTY_ENABLED);
             }
         }
         #endregion

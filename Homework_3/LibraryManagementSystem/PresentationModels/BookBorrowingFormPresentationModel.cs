@@ -26,7 +26,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 每頁書籍按鈕數
         private const int BUTTONS_PER_PAGE = 3;
         // 所有需要的通知 databing 屬性
-        private readonly string[] _notifyList = {
+        private readonly string[] _notifyList = { 
             "IsAddBookButtonEnabled",
             "IsConfirmBorrowingButtonEnabled",
             "IsNextButtonButtonEnabled",
