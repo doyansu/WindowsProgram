@@ -14,7 +14,6 @@ namespace LibraryManagementSystem
     public partial class BackPackForm : Form
     {
         #region Event
-        public event Action _updateBorrowingFormView;
         #endregion
 
         #region Attributes
@@ -28,19 +27,15 @@ namespace LibraryManagementSystem
             this._presentationModel = new BackPackFormPresentationModel(model);
             this._presentationModel._showMessage += ShowMessage;
             this._backPackDataGridView.CellContentClick += ClickDataGridView1CellContent;
+            this._backPackDataGridView.DataSource = this._presentationModel.BackPackList;
         }
         #endregion
 
-        // 更新所有 View (書包資訊)
-        public void UpdateView()
+        private BindingManagerBase BindingManager
         {
-            this._backPackDataGridView.Rows.Clear();
-            List<string[]> borrowedList = this._presentationModel.GetBorrowedListInformationList();
-            int index = 0;
-            foreach (string[] row in borrowedList)
-            {
-                this._backPackDataGridView.Rows.Add(row);
-                this._backPackDataGridView.Rows[index].Tag = index++;
+            get 
+            { 
+                return BindingContext[this._presentationModel.BackPackList]; 
             }
         }
 
@@ -55,21 +50,11 @@ namespace LibraryManagementSystem
         private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
-            {
-                this._presentationModel.ClickDataGridView1CellContent(((DataGridView)sender).Rows[e.RowIndex].Tag);
-                this.UpdateView();
-                this.UpdateBorrowingFormView();
-            }
+                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
         }
         #endregion
 
         #region Event Invoke Function
-        // 顯示 Message
-        private void UpdateBorrowingFormView()
-        {
-            if (this._updateBorrowingFormView != null)
-                this._updateBorrowingFormView.Invoke();
-        }
         #endregion
     }
 }

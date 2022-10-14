@@ -27,7 +27,6 @@ namespace LibraryManagementSystem
             this._presentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
-            this._backPackForm._updateBorrowingFormView += this.UpdateView;
             this.CreateAllTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.CellContentClick += this.ClickDataGridView1CellContent;
@@ -166,14 +165,12 @@ namespace LibraryManagementSystem
         private void ClickConfirmBorrowingButton(object sender, EventArgs e)
         {
             this._presentationModel.ClickConfirmBorrowingButton();
-            this._backPackForm.UpdateView();
             this.UpdateView();
         }
 
         // 點擊我的書包
         private void ClickBackPackButton(object sender, EventArgs e)
         {
-            this._backPackForm.UpdateView();
             this._backPackForm.Show();
             this._presentationModel.ClickBackPackButton();
             this.UpdateView();
