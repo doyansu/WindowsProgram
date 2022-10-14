@@ -52,10 +52,12 @@ namespace LibraryManagementSystem
                 string category = data.Key;
                 int quantity = data.Value;
                 TabPage tabPage = new TabPage(category);
+                this._bookCategoryTabControl.TabPages.Add(tabPage);
+                this._bookCategoryTabControl.SelectTab(tabPage);
                 for (int index = 0; index < quantity; index++)
                     tabPage.Controls.Add(this.CreateTabPageButton(imageName++, index));
-                this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
+            this._bookCategoryTabControl.SelectTab(0);
         }
 
         // 創建 tabpagebuttons
@@ -70,6 +72,7 @@ namespace LibraryManagementSystem
             button.Location = this._presentationModel.GetButtonLocation(this._bookCategoryTabControl.Size.Width, categoryIndex);
             button.Size = this._presentationModel.GetButtonSize(this._bookCategoryTabControl.Size);
             button.Click += ClickTabPageButton;
+            //button.DataBindings.Add("Visible", this._presentationModel., "IsVisible");
             return button;
         }
 
@@ -100,6 +103,7 @@ namespace LibraryManagementSystem
         {
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             const string BIND_ATTRIBUTE_TEXT = "Text";
+            const string BIND_ATTRIBUTE_SELECTED_INDEX = "SelectedIndex";
             this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsAddBookButtonEnabled");
             this._confirmBorrowingButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsConfirmBorrowingButtonEnabled");
             this._nextPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsNextButtonButtonEnabled");
@@ -109,6 +113,7 @@ namespace LibraryManagementSystem
             this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookInformation");
             this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
             this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "BorrowingListQuantityString");
+            this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._presentationModel, "SelectedTabPageIndex");
             this._bookInformationDataGridView.DataSource = this._presentationModel.BorrowingList;
         }
 
@@ -183,7 +188,7 @@ namespace LibraryManagementSystem
             // ((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                this._presentationModel.ClickDataGridView1CellContent(((DataGridView)sender).Rows[e.RowIndex].Tag);
+                this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
                 this.UpdateView();
             }
         }
@@ -201,8 +206,6 @@ namespace LibraryManagementSystem
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
             this._presentationModel.BookBorrowingFromClosing();
-            // 改變 SelectedIndex 會觸發 tabpage 切換事件 (this.BookCategoryTabControlSelectedIndexChanged) (值未改變不會觸發)
-            this._bookCategoryTabControl.SelectedIndex = this._presentationModel.GetSelectTabPageIndex();
             this.UpdateView();
         }
         #endregion
