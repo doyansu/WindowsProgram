@@ -26,7 +26,6 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._presentationModel = new BackPackFormPresentationModel(model);
             this._presentationModel._showMessage += ShowMessage;
-            this._backPackDataGridView.CellContentClick += ClickDataGridView1CellContent;
             this._backPackDataGridView.DataSource = this._presentationModel.BackPackList;
         }
         #endregion
@@ -49,7 +48,7 @@ namespace LibraryManagementSystem
         // 點擊書包的歸還按鈕
         private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            if (e.ColumnIndex == this._returnButtonDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
                 this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
         }
         #endregion

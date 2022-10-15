@@ -33,6 +33,13 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             return (this.TabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (this.ButtonIndex % BUTTONS_PER_PAGE);
         }
 
+        // 設定 ButtonSize
+        public void SetButtonSize(int width, int height)
+        {
+            this.TabPageWidth = this.ButtonWidth = width;
+            this.ButtonHeight = height;
+        }
+
         // 設定 DeleteButtonSize
         public void SetDeleteButtonSize(int width, int height)
         {

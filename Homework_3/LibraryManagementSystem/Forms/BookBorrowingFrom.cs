@@ -18,7 +18,7 @@ namespace LibraryManagementSystem
         private BookBorrowingFormButtonPresentationModel _buttonPresentationModel;
         private BookBorrowingFormTextPresentationModel _textPresentationModel;
         private BookBorrowingFormBorrowingListPresentationModel _borrowingListPresentationModel;
-        private BookBorrowingFormControlPresentationModel _controlPresentationModel;
+        private BookBorrowingFormControlPresentationModel _controlPresentationModel = new BookBorrowingFormControlPresentationModel();
         #endregion
 
         private BackPackForm _backPackForm;
@@ -28,7 +28,6 @@ namespace LibraryManagementSystem
         {
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
-            this._controlPresentationModel = new BookBorrowingFormControlPresentationModel();
             this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(model);
             this._textPresentationModel = new BookBorrowingFormTextPresentationModel(model);
             this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model);
@@ -37,7 +36,7 @@ namespace LibraryManagementSystem
             this._backPackForm.FormClosing += this.BackPackFormClosing;
             this.CreateAllTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
-            this._bookInformationDataGridView.CellContentClick += this.ClickDataGridView1CellContent;
+            this._bookInformationDataGridView.CellEndEdit += this.EditCellEnd;
             this.BindData();
         }
         #endregion
@@ -52,9 +51,7 @@ namespace LibraryManagementSystem
         // 生成所有 tabpage 
         private void CreateAllTabPage()
         {
-            this._controlPresentationModel.TabPageWidth = this._bookCategoryTabControl.Size.Width;
-            this._controlPresentationModel.ButtonWidth = this._bookCategoryTabControl.Size.Width;
-            this._controlPresentationModel.ButtonHeight = this._bookCategoryTabControl.Size.Height;
+            this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
             this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._buttonPresentationModel.GetCategoryQuantityPair();
             int imageName = 1;
@@ -79,12 +76,12 @@ namespace LibraryManagementSystem
             this._controlPresentationModel.ButtonIndex = categoryIndex;
             Button button = new Button();
             button.Tag = categoryIndex;
+            button.Click += ClickTabPageButton;
+            button.DataBindings.Add("Visible", this._buttonPresentationModel.CreateButtonBindingObject(), "IsVisible");
             button.BackgroundImage = Image.FromFile(imageFileName);
             button.BackgroundImageLayout = ImageLayout.Stretch;
             button.Location = new Point(this._controlPresentationModel.GetButtonLocation(), 0);
             button.Size = new Size(this._controlPresentationModel.ButtonWidth, this._controlPresentationModel.ButtonHeight);
-            button.Click += ClickTabPageButton;
-            button.DataBindings.Add("Visible", this._buttonPresentationModel.CreateButtonBindingObject(), "IsVisible");
             return button;
         }
 
@@ -173,13 +170,19 @@ namespace LibraryManagementSystem
             this._buttonPresentationModel.ClickLastPageButton();
         }
 
-        // 點擊借書單的刪除按鈕
+        // 點擊儲存格
         private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
         {
-            // ((DataGridView)sender).Columns[e.ColumnIndex] is DataGridViewButtonColumn
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            // 點擊借書單的刪除按鈕
+            if (e.ColumnIndex == this._deleteButtonColumn.Index && e.RowIndex >= 0)
                 this._borrowingListPresentationModel.ClickDataGridView1CellContent(e.RowIndex);
-            
+        }
+
+        // 儲存格編輯完成
+        private void EditCellEnd(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == this._borrowingCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
+                this._borrowingListPresentationModel.EditCellEnd(e.RowIndex, this._bookInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
 
         // 關閉我的書包視窗

@@ -82,8 +82,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                string bookName = this._model.GetSelectedBookName();
-                return this._model.GetSelectedBookQuantity() > 0 && this._borrowingList.SingleOrDefault(BookItem => BookItem.BookName == bookName) == null;
+                string bookName = this._model.GetSelectedBookItemName();
+                return this._model.GetSelectedBookItemQuantity() > 0 && this._borrowingList.SingleOrDefault(BookItem => BookItem.BookName == bookName) == null;
             }
         }
 

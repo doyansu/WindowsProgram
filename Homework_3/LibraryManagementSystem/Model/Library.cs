@@ -37,21 +37,21 @@ namespace LibraryManagementSystem
             BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
             BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.Book == bookCategoryQuery.GetBookByIndex(index));
             this._selectedBookItem = bookItemQuery;
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 不選擇任何書籍
         public void UnselectedBookItem()
         {
             this._selectedBookItem = null;
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 將選擇的書籍加入借書單
         public void JoinSelectedBookItemToBorrowingList()
         {
             this._borrowingList.Add(this._selectedBookItem.Take(1));
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 借書
@@ -60,7 +60,7 @@ namespace LibraryManagementSystem
             foreach (BookItem borrowedBook in this._borrowingList)
                 this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
             this._borrowingList.Clear();
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 刪除全部借書單內的 item
@@ -68,7 +68,7 @@ namespace LibraryManagementSystem
         {
             while (this._borrowingList.Count > 0)
                 ReturnBorrowingListItem(0);
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 刪除借書單內的 item
@@ -79,7 +79,7 @@ namespace LibraryManagementSystem
                 this.ReturnBookItem(this._borrowingList[index]);
                 this._borrowingList.RemoveAt(index);
             }
-            this._modelChanged();
+            this.ModelChanged();
         }
 
         // 歸還書籍
@@ -87,7 +87,7 @@ namespace LibraryManagementSystem
         {
             this.ReturnBookItem(new BookItem(this._borrowedList.GetBookAt(index), 1));
             this._borrowedList.RemoveAt(index);
-            this._modelChanged();
+            this.ModelChanged();
         }
         #endregion
 
@@ -148,29 +148,37 @@ namespace LibraryManagementSystem
             return data;
         }
 
+        // 取得書籍的書籍數量
+        public int GetBookItemQuantity(string bookName)
+        {
+            const int NULL_VALUE = -1;
+            BookItem bookItem = this._bookItemList.Find(content => content.Book.Name == bookName);
+            return bookItem != null ? bookItem.Quantity : NULL_VALUE;
+        }
+
         // 取得所選書籍的書籍名稱
-        public string GetSelectedBookName()
+        public string GetSelectedBookItemName()
         {
             const string NULL_VALUE = null;
             return this._selectedBookItem != null ? this._selectedBookItem.Book.Name : NULL_VALUE;
         }
 
         // 取得所選書籍的書籍資訊
-        public string GetSelectedBookInformation()
+        public string GetSelectedBookItemInformation()
         {
             const string NULL_VALUE = null;
             return this._selectedBookItem != null ? this._selectedBookItem.Book.GetFormatInformation() : NULL_VALUE;
         }
 
         // 取得所選書籍的剩餘數量
-        public int GetSelectedBookQuantity()
+        public int GetSelectedBookItemQuantity()
         {
             const int NULL_VALUE = -1;
             return this._selectedBookItem != null ? this._selectedBookItem.Quantity : NULL_VALUE;
         }
 
         // 取得所選書籍的剩餘數量字串
-        public string GetSelectedBookQuantityString()
+        public string GetSelectedBookItemQuantityString()
         {
             const string NULL_VALUE = "";
             return this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NULL_VALUE;
@@ -186,7 +194,7 @@ namespace LibraryManagementSystem
         }
 
         // 取得我的書包的資料清單
-        public List<List<string>> GetBorrowedInformationList()
+        public List<List<string>> GetBorrowedListInformationList()
         {
             return this._borrowedList.GetInformationList();
         }

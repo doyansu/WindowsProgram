@@ -31,7 +31,6 @@ namespace LibraryManagementSystem
         {
             this.components = new System.ComponentModel.Container();
             this._backPackDataGridView = new System.Windows.Forms.DataGridView();
-            this._backPackBookRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._returnButtonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._returnCountDataGridViewTextBoxColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
             this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +40,7 @@ namespace LibraryManagementSystem
             this._bookNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookAuthorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._backPackBookRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._backPackBookRowBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -69,10 +69,7 @@ namespace LibraryManagementSystem
             this._backPackDataGridView.RowTemplate.Height = 24;
             this._backPackDataGridView.Size = new System.Drawing.Size(776, 426);
             this._backPackDataGridView.TabIndex = 0;
-            // 
-            // _backPackBookRowBindingSource
-            // 
-            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackRow);
+            this._backPackDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridView1CellContent);
             // 
             // _returnButtonDataGridViewTextBoxColumn
             // 
@@ -147,6 +144,10 @@ namespace LibraryManagementSystem
             this._bookPublicationItemDataGridViewTextBoxColumn.HeaderText = "出版項";
             this._bookPublicationItemDataGridViewTextBoxColumn.Name = "_bookPublicationItemDataGridViewTextBoxColumn";
             this._bookPublicationItemDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // _backPackBookRowBindingSource
+            // 
+            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackRow);
             // 
             // BackPackForm
             // 

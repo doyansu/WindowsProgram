@@ -32,7 +32,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return _model.GetSelectedBookInformation();
+                return _model.GetSelectedBookItemInformation();
             }
         }
 
@@ -41,7 +41,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             get
             {
                 const string QUANTITY_TEXT = "剩餘數量 : ";
-                return QUANTITY_TEXT + this._model.GetSelectedBookQuantityString();
+                return QUANTITY_TEXT + this._model.GetSelectedBookItemQuantityString();
             }
         }
 
