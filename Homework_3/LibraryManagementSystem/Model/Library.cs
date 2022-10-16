@@ -16,7 +16,6 @@ namespace LibraryManagementSystem
 
         #region Attributes
         private BookItem _selectedBookItem = null;
-        private List<Book> _bookList = new List<Book>();
         private List<BookItem> _borrowingList = new List<BookItem>();
         private List<BookItem> _bookItemList = new List<BookItem>();
         private List<BookCategory> _bookCategoryList = new List<BookCategory>();
@@ -48,9 +47,9 @@ namespace LibraryManagementSystem
         }
 
         // 將選擇的書籍加入借書單
-        public void JoinSelectedBookItemToBorrowingList()
+        public void AddSelectedBookItemToBorrowingList()
         {
-            this._borrowingList.Add(this._selectedBookItem.Take(1));
+            this._borrowingList.Add(new BookItem(this._selectedBookItem.Book, 1));
             this.ModelChanged();
         }
 
@@ -58,8 +57,18 @@ namespace LibraryManagementSystem
         public void BorrowBooks()
         {
             foreach (BookItem borrowedBook in this._borrowingList)
+            {
+                this._bookItemList.Find(content => content.IsBookEquals(borrowedBook)).Take(borrowedBook);
                 this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
+            }
             this._borrowingList.Clear();
+            this.ModelChanged();
+        }
+
+        // 改變借書數量
+        public void ChangeBorrowingItemQuantity(int index, int quantity)
+        {
+            this._borrowingList[index].Quantity = quantity;
             this.ModelChanged();
         }
 
@@ -75,10 +84,7 @@ namespace LibraryManagementSystem
         public void ReturnBorrowingListItem(int index)
         {
             if (index >= 0 && index < this._borrowingList.Count)
-            {
-                this.ReturnBookItem(this._borrowingList[index]);
                 this._borrowingList.RemoveAt(index);
-            }
             this.ModelChanged();
         }
 
@@ -120,8 +126,6 @@ namespace LibraryManagementSystem
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
             BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
-
-            this._bookList.Add(book);
             this._bookItemList.Add(new BookItem(book, quantity));
             if (bookCategoryQueryResult == null)
             {
@@ -152,7 +156,10 @@ namespace LibraryManagementSystem
         public int GetBookItemQuantity(string bookName)
         {
             const int NULL_VALUE = -1;
-            BookItem bookItem = this._bookItemList.Find(content => content.Book.Name == bookName);
+            BookItem bookItem = this._bookItemList.Find(content =>
+            {
+                return content.Book.Name == bookName;
+            });
             return bookItem != null ? bookItem.Quantity : NULL_VALUE;
         }
 
@@ -199,15 +206,6 @@ namespace LibraryManagementSystem
             return this._borrowedList.GetInformationList();
         }
 
-        // 取得借書單總共有幾本書
-        public int GetBorrowingListQuantity()
-        {
-            int quantity = 0;
-            foreach (BookItem bookItem in this._borrowingList)
-                quantity += bookItem.Quantity;
-            return quantity;
-        }
-
         // 取得借書單有幾種書
         public int GetBorrowedListCount()
         {
@@ -223,7 +221,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Event Invoke Function
-        // handle _updateView evnet
+        // handle _modelChanged evnet
         private void ModelChanged()
         {
             if (this._modelChanged != null)

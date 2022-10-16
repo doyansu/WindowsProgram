@@ -26,12 +26,12 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 每頁書籍按鈕數
         private const int BUTTONS_PER_PAGE = 3;
         // 所有需要通知的 databing 屬性
+        const string NOTIFY_BACK_PACK_BUTTON_ENABLED = "IsBackPackButtonEnabled";
+        const string NOTIFY_SELECTED_INDEX_CHANGED = "SelectedTabPageIndex";
         private readonly string[] _notifyList = { 
             "IsNextButtonButtonEnabled",
             "IsLastButtonButtonEnabled",
             "PageLabelString", };
-        const string NOTIFY_BACK_PACK_BUTTON_ENABLED = "IsBackPackButtonEnabled";
-        const string NOTIFY_SELECTED_INDEX_CHANGED = "SelectedTabPageIndex";
         #endregion
         #endregion
 

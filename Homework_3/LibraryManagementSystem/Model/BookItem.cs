@@ -26,7 +26,14 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Member Function
-        // tage book form this object
+        // Copy Object
+        public BookItem Copy()
+        {
+            BookItem newBookItem = new BookItem(this.Book, this.Quantity);
+            return newBookItem;
+        }
+
+        // take book form this object
         public BookItem Take(int quantity)
         {
             if (this.Quantity < quantity)
@@ -39,6 +46,13 @@ namespace LibraryManagementSystem
                 this.Quantity -= quantity;
             }
             return new BookItem(this.Book, quantity);
+        }
+
+        // take book form this object
+        public BookItem Take(BookItem other)
+        {
+            int quantity = other.Quantity;
+            return this.Take(quantity);
         }
 
         // add Quantity by int

@@ -43,9 +43,9 @@ namespace LibraryManagementSystem
 
         #region Private Function
         // 顯示訊息
-        private void ShowMessage(string message)
+        private void ShowMessage(string message, string title)
         {
-            MessageBox.Show(message);
+            MessageBox.Show(message, title);
         }
 
         // 生成所有 tabpage 
@@ -114,7 +114,7 @@ namespace LibraryManagementSystem
             this._pageLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._buttonPresentationModel, "PageLabelString");
             this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookInformation");
             this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookQuantityString");
-            this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "BorrowingListQuantityString");
+            this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._borrowingListPresentationModel, "BorrowingListQuantityString");
             this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._buttonPresentationModel, "SelectedTabPageIndex");
             this._bookInformationDataGridView.DataSource = this._borrowingListPresentationModel.BorrowingList;
         }
@@ -182,7 +182,7 @@ namespace LibraryManagementSystem
         private void EditCellEnd(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this._borrowingCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
-                this._borrowingListPresentationModel.EditCellEnd(e.RowIndex, this._bookInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                this._borrowingListPresentationModel.EditCellEnd(e.RowIndex, int.Parse(this._bookInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
         }
 
         // 關閉我的書包視窗

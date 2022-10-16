@@ -17,8 +17,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private Library _model;
         private readonly string[] _notifyList = { 
             "SelectedBookInformation",
-            "SelectedBookQuantityString",
-            "BorrowingListQuantityString" };
+            "SelectedBookQuantityString", };
         #endregion
 
         public BookBorrowingFormTextPresentationModel(Library model)
@@ -42,15 +41,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             {
                 const string QUANTITY_TEXT = "剩餘數量 : ";
                 return QUANTITY_TEXT + this._model.GetSelectedBookItemQuantityString();
-            }
-        }
-
-        public string BorrowingListQuantityString
-        {
-            get
-            {
-                const string TITLE = "借書數量 : ";
-                return TITLE + this._model.GetBorrowingListQuantity();
             }
         }
         #endregion
