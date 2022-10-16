@@ -64,9 +64,9 @@ namespace LibraryManagementSystem
             this._backPackDataGridView.DataSource = this._backPackBookRowBindingSource;
             this._backPackDataGridView.Location = new System.Drawing.Point(12, 12);
             this._backPackDataGridView.Name = "_backPackDataGridView";
-            this._backPackDataGridView.ReadOnly = true;
             this._backPackDataGridView.RowHeadersVisible = false;
             this._backPackDataGridView.RowTemplate.Height = 24;
+            this._backPackDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._backPackDataGridView.Size = new System.Drawing.Size(1040, 657);
             this._backPackDataGridView.TabIndex = 0;
             this._backPackDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridView1CellContent);
@@ -92,7 +92,6 @@ namespace LibraryManagementSystem
             this._returnCountDataGridViewTextBoxColumn.FillWeight = 70F;
             this._returnCountDataGridViewTextBoxColumn.HeaderText = "歸還數量";
             this._returnCountDataGridViewTextBoxColumn.Name = "_returnCountDataGridViewTextBoxColumn";
-            this._returnCountDataGridViewTextBoxColumn.ReadOnly = true;
             this._returnCountDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this._returnCountDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 

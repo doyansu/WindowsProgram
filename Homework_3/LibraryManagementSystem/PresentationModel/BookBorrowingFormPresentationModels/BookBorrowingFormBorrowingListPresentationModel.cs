@@ -29,7 +29,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             NOTIFY_BORROWING_LIST_QUANTITY_TEXT };
 
         #region Message Title
-        private const string TITLE_BORROWING_DETAIL = "借書細節";
+        private const string TITLE_BORROWING_RESULT = "借書結果";
         private const string TITLE_BORROWING_VIOLATION = "借書違規";
         private const string TITLE_INVENTORY_STATUS = "庫存狀態";
         #endregion
@@ -77,7 +77,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             string books = "";
             for (int i = 1; i < informationList.Count; i++)
                 books += string.Format(STRING_FORMAT_BOOK, informationList[i][0], informationList[i][1]);
-            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, informationList[0][0], informationList[0][1], books), TITLE_BORROWING_DETAIL);
+            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, informationList[0][0], informationList[0][1], books), TITLE_BORROWING_RESULT);
             this._model.BorrowBooks();
         }
 

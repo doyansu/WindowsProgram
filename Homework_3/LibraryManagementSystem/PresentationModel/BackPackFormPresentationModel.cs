@@ -11,12 +11,17 @@ namespace LibraryManagementSystem.PresentationModel
     public class BackPackFormPresentationModel
     {
         #region Event
-        public event Action<string> _showMessage;
+        public event Action<string, string> _showMessage;
         #endregion
 
         #region Attributes
         private Library _model;
         BindingList<BackPackRow> _backPackList = new BindingList<BackPackRow>();
+
+        #region Message Title
+        private const string TITLE_RETURN_RESULT = "歸還結果";
+        private const string TITLE_RETURN_ERROR = "還書錯誤";
+        #endregion
         #endregion
 
         #region Constructor
@@ -28,12 +33,37 @@ namespace LibraryManagementSystem.PresentationModel
         #endregion
 
         #region View Process
+        // 點擊書包的歸還按鈕 const string
+        private const string SUCCESS_MESSAGE_FORMAT = "[{0}] 已成功歸還{1}本";
+        private const string UP_RANGE_MESSAGE = "還書數量不能超過已借數量";
+        private const string DOWN_RANGE_MESSAGE = "您至少要歸還1本書";
         // 點擊書包的歸還按鈕
         public void ClickDataGridView1CellContent(int rowIndex)
         {
-            const string MESSAGE_FORMAT = "[{0}] 已成功歸還";
-            this.ShowMessage(string.Format(MESSAGE_FORMAT, this._model.GetBorrowedBookName(rowIndex)));
-            this._model.ReturnBorrowedListItem(rowIndex);
+            int returnQuantity = this._backPackList[rowIndex].ReturnCount;
+            int borrowedQuantity = this._backPackList[rowIndex].BorrowedCount;
+            if (returnQuantity > borrowedQuantity)
+            {
+                this.ShowMessage(UP_RANGE_MESSAGE, TITLE_RETURN_ERROR);
+                this._backPackList[rowIndex].ReturnCount = borrowedQuantity;
+            }
+            else if (returnQuantity <= 0)
+            {
+                this.ShowMessage(DOWN_RANGE_MESSAGE, TITLE_RETURN_ERROR);
+                this._backPackList[rowIndex].ReturnCount = 1;
+            }
+            else
+            {
+                this.ShowMessage(string.Format(SUCCESS_MESSAGE_FORMAT, this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
+                this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
+            }
+        }
+
+        // 儲存格編輯完成
+        public void EditCellEnd(int rowIndex, object changeValueObject)
+        {
+            int changeValue = int.Parse(changeValueObject.ToString());
+            // now do nothing
         }
         #endregion
 
@@ -63,10 +93,10 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Event Invoke Function
         // 顯示 Message
-        private void ShowMessage(string message)
+        private void ShowMessage(string message, string title = "")
         {
             if (this._showMessage != null && message != null)
-                this._showMessage.Invoke(message);
+                this._showMessage.Invoke(message, title);
         }
         #endregion
     }

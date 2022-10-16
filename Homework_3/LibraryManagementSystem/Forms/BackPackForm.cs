@@ -26,6 +26,7 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._presentationModel = new BackPackFormPresentationModel(model);
             this._presentationModel._showMessage += ShowMessage;
+            this._backPackDataGridView.CellEndEdit += this.EditCellEnd;
             this._backPackDataGridView.DataSource = this._presentationModel.BackPackList;
         }
         #endregion
@@ -39,9 +40,9 @@ namespace LibraryManagementSystem
         }
 
         // 顯示訊息
-        private void ShowMessage(string message)
+        private void ShowMessage(string message, string title)
         {
-            MessageBox.Show(message);
+            MessageBox.Show(message, title);
         }
 
         #region Form Event
@@ -50,6 +51,13 @@ namespace LibraryManagementSystem
         {
             if (e.ColumnIndex == this._returnButtonDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
                 this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
+        }
+
+        // 儲存格編輯完成
+        private void EditCellEnd(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == this._returnCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
+                this._presentationModel.EditCellEnd(e.RowIndex, this._backPackDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
         #endregion
 

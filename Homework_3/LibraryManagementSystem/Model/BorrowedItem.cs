@@ -9,13 +9,13 @@ namespace LibraryManagementSystem
     public class BorrowedItem
     {
         private DateTime _date;
-        private Book _book;
+        private BookItem _bookItem;
 
         #region Constructor
-        public BorrowedItem(Book book)
+        public BorrowedItem(BookItem bookItem)
         {
             this.Date = DateTime.Now;
-            this.Book = book;
+            this.BookItem = bookItem;
         }
         #endregion
 
@@ -24,24 +24,24 @@ namespace LibraryManagementSystem
         public List<string> GetInformationList()
         {
             const int BORROWING_PERIOD = 30;
-            List<string> informationList = this.Book.GetInformationList();
-            informationList.Insert(1, this.Date.AddDays(BORROWING_PERIOD).ToShortDateString());
-            informationList.Insert(1, this.Date.ToShortDateString());
-            informationList.Insert(1, 1.ToString());
+            const int INSERT_DATE_INDEX = 2;
+            List<string> informationList = this.BookItem.GetInformationList();
+            informationList.Insert(INSERT_DATE_INDEX, this.Date.AddDays(BORROWING_PERIOD).ToShortDateString());
+            informationList.Insert(INSERT_DATE_INDEX, this.Date.ToShortDateString());
             return informationList;
         }
         #endregion
 
-        #region Getter and Setter
+        #region Property
         public DateTime Date 
         {
             get
             {
-                return _date;
+                return this._date;
             }
             set
             {
-                _date = value;
+                this._date = value;
             }
         }
 
@@ -49,11 +49,23 @@ namespace LibraryManagementSystem
         {
             get
             {
-                return _book;
+                return this._bookItem.Book;
             }
             set
             {
-                _book = value;
+                this._bookItem.Book = value;
+            }
+        }
+
+        public BookItem BookItem
+        {
+            get
+            {
+                return this._bookItem;
+            }
+            set
+            {
+                this._bookItem = value;
             }
         }
         #endregion

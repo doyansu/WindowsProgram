@@ -56,10 +56,10 @@ namespace LibraryManagementSystem
         // 借書
         public void BorrowBooks()
         {
-            foreach (BookItem borrowedBook in this._borrowingList)
+            foreach (BookItem borrowingBook in this._borrowingList)
             {
-                this._bookItemList.Find(content => content.IsBookEquals(borrowedBook)).Take(borrowedBook);
-                this._borrowedList.Add(new BorrowedItem(borrowedBook.Book));
+                this._bookItemList.Find(content => content.IsBookEquals(borrowingBook)).Take(borrowingBook);
+                this._borrowedList.Add(new BorrowedItem(borrowingBook));
             }
             this._borrowingList.Clear();
             this.ModelChanged();
@@ -89,10 +89,10 @@ namespace LibraryManagementSystem
         }
 
         // 歸還書籍
-        public void ReturnBorrowedListItem(int index)
+        public void ReturnBorrowedListItem(int index, int quantity)
         {
-            this.ReturnBookItem(new BookItem(this._borrowedList.GetBookAt(index), 1));
-            this._borrowedList.RemoveAt(index);
+            this.ReturnBookItem(this._borrowedList.GetBookItemAt(index).Take(quantity));
+            this._borrowedList.RefreshList();
             this.ModelChanged();
         }
         #endregion
