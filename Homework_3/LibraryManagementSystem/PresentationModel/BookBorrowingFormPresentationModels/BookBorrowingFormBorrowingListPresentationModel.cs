@@ -71,13 +71,13 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 點擊確認借書
         public void ClickConfirmBorrowingButton()
         {
-            const string STRING_FORMAT_MESSAGE = "[{0}] {1}本{2}\n\n已成功借出!";
+            const int REMOVE_EXTRA_INDEX = 3;
+            const string STRING_FORMAT_MESSAGE = "{0}\n\n已成功借出!";
             const string STRING_FORMAT_BOOK = " 、 [{0}] {1}本";
-            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
             string books = "";
-            for (int i = 1; i < informationList.Count; i++)
-                books += string.Format(STRING_FORMAT_BOOK, informationList[i][0], informationList[i][1]);
-            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, informationList[0][0], informationList[0][1], books), TITLE_BORROWING_RESULT);
+            foreach (BorrowingListRow row in this._borrowingList)
+                books += string.Format(STRING_FORMAT_BOOK, row.BookName, row.BorrowingCount);
+            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, books).Substring(REMOVE_EXTRA_INDEX), TITLE_BORROWING_RESULT);
             this._model.BorrowBooks();
         }
 

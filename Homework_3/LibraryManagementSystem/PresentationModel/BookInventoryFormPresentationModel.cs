@@ -12,7 +12,7 @@ namespace LibraryManagementSystem.PresentationModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Library _model;
-        private int selectedRowIndex = 0;
+        private int _selectedRowIndex = 0;
 
         const string NOTIFY_SELECT_ROW_INDEX_CHANGED = "SelectedRowIndex";
         const string NOTIFY_BOOK_INFORMATION_CHANGED = "BookInformation";
@@ -31,13 +31,13 @@ namespace LibraryManagementSystem.PresentationModel
         {
             get
             {
-                return this.selectedRowIndex;
+                return this._selectedRowIndex;
             }
             set
             {
-                if (this.selectedRowIndex != value)
+                if (this._selectedRowIndex != value)
                 {
-                    this.selectedRowIndex = value;
+                    this._selectedRowIndex = value;
                     NotifyPropertyChanged(NOTIFY_SELECT_ROW_INDEX_CHANGED);
                 }
             }

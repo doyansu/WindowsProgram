@@ -135,6 +135,12 @@ namespace LibraryManagementSystem
             bookCategoryQueryResult.AddBook(book);
         }
 
+        // 使用名稱找到 bookItem
+        private BookItem FindBookItem(string bookName)
+        {
+            return this._bookItemList.Find(content => content.Book.Name == bookName);
+        }
+
         // 將書籍還回 _bookItemList 清單
         private void ReturnBookItem(BookItem returnItem)
         {
@@ -162,7 +168,7 @@ namespace LibraryManagementSystem
             });
             return bookItem != null ? bookItem.Quantity : NULL_VALUE;
         }
-
+        
         // 取得所選書籍的書籍名稱
         public string GetSelectedBookItemName()
         {
@@ -210,13 +216,6 @@ namespace LibraryManagementSystem
         public int GetBorrowedListCount()
         {
             return this._borrowingList.Count;
-        }
-
-        // 取得已借書籍名稱
-        public string GetBorrowedBookName(int index)
-        {
-            Book book = this._borrowedList.GetBookAt(index);
-            return book != null ? book.Name : null;
         }
         #endregion
 
