@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels;
 
 namespace LibraryManagementSystem
 {
@@ -23,7 +23,6 @@ namespace LibraryManagementSystem
 
         private BackPackForm _backPackForm;
        
-        #region Constrctor
         public BookBorrowingFrom(Library model)
         {
             InitializeComponent();
@@ -39,7 +38,6 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.CellEndEdit += this.EditCellEnd;
             this.BindData();
         }
-        #endregion
 
         #region Private Function
         // 顯示訊息
@@ -171,7 +169,7 @@ namespace LibraryManagementSystem
         }
 
         // 點擊儲存格
-        private void ClickDataGridView1CellContent(object sender, DataGridViewCellEventArgs e)
+        private void ClickDataGridViewCellContent(object sender, DataGridViewCellEventArgs e)
         {
             // 點擊借書單的刪除按鈕
             if (e.ColumnIndex == this._deleteButtonColumn.Index && e.RowIndex >= 0)

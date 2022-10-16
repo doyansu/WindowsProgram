@@ -46,12 +46,14 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._bookInformationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._bookInformationDataGridView.Location = new System.Drawing.Point(12, 57);
+            this._bookInformationDataGridView.MultiSelect = false;
             this._bookInformationDataGridView.Name = "_bookInformationDataGridView";
             this._bookInformationDataGridView.RowHeadersVisible = false;
             this._bookInformationDataGridView.RowTemplate.Height = 24;
             this._bookInformationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._bookInformationDataGridView.Size = new System.Drawing.Size(526, 612);
             this._bookInformationDataGridView.TabIndex = 4;
+            this._bookInformationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridViewCellContent);
             // 
             // _bookInventoryLabel
             // 
@@ -86,6 +88,7 @@ namespace LibraryManagementSystem
             // _bookInformationRichTextBox
             // 
             this._bookInformationRichTextBox.BackColor = System.Drawing.SystemColors.Menu;
+            this._bookInformationRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._bookInformationRichTextBox.Location = new System.Drawing.Point(544, 280);
             this._bookInformationRichTextBox.Name = "_bookInformationRichTextBox";
             this._bookInformationRichTextBox.Size = new System.Drawing.Size(508, 389);

@@ -198,7 +198,7 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._bookInformationDataGridView.Size = new System.Drawing.Size(510, 587);
             this._bookInformationDataGridView.TabIndex = 3;
-            this._bookInformationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridView1CellContent);
+            this._bookInformationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridViewCellContent);
             // 
             // _deleteButtonColumn
             // 

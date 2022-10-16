@@ -52,6 +52,12 @@
     <Compile Include="Forms\BackPackForm.Designer.cs">
       <DependentUpon>BackPackForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BookAddingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BookAddingForm.Designer.cs">
+      <DependentUpon>BookAddingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\BookCategory.cs" />
     <Compile Include="Forms\BookInventoryForm.cs">
@@ -80,10 +86,12 @@
     <Compile Include="PresentationModel\BindingListObject\BackPackRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\BorrowingListRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\TabPageButtonVisible.cs" />
+    <Compile Include="PresentationModel\BookAddingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormButtonPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormControlPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormTextPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookInventoryFormPresentationModel.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
