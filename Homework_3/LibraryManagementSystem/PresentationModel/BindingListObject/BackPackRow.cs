@@ -43,9 +43,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         }
         #endregion
 
-        #region Member Function
-        #endregion
-
         #region Property
         public int ReturnCount 
         {

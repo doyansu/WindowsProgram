@@ -37,6 +37,12 @@ namespace LibraryManagementSystem
         {
             this._bookList.Add(book);
         }
+
+        // check ContainBook
+        public bool ContainBook(Book book)
+        {
+            return this._bookList.Contains(book);
+        }
         #endregion
 
         #region Getter and Setter

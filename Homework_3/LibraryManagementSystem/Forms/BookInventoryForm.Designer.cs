@@ -31,20 +31,32 @@ namespace LibraryManagementSystem
         {
             this.components = new System.ComponentModel.Container();
             this._bookInformationDataGridView = new System.Windows.Forms.DataGridView();
+            this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._addingButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this._inventoryListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._bookInventoryLabel = new System.Windows.Forms.Label();
             this._bookImageTextLabel = new System.Windows.Forms.Label();
             this._bookInformationTextLabel = new System.Windows.Forms.Label();
             this._bookInformationRichTextBox = new System.Windows.Forms.RichTextBox();
             this._bookImageLabel = new System.Windows.Forms.Label();
-            this._bookImageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._inventoryListRowBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _bookInformationDataGridView
             // 
             this._bookInformationDataGridView.AllowUserToAddRows = false;
+            this._bookInformationDataGridView.AutoGenerateColumns = false;
             this._bookInformationDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._bookInformationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._bookInformationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._bookNameDataGridViewTextBoxColumn,
+            this._bookCategoryDataGridViewTextBoxColumn,
+            this._bookQuantityDataGridViewTextBoxColumn,
+            this._addingButtonColumn});
+            this._bookInformationDataGridView.DataSource = this._inventoryListRowBindingSource;
             this._bookInformationDataGridView.Location = new System.Drawing.Point(12, 57);
             this._bookInformationDataGridView.MultiSelect = false;
             this._bookInformationDataGridView.Name = "_bookInformationDataGridView";
@@ -54,6 +66,36 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.Size = new System.Drawing.Size(526, 612);
             this._bookInformationDataGridView.TabIndex = 4;
             this._bookInformationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridViewCellContent);
+            // 
+            // _bookNameDataGridViewTextBoxColumn
+            // 
+            this._bookNameDataGridViewTextBoxColumn.DataPropertyName = "BookName";
+            this._bookNameDataGridViewTextBoxColumn.FillWeight = 200F;
+            this._bookNameDataGridViewTextBoxColumn.HeaderText = "書籍名稱";
+            this._bookNameDataGridViewTextBoxColumn.Name = "_bookNameDataGridViewTextBoxColumn";
+            // 
+            // _bookCategoryDataGridViewTextBoxColumn
+            // 
+            this._bookCategoryDataGridViewTextBoxColumn.DataPropertyName = "BookCategory";
+            this._bookCategoryDataGridViewTextBoxColumn.FillWeight = 150F;
+            this._bookCategoryDataGridViewTextBoxColumn.HeaderText = "書籍類別";
+            this._bookCategoryDataGridViewTextBoxColumn.Name = "_bookCategoryDataGridViewTextBoxColumn";
+            // 
+            // _bookQuantityDataGridViewTextBoxColumn
+            // 
+            this._bookQuantityDataGridViewTextBoxColumn.DataPropertyName = "BookQuantity";
+            this._bookQuantityDataGridViewTextBoxColumn.HeaderText = "數量";
+            this._bookQuantityDataGridViewTextBoxColumn.Name = "_bookQuantityDataGridViewTextBoxColumn";
+            // 
+            // _addingButtonColumn
+            // 
+            this._addingButtonColumn.FillWeight = 50F;
+            this._addingButtonColumn.HeaderText = "補貨";
+            this._addingButtonColumn.Name = "_addingButtonColumn";
+            // 
+            // _inventoryListRowBindingSource
+            // 
+            this._inventoryListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.InventoryListRow);
             // 
             // _bookInventoryLabel
             // 
@@ -102,12 +144,6 @@ namespace LibraryManagementSystem
             this._bookImageLabel.Size = new System.Drawing.Size(120, 156);
             this._bookImageLabel.TabIndex = 9;
             // 
-            // _bookImageList
-            // 
-            this._bookImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this._bookImageList.ImageSize = new System.Drawing.Size(120, 156);
-            this._bookImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // BookInventoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -122,6 +158,7 @@ namespace LibraryManagementSystem
             this.Name = "BookInventoryForm";
             this.Text = "書本庫存";
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._inventoryListRowBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +172,10 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Label _bookInformationTextLabel;
         private System.Windows.Forms.RichTextBox _bookInformationRichTextBox;
         private System.Windows.Forms.Label _bookImageLabel;
-        private System.Windows.Forms.ImageList _bookImageList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookCategoryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _bookQuantityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn _addingButtonColumn;
+        private System.Windows.Forms.BindingSource _inventoryListRowBindingSource;
     }
 }

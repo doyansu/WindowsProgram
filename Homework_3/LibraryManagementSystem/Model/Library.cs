@@ -212,6 +212,22 @@ namespace LibraryManagementSystem
             return this._borrowedList.GetInformationList();
         }
 
+        // 取得
+        public List<List<string>> GetInventoryListInformationList()
+        {
+            List<List<string>> informationList = new List<List<string>>();
+            foreach (BookItem bookItem in this._bookItemList)
+            {
+                List<string> stringList = new List<string>();
+                stringList.Add(bookItem.Book.Name);
+                stringList.Add(this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category);
+                stringList.Add(bookItem.Quantity.ToString());
+                stringList.Add(bookItem.Book.GetFormatInformation());
+                informationList.Add(stringList);
+            }
+            return informationList;
+        }
+
         // 取得借書單有幾種書
         public int GetBorrowedListCount()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.PresentationModel.BindingListObject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace LibraryManagementSystem.PresentationModel
 
         private Library _model;
         private int _selectedRowIndex = 0;
+        private BindingList<InventoryListRow> _inventoryList = new BindingList<InventoryListRow>();
 
         const string NOTIFY_SELECT_ROW_INDEX_CHANGED = "SelectedRowIndex";
         const string NOTIFY_BOOK_INFORMATION_CHANGED = "BookInformation";
@@ -23,10 +25,43 @@ namespace LibraryManagementSystem.PresentationModel
         public BookInventoryFormPresentationModel(Library model)
         {
             this._model = model;
+            this._model._modelChanged += this.UpdateInventoryList;
             this._model._modelChanged += this.NotifyPropertyChanged;
+            this.UpdateInventoryList();
         }
 
-        #region 
+        // 更新庫存清單
+        private void UpdateInventoryList()
+        {
+            List<List<string>> informationList = this._model.GetInventoryListInformationList();
+            this._inventoryList.Clear();
+            foreach (List<string> stringList in informationList)
+                this._inventoryList.Add(new InventoryListRow(stringList));
+        }
+
+        #region Form Event
+        // 點擊清單行
+        public void ChangeDataGridViewSelection(int rowIndex)
+        {
+            this.SelectedRowIndex = rowIndex;
+        }
+
+        // 點擊補貨按鈕
+        public void ClickDataGridViewCellContent(int rowIndex)
+        {
+            //this.SelectedRowIndex = rowIndex;
+        }
+        #endregion
+
+        #region Property
+        public IBindingList InventoryList
+        {
+            get
+            {
+                return this._inventoryList;
+            }
+        }
+
         public int SelectedRowIndex
         {
             get
@@ -38,7 +73,7 @@ namespace LibraryManagementSystem.PresentationModel
                 if (this._selectedRowIndex != value)
                 {
                     this._selectedRowIndex = value;
-                    NotifyPropertyChanged(NOTIFY_SELECT_ROW_INDEX_CHANGED);
+                    this.NotifyPropertyChanged(NOTIFY_BOOK_INFORMATION_CHANGED);
                 }
             }
         }
@@ -47,7 +82,7 @@ namespace LibraryManagementSystem.PresentationModel
         {
             get
             {
-                return "test";
+                return this._inventoryList[this.SelectedRowIndex].BookFormatInformation;
             }
         }
         #endregion

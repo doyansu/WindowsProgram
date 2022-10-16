@@ -87,7 +87,7 @@ namespace LibraryManagementSystem
         private void PatingDataGridView(object sender, DataGridViewCellPaintingEventArgs e)
         {
             const string TRASH_IMAGE_PATH = "../../../image/trash_can.png";
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            if (e.ColumnIndex == this._deleteButtonColumn.Index && e.RowIndex >= 0)
             {
                 Image image = Image.FromFile(TRASH_IMAGE_PATH);
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);

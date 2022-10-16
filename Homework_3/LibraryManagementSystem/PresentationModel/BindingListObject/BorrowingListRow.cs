@@ -37,9 +37,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         }
         #endregion
 
-        #region Member Function
-        #endregion
-
         #region Property
         public string BookName
         {
@@ -62,7 +59,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             set
             {
                 _borrowingCount = value;
-                NotifyPropertyChanged(NOTIFY_BORROWING_COUNT);
+                this.NotifyPropertyChanged(NOTIFY_BORROWING_COUNT);
             }
         }
         public string BookNumber
