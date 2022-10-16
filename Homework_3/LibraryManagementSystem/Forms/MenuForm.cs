@@ -26,7 +26,7 @@ namespace LibraryManagementSystem
             this._menuFormPresentationModel = new MenuFormPresentationModel();
             this._bookBorrowingFrom = new BookBorrowingFrom(model);
             this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
-            this._bookInventoryForm = new BookInventoryForm();
+            this._bookInventoryForm = new BookInventoryForm(model);
             this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
             BindData();
         }
