@@ -16,10 +16,8 @@ namespace LibraryManagementSystem.PresentationModel
         private int _selectedRowIndex = 0;
         private BindingList<InventoryListRow> _inventoryList = new BindingList<InventoryListRow>();
 
-        const string NOTIFY_SELECT_ROW_INDEX_CHANGED = "SelectedRowIndex";
         const string NOTIFY_BOOK_INFORMATION_CHANGED = "BookInformation";
         private readonly string[] _notifyList = { 
-            NOTIFY_SELECT_ROW_INDEX_CHANGED,
             NOTIFY_BOOK_INFORMATION_CHANGED, };
 
         public BookInventoryFormPresentationModel(Library model)
@@ -40,12 +38,6 @@ namespace LibraryManagementSystem.PresentationModel
         }
 
         #region Form Event
-        // 點擊清單行
-        public void ChangeDataGridViewSelection(int rowIndex)
-        {
-            this.SelectedRowIndex = rowIndex;
-        }
-
         // 點擊補貨按鈕
         public void ClickDataGridViewCellContent(int rowIndex)
         {

@@ -47,7 +47,7 @@ namespace LibraryManagementSystem
             {
                 var row = this._bookInformationDataGridView.SelectedRows[0];
                 this._bookImageLabel.Image = Image.FromFile(string.Format(BUTTON_IMAGE_PATH_FORMAT, row.Index + 1));
-                this._presentationModel.ChangeDataGridViewSelection(row.Index);
+                this._presentationModel.SelectedRowIndex = row.Index;
             }
         }
 
@@ -55,7 +55,10 @@ namespace LibraryManagementSystem
         private void ClickDataGridViewCellContent(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this._addingButtonColumn.Index && e.RowIndex >= 0)
+            {
                 this._presentationModel.ClickDataGridViewCellContent(e.RowIndex);
+                this._bookAddingForm.ShowDialog();
+            }
         }
 
         // 繪製補貨按鈕圖片
