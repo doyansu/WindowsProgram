@@ -99,6 +99,9 @@
     <EmbeddedResource Include="Forms\BackPackForm.resx">
       <DependentUpon>BackPackForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BookAddingForm.resx">
+      <DependentUpon>BookAddingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BookBorrowingFrom.resx">
       <DependentUpon>BookBorrowingFrom.cs</DependentUpon>
     </EmbeddedResource>

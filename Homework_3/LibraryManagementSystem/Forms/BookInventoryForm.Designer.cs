@@ -31,16 +31,16 @@ namespace LibraryManagementSystem
         {
             this.components = new System.ComponentModel.Container();
             this._bookInformationDataGridView = new System.Windows.Forms.DataGridView();
-            this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._bookQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._addingButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this._inventoryListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._bookInventoryLabel = new System.Windows.Forms.Label();
             this._bookImageTextLabel = new System.Windows.Forms.Label();
             this._bookInformationTextLabel = new System.Windows.Forms.Label();
             this._bookInformationRichTextBox = new System.Windows.Forms.RichTextBox();
             this._bookImageLabel = new System.Windows.Forms.Label();
+            this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bookQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._inventoryListRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._bookInformationDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._inventoryListRowBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -67,35 +67,11 @@ namespace LibraryManagementSystem
             this._bookInformationDataGridView.TabIndex = 4;
             this._bookInformationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridViewCellContent);
             // 
-            // _bookNameDataGridViewTextBoxColumn
-            // 
-            this._bookNameDataGridViewTextBoxColumn.DataPropertyName = "BookName";
-            this._bookNameDataGridViewTextBoxColumn.FillWeight = 200F;
-            this._bookNameDataGridViewTextBoxColumn.HeaderText = "書籍名稱";
-            this._bookNameDataGridViewTextBoxColumn.Name = "_bookNameDataGridViewTextBoxColumn";
-            // 
-            // _bookCategoryDataGridViewTextBoxColumn
-            // 
-            this._bookCategoryDataGridViewTextBoxColumn.DataPropertyName = "BookCategory";
-            this._bookCategoryDataGridViewTextBoxColumn.FillWeight = 150F;
-            this._bookCategoryDataGridViewTextBoxColumn.HeaderText = "書籍類別";
-            this._bookCategoryDataGridViewTextBoxColumn.Name = "_bookCategoryDataGridViewTextBoxColumn";
-            // 
-            // _bookQuantityDataGridViewTextBoxColumn
-            // 
-            this._bookQuantityDataGridViewTextBoxColumn.DataPropertyName = "BookQuantity";
-            this._bookQuantityDataGridViewTextBoxColumn.HeaderText = "數量";
-            this._bookQuantityDataGridViewTextBoxColumn.Name = "_bookQuantityDataGridViewTextBoxColumn";
-            // 
             // _addingButtonColumn
             // 
             this._addingButtonColumn.FillWeight = 50F;
             this._addingButtonColumn.HeaderText = "補貨";
             this._addingButtonColumn.Name = "_addingButtonColumn";
-            // 
-            // _inventoryListRowBindingSource
-            // 
-            this._inventoryListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.InventoryListRow);
             // 
             // _bookInventoryLabel
             // 
@@ -143,6 +119,33 @@ namespace LibraryManagementSystem
             this._bookImageLabel.Name = "_bookImageLabel";
             this._bookImageLabel.Size = new System.Drawing.Size(120, 156);
             this._bookImageLabel.TabIndex = 9;
+            // 
+            // _bookNameDataGridViewTextBoxColumn
+            // 
+            this._bookNameDataGridViewTextBoxColumn.DataPropertyName = "BookName";
+            this._bookNameDataGridViewTextBoxColumn.FillWeight = 200F;
+            this._bookNameDataGridViewTextBoxColumn.HeaderText = "書籍名稱";
+            this._bookNameDataGridViewTextBoxColumn.Name = "_bookNameDataGridViewTextBoxColumn";
+            this._bookNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // _bookCategoryDataGridViewTextBoxColumn
+            // 
+            this._bookCategoryDataGridViewTextBoxColumn.DataPropertyName = "BookCategory";
+            this._bookCategoryDataGridViewTextBoxColumn.FillWeight = 150F;
+            this._bookCategoryDataGridViewTextBoxColumn.HeaderText = "書籍類別";
+            this._bookCategoryDataGridViewTextBoxColumn.Name = "_bookCategoryDataGridViewTextBoxColumn";
+            this._bookCategoryDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // _bookQuantityDataGridViewTextBoxColumn
+            // 
+            this._bookQuantityDataGridViewTextBoxColumn.DataPropertyName = "BookQuantity";
+            this._bookQuantityDataGridViewTextBoxColumn.HeaderText = "數量";
+            this._bookQuantityDataGridViewTextBoxColumn.Name = "_bookQuantityDataGridViewTextBoxColumn";
+            this._bookQuantityDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // _inventoryListRowBindingSource
+            // 
+            this._inventoryListRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.InventoryListRow);
             // 
             // BookInventoryForm
             // 
