@@ -18,7 +18,7 @@ namespace LibraryManagementSystem.PresentationModel
 
         const string NOTIFY_BOOK_INFORMATION_CHANGED = "BookInformation";
         private readonly string[] _notifyList = { 
-            NOTIFY_BOOK_INFORMATION_CHANGED, };
+            NOTIFY_BOOK_INFORMATION_CHANGED };
 
         public BookInventoryFormPresentationModel(Library model)
         {
@@ -75,6 +75,16 @@ namespace LibraryManagementSystem.PresentationModel
             get
             {
                 return this._inventoryList[this.SelectedRowIndex].BookFormatInformation;
+            }
+        }
+
+        public string BookItemInformation
+        {
+            get
+            {
+                const string INFORMATION_FORMAT = "書籍名稱 : {0}\n\n書籍類別 : {1}\n庫存數量 : {2}";
+                InventoryListRow row = this._inventoryList[this._selectedRowIndex];
+                return string.Format(INFORMATION_FORMAT, row.BookName, row.BookCategory, row.BookQuantity);
             }
         }
         #endregion

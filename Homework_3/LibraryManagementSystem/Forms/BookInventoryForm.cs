@@ -58,6 +58,7 @@ namespace LibraryManagementSystem
             if (e.ColumnIndex == this._addingButtonColumn.Index && e.RowIndex >= 0)
             {
                 BookAddingForm bookAddingForm = new BookAddingForm(this._model);
+                bookAddingForm.SetBookInformation(this._presentationModel.BookItemInformation);
                 if (bookAddingForm.ShowDialog() == DialogResult.OK)
                     this._presentationModel.ClickAddingButton(bookAddingForm.GetAddingQuantity());
             }
