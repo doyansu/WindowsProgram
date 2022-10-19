@@ -133,7 +133,7 @@ namespace LibraryManagementSystem
             // _bookInformationRichTextBox
             // 
             this._bookInformationRichTextBox.BackColor = System.Drawing.SystemColors.Menu;
-            this._bookInformationRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._bookInformationRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._bookInformationRichTextBox.Location = new System.Drawing.Point(544, 280);
             this._bookInformationRichTextBox.Name = "_bookInformationRichTextBox";
             this._bookInformationRichTextBox.Size = new System.Drawing.Size(508, 389);

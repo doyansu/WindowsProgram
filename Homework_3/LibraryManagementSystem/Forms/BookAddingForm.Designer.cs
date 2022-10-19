@@ -59,7 +59,7 @@ namespace LibraryManagementSystem
             // 
             // _addingBookInformationRichTextBox
             // 
-            this._addingBookInformationRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._addingBookInformationRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addingBookInformationRichTextBox.Location = new System.Drawing.Point(12, 47);
             this._addingBookInformationRichTextBox.Name = "_addingBookInformationRichTextBox";
             this._addingBookInformationRichTextBox.Size = new System.Drawing.Size(600, 290);
@@ -96,6 +96,7 @@ namespace LibraryManagementSystem
             // 
             this._addingQuantityTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addingQuantityTextBox.Location = new System.Drawing.Point(100, 347);
+            this._addingQuantityTextBox.MaxLength = 9;
             this._addingQuantityTextBox.Name = "_addingQuantityTextBox";
             this._addingQuantityTextBox.Size = new System.Drawing.Size(100, 29);
             this._addingQuantityTextBox.TabIndex = 5;

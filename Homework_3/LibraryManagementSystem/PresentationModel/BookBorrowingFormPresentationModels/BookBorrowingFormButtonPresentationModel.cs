@@ -113,12 +113,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
 
         #region Output
-        // 取得每類書籍對映的數量鍵值對 (return Dictionary<Category, BookCount>)
-        public Dictionary<string, int> GetCategoryQuantityPair()
-        {
-            return this._model.GetCategoryQuantityPair();
-        }
-
         // 創建按鈕 binding 物件
         public TabPageButtonVisible CreateButtonBindingObject()
         {
@@ -138,8 +132,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                const string PAGE_LABEL_STRING_FORMAT = "Page : {0} / {1}";
-                return string.Format(PAGE_LABEL_STRING_FORMAT, this.ButtonPageIndex + 1, this.GetMaxTabPageIndex() + 1);
+                return string.Format("Page : {0} / {1}", this.ButtonPageIndex + 1, this.GetMaxTabPageIndex() + 1);
             }
         }
 

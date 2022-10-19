@@ -33,7 +33,7 @@ namespace LibraryManagementSystem
         // 補貨
         public void AddBook(string bookName, int quantity)
         {
-            this._bookItemList.Find(content => content.Book.Name == bookName).Quantity += quantity;
+            this.FindBookItem(bookName).Quantity += quantity;
             this.ModelChanged();
         }
 
@@ -219,7 +219,7 @@ namespace LibraryManagementSystem
             return this._borrowedList.GetInformationList();
         }
 
-        // 取得
+        // 取得庫存資料的資料清單
         public List<List<string>> GetInventoryListInformationList()
         {
             List<List<string>> informationList = new List<List<string>>();

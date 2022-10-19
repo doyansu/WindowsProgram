@@ -13,8 +13,9 @@ namespace LibraryManagementSystem
 {
     public partial class BookBorrowingFrom : System.Windows.Forms.Form
     {
-        
+
         #region PresentationModel
+        private Library _model;
         private BookBorrowingFormButtonPresentationModel _buttonPresentationModel;
         private BookBorrowingFormTextPresentationModel _textPresentationModel;
         private BookBorrowingFormBorrowingListPresentationModel _borrowingListPresentationModel;
@@ -27,6 +28,7 @@ namespace LibraryManagementSystem
         {
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
+            this._model = model;
             this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(model);
             this._textPresentationModel = new BookBorrowingFormTextPresentationModel(model);
             this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model);
@@ -51,7 +53,7 @@ namespace LibraryManagementSystem
         {
             this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
             this._bookCategoryTabControl.TabPages.Clear();
-            Dictionary<string, int> categoryQuantity = this._buttonPresentationModel.GetCategoryQuantityPair();
+            Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
             int imageName = 1;
             foreach (var data in categoryQuantity)
             {

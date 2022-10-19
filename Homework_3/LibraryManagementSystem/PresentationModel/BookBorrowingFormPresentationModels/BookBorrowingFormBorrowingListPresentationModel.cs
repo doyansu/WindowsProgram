@@ -19,9 +19,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private BindingList<BorrowingListRow> _borrowingList = new BindingList<BorrowingListRow>();
 
         #region Const
-        const int BORROWING_LIMIT_QUANTITY = 2;
-        const int BORROWING_LIST_LIMIT = 5;
-
         const string NOTIFY_BORROWING_LIST_QUANTITY_TEXT = "BorrowingListQuantityString";
         private readonly string[] _notifyList = { 
             "IsAddBookButtonEnabled",
@@ -55,11 +52,11 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
-            const string BORROWING_LIST_IS_FULL = "每次借書限借五本，您的借書單已滿";
+            const int BORROWING_LIST_LIMIT = 5;
             if (this._borrowingList.Count < BORROWING_LIST_LIMIT)
                 this._model.AddSelectedBookItemToBorrowingList();
             else
-                this.ShowMessage(BORROWING_LIST_IS_FULL, TITLE_BORROWING_VIOLATION);
+                this.ShowMessage("每次借書限借五本，您的借書單已滿", TITLE_BORROWING_VIOLATION);
         }
 
         // 點擊借書單的刪除按鈕
@@ -71,13 +68,10 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 點擊確認借書
         public void ClickConfirmBorrowingButton()
         {
-            const int REMOVE_EXTRA_INDEX = 3;
-            const string STRING_FORMAT_MESSAGE = "{0}\n\n已成功借出!";
-            const string STRING_FORMAT_BOOK = " 、 [{0}] {1}本";
             string books = "";
             foreach (BorrowingListRow row in this._borrowingList)
-                books += string.Format(STRING_FORMAT_BOOK, row.BookName, row.BorrowingCount);
-            this.ShowMessage(string.Format(STRING_FORMAT_MESSAGE, books).Substring(REMOVE_EXTRA_INDEX), TITLE_BORROWING_RESULT);
+                books += string.Format(" 、 [{0}] {1}本", row.BookName, row.BorrowingCount);
+            this.ShowMessage(string.Format("{0}\n\n已成功借出!", books).Substring(3), TITLE_BORROWING_RESULT);
             this._model.BorrowBooks();
         }
 
@@ -85,19 +79,18 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void EditCellEnd(int rowIndex, int changeValue)
         {
             this._model.ChangeBorrowingItemQuantity(rowIndex, changeValue);
-            const string EXCEED_LIMIT_QUANTITY_MESSAGE_FORMAT = "同一本書一次限借{0}本";
-            const string EXCEED_BOOK_QUANTITY_MESSAGE = "該書本剩餘數量不足";
-            Func<int, int> getChangeValue = (quantity) => quantity < BORROWING_LIMIT_QUANTITY ? quantity : BORROWING_LIMIT_QUANTITY;
+            const int BORROWING_LIMIT_QUANTITY = 2;
+            Func<int, int> getMaxChangeValue = (quantity) => quantity < BORROWING_LIMIT_QUANTITY ? quantity : BORROWING_LIMIT_QUANTITY;
             int bookQuantity = this._model.GetBookItemQuantity(this._borrowingList[rowIndex].BookName);
-            int maxValue = getChangeValue(bookQuantity);
+            int maxValue = getMaxChangeValue(bookQuantity);
             if (changeValue > BORROWING_LIMIT_QUANTITY)
             {
-                this.ShowMessage(string.Format(EXCEED_LIMIT_QUANTITY_MESSAGE_FORMAT, BORROWING_LIMIT_QUANTITY), TITLE_BORROWING_VIOLATION);
+                this.ShowMessage(string.Format("同一本書一次限借{0}本", BORROWING_LIMIT_QUANTITY), TITLE_BORROWING_VIOLATION);
                 changeValue = maxValue;
             }
             else if (changeValue > bookQuantity)
             {
-                this.ShowMessage(EXCEED_BOOK_QUANTITY_MESSAGE, TITLE_INVENTORY_STATUS);
+                this.ShowMessage("該書本剩餘數量不足", TITLE_INVENTORY_STATUS);
                 changeValue = maxValue;
             }
             this._model.ChangeBorrowingItemQuantity(rowIndex, changeValue);
@@ -134,11 +127,10 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                const string TITLE = "借書數量 : ";
                 int quantity = 0;
                 foreach (BorrowingListRow row in this._borrowingList)
                     quantity += row.BorrowingCount;
-                return TITLE + quantity;
+                return "借書數量 : " + quantity;
             }
         }
         #endregion
