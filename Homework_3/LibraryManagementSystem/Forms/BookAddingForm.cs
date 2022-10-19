@@ -20,5 +20,25 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._presentationModel = new BookAddingFormPresentationModel(model);
         }
+
+        // 取得補貨數量
+        public int GetAddingQuantity()
+        {
+            return int.Parse(this._addingQuantityTextBox.Text);
+        }
+
+        #region Form Event
+        // 點擊確認按鈕
+        private void ClickConfirmButton(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        // 點擊取消按鈕
+        private void ClickCancelButton(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
     }
 }

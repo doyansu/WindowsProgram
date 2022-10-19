@@ -68,6 +68,7 @@ namespace LibraryManagementSystem
             // _confirmButton
             // 
             this._confirmButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(205)))), ((int)(((byte)(170)))));
+            this._confirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._confirmButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._confirmButton.Location = new System.Drawing.Point(12, 385);
             this._confirmButton.Name = "_confirmButton";
@@ -75,10 +76,12 @@ namespace LibraryManagementSystem
             this._confirmButton.TabIndex = 3;
             this._confirmButton.Text = "確認";
             this._confirmButton.UseVisualStyleBackColor = false;
+            this._confirmButton.Click += new System.EventHandler(this.ClickConfirmButton);
             // 
             // _cancelButton
             // 
             this._cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(19)))), ((int)(((byte)(61)))));
+            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._cancelButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._cancelButton.Location = new System.Drawing.Point(322, 385);
             this._cancelButton.Name = "_cancelButton";
@@ -86,6 +89,7 @@ namespace LibraryManagementSystem
             this._cancelButton.TabIndex = 4;
             this._cancelButton.Text = "取消";
             this._cancelButton.UseVisualStyleBackColor = false;
+            this._cancelButton.Click += new System.EventHandler(this.ClickCancelButton);
             // 
             // _addingQuantityTextBox
             // 

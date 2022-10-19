@@ -39,9 +39,9 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Form Event
         // 點擊補貨按鈕
-        public void ClickDataGridViewCellContent(int rowIndex)
+        public void ClickAddingButton(int addingQuantity)
         {
-            //this.SelectedRowIndex = rowIndex;
+            this._model.AddBook(this._inventoryList[this._selectedRowIndex].BookName, addingQuantity);
         }
         #endregion
 

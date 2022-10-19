@@ -13,15 +13,15 @@ namespace LibraryManagementSystem
 {
     public partial class BookInventoryForm : Form
     {
+        Library _model;
         BookInventoryFormPresentationModel _presentationModel;
-        BookAddingForm _bookAddingForm;
 
         #region Constructor
         public BookInventoryForm(Library model)
         {
             InitializeComponent();
+            this._model = model;
             this._presentationModel = new BookInventoryFormPresentationModel(model);
-            this._bookAddingForm = new BookAddingForm(model);
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.SelectionChanged += this.ChangeDataGridViewSelection;
             this.BindData();
@@ -54,10 +54,12 @@ namespace LibraryManagementSystem
         // 點擊儲存格
         private void ClickDataGridViewCellContent(object sender, DataGridViewCellEventArgs e)
         {
+            // 點擊補貨按鈕
             if (e.ColumnIndex == this._addingButtonColumn.Index && e.RowIndex >= 0)
             {
-                this._presentationModel.ClickDataGridViewCellContent(e.RowIndex);
-                this._bookAddingForm.ShowDialog();
+                BookAddingForm bookAddingForm = new BookAddingForm(this._model);
+                if (bookAddingForm.ShowDialog() == DialogResult.OK)
+                    this._presentationModel.ClickAddingButton(bookAddingForm.GetAddingQuantity());
             }
         }
 

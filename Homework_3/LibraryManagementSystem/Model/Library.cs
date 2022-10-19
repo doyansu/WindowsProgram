@@ -30,6 +30,13 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Member Function
+        // 補貨
+        public void AddBook(string bookName, int quantity)
+        {
+            this._bookItemList.Find(content => content.Book.Name == bookName).Quantity += quantity;
+            this.ModelChanged();
+        }
+
         // 透過類別選擇書籍
         public void SelectBookItem(string category, int index)
         {
