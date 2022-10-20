@@ -105,7 +105,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Private Function
-        // 從 hw2_books_source.txt 下載資料
+        // 從 hw3_books_source.txt 下載資料
         private void LoadsBooksData()
         {
             const string FILE_NAME = "../../../hw3_books_source.txt";
@@ -148,6 +148,12 @@ namespace LibraryManagementSystem
             return this._bookItemList.Find(content => content.Book.Name == bookName);
         }
 
+        // 使用書籍找到 bookItem
+        private BookItem FindBookItem(Book book)
+        {
+            return this._bookItemList.Find(content => content.Book == book);
+        }
+
         // 將書籍還回 _bookItemList 清單
         private void ReturnBookItem(BookItem returnItem)
         {
@@ -165,17 +171,6 @@ namespace LibraryManagementSystem
             return data;
         }
 
-        // 取得書籍的書籍數量
-        public int GetBookItemQuantity(string bookName)
-        {
-            const int NULL_VALUE = -1;
-            BookItem bookItem = this._bookItemList.Find(content =>
-            {
-                return content.Book.Name == bookName;
-            });
-            return bookItem != null ? bookItem.Quantity : NULL_VALUE;
-        }
-        
         // 取得所選書籍的書籍名稱
         public string GetSelectedBookItemName()
         {
@@ -209,7 +204,11 @@ namespace LibraryManagementSystem
         {
             List<List<string> > informationList = new List<List<string>>();
             foreach (BookItem bookItem in this._borrowingList)
-                informationList.Add(bookItem.GetInformationList());
+            {
+                List<string> stringList = bookItem.GetInformationList();
+                stringList.Add(this.FindBookItem(bookItem.Book).Quantity.ToString());
+                informationList.Add(stringList);
+            }
             return informationList;
         }
 
@@ -233,12 +232,6 @@ namespace LibraryManagementSystem
                 informationList.Add(stringList);
             }
             return informationList;
-        }
-
-        // 取得借書單有幾種書
-        public int GetBorrowedListCount()
-        {
-            return this._borrowingList.Count;
         }
         #endregion
 

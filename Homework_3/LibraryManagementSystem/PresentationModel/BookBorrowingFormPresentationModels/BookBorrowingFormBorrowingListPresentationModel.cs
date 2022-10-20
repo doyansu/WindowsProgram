@@ -25,6 +25,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             "IsConfirmBorrowingButtonEnabled",
             NOTIFY_BORROWING_LIST_QUANTITY_TEXT };
 
+        const int BORROWING_LIST_QUANTITY_LIMIT = 5;
+        const int BORROWING_BOOK_QUANTITY_LIMIT = 2;
+        private const string MESSAGE_OVER_LIST_LIMIT = "每次借書限借五本，您的借書單已滿";
         #region Message Title
         private const string TITLE_BORROWING_RESULT = "借書結果";
         private const string TITLE_BORROWING_VIOLATION = "借書違規";
@@ -48,15 +51,23 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                 this._borrowingList.Add(new BorrowingListRow(stringList));
         }
 
+        // 取得借書總數
+        private int GetBookQuantityCount()
+        {
+            int quantity = 0;
+            foreach (BorrowingListRow row in this._borrowingList)
+                quantity += row.BorrowingCount;
+            return quantity;
+        }
+
         #region Form Event
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
-            const int BORROWING_LIST_LIMIT = 5;
-            if (this._borrowingList.Count < BORROWING_LIST_LIMIT)
+            if (this.GetBookQuantityCount() < BORROWING_LIST_QUANTITY_LIMIT)
                 this._model.AddSelectedBookItemToBorrowingList();
             else
-                this.ShowMessage("每次借書限借五本，您的借書單已滿", TITLE_BORROWING_VIOLATION);
+                this.ShowMessage(MESSAGE_OVER_LIST_LIMIT, TITLE_BORROWING_VIOLATION);
         }
 
         // 點擊借書單的刪除按鈕
@@ -78,22 +89,23 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 數量儲存格編輯完成
         public void EditCellEnd(int rowIndex, int changeValue)
         {
-            this._model.ChangeBorrowingItemQuantity(rowIndex, changeValue);
-            const int BORROWING_LIMIT_QUANTITY = 2;
-            Func<int, int> getMaxChangeValue = (quantity) => quantity < BORROWING_LIMIT_QUANTITY ? quantity : BORROWING_LIMIT_QUANTITY;
-            int bookQuantity = this._model.GetBookItemQuantity(this._borrowingList[rowIndex].BookName);
-            int maxValue = getMaxChangeValue(bookQuantity);
-            if (changeValue > BORROWING_LIMIT_QUANTITY)
-            {
-                this.ShowMessage(string.Format("同一本書一次限借{0}本", BORROWING_LIMIT_QUANTITY), TITLE_BORROWING_VIOLATION);
-                changeValue = maxValue;
-            }
-            else if (changeValue > bookQuantity)
+            int bookQuantity = this._borrowingList[rowIndex].BookQuantity;
+            if ((this._borrowingList[rowIndex].BorrowingCount = changeValue) > bookQuantity)
             {
                 this.ShowMessage("該書本剩餘數量不足", TITLE_INVENTORY_STATUS);
-                changeValue = maxValue;
+                this._borrowingList[rowIndex].BorrowingCount = bookQuantity;
             }
-            this._model.ChangeBorrowingItemQuantity(rowIndex, changeValue);
+            if (this._borrowingList[rowIndex].BorrowingCount > BORROWING_BOOK_QUANTITY_LIMIT)
+            {
+                this.ShowMessage(string.Format("同一本書一次限借{0}本", BORROWING_BOOK_QUANTITY_LIMIT), TITLE_BORROWING_VIOLATION);
+                this._borrowingList[rowIndex].BorrowingCount = BORROWING_BOOK_QUANTITY_LIMIT;
+            }
+            if (this.GetBookQuantityCount() > BORROWING_LIST_QUANTITY_LIMIT)
+            {
+                this.ShowMessage(MESSAGE_OVER_LIST_LIMIT, TITLE_BORROWING_VIOLATION);
+                this._borrowingList[rowIndex].BorrowingCount = 1;
+            }
+            this._model.ChangeBorrowingItemQuantity(rowIndex, this._borrowingList[rowIndex].BorrowingCount);
         }
         #endregion
 
@@ -111,7 +123,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             get
             {
                 string bookName = this._model.GetSelectedBookItemName();
-                return this._model.GetSelectedBookItemQuantity() > 0 && this._borrowingList.SingleOrDefault(BookItem => BookItem.BookName == bookName) == null;
+                return this._model.GetSelectedBookItemQuantity() > 0 && this._borrowingList.SingleOrDefault(BookRow => BookRow.BookName == bookName) == null;
             }
         }
 
@@ -119,7 +131,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return this._model.GetBorrowedListCount() > 0;
+                return this._borrowingList.Count > 0;
             }
         }
 
@@ -127,10 +139,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                int quantity = 0;
-                foreach (BorrowingListRow row in this._borrowingList)
-                    quantity += row.BorrowingCount;
-                return "借書數量 : " + quantity;
+                return "借書數量 : " + this.GetBookQuantityCount();
             }
         }
         #endregion
