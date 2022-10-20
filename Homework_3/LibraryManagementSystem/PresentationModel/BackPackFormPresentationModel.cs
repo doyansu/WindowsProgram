@@ -33,10 +33,6 @@ namespace LibraryManagementSystem.PresentationModel
         #endregion
 
         #region View Process
-        // 點擊書包的歸還按鈕 const string
-        private const string SUCCESS_MESSAGE_FORMAT = "[{0}] 已成功歸還{1}本";
-        private const string UP_RANGE_MESSAGE = "還書數量不能超過已借數量";
-        private const string DOWN_RANGE_MESSAGE = "您至少要歸還1本書";
         // 點擊書包的歸還按鈕
         public void ClickDataGridView1CellContent(int rowIndex)
         {
@@ -44,17 +40,17 @@ namespace LibraryManagementSystem.PresentationModel
             int borrowedQuantity = this._backPackList[rowIndex].BorrowedCount;
             if (returnQuantity > borrowedQuantity)
             {
-                this.ShowMessage(UP_RANGE_MESSAGE, TITLE_RETURN_ERROR);
+                this.ShowMessage("還書數量不能超過已借數量", TITLE_RETURN_ERROR);
                 this._backPackList[rowIndex].ReturnCount = borrowedQuantity;
             }
             else if (returnQuantity <= 0)
             {
-                this.ShowMessage(DOWN_RANGE_MESSAGE, TITLE_RETURN_ERROR);
+                this.ShowMessage("您至少要歸還1本書", TITLE_RETURN_ERROR);
                 this._backPackList[rowIndex].ReturnCount = 1;
             }
             else
             {
-                this.ShowMessage(string.Format(SUCCESS_MESSAGE_FORMAT, this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
+                this.ShowMessage(string.Format("[{0}] 已成功歸還{1}本", this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
                 this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
             }
         }

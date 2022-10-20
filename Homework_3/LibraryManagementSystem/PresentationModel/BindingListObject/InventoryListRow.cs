@@ -41,6 +41,10 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _bookName;
             }
+            set
+            {
+                _bookName = value;
+            }
         }
 
         public string BookCategory 
@@ -48,6 +52,10 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return _bookCategory;
+            }
+            set
+            {
+                _bookCategory = value;
             }
         }
 
@@ -57,6 +65,10 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _bookQuantity;
             }
+            set
+            {
+                _bookQuantity = value;
+            }
         }
 
         public string BookFormatInformation 
@@ -64,6 +76,10 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return _bookFormatInformation;
+            }
+            set
+            {
+                _bookFormatInformation = value;
             }
         }
         #endregion
