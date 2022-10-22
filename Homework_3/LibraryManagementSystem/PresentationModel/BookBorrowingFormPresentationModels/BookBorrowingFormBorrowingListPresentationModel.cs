@@ -87,10 +87,10 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         }
 
         // 數量儲存格編輯完成
-        public void EditCellEnd(int rowIndex, int changeValue)
+        public void ChangeCellValue(int rowIndex, object changeValueObject)
         {
             int bookQuantity = this._borrowingList[rowIndex].BookQuantity;
-            if ((this._borrowingList[rowIndex].BorrowingCount = changeValue) > bookQuantity)
+            if ((this._borrowingList[rowIndex].BorrowingCount = int.Parse(changeValueObject.ToString())) > bookQuantity)
             {
                 this.ShowMessage("該書本剩餘數量不足", TITLE_INVENTORY_STATUS);
                 this._borrowingList[rowIndex].BorrowingCount = bookQuantity;

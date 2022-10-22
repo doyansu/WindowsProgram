@@ -37,7 +37,8 @@ namespace LibraryManagementSystem
             this._backPackForm.FormClosing += this.BackPackFormClosing;
             this.CreateAllTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
-            this._bookInformationDataGridView.CellEndEdit += this.EditCellEnd;
+            this._bookInformationDataGridView.CellValueChanged += this.ChangeCellValue;
+            this._bookInformationDataGridView.EditingControlShowing += this.EditingControlShowing;
             this.BindData();
         }
 
@@ -170,7 +171,7 @@ namespace LibraryManagementSystem
             this._buttonPresentationModel.ClickLastPageButton();
         }
 
-        // 點擊儲存格
+        // 點擊儲存格內容
         private void ClickDataGridViewCellContent(object sender, DataGridViewCellEventArgs e)
         {
             // 點擊借書單的刪除按鈕
@@ -178,11 +179,24 @@ namespace LibraryManagementSystem
                 this._borrowingListPresentationModel.ClickDataGridView1CellContent(e.RowIndex);
         }
 
-        // 儲存格編輯完成
-        private void EditCellEnd(object sender, DataGridViewCellEventArgs e)
+        // 儲存格值改變
+        private void ChangeCellValue(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this._borrowingCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
-                this._borrowingListPresentationModel.EditCellEnd(e.RowIndex, int.Parse(this._bookInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+                this._borrowingListPresentationModel.ChangeCellValue(e.RowIndex, this._bookInformationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+        }
+
+        // 編輯模式儲存格內容改變
+        private void EditTextChanged(object sender, EventArgs e)
+        {
+            this._bookInformationDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        // 顯示儲存格編輯模式
+        private void EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.TextChanged -= this.EditTextChanged;
+            e.Control.TextChanged += this.EditTextChanged;
         }
 
         // 關閉我的書包視窗
