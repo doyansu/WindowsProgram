@@ -91,6 +91,7 @@
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormButtonPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormControlPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormTextPresentationModel.cs" />
     <Compile Include="PresentationModel\BookInventoryFormPresentationModel.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModel.cs" />

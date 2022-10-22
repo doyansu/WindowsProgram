@@ -15,7 +15,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
 
         #region Attributes
-        private Library _model;
+        private BookBorrowingFormPresentationModel _presentationModel;
         private List<List<TabPageButtonVisible>> _bookButtonVisibles = new List<List<TabPageButtonVisible>>();
         private int _buttonPageIndex = 0;
         private int _selectedTabPageIndex = 0;
@@ -35,39 +35,33 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
         #endregion
 
-        public BookBorrowingFormButtonPresentationModel(Library model)
+        public BookBorrowingFormButtonPresentationModel(BookBorrowingFormPresentationModel presentationModel)
         {
-            this._model = model;
-            this._model._modelChanged += this.NotifyPropertyChanged;
+            this._presentationModel = presentationModel;
+            this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
         }
 
         #region View Process
-        // 點擊書籍按鈕
-        public void ClickTabPageButton(string category, object buttonTag)
-        {
-            this._model.SelectBookItem(category, int.Parse(buttonTag.ToString()));
-        }
-
         // 切換 Tabpage
         public void BookCategoryTabControlSelectedIndexChanged(int index)
         {
             this.SelectedTabPageIndex = index;
             this.ButtonPageIndex = 0;
-            this._model.UnselectedBookItem();
+            this._presentationModel.UnselectBook();
         }
 
         // 點擊下一頁按鈕
         public void ClickNextPageButton()
         {
             this.ButtonPageIndex++;
-            this._model.UnselectedBookItem();
+            this._presentationModel.UnselectBook();
         }
 
         // 點擊上一頁按鈕
         public void ClickLastPageButton()
         {
-            this.ButtonPageIndex--;
-            this._model.UnselectedBookItem();
+            this.ButtonPageIndex--; 
+            this._presentationModel.UnselectBook();
         }
 
         // 點擊我的書包
@@ -80,8 +74,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void BookBorrowingFromClosing()
         {
             this.ButtonPageIndex = this.SelectedTabPageIndex = 0;
-            this._model.ReturnAllBorrowingListItem();
-            this._model.UnselectedBookItem();
+            this._presentationModel.UnselectBook();
         }
 
         // 關閉我的書包視窗
@@ -197,6 +190,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                 {
                     this._buttonPageIndex = value;
                     this.UpdateButtonsVisible();
+                    this.NotifyPropertyChanged();
                 }
             }
         }

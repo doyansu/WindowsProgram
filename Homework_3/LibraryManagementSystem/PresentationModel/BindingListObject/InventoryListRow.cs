@@ -24,7 +24,9 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         public InventoryListRow(List<string> data)
         {
             int dataMappingIndex = 0;
+            const int MAPPING_OFFSET = 3;
             this._bookName = data[dataMappingIndex++];
+            dataMappingIndex += MAPPING_OFFSET;
             this._bookCategory = data[dataMappingIndex++];
             this._bookQuantity = int.Parse(data[dataMappingIndex++]);
             this._bookFormatInformation = data[dataMappingIndex++];

@@ -16,6 +16,7 @@ namespace LibraryManagementSystem
 
         #region PresentationModel
         private Library _model;
+        private BookBorrowingFormPresentationModel _presentationModel;
         private BookBorrowingFormButtonPresentationModel _buttonPresentationModel;
         private BookBorrowingFormTextPresentationModel _textPresentationModel;
         private BookBorrowingFormBorrowingListPresentationModel _borrowingListPresentationModel;
@@ -29,9 +30,10 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
             this._model = model;
-            this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(model);
-            this._textPresentationModel = new BookBorrowingFormTextPresentationModel(model);
-            this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model);
+            this._presentationModel = new BookBorrowingFormPresentationModel(model);
+            this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(this._presentationModel);
+            this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model, this._presentationModel);
+            this._textPresentationModel = new BookBorrowingFormTextPresentationModel(this._presentationModel);
             this._borrowingListPresentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
@@ -131,7 +133,7 @@ namespace LibraryManagementSystem
         // 點擊書籍按鈕
         private void ClickTabPageButton(object sender, EventArgs e)
         {
-            this._buttonPresentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
+            this._presentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
         }
 
         // 點擊加入借書單

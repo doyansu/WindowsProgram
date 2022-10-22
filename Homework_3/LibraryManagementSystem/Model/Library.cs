@@ -15,8 +15,7 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Attributes
-        private BookItem _selectedBookItem = null;
-        private List<BookItem> _borrowingList = new List<BookItem>();
+        private Book _selectedBook = null;
         private List<BookItem> _bookItemList = new List<BookItem>();
         private List<BookCategory> _bookCategoryList = new List<BookCategory>();
         private BorrowedList _borrowedList = new BorrowedList();
@@ -38,60 +37,32 @@ namespace LibraryManagementSystem
         }
 
         // 透過類別選擇書籍
-        public void SelectBookItem(string category, int index)
+        public void SelectBook(string category, int index)
         {
             BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
-            BookItem bookItemQuery = this._bookItemList.Find(bookItem => bookItem.Book == bookCategoryQuery.GetBookByIndex(index));
-            this._selectedBookItem = bookItemQuery;
-            this.ModelChanged();
+            BookItem bookItemQuery = this.FindBookItem(bookCategoryQuery.GetBookByIndex(index));
+            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
+        }
+
+        // 透過名稱選擇書籍
+        public void SelectBook(string bookName)
+        {
+            BookItem bookItemQuery = this.FindBookItem(bookName);
+            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
         }
 
         // 不選擇任何書籍
-        public void UnselectedBookItem()
+        public void UnselectedBook()
         {
-            this._selectedBookItem = null;
-            this.ModelChanged();
-        }
-
-        // 將選擇的書籍加入借書單
-        public void AddSelectedBookItemToBorrowingList()
-        {
-            this._borrowingList.Add(new BookItem(this._selectedBookItem.Book, 1));
-            this.ModelChanged();
+            this._selectedBook = null;
         }
 
         // 借書
-        public void BorrowBooks()
+        public void BorrowBook(string bookName, int quantity)
         {
-            foreach (BookItem borrowingBook in this._borrowingList)
-            {
-                this._bookItemList.Find(content => content.IsBookEquals(borrowingBook)).Take(borrowingBook);
-                this._borrowedList.Add(new BorrowedItem(borrowingBook));
-            }
-            this._borrowingList.Clear();
-            this.ModelChanged();
-        }
-
-        // 改變借書數量
-        public void ChangeBorrowingItemQuantity(int index, int quantity)
-        {
-            this._borrowingList[index].Quantity = quantity;
-            this.ModelChanged();
-        }
-
-        // 刪除全部借書單內的 item
-        public void ReturnAllBorrowingListItem()
-        {
-            while (this._borrowingList.Count > 0)
-                ReturnBorrowingListItem(0);
-            this.ModelChanged();
-        }
-
-        // 刪除借書單內的 item
-        public void ReturnBorrowingListItem(int index)
-        {
-            if (index >= 0 && index < this._borrowingList.Count)
-                this._borrowingList.RemoveAt(index);
+            BookItem bookItem = this.FindBookItem(bookName);
+            if (bookItem != null)
+                this._borrowedList.Add(new BorrowedItem(bookItem.Take(quantity)));
             this.ModelChanged();
         }
 
@@ -170,43 +141,45 @@ namespace LibraryManagementSystem
                 data[bookCategory.Category] = bookCategory.GetBookCount();
             return data;
         }
-
+        
         // 取得所選書籍的書籍名稱
-        public string GetSelectedBookItemName()
+        public string GetSelectedBookName()
         {
             const string NULL_VALUE = null;
-            return this._selectedBookItem != null ? this._selectedBookItem.Book.Name : NULL_VALUE;
+            return this._selectedBook != null ? this._selectedBook.Name : NULL_VALUE;
         }
 
         // 取得所選書籍的書籍資訊
-        public string GetSelectedBookItemInformation()
+        public string GetSelectedBookInformation()
         {
             const string NULL_VALUE = null;
-            return this._selectedBookItem != null ? this._selectedBookItem.Book.GetFormatInformation() : NULL_VALUE;
+            return this._selectedBook != null ? this._selectedBook.GetFormatInformation() : NULL_VALUE;
         }
 
         // 取得所選書籍的剩餘數量
-        public int GetSelectedBookItemQuantity()
+        public int GetSelectedBookQuantity()
         {
             const int NULL_VALUE = -1;
-            return this._selectedBookItem != null ? this._selectedBookItem.Quantity : NULL_VALUE;
+            return this._selectedBook != null ? this.FindBookItem(this._selectedBook).Quantity : NULL_VALUE;
         }
 
         // 取得所選書籍的剩餘數量字串
-        public string GetSelectedBookItemQuantityString()
+        public string GetSelectedBookQuantityString()
         {
             const string NULL_VALUE = "";
-            return this._selectedBookItem != null ? this._selectedBookItem.Quantity.ToString() : NULL_VALUE;
+            return this._selectedBook != null ? this.FindBookItem(this._selectedBook).Quantity.ToString() : NULL_VALUE;
         }
 
-        // 取得借書單的資料清單
-        public List<List<string>> GetBorrowingListInformationList()
+        // 取得書籍的資料清單
+        public List<List<string>> GetBookItemsInformationList()
         {
-            List<List<string> > informationList = new List<List<string>>();
-            foreach (BookItem bookItem in this._borrowingList)
+            List<List<string>> informationList = new List<List<string>>();
+            foreach (BookItem bookItem in this._bookItemList)
             {
-                List<string> stringList = bookItem.GetInformationList();
-                stringList.Add(this.FindBookItem(bookItem.Book).Quantity.ToString());
+                List<string> stringList = bookItem.Book.GetInformationList();
+                stringList.Add(this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category);
+                stringList.Add(bookItem.Quantity.ToString());
+                stringList.Add(bookItem.Book.GetFormatInformation());
                 informationList.Add(stringList);
             }
             return informationList;

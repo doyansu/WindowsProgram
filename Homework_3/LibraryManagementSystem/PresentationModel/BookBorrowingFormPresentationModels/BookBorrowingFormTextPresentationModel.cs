@@ -14,16 +14,16 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
 
         #region Attributes
-        private Library _model;
+        private BookBorrowingFormPresentationModel _presentationModel;
         private readonly string[] _notifyList = { 
             "SelectedBookInformation",
             "SelectedBookQuantityString", };
         #endregion
 
-        public BookBorrowingFormTextPresentationModel(Library model)
+        public BookBorrowingFormTextPresentationModel(BookBorrowingFormPresentationModel presentationModel)
         {
-            this._model = model;
-            this._model._modelChanged += this.NotifyPropertyChanged;
+            this._presentationModel = presentationModel;
+            this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
         }
 
         #region Property
@@ -31,7 +31,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return _model.GetSelectedBookItemInformation();
+                return this._presentationModel.GetSelectedBookInformation();
             }
         }
 
@@ -39,7 +39,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return "剩餘數量 : " + this._model.GetSelectedBookItemQuantityString();
+                return "剩餘數量 : " + this._presentationModel.GetSelectedBookQuantityString();
             }
         }
         #endregion

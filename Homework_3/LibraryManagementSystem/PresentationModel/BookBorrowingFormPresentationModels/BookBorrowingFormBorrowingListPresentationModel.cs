@@ -16,6 +16,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
 
         private Library _model;
+        private BookBorrowingFormPresentationModel _presentationModel;
         private BindingList<BorrowingListRow> _borrowingList = new BindingList<BorrowingListRow>();
 
         #region Const
@@ -35,22 +36,14 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
         #endregion
 
-        public BookBorrowingFormBorrowingListPresentationModel(Library model)
+        public BookBorrowingFormBorrowingListPresentationModel(Library model, BookBorrowingFormPresentationModel presentationModel)
         {
             this._model = model;
-            this._model._modelChanged += this.UpdateBorrowingList;
-            this._model._modelChanged += this.NotifyPropertyChanged;
+            this._presentationModel = presentationModel;
+            this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
         }
 
-        // 更新借書單的資料陣列
-        public void UpdateBorrowingList()
-        {
-            List<List<string>> informationList = this._model.GetBorrowingListInformationList();
-            this._borrowingList.Clear();
-            foreach (List<string> stringList in informationList)
-                this._borrowingList.Add(new BorrowingListRow(stringList));
-        }
-
+        #region Private Function
         // 取得借書總數
         private int GetBookQuantityCount()
         {
@@ -60,20 +53,31 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             return quantity;
         }
 
+        // 變更借書數量
+        private int ChangeBorrowingCount(int rowIndex, int changeValue)
+        {
+            this._borrowingList[rowIndex].BorrowingCount = changeValue;
+            this.NotifyPropertyChanged(NOTIFY_BORROWING_LIST_QUANTITY_TEXT);
+            return this._borrowingList[rowIndex].BorrowingCount;
+        }
+        #endregion
+
         #region Form Event
         // 點擊加入借書單
         public void ClickAddBookButton()
         {
             if (this.GetBookQuantityCount() < BORROWING_LIST_QUANTITY_LIMIT)
-                this._model.AddSelectedBookItemToBorrowingList();
+                this._borrowingList.Add(new BorrowingListRow(this._model.GetBookItemsInformationList().Find(content => content[0] == this._presentationModel.SelectedBookName)));
             else
                 this.ShowMessage(MESSAGE_OVER_LIST_LIMIT, TITLE_BORROWING_VIOLATION);
+            this.NotifyPropertyChanged();
         }
 
         // 點擊借書單的刪除按鈕
         public void ClickDataGridView1CellContent(int rowIndex)
         {
-            this._model.ReturnBorrowingListItem(rowIndex);
+            this._borrowingList.RemoveAt(rowIndex);
+            this.NotifyPropertyChanged();
         }
 
         // 點擊確認借書
@@ -81,31 +85,35 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             string books = "";
             foreach (BorrowingListRow row in this._borrowingList)
+            {
                 books += string.Format(" 、 [{0}] {1}本", row.BookName, row.BorrowingCount);
+                this._model.BorrowBook(row.BookName, row.BorrowingCount);
+            }
             this.ShowMessage(string.Format("{0}\n\n已成功借出!", books).Substring(3), TITLE_BORROWING_RESULT);
-            this._model.BorrowBooks();
+            this._borrowingList.Clear();
+            this.NotifyPropertyChanged();
         }
 
         // 數量儲存格編輯完成
         public void ChangeCellValue(int rowIndex, object changeValueObject)
         {
             int bookQuantity = this._borrowingList[rowIndex].BookQuantity;
-            if ((this._borrowingList[rowIndex].BorrowingCount = int.Parse(changeValueObject.ToString())) > bookQuantity)
+            this.ChangeBorrowingCount(rowIndex, int.Parse(changeValueObject.ToString()));
+            if (this._borrowingList[rowIndex].BorrowingCount > bookQuantity)
             {
                 this.ShowMessage("該書本剩餘數量不足", TITLE_INVENTORY_STATUS);
-                this._borrowingList[rowIndex].BorrowingCount = bookQuantity;
+                this.ChangeBorrowingCount(rowIndex, bookQuantity);
             }
             if (this._borrowingList[rowIndex].BorrowingCount > BORROWING_BOOK_QUANTITY_LIMIT)
             {
                 this.ShowMessage(string.Format("同一本書一次限借{0}本", BORROWING_BOOK_QUANTITY_LIMIT), TITLE_BORROWING_VIOLATION);
-                this._borrowingList[rowIndex].BorrowingCount = BORROWING_BOOK_QUANTITY_LIMIT;
+                this.ChangeBorrowingCount(rowIndex, BORROWING_BOOK_QUANTITY_LIMIT);
             }
             if (this.GetBookQuantityCount() > BORROWING_LIST_QUANTITY_LIMIT)
             {
                 this.ShowMessage(MESSAGE_OVER_LIST_LIMIT, TITLE_BORROWING_VIOLATION);
-                this._borrowingList[rowIndex].BorrowingCount = 1;
+                this.ChangeBorrowingCount(rowIndex, 1);
             }
-            this._model.ChangeBorrowingItemQuantity(rowIndex, this._borrowingList[rowIndex].BorrowingCount);
         }
         #endregion
 
@@ -122,8 +130,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                string bookName = this._model.GetSelectedBookItemName();
-                return this._model.GetSelectedBookItemQuantity() > 0 && this._borrowingList.SingleOrDefault(BookRow => BookRow.BookName == bookName) == null;
+                string bookName = this._presentationModel.SelectedBookName;
+                return this._presentationModel.GetSelectedBookQuantity() > 0 && this._borrowingList.SingleOrDefault(BookRow => BookRow.BookName == bookName) == null;
             }
         }
 

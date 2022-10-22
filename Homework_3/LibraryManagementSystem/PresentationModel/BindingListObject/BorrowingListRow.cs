@@ -31,11 +31,11 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             int dataMappingIndex = 0;
             this._bookName = data[dataMappingIndex++];
-            this._borrowingCount = int.Parse(data[dataMappingIndex++]);
+            this._borrowingCount = 1;
             this._bookNumber = data[dataMappingIndex++];
             this._bookAuthor = data[dataMappingIndex++];
             this._bookPublicationItem = data[dataMappingIndex++];
-            this._bookQuantity = int.Parse(data[dataMappingIndex++]);
+            this._bookQuantity = int.Parse(data[++dataMappingIndex]);
         }
         #endregion
 
