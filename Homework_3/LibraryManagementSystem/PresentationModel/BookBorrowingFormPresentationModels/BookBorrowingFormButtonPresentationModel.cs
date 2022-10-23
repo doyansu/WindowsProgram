@@ -38,10 +38,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public BookBorrowingFormButtonPresentationModel(BookBorrowingFormPresentationModel presentationModel)
         {
             this._presentationModel = presentationModel;
-            this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
         }
 
-        #region View Process
+        #region Form Event
         // 切換 Tabpage
         public void BookCategoryTabControlSelectedIndexChanged(int index)
         {
@@ -117,7 +116,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this._bookButtonVisibles[this.SelectedTabPageIndex].Add(new TabPageButtonVisible());
             return this._bookButtonVisibles[this.SelectedTabPageIndex][this._createButtonIndex++];
         }
-
         #endregion
 
         #region Property

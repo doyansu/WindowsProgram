@@ -24,18 +24,11 @@ namespace LibraryManagementSystem
         #region Constrctor
         public Library()
         {
-            this.LoadsBooksData();
+            this.InitializeBooksData();
         }
         #endregion
 
         #region Member Function
-        // 補貨
-        public void AddBook(string bookName, int quantity)
-        {
-            this.FindBookItem(bookName).Quantity += quantity;
-            this.ModelChanged();
-        }
-
         // 透過類別選擇書籍
         public void SelectBook(string category, int index)
         {
@@ -73,20 +66,27 @@ namespace LibraryManagementSystem
             this._borrowedList.RefreshList();
             this.ModelChanged();
         }
+
+        // 補貨
+        public void AddBook(string bookName, int quantity)
+        {
+            this.FindBookItem(bookName).Quantity += quantity;
+            this.ModelChanged();
+        }
         #endregion
 
         #region Private Function
-        // 從 hw3_books_source.txt 下載資料
-        private void LoadsBooksData()
+        // 下載書籍資料
+        private void InitializeBooksData()
         {
             const string FILE_NAME = "../../../hw3_books_source.txt";
-            const string BOOK = "BOOK";
+            const string START_LINE = "BOOK";
             const int DATA_ROWS = 6;
             StreamReader file = new StreamReader(@FILE_NAME);
             while (!file.EndOfStream)
             {
                 string line = file.ReadLine();
-                if (line == BOOK)
+                if (line == START_LINE)
                 {
                     List<string> bookData = new List<string>();
                     for (int i = 0; i < DATA_ROWS; i++)
@@ -189,22 +189,6 @@ namespace LibraryManagementSystem
         public List<List<string>> GetBorrowedListInformationList()
         {
             return this._borrowedList.GetInformationList();
-        }
-
-        // 取得庫存資料的資料清單
-        public List<List<string>> GetInventoryListInformationList()
-        {
-            List<List<string>> informationList = new List<List<string>>();
-            foreach (BookItem bookItem in this._bookItemList)
-            {
-                List<string> stringList = new List<string>();
-                stringList.Add(bookItem.Book.Name);
-                stringList.Add(this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category);
-                stringList.Add(bookItem.Quantity.ToString());
-                stringList.Add(bookItem.Book.GetFormatInformation());
-                informationList.Add(stringList);
-            }
-            return informationList;
         }
         #endregion
 
