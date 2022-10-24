@@ -19,7 +19,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         private string _bookNumber;
         private string _bookAuthor;
         private string _bookPublicationItem;
-        private int _bookQuantity;
 
         #region Const Attributes
         private const string NOTIFY_BORROWING_COUNT = "BorrowingCount";
@@ -35,7 +34,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             this._bookNumber = data[dataMappingIndex++];
             this._bookAuthor = data[dataMappingIndex++];
             this._bookPublicationItem = data[dataMappingIndex++];
-            this._bookQuantity = int.Parse(data[++dataMappingIndex]);
         }
         #endregion
 
@@ -98,18 +96,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             set
             {
                 _bookPublicationItem = value;
-            }
-        }
-
-        public int BookQuantity 
-        {
-            get
-            {
-                return _bookQuantity;
-            }
-            set
-            {
-                _bookQuantity = value;
             }
         }
         #endregion

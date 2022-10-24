@@ -97,9 +97,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 數量儲存格編輯完成
         public void ChangeCellValue(int rowIndex, object changeValueObject)
         {
-            int bookQuantity = this._borrowingList[rowIndex].BookQuantity;
-            this.ChangeBorrowingCount(rowIndex, int.Parse(changeValueObject.ToString()));
-            if (this._borrowingList[rowIndex].BorrowingCount > bookQuantity)
+            this._model.SelectBook(this._borrowingList[rowIndex].BookName);
+            int bookQuantity = this._model.GetSelectedBookQuantity();
+            if (this.ChangeBorrowingCount(rowIndex, int.Parse(changeValueObject.ToString())) > bookQuantity)
             {
                 this.ShowMessage("該書本剩餘數量不足", TITLE_INVENTORY_STATUS);
                 this.ChangeBorrowingCount(rowIndex, bookQuantity);
