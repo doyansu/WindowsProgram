@@ -41,7 +41,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊補貨按鈕
         public void ClickAddingButton(int addingQuantity)
         {
-            this._model.AddBook(this._inventoryList[this._selectedRowIndex].BookName, addingQuantity);
+            this._model.AddBook(this._inventoryList[this.SelectedRowIndex].BookName, addingQuantity);
         }
         #endregion
 
@@ -83,7 +83,7 @@ namespace LibraryManagementSystem.PresentationModel
             get
             {
                 const string INFORMATION_FORMAT = "書籍名稱 : {0}\n\n書籍類別 : {1}\n庫存數量 : {2}";
-                InventoryListRow row = this._inventoryList[this._selectedRowIndex];
+                InventoryListRow row = this._inventoryList[this.SelectedRowIndex];
                 return string.Format(INFORMATION_FORMAT, row.BookName, row.BookCategory, row.BookQuantity);
             }
         }

@@ -18,6 +18,8 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         private string _bookCategory;
         private int _bookQuantity;
         private string _bookFormatInformation;
+
+        const string NOTIFY_BOOK_QUANTITY_CHANGED = "BookQuantity";
         #endregion
 
         #region Constructor
@@ -69,7 +71,11 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             }
             set
             {
-                _bookQuantity = value;
+                if (this._bookQuantity != value)
+                {
+                    this._bookQuantity = value;
+                    NotifyPropertyChanged(NOTIFY_BOOK_QUANTITY_CHANGED);
+                }
             }
         }
 
