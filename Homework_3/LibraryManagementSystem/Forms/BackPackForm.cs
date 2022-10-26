@@ -26,7 +26,8 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._presentationModel = new BackPackFormPresentationModel(model);
             this._presentationModel._showMessage += ShowMessage;
-            this._backPackDataGridView.CellEndEdit += this.EditCellEnd;
+            this._backPackDataGridView.CellValueChanged += this.ChangeCellValue;
+            this._backPackDataGridView.EditingControlShowing += this.EditingControlShowing;
             this._backPackDataGridView.DataSource = this._presentationModel.BackPackList;
         }
         #endregion
@@ -53,11 +54,24 @@ namespace LibraryManagementSystem
                 this._presentationModel.ClickDataGridView1CellContent(e.RowIndex);
         }
 
-        // 儲存格編輯完成
-        private void EditCellEnd(object sender, DataGridViewCellEventArgs e)
+        // 儲存格值改變
+        private void ChangeCellValue(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this._returnCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
-                this._presentationModel.EditCellEnd(e.RowIndex, this._backPackDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                this._presentationModel.ChangeCellValue(e.RowIndex, this._backPackDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+        }
+
+        // 編輯模式儲存格內容改變
+        private void EditTextChanged(object sender, EventArgs e)
+        {
+            this._backPackDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        // 顯示儲存格編輯模式
+        private void EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.TextChanged -= this.EditTextChanged;
+            e.Control.TextChanged += this.EditTextChanged;
         }
         #endregion
 

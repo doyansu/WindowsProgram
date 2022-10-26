@@ -37,6 +37,15 @@ namespace LibraryManagementSystem.PresentationModel
         public void ClickDataGridView1CellContent(int rowIndex)
         {
             int returnQuantity = this._backPackList[rowIndex].ReturnCount;
+            this.ShowMessage(string.Format("[{0}] 已成功歸還{1}本", this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
+            this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
+        }
+
+        // 儲存格數值改變
+        public void ChangeCellValue(int rowIndex, object changeValueObject)
+        {
+            // int changeValue = int.Parse(changeValueObject.ToString());
+            int returnQuantity = this._backPackList[rowIndex].ReturnCount;
             int borrowedQuantity = this._backPackList[rowIndex].BorrowedCount;
             if (returnQuantity > borrowedQuantity)
             {
@@ -48,18 +57,6 @@ namespace LibraryManagementSystem.PresentationModel
                 this.ShowMessage("您至少要歸還1本書", TITLE_RETURN_ERROR);
                 this._backPackList[rowIndex].ReturnCount = 1;
             }
-            else
-            {
-                this.ShowMessage(string.Format("[{0}] 已成功歸還{1}本", this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
-                this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
-            }
-        }
-
-        // 儲存格編輯完成
-        public void EditCellEnd(int rowIndex, object changeValueObject)
-        {
-            int changeValue = int.Parse(changeValueObject.ToString());
-            // now do nothing
         }
         #endregion
 
