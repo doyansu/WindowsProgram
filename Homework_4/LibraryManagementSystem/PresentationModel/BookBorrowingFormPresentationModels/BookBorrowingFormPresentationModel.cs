@@ -49,7 +49,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public string GetSelectedBookInformation()
         {
             this._model.SelectBook(this._selectedBookName);
-            return this._model.GetSelectedBookInformation();
+            return this._model.GetSelectedBookFormatInformation();
         }
 
         // 取得所選書籍的剩餘數量

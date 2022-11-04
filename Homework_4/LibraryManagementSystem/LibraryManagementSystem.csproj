@@ -66,6 +66,7 @@
     <Compile Include="Forms\BookInventoryForm.Designer.cs">
       <DependentUpon>BookInventoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\BookInformation.cs" />
     <Compile Include="Model\BookItem.cs" />
     <Compile Include="Model\BorrowedItem.cs" />
     <Compile Include="Model\BorrowedList.cs" />

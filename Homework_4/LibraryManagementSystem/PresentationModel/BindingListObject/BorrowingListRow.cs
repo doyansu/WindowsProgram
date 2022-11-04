@@ -14,11 +14,8 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Attributes
-        private string _bookName;
-        private int _borrowingCount;
-        private string _bookNumber;
-        private string _bookAuthor;
-        private string _bookPublicationItem;
+        private BookInformation _bookInformation;
+        private int _borrowingCount = 1;
 
         #region Const Attributes
         private const string NOTIFY_BORROWING_COUNT = "BorrowingCount";
@@ -26,14 +23,9 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Constructor
-        public BorrowingListRow(List<string> data)
+        public BorrowingListRow(BookInformation bookInformation)
         {
-            int dataMappingIndex = 0;
-            this._bookName = data[dataMappingIndex++];
-            this._borrowingCount = 1;
-            this._bookNumber = data[dataMappingIndex++];
-            this._bookAuthor = data[dataMappingIndex++];
-            this._bookPublicationItem = data[dataMappingIndex++];
+            this._bookInformation = bookInformation;
         }
         #endregion
 
@@ -42,11 +34,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookName;
-            }
-            set
-            {
-                _bookName = value;
+                return this._bookInformation.BookName;
             }
         }
 
@@ -54,7 +42,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _borrowingCount;
+                return this._borrowingCount;
             }
             set
             {
@@ -66,11 +54,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookNumber;
-            }
-            set
-            {
-                _bookNumber = value;
+                return this._bookInformation.BookNumber;
             }
         }
 
@@ -78,12 +62,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookAuthor;
-            }
-
-            set
-            {
-                _bookAuthor = value;
+                return this._bookInformation.BookAuthor;
             }
         }
 
@@ -91,11 +70,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookPublicationItem;
-            }
-            set
-            {
-                _bookPublicationItem = value;
+                return this._bookInformation.BookPublicationItem;
             }
         }
         #endregion

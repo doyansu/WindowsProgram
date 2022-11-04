@@ -14,28 +14,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Attributes
-        private string _bookName;
-        private string _bookCategory;
-        private int _bookQuantity;
-        private string _bookFormatInformation;
-
-        const string NOTIFY_BOOK_QUANTITY_CHANGED = "BookQuantity";
+        private BookInformation _bookInformation;
         #endregion
 
         #region Constructor
-        public InventoryListRow(List<string> data)
+        public InventoryListRow(BookInformation bookInformation)
         {
-            int dataMappingIndex = 0;
-            const int MAPPING_OFFSET = 3;
-            this._bookName = data[dataMappingIndex++];
-            dataMappingIndex += MAPPING_OFFSET;
-            this._bookCategory = data[dataMappingIndex++];
-            this._bookQuantity = int.Parse(data[dataMappingIndex++]);
-            this._bookFormatInformation = data[dataMappingIndex++];
+            this._bookInformation = bookInformation;
         }
-        #endregion
-
-        #region Member Function
         #endregion
 
         #region Property
@@ -43,11 +29,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookName;
-            }
-            set
-            {
-                _bookName = value;
+                return this._bookInformation.BookName;
             }
         }
 
@@ -55,11 +37,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookCategory;
-            }
-            set
-            {
-                _bookCategory = value;
+                return this._bookInformation.BookCategory;
             }
         }
 
@@ -67,15 +45,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookQuantity;
-            }
-            set
-            {
-                if (this._bookQuantity != value)
-                {
-                    this._bookQuantity = value;
-                    NotifyPropertyChanged(NOTIFY_BOOK_QUANTITY_CHANGED);
-                }
+                return this._bookInformation.BookQuantity;
             }
         }
 
@@ -83,11 +53,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return _bookFormatInformation;
-            }
-            set
-            {
-                _bookFormatInformation = value;
+                return this._bookInformation._bookFormatInformation;
             }
         }
         #endregion

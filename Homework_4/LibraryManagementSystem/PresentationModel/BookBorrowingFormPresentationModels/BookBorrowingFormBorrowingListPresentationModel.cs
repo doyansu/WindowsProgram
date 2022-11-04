@@ -67,7 +67,10 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void ClickAddBookButton()
         {
             if (this.GetBookQuantityCount() < BORROWING_LIST_QUANTITY_LIMIT)
-                this._borrowingList.Add(new BorrowingListRow(this._model.GetBookItemsInformationList().Find(content => content[0] == this._presentationModel.SelectedBookName)));
+            {
+                this._model.SelectBook(this._presentationModel.SelectedBookName);
+                this._borrowingList.Add(new BorrowingListRow(this._model.GetSelectedBookInformation()));
+            }
             else
                 this.ShowMessage(MESSAGE_OVER_LIST_LIMIT, TITLE_BORROWING_VIOLATION);
             this.NotifyPropertyChanged();

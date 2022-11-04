@@ -31,10 +31,10 @@ namespace LibraryManagementSystem.PresentationModel
         // 更新庫存清單
         private void UpdateInventoryList()
         {
-            List<List<string>> informationList = this._model.GetBookItemsInformationList();
+            List<BookInformation> informationList = this._model.GetBookItemsInformationList();
             this._inventoryList.Clear();
-            foreach (List<string> stringList in informationList)
-                this._inventoryList.Add(new InventoryListRow(stringList));
+            foreach (BookInformation bookInformation in informationList)
+                this._inventoryList.Add(new InventoryListRow(bookInformation));
         }
 
         #region Form Event

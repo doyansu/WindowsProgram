@@ -150,7 +150,7 @@ namespace LibraryManagementSystem
         }
 
         // 取得所選書籍的書籍資訊
-        public string GetSelectedBookInformation()
+        public string GetSelectedBookFormatInformation()
         {
             const string NULL_VALUE = null;
             return this._selectedBook != null ? this._selectedBook.GetFormatInformation() : NULL_VALUE;
@@ -170,18 +170,18 @@ namespace LibraryManagementSystem
             return this._selectedBook != null ? this.FindBookItem(this._selectedBook).Quantity.ToString() : NULL_VALUE;
         }
 
-        // 取得書籍的資料清單
-        public List<List<string>> GetBookItemsInformationList()
+        // 取得書籍的資訊物件
+        public BookInformation GetSelectedBookInformation()
         {
-            List<List<string>> informationList = new List<List<string>>();
+            return this._selectedBook != null ? new BookInformation(this._selectedBook, this._bookCategoryList.Find(content => content.ContainBook(this._selectedBook)).Category, this.FindBookItem(this._selectedBook).Quantity) : null;
+        }
+
+        // 取得書籍的資訊清單
+        public List<BookInformation> GetBookItemsInformationList()
+        {
+            List<BookInformation> informationList = new List<BookInformation>();
             foreach (BookItem bookItem in this._bookItemList)
-            {
-                List<string> stringList = bookItem.Book.GetInformationList();
-                stringList.Add(this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category);
-                stringList.Add(bookItem.Quantity.ToString());
-                stringList.Add(bookItem.Book.GetFormatInformation());
-                informationList.Add(stringList);
-            }
+                informationList.Add(new BookInformation(bookItem.Book, this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category, bookItem.Quantity));
             return informationList;
         }
 
