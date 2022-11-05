@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Attributes
+        private BorrowedBookInformation _borrowedBookInformation;
         private int _returnCount;
         private string _bookName;
         private int _borrowedCount;
@@ -29,17 +31,17 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Constructor
-        public BackPackRow(List<string> data)
+        public BackPackRow(BorrowedBookInformation borrowedBookInformation)
         {
-            int dataMappingIndex = 0;
+            this._borrowedBookInformation = borrowedBookInformation;
             this._returnCount = 1;
-            this._bookName = data[dataMappingIndex++];
-            this._borrowedCount = int.Parse(data[dataMappingIndex++]);
-            this._borrowingDate = data[dataMappingIndex++];
-            this._returnDue = data[dataMappingIndex++];
-            this._bookNumber = data[dataMappingIndex++];
-            this._bookAuthor = data[dataMappingIndex++];
-            this._bookPublicationItem = data[dataMappingIndex++];
+            this._bookName = borrowedBookInformation.BookName;
+            this._borrowedCount = borrowedBookInformation.BookQuantity;
+            this._borrowingDate = borrowedBookInformation.BorrowingDate.ToShortDateString();
+            this._returnDue = borrowedBookInformation.ReturnDue.ToShortDateString();
+            this._bookNumber = borrowedBookInformation.BookNumber;
+            this._bookAuthor = borrowedBookInformation.BookAuthor;
+            this._bookPublicationItem = borrowedBookInformation.BookPublicationItem;
         }
         #endregion
 

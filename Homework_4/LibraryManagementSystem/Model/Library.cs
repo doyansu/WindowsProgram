@@ -148,7 +148,7 @@ namespace LibraryManagementSystem.Model
         // 建立 BookInformation 物件
         private BookInformation CreateBookInformation(Book book)
         {
-            return book != null ? new BookInformation(book, this._bookCategoryList.Find(content => content.ContainBook(book)).Category, this.FindBookItem(book).Quantity) : null;
+            return book != null ? new BookInformation(this.FindBookItem(book), this._bookCategoryList.Find(content => content.ContainBook(book)).Category) : null;
         }
         #endregion
 
@@ -206,7 +206,7 @@ namespace LibraryManagementSystem.Model
         }
 
         // 取得我的書包的資料清單
-        public List<List<string>> GetBorrowedListInformationList()
+        public List<BorrowedBookInformation> GetBorrowedListInformationList()
         {
             return this._borrowedList.GetInformationList();
         }

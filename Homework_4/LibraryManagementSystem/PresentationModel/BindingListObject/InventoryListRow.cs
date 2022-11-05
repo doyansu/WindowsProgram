@@ -54,7 +54,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         {
             get
             {
-                return this._bookInformation._bookFormatInformation;
+                return this._bookInformation.BookFormatInformation;
             }
         }
         #endregion

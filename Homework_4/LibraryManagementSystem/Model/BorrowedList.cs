@@ -60,11 +60,11 @@ namespace LibraryManagementSystem.Model
         }
 
         // 取得資料清單
-        public List<List<string>> GetInformationList()
+        public List<BorrowedBookInformation> GetInformationList()
         {
-            List<List<string>> informationList = new List<List<string>>();
+            List<BorrowedBookInformation> informationList = new List<BorrowedBookInformation>();
             foreach (BorrowedItem borrowedItem in this._borrowedItems)
-                informationList.Add(borrowedItem.GetInformationList());
+                informationList.Add(new BorrowedBookInformation(borrowedItem));
             return informationList;
         }
         #endregion

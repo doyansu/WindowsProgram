@@ -66,10 +66,10 @@ namespace LibraryManagementSystem.PresentationModel
         // 更新書包資訊
         private void UpdateBackPackList()
         {
-            List<List<string>> informationList = this._model.GetBorrowedListInformationList();
+            List<BorrowedBookInformation> informationList = this._model.GetBorrowedListInformationList();
             this._backPackList.Clear();
-            foreach (List<string> stringList in informationList)
-                this._backPackList.Add(new BackPackRow(stringList));
+            foreach (BorrowedBookInformation borrowedBookInformation in informationList)
+                this._backPackList.Add(new BackPackRow(borrowedBookInformation));
         }
         #endregion
 

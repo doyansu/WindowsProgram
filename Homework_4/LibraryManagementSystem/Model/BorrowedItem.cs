@@ -11,24 +11,13 @@ namespace LibraryManagementSystem.Model
         private DateTime _date;
         private BookItem _bookItem;
 
+        const int BORROWING_PERIOD = 30;
+
         #region Constructor
         public BorrowedItem(BookItem bookItem)
         {
             this.Date = DateTime.Now;
             this.BookItem = bookItem;
-        }
-        #endregion
-
-        #region Member Function
-        // 取得資料清單
-        public List<string> GetInformationList()
-        {
-            const int BORROWING_PERIOD = 30;
-            const int INSERT_DATE_INDEX = 2;
-            List<string> informationList = this.BookItem.GetInformationList();
-            informationList.Insert(INSERT_DATE_INDEX, this.Date.AddDays(BORROWING_PERIOD).ToShortDateString());
-            informationList.Insert(INSERT_DATE_INDEX, this.Date.ToShortDateString());
-            return informationList;
         }
         #endregion
 
@@ -42,6 +31,14 @@ namespace LibraryManagementSystem.Model
             set
             {
                 this._date = value;
+            }
+        }
+
+        public DateTime ReturnDue
+        {
+            get
+            {
+                return this.Date.AddDays(BORROWING_PERIOD);
             }
         }
 

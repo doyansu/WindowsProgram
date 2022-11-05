@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Model\BookInformation.cs" />
     <Compile Include="Model\BookItem.cs" />
+    <Compile Include="Model\BorrowedBookInformation.cs" />
     <Compile Include="Model\BorrowedItem.cs" />
     <Compile Include="Model\BorrowedList.cs" />
     <Compile Include="Forms\BookBorrowingFrom.cs">

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Model
 {
-    public class BookInformation
+    public class BorrowedBookInformation
     {
+        
+        private BorrowedItem _borrowedItem;
         private BookItem _bookItem;
         private Book _book;
-        private string _category;
 
-        public BookInformation(BookItem bookItem, string category)
+        public BorrowedBookInformation(BorrowedItem borrowedItem)
         {
-            this._bookItem = bookItem;
-            this._book = bookItem.Book;
-            this._category = category;
+            this._borrowedItem = borrowedItem;
+            this._bookItem = borrowedItem.BookItem;
+            this._book = this._bookItem.Book;
         }
 
         #region Getter and Setter
@@ -60,19 +61,27 @@ namespace LibraryManagementSystem.Model
             }
         }
 
-        public string BookCategory
-        {
-            get
-            {
-                return this._category;
-            }
-        }
-
         public int BookQuantity
         {
             get
             {
                 return this._bookItem.Quantity;
+            }
+        }
+
+        public DateTime BorrowingDate
+        {
+            get
+            {
+                return this._borrowedItem.Date;
+            }
+        }
+
+        public DateTime ReturnDue
+        {
+            get
+            {
+                return this._borrowedItem.ReturnDue;
             }
         }
         #endregion
