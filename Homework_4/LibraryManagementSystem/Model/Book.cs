@@ -25,6 +25,12 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Member Function
+        // copy
+        public Book Copy()
+        {
+            return new Book(this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem);
+        }
+
         // get BookInformation Array
         public List<string> GetInformationList()
         {

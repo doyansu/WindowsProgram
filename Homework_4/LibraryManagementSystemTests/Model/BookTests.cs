@@ -33,10 +33,22 @@ namespace LibraryManagementSystem.Tests
         [TestMethod()]
         public void TestBook()
         {
-            Assert.AreEqual(bookInformationList[0], _bookPrivate.GetFieldOrProperty("Name"));
-            Assert.AreEqual(bookInformationList[1], _bookPrivate.GetFieldOrProperty("InternationalStandardBookNumber"));
-            Assert.AreEqual(bookInformationList[2], _bookPrivate.GetFieldOrProperty("Author"));
-            Assert.AreEqual(bookInformationList[3], _bookPrivate.GetFieldOrProperty("PublicationItem"));
+            Assert.AreEqual(bookInformationList[0], _book.Name);
+            Assert.AreEqual(bookInformationList[1], _book.InternationalStandardBookNumber);
+            Assert.AreEqual(bookInformationList[2], _book.Author);
+            Assert.AreEqual(bookInformationList[3], _book.PublicationItem);
+        }
+
+        // Cosntrctor
+        [TestMethod()]
+        public void TestCopy()
+        {
+            Book copyBook = _book.Copy();
+            Assert.AreNotEqual(copyBook, _book);
+            Assert.AreEqual(copyBook.Name, _book.Name);
+            Assert.AreEqual(copyBook.InternationalStandardBookNumber, _book.InternationalStandardBookNumber);
+            Assert.AreEqual(copyBook.Author, _book.Author);
+            Assert.AreEqual(copyBook.PublicationItem, _book.PublicationItem);
         }
 
         // TestGetInformationList
@@ -44,10 +56,10 @@ namespace LibraryManagementSystem.Tests
         public void TestGetInformationList()
         {
             List<string> InformationList = _book.GetInformationList();
-            Assert.AreEqual(InformationList[0], _bookPrivate.GetFieldOrProperty("Name"));
-            Assert.AreEqual(InformationList[1], _bookPrivate.GetFieldOrProperty("InternationalStandardBookNumber"));
-            Assert.AreEqual(InformationList[2], _bookPrivate.GetFieldOrProperty("Author"));
-            Assert.AreEqual(InformationList[3], _bookPrivate.GetFieldOrProperty("PublicationItem"));
+            Assert.AreEqual(InformationList[0], _book.Name);
+            Assert.AreEqual(InformationList[1], _book.InternationalStandardBookNumber);
+            Assert.AreEqual(InformationList[2], _book.Author);
+            Assert.AreEqual(InformationList[3], _book.PublicationItem);
         }
 
         // TestGetFormatInformation

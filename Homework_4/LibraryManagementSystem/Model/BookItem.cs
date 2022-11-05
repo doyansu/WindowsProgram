@@ -12,16 +12,10 @@ namespace LibraryManagementSystem
         private int _quantity;
 
         #region Constrctor
-        public BookItem()
-        {
-            this.Book = null;
-            this.Quantity = 0;
-        }
-
         public BookItem(Book book, int quantity)
         {
             this.Book = book;
-            this.Quantity = quantity;
+            this.Quantity = quantity > 0 ? quantity : 0;
         }
         #endregion
 
@@ -36,6 +30,8 @@ namespace LibraryManagementSystem
         // take book form this object
         public BookItem Take(int quantity)
         {
+            if (quantity < 0)
+                return null;
             if (this.Quantity < quantity)
             {
                 quantity = this.Quantity;
@@ -48,17 +44,11 @@ namespace LibraryManagementSystem
             return new BookItem(this.Book, quantity);
         }
 
-        // take book form this object
-        public BookItem Take(BookItem other)
-        {
-            int quantity = other.Quantity;
-            return this.Take(quantity);
-        }
-
         // add Quantity by int
         public void AddQuantity(BookItem otherItem)
         {
-            this.Quantity += otherItem.Quantity;
+            if (this.Book == otherItem.Book)
+                this.Quantity += otherItem.Quantity;
         }
 
         // check book equal
@@ -97,7 +87,7 @@ namespace LibraryManagementSystem
             }
             set
             {
-                _quantity = value;
+                _quantity = value > 0 ? value : 0;
             }
         }
         #endregion
