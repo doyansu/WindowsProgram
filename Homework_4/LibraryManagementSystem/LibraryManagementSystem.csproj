@@ -117,6 +117,9 @@
     <EmbeddedResource Include="Forms\BookInventoryForm.resx">
       <DependentUpon>BookInventoryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BookManagementForm.resx">
+      <DependentUpon>BookManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
