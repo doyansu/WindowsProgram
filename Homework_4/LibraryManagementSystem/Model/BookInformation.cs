@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Model
 {
-    public class BookInformation : INotifyPropertyChanged
+    public class BookInformation
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private BookItem _bookItem;
         private Book _book;
         private string _sourceCategory;
@@ -26,7 +24,7 @@ namespace LibraryManagementSystem.Model
         }
 
         // 書籍來源相同
-        public bool isSourceBookEquals(Book book)
+        public bool IsSourceBookEquals(Book book)
         {
             return this._bookItem.Book == book;
         }
