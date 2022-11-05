@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.PresentationModel.BindingListObject
 {
-    public class BackPackRow : INotifyPropertyChanged
+    public class BackPackListRow : INotifyPropertyChanged
     {
         #region Event
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,7 +31,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Constructor
-        public BackPackRow(BorrowedBookInformation borrowedBookInformation)
+        public BackPackListRow(BorrowedBookInformation borrowedBookInformation)
         {
             this._borrowedBookInformation = borrowedBookInformation;
             this._returnCount = 1;

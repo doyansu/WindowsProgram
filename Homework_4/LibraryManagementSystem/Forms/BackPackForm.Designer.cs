@@ -73,7 +73,7 @@ namespace LibraryManagementSystem
             // 
             // _backPackBookRowBindingSource
             // 
-            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackRow);
+            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackListRow);
             // 
             // _returnButtonDataGridViewTextBoxColumn
             // 

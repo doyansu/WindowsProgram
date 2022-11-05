@@ -15,6 +15,7 @@ namespace LibraryManagementSystem
     public partial class MenuForm : Form
     {
         #region Attributes
+        private Library _model;
         private BookBorrowingFrom _bookBorrowingFrom;
         private BookInventoryForm _bookInventoryForm;
         private BookManagementForm _bookManagementForm;
@@ -25,13 +26,10 @@ namespace LibraryManagementSystem
         public MenuForm(Library model)
         {
             InitializeComponent();
+            this._model = model;
             this._menuFormPresentationModel = new MenuFormPresentationModel();
             this._bookBorrowingFrom = new BookBorrowingFrom(model);
             this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
-            this._bookInventoryForm = new BookInventoryForm(model);
-            this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
-            this._bookManagementForm = new BookManagementForm(model);
-            this._bookManagementForm.FormClosing += BookManagementFormClosing;
             BindData();
         }
         #endregion
@@ -64,13 +62,17 @@ namespace LibraryManagementSystem
         // 顯示庫存視窗
         private void BookInventorySystemButtonClick(object sender, EventArgs e)
         {
-            this._bookInventoryForm.Show();
+            this._bookInventoryForm = new BookInventoryForm(this._model);
+            this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
+            this._bookInventoryForm.Show(); 
             this._menuFormPresentationModel.ShowInventoryForm();
         }
 
         // 顯示管理視窗
         private void BookManagementSystemButtonClick(object sender, EventArgs e)
         {
+            this._bookManagementForm = new BookManagementForm(this._model);
+            this._bookManagementForm.FormClosing += BookManagementFormClosing;
             this._bookManagementForm.Show();
             this._menuFormPresentationModel.ShowManagementForm();
         }
@@ -88,16 +90,12 @@ namespace LibraryManagementSystem
         // 關閉 InventoryForm
         private void BookInventoryFormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            ((Form)sender).Hide();
             this._menuFormPresentationModel.CloseInventoryForm();
         }
 
         // 關閉 ManagementForm
         private void BookManagementFormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            ((Form)sender).Hide();
             this._menuFormPresentationModel.CloseManagementForm();
         }
         #endregion

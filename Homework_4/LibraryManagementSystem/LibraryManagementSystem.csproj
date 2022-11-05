@@ -91,9 +91,11 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationModel\BackPackFormPresentationModel.cs" />
-    <Compile Include="PresentationModel\BindingListObject\BackPackRow.cs" />
+    <Compile Include="PresentationModel\BindingListObject\BackPackListRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\BorrowingListRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\InventoryListRow.cs" />
+    <Compile Include="PresentationModel\BindingListObject\ManagementCategory.cs" />
+    <Compile Include="PresentationModel\BindingListObject\ManagementListRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\TabPageButtonVisible.cs" />
     <Compile Include="PresentationModel\BookAddingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModel.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormTextPresentationModel.cs" />
     <Compile Include="PresentationModel\BookInventoryFormPresentationModel.cs" />
+    <Compile Include="PresentationModel\BookManagementFormPresentationModel.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +138,8 @@
     <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.BackPackBookRow.datasource" />
     <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.BorrowingListRow.datasource" />
     <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.InventoryListRow.datasource" />
+    <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.ManagementCategory.datasource" />
+    <None Include="Properties\DataSources\LibraryManagementSystem.PresentationModel.BindingListObject.ManagementListRow.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

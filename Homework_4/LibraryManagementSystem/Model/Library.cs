@@ -26,7 +26,7 @@ namespace LibraryManagementSystem.Model
         #region Constrctor
         public Library()
         {
-            const string FILE_NAME = "../../../hw3_books_source.txt";
+            const string FILE_NAME = "../../../hw4_books_source.txt";
             this.LoadBooksData(FILE_NAME);
         }
         #endregion
@@ -93,7 +93,7 @@ namespace LibraryManagementSystem.Model
         {
             this.Reset();
             const string START_LINE = "BOOK";
-            const string IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
+            string imagePathFormat = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"../../../image/{0}.jpg"));
             int imageIndex = 1;
             StreamReader file = new StreamReader(@fileName);
             while (!file.EndOfStream)
@@ -104,7 +104,7 @@ namespace LibraryManagementSystem.Model
                     List<string> bookData = new List<string>();
                     for (int i = 0; i < BOOK_DATA_ROWS; i++)
                         bookData.Add(file.ReadLine());
-                    bookData.Add(string.Format(IMAGE_PATH_FORMAT, imageIndex++));
+                    bookData.Add(string.Format(imagePathFormat, imageIndex++));
                     this.SaveBook(bookData);
                 }
             }
@@ -156,6 +156,15 @@ namespace LibraryManagementSystem.Model
         #endregion
 
         #region Output
+        // 取得書籍類別清單
+        public List<string> GetCategoryList()
+        {
+            List<string> categoryList = new List<string>();
+            foreach (BookCategory bookCategory in _bookCategoryList)
+                categoryList.Add(bookCategory.Category);
+            return categoryList;
+        }
+
         // 取得每類書籍對映的數量鍵值對 (return Dictionary<Category, BookCount>)
         public Dictionary<string, int> GetCategoryQuantityPair()
         {

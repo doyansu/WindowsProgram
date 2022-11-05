@@ -17,7 +17,7 @@ namespace LibraryManagementSystem.PresentationModel
 
         #region Attributes
         private Library _model;
-        BindingList<BackPackRow> _backPackList = new BindingList<BackPackRow>();
+        BindingList<BackPackListRow> _backPackList = new BindingList<BackPackListRow>();
 
         #region Message Title
         private const string TITLE_RETURN_RESULT = "歸還結果";
@@ -68,7 +68,7 @@ namespace LibraryManagementSystem.PresentationModel
             List<BorrowedBookInformation> informationList = this._model.GetBorrowedListInformationList();
             this._backPackList.Clear();
             foreach (BorrowedBookInformation borrowedBookInformation in informationList)
-                this._backPackList.Add(new BackPackRow(borrowedBookInformation));
+                this._backPackList.Add(new BackPackListRow(borrowedBookInformation));
         }
         #endregion
 
