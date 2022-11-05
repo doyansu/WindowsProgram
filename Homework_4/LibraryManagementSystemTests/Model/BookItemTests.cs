@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagementSystem.Tests
+namespace LibraryManagementSystem.Model.Tests
 {
     [TestClass()]
     public class BookItemTests

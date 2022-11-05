@@ -1,4 +1,5 @@
-﻿using LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels;
+﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

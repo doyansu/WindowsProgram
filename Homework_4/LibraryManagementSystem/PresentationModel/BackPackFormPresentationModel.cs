@@ -1,10 +1,12 @@
-﻿using System;
+﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.PresentationModel.BindingListObject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LibraryManagementSystem.PresentationModel.BindingListObject;
+
 
 namespace LibraryManagementSystem.PresentationModel
 {

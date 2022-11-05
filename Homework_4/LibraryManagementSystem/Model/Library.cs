@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagementSystem
+namespace LibraryManagementSystem.Model
 {
     // model class
     public class Library
@@ -144,6 +144,12 @@ namespace LibraryManagementSystem
         {
             this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnItem)).AddQuantity(returnItem);
         }
+
+        // 建立 BookInformation 物件
+        private BookInformation CreateBookInformation(Book book)
+        {
+            return book != null ? new BookInformation(book, this._bookCategoryList.Find(content => content.ContainBook(book)).Category, this.FindBookItem(book).Quantity) : null;
+        }
         #endregion
 
         #region Output
@@ -187,7 +193,7 @@ namespace LibraryManagementSystem
         // 取得書籍的資訊物件
         public BookInformation GetSelectedBookInformation()
         {
-            return this._selectedBook != null ? new BookInformation(this._selectedBook, this._bookCategoryList.Find(content => content.ContainBook(this._selectedBook)).Category, this.FindBookItem(this._selectedBook).Quantity) : null;
+            return this.CreateBookInformation(this._selectedBook);
         }
 
         // 取得書籍的資訊清單
@@ -195,7 +201,7 @@ namespace LibraryManagementSystem
         {
             List<BookInformation> informationList = new List<BookInformation>();
             foreach (BookItem bookItem in this._bookItemList)
-                informationList.Add(new BookInformation(bookItem.Book, this._bookCategoryList.Find(content => content.ContainBook(bookItem.Book)).Category, bookItem.Quantity));
+                informationList.Add(this.CreateBookInformation(bookItem.Book));
             return informationList;
         }
 

@@ -1,4 +1,6 @@
-﻿using LibraryManagementSystem.PresentationModel.BindingListObject;
+﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.PresentationModel;
+using LibraryManagementSystem.PresentationModel.BindingListObject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
