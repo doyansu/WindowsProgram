@@ -15,11 +15,6 @@ namespace LibraryManagementSystem
         private string _publicationItem;
 
         #region Cosntrctor
-        public Book()
-        {
-            this.InternationalStandardBookNumber = this.Name = this.Author = this.PublicationItem = null;
-        }
-
         public Book(string name, string internationalStandardBookNumber, string author, string publicationItem)
         {
             this.InternationalStandardBookNumber = internationalStandardBookNumber;
