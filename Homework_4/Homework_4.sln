@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagementSystem", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridViewNumericUpDownElements", "DataGridViewNumericUpDownElements\DataGridViewNumericUpDownElements.csproj", "{82B50731-BE90-433F-BB6E-9B509C5F3B7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagementSystemTests", "LibraryManagementSystemTests\LibraryManagementSystemTests.csproj", "{52C64041-780B-43E5-A158-6DDD9FFBC89E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{82B50731-BE90-433F-BB6E-9B509C5F3B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82B50731-BE90-433F-BB6E-9B509C5F3B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82B50731-BE90-433F-BB6E-9B509C5F3B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
