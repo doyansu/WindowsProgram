@@ -17,6 +17,7 @@ namespace LibraryManagementSystem
         #region Attributes
         private BookBorrowingFrom _bookBorrowingFrom;
         private BookInventoryForm _bookInventoryForm;
+        private BookManagementForm _bookManagementForm;
         private MenuFormPresentationModel _menuFormPresentationModel;
         #endregion
 
@@ -29,6 +30,8 @@ namespace LibraryManagementSystem
             this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
             this._bookInventoryForm = new BookInventoryForm(model);
             this._bookInventoryForm.FormClosing += BookInventoryFormClosing;
+            this._bookManagementForm = new BookManagementForm(model);
+            this._bookManagementForm.FormClosing += BookManagementFormClosing;
             BindData();
         }
         #endregion
@@ -40,6 +43,7 @@ namespace LibraryManagementSystem
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             this._bookBorrowingSystemButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._menuFormPresentationModel, "IsBorrowingEnabled");
             this._bookInventorySystemButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._menuFormPresentationModel, "IsInventoryEnabled");
+            this._bookManagementSystemButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._menuFormPresentationModel, "IsManagementEnabled");
         }
         #endregion
 
@@ -64,6 +68,13 @@ namespace LibraryManagementSystem
             this._menuFormPresentationModel.ShowInventoryForm();
         }
 
+        // 顯示管理視窗
+        private void BookManagementSystemButtonClick(object sender, EventArgs e)
+        {
+            this._bookManagementForm.Show();
+            this._menuFormPresentationModel.ShowManagementForm();
+        }
+
         // 關閉 BorrowingForm
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
@@ -80,6 +91,14 @@ namespace LibraryManagementSystem
             e.Cancel = true;
             ((Form)sender).Hide();
             this._menuFormPresentationModel.CloseInventoryForm();
+        }
+
+        // 關閉 ManagementForm
+        private void BookManagementFormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            ((Form)sender).Hide();
+            this._menuFormPresentationModel.CloseManagementForm();
         }
         #endregion
     }

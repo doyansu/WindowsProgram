@@ -32,6 +32,7 @@ namespace LibraryManagementSystem
             this._bookBorrowingSystemButton = new System.Windows.Forms.Button();
             this._bookInventorySystemButton = new System.Windows.Forms.Button();
             this._exitButton = new System.Windows.Forms.Button();
+            this._bookManagementSystemButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // _bookBorrowingSystemButton
@@ -39,7 +40,7 @@ namespace LibraryManagementSystem
             this._bookBorrowingSystemButton.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._bookBorrowingSystemButton.Location = new System.Drawing.Point(12, 12);
             this._bookBorrowingSystemButton.Name = "_bookBorrowingSystemButton";
-            this._bookBorrowingSystemButton.Size = new System.Drawing.Size(776, 180);
+            this._bookBorrowingSystemButton.Size = new System.Drawing.Size(776, 120);
             this._bookBorrowingSystemButton.TabIndex = 0;
             this._bookBorrowingSystemButton.Text = "Book Borrowing System";
             this._bookBorrowingSystemButton.UseVisualStyleBackColor = true;
@@ -48,9 +49,9 @@ namespace LibraryManagementSystem
             // _bookInventorySystemButton
             // 
             this._bookInventorySystemButton.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._bookInventorySystemButton.Location = new System.Drawing.Point(12, 198);
+            this._bookInventorySystemButton.Location = new System.Drawing.Point(12, 138);
             this._bookInventorySystemButton.Name = "_bookInventorySystemButton";
-            this._bookInventorySystemButton.Size = new System.Drawing.Size(776, 180);
+            this._bookInventorySystemButton.Size = new System.Drawing.Size(776, 120);
             this._bookInventorySystemButton.TabIndex = 1;
             this._bookInventorySystemButton.Text = "Book Inventory System";
             this._bookInventorySystemButton.UseVisualStyleBackColor = true;
@@ -59,7 +60,7 @@ namespace LibraryManagementSystem
             // _exitButton
             // 
             this._exitButton.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._exitButton.Location = new System.Drawing.Point(688, 384);
+            this._exitButton.Location = new System.Drawing.Point(688, 390);
             this._exitButton.Name = "_exitButton";
             this._exitButton.Size = new System.Drawing.Size(100, 54);
             this._exitButton.TabIndex = 2;
@@ -67,11 +68,23 @@ namespace LibraryManagementSystem
             this._exitButton.UseVisualStyleBackColor = true;
             this._exitButton.Click += new System.EventHandler(this.ExitButtonClick);
             // 
+            // _bookManagementSystemButton
+            // 
+            this._bookManagementSystemButton.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._bookManagementSystemButton.Location = new System.Drawing.Point(12, 264);
+            this._bookManagementSystemButton.Name = "_bookManagementSystemButton";
+            this._bookManagementSystemButton.Size = new System.Drawing.Size(776, 120);
+            this._bookManagementSystemButton.TabIndex = 3;
+            this._bookManagementSystemButton.Text = "Book Management System";
+            this._bookManagementSystemButton.UseVisualStyleBackColor = true;
+            this._bookManagementSystemButton.Click += new System.EventHandler(this.BookManagementSystemButtonClick);
+            // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._bookManagementSystemButton);
             this.Controls.Add(this._exitButton);
             this.Controls.Add(this._bookInventorySystemButton);
             this.Controls.Add(this._bookBorrowingSystemButton);
@@ -86,5 +99,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button _bookBorrowingSystemButton;
         private System.Windows.Forms.Button _bookInventorySystemButton;
         private System.Windows.Forms.Button _exitButton;
+        private System.Windows.Forms.Button _bookManagementSystemButton;
     }
 }
