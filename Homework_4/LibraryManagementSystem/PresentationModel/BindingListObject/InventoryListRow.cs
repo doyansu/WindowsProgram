@@ -57,6 +57,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
                 return this._bookInformation.BookFormatInformation;
             }
         }
+
+        public string BookImagePath
+        {
+            get
+            {
+                return this._bookInformation.BookImagePath;
+            }
+        }
         #endregion
 
         // 通知 databing 改變

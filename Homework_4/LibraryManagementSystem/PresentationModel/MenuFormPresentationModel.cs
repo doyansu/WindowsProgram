@@ -16,13 +16,16 @@ namespace LibraryManagementSystem.PresentationModel
         #region Attributes
         private bool _isBorrowingEnabled = true;
         private bool _isInventoryEnabled = true;
+        private bool _isManagementEnabled = true;
 
         #region Const Attributes
-        private readonly string[] _notifyList = { 
-            "IsBorrowingEnabled",
-            "IsInventoryEnabled", };
         const string NOTIFY_BORROWING_ENABLED = "IsBorrowingEnabled";
         const string NOTIFY_INVENTORY_ENABLED = "IsInventoryEnabled";
+        const string NOTIFY_MANAGEMENT_ENABLED = "IsManagementEnabled";
+        private readonly string[] _notifyList = { 
+            NOTIFY_BORROWING_ENABLED,
+            NOTIFY_INVENTORY_ENABLED,
+            NOTIFY_MANAGEMENT_ENABLED };
         #endregion
         #endregion
 
@@ -57,6 +60,18 @@ namespace LibraryManagementSystem.PresentationModel
         {
             this.IsInventoryEnabled = true;
         }
+
+        // 顯示 Inventory Form
+        public void ShowManagementForm()
+        {
+            this.IsManagementEnabled = false;
+        }
+
+        // 關閉 Inventory Form
+        public void CloseManagementForm()
+        {
+            this.IsManagementEnabled = true;
+        }
         #endregion
 
         #region Setter Getter
@@ -85,6 +100,19 @@ namespace LibraryManagementSystem.PresentationModel
             {
                 this._isInventoryEnabled = value;
                 this.NotifyPropertyChanged(NOTIFY_INVENTORY_ENABLED);
+            }
+        }
+
+        public bool IsManagementEnabled 
+        {
+            get
+            {
+                return this._isManagementEnabled;
+            }
+            set
+            {
+                this._isManagementEnabled = value;
+                this.NotifyPropertyChanged(NOTIFY_MANAGEMENT_ENABLED);
             }
         }
         #endregion

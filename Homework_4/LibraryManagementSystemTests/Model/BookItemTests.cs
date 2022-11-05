@@ -18,13 +18,14 @@ namespace LibraryManagementSystem.Model.Tests
             "微調有差の日系新版面設計: 一本前所未有、聚焦於「微調細節差很大」的設計參考書",
             "964 8394:2 - 5 2021",
             "ingectar - e",
-            "原點出版: 大雁發行, 2021[民110]" };
+            "原點出版: 大雁發行, 2021[民110]",
+            "../../../image/1.jpg" };
 
         // Initialize
         [TestInitialize()]
         public void Initialize()
         {
-            _book = new Book(bookInformationList[0], bookInformationList[1], bookInformationList[2], bookInformationList[3]);
+            _book = new Book(bookInformationList[0], bookInformationList[1], bookInformationList[2], bookInformationList[3], bookInformationList[4]);
             _bookItem = new BookItem(_book, 0);
             _bookItemPrivate = new PrivateObject(_bookItem);
         }
@@ -115,18 +116,6 @@ namespace LibraryManagementSystem.Model.Tests
             otherBookItem.Book = _book.Copy();
             Assert.AreEqual(false, _bookItem.IsBookEquals(otherBookItem));
             Assert.AreEqual(false, otherBookItem.IsBookEquals(_bookItem));
-        }
-
-        // TestGetInformationList
-        [TestMethod()]
-        public void TestGetInformationList()
-        {
-            List<string> InformationList = _bookItem.GetInformationList();
-            Assert.AreEqual(InformationList[0], _book.Name);
-            Assert.AreEqual(InformationList[1], _bookItem.Quantity.ToString());
-            Assert.AreEqual(InformationList[2], _book.InternationalStandardBookNumber);
-            Assert.AreEqual(InformationList[3], _book.Author);
-            Assert.AreEqual(InformationList[4], _book.PublicationItem);
         }
     }
 }

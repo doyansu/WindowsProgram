@@ -20,7 +20,7 @@ namespace LibraryManagementSystem.Model
         private List<BookCategory> _bookCategoryList = new List<BookCategory>();
         private BorrowedList _borrowedList = new BorrowedList();
 
-        private const int BOOK_DATA_ROWS = 6;
+        const int BOOK_DATA_ROWS = 6;
         #endregion
 
         #region Constrctor
@@ -89,11 +89,12 @@ namespace LibraryManagementSystem.Model
         }
 
         // 下載書籍資料
-        private void LoadBooksData(string fileName, bool reset = true)
+        private void LoadBooksData(string fileName)
         {
-            if (reset)
-                this.Reset();
+            this.Reset();
             const string START_LINE = "BOOK";
+            const string IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
+            int imageIndex = 1;
             StreamReader file = new StreamReader(@fileName);
             while (!file.EndOfStream)
             {
@@ -103,6 +104,7 @@ namespace LibraryManagementSystem.Model
                     List<string> bookData = new List<string>();
                     for (int i = 0; i < BOOK_DATA_ROWS; i++)
                         bookData.Add(file.ReadLine());
+                    bookData.Add(string.Format(IMAGE_PATH_FORMAT, imageIndex++));
                     this.SaveBook(bookData);
                 }
             }
@@ -113,10 +115,11 @@ namespace LibraryManagementSystem.Model
         {
             int index = 0;
             int quantity;
-            if (bookData.Count != BOOK_DATA_ROWS || !int.TryParse(bookData[index++], out quantity))
+            const int BOOK_DATA_COUNT = BOOK_DATA_ROWS + 1;
+            if (bookData.Count != BOOK_DATA_COUNT || !int.TryParse(bookData[index++], out quantity))
                 return;
             string category = bookData[index++];
-            Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
+            Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
             BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
             this._bookItemList.Add(new BookItem(book, quantity));
             if (bookCategoryQueryResult == null)

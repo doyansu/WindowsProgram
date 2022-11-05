@@ -71,6 +71,14 @@ namespace LibraryManagementSystem.PresentationModel
             }
         }
 
+        public string SelectedBookImage
+        {
+            get
+            {
+                return this._inventoryList[this.SelectedRowIndex].BookImagePath;
+            }
+        }
+
         public string BookInformation
         {
             get

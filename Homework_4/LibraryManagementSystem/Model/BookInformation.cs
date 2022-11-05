@@ -52,6 +52,14 @@ namespace LibraryManagementSystem.Model
             }
         }
 
+        public string BookImagePath
+        {
+            get
+            {
+                return this._book.ImagePath;
+            }
+        }
+
         public string BookFormatInformation
         {
             get

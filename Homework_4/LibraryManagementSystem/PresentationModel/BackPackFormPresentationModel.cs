@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace LibraryManagementSystem.PresentationModel
 {
     public class BackPackFormPresentationModel

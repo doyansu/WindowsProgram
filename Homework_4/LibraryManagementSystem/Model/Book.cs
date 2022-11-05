@@ -13,14 +13,16 @@ namespace LibraryManagementSystem.Model
         private string _internationalStandardBookNumber;
         private string _author;
         private string _publicationItem;
+        private string _imagePath;
 
         #region Cosntrctor
-        public Book(string name, string internationalStandardBookNumber, string author, string publicationItem)
+        public Book(string name, string internationalStandardBookNumber, string author, string publicationItem, string imagePath)
         {
             this.InternationalStandardBookNumber = internationalStandardBookNumber;
             this.Name = name;
             this.Author = author;
             this.PublicationItem = publicationItem;
+            this.ImagePath = imagePath;
         }
         #endregion
 
@@ -28,19 +30,8 @@ namespace LibraryManagementSystem.Model
         // copy
         public Book Copy()
         {
-            return new Book(this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem);
-        }
-
-        // get BookInformation Array
-        public List<string> GetInformationList()
-        {
-            return new List<string> 
-            { 
-                this.Name, 
-                this.InternationalStandardBookNumber, 
-                this.Author, 
-                this.PublicationItem 
-            };
+            Book book = new Book(this.Name, this.InternationalStandardBookNumber, this.Author, this.PublicationItem, this.ImagePath);
+            return book;
         }
 
         // get a format information string
@@ -97,6 +88,18 @@ namespace LibraryManagementSystem.Model
             set
             {
                 _publicationItem = value;
+            }
+        }
+
+        public string ImagePath 
+        {
+            get
+            {
+                return _imagePath;
+            }
+            set
+            {
+                _imagePath = value;
             }
         }
         #endregion

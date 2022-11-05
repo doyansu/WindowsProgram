@@ -43,12 +43,10 @@ namespace LibraryManagementSystem
         // 選取範圍改變
         private void ChangeDataGridViewSelection(object sender, EventArgs e)
         {
-            const string BUTTON_IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
             if (this._bookInformationDataGridView.SelectedRows.Count == 1)
             {
-                var row = this._bookInformationDataGridView.SelectedRows[0];
-                this._bookImageLabel.Image = Image.FromFile(string.Format(BUTTON_IMAGE_PATH_FORMAT, row.Index + 1));
-                this._presentationModel.SelectedRowIndex = row.Index;
+                this._presentationModel.SelectedRowIndex = this._bookInformationDataGridView.SelectedRows[0].Index;
+                this._bookImageLabel.Image = Image.FromFile(this._presentationModel.SelectedBookImage);
             }
         }
 
