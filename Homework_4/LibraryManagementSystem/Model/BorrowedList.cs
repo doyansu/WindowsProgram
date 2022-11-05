@@ -29,6 +29,12 @@ namespace LibraryManagementSystem
                 this._borrowedItems.RemoveAt(index);
         }
 
+        // 清除清單資料
+        public void Clear()
+        {
+            this._borrowedItems.Clear();
+        }
+
         // 重新整理 BorrowedList (將數量 = 0 的 bookItem 刪除)
         public void RefreshList()
         {

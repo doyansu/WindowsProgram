@@ -97,7 +97,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this.NotifyPropertyChanged();
         }
 
-        // 數量儲存格編輯完成
+        // 數量儲存格值改變
         public void ChangeCellValue(int rowIndex, object changeValueObject)
         {
             this._model.SelectBook(this._borrowingList[rowIndex].BookName);

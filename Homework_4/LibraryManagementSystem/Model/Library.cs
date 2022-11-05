@@ -19,12 +19,15 @@ namespace LibraryManagementSystem
         private List<BookItem> _bookItemList = new List<BookItem>();
         private List<BookCategory> _bookCategoryList = new List<BookCategory>();
         private BorrowedList _borrowedList = new BorrowedList();
+
+        private const int BOOK_DATA_ROWS = 6;
         #endregion
 
         #region Constrctor
         public Library()
         {
-            this.InitializeBooksData();
+            const string FILE_NAME = "../../../hw3_books_source.txt";
+            this.LoadBooksData(FILE_NAME);
         }
         #endregion
 
@@ -76,31 +79,42 @@ namespace LibraryManagementSystem
         #endregion
 
         #region Private Function
-        // 下載書籍資料
-        private void InitializeBooksData()
+        // 重置 model
+        private void Reset()
         {
-            const string FILE_NAME = "../../../hw3_books_source.txt";
+            this._selectedBook = null;
+            this._bookItemList.Clear();
+            this._bookCategoryList.Clear();
+            this._borrowedList.Clear();
+        }
+
+        // 下載書籍資料
+        private void LoadBooksData(string fileName, bool reset = true)
+        {
+            if (reset)
+                this.Reset();
             const string START_LINE = "BOOK";
-            const int DATA_ROWS = 6;
-            StreamReader file = new StreamReader(@FILE_NAME);
+            StreamReader file = new StreamReader(@fileName);
             while (!file.EndOfStream)
             {
                 string line = file.ReadLine();
                 if (line == START_LINE)
                 {
                     List<string> bookData = new List<string>();
-                    for (int i = 0; i < DATA_ROWS; i++)
+                    for (int i = 0; i < BOOK_DATA_ROWS; i++)
                         bookData.Add(file.ReadLine());
-                    this.SaveBooks(bookData);
+                    this.SaveBook(bookData);
                 }
             }
         }
 
         // 存取書籍資料
-        private void SaveBooks(List<string> bookData)
+        private void SaveBook(List<string> bookData)
         {
             int index = 0;
-            int quantity = int.Parse(bookData[index++]);
+            int quantity;
+            if (bookData.Count != BOOK_DATA_ROWS || !int.TryParse(bookData[index++], out quantity))
+                return;
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
             BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
