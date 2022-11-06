@@ -12,21 +12,9 @@ namespace LibraryManagementSystem.Model
         private string _category;
 
         #region Constrctor
-        public BookCategory()
-        {
-            this._bookList = new List<Book>();
-            this.Category = null;
-        }
-
         public BookCategory(string category)
         {
             this._bookList = new List<Book>();
-            this.Category = category;
-        }
-
-        public BookCategory(string category, List<Book> bookList)
-        {
-            this._bookList = bookList;
             this.Category = category;
         }
         #endregion
