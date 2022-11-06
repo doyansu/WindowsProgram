@@ -29,6 +29,21 @@ namespace LibraryManagementSystem.Model
             return this._bookItem.Book == book;
         }
 
+        // reset value
+        public void Reset()
+        {
+            this.BookQuantity = this._bookItem.Quantity;
+            this.BookCategory = this._sourceCategory;
+            this._book.CopyContent(this.SourceBook);
+        }
+
+        // commit value 到 model
+        public void Commit()
+        {
+            this._bookItem.Quantity = this.BookQuantity;
+            this.SourceBook.CopyContent(this._book);
+        }
+
         #region Getter and Setter
         public string BookName
         {

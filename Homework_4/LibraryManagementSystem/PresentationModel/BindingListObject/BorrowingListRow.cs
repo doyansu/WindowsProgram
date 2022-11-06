@@ -20,6 +20,17 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
 
         #region Const Attributes
         private const string NOTIFY_BORROWING_COUNT = "BorrowingCount";
+        private const string NOTIFY_NAME = "BookName";
+        private const string NOTIFY_NUMBER = "BookNumber";
+        private const string NOTIFY_AUTHOR = "BookAuthor";
+        private const string NOTIFY_PUBLICATION_ITEM = "BookPublicationItem";
+
+        private readonly string[] _notifyList = { 
+            NOTIFY_BORROWING_COUNT,
+            NOTIFY_NAME,
+            NOTIFY_NUMBER,
+            NOTIFY_AUTHOR,
+            NOTIFY_PUBLICATION_ITEM };
         #endregion
         #endregion
 
@@ -30,12 +41,26 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         }
         #endregion
 
+        // Refresh _bookInformation
+        public void Refresh()
+        {
+            this._bookInformation.Reset();
+            this.NotifyPropertyChanged();
+        }
         #region Property
         public string BookName
         {
             get
             {
                 return this._bookInformation.BookName;
+            }
+            set
+            {
+                if (this._bookInformation.BookName != value)
+                {
+                    this._bookInformation.BookName = value;
+                    this.NotifyPropertyChanged(NOTIFY_NAME);
+                }
             }
         }
 
@@ -57,6 +82,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return this._bookInformation.BookNumber;
             }
+            set
+            {
+                if (this._bookInformation.BookNumber != value)
+                {
+                    this._bookInformation.BookNumber = value;
+                    this.NotifyPropertyChanged(NOTIFY_NUMBER);
+                }
+            }
         }
 
         public string BookAuthor
@@ -64,6 +97,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return this._bookInformation.BookAuthor;
+            }
+            set
+            {
+                if (this._bookInformation.BookAuthor != value)
+                {
+                    this._bookInformation.BookAuthor = value;
+                    this.NotifyPropertyChanged(NOTIFY_AUTHOR);
+                }
             }
         }
 
@@ -73,8 +114,23 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return this._bookInformation.BookPublicationItem;
             }
+            set
+            {
+                if (this._bookInformation.BookPublicationItem != value)
+                {
+                    this._bookInformation.BookPublicationItem = value;
+                    this.NotifyPropertyChanged(NOTIFY_PUBLICATION_ITEM);
+                }
+            }
         }
         #endregion
+
+        // 通知所有 databing 改變
+        private void NotifyPropertyChanged()
+        {
+            foreach (string dataBinding in this._notifyList)
+                this.NotifyPropertyChanged(dataBinding);
+        }
 
         // 通知 databing 改變
         private void NotifyPropertyChanged(string propertyName)

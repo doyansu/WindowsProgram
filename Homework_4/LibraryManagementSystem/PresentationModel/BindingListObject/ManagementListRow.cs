@@ -15,7 +15,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         #endregion
 
         #region Attributes
-        private BookInformation _bookInformation;
+        BookInformation _bookInformation;
 
         private bool _isStoreAble = false;
 
@@ -26,7 +26,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
         private const string NOTIFY_CATEGORY = "BookCategory";
         private const string NOTIFY_IMAGE_PATH = "BookImagePath";
         private const string NOTIFY_IS_STORE_ABLE = "IsStoreAble";
-
         #endregion
 
         #region Constructor
@@ -160,6 +159,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
                     this._isStoreAble = value;
                     this.NotifyPropertyChanged(NOTIFY_IS_STORE_ABLE);
                 }
+            }
+        }
+
+        public BookInformation BookInformationObject
+        {
+            get
+            {
+                return _bookInformation;
             }
         }
         #endregion

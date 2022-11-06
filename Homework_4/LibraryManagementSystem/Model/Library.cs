@@ -11,7 +11,9 @@ namespace LibraryManagementSystem.Model
     public class Library
     {
         #region Event
-        public event Action _modelChanged;
+        public event Action _bookItemListChanged;
+        public event Action _borrowedListChanged;
+        public event Action _bookInformationChanged;
         #endregion
 
         #region Attributes
@@ -26,6 +28,11 @@ namespace LibraryManagementSystem.Model
         #region Constrctor
         public Library()
         {
+            this._bookItemListChanged += () => 
+            { 
+                if (this._borrowedListChanged != null)
+                    this._borrowedListChanged.Invoke();
+            };
             const string FILE_NAME = "../../../hw4_books_source.txt";
             this.LoadBooksData(FILE_NAME);
         }
@@ -47,6 +54,13 @@ namespace LibraryManagementSystem.Model
             this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
         }
 
+        // 透過書籍資訊選擇書籍
+        public void SelectBook(BookInformation bookInformation)
+        {
+            BookItem bookItemQuery = this.FindBookItem(bookInformation != null ? bookInformation.BookName : null);
+            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
+        }
+
         // 不選擇任何書籍
         public void UnselectedBook()
         {
@@ -54,12 +68,12 @@ namespace LibraryManagementSystem.Model
         }
 
         // 借書
-        public void BorrowBook(string bookName, int quantity)
+        public void BorrowSelectedBook(int quantity)
         {
-            BookItem bookItem = this.FindBookItem(bookName);
+            BookItem bookItem = this.FindBookItem(this._selectedBook);
             if (bookItem != null)
                 this._borrowedList.Add(new BorrowedItem(bookItem.Take(quantity)));
-            this.ModelChanged();
+            this.UseAction(this._bookItemListChanged);
         }
 
         // 歸還書籍
@@ -67,14 +81,27 @@ namespace LibraryManagementSystem.Model
         {
             this.ReturnBookItem(this._borrowedList.GetBookItemAt(index).Take(quantity));
             this._borrowedList.RefreshList();
-            this.ModelChanged();
+            this.UseAction(this._bookItemListChanged);
         }
 
         // 補貨
-        public void AddBook(string bookName, int quantity)
+        public void AddSelectedBookQuantity(int quantity)
         {
-            this.FindBookItem(bookName).Quantity += quantity;
-            this.ModelChanged();
+            this.FindBookItem(this._selectedBook).Quantity += quantity;
+            this.UseAction(this._bookItemListChanged);
+        }
+
+        // 編輯書籍類別
+        public void ChangeSelectedBookCategory(string category)
+        {
+            BookCategory bookCategory;
+            if (this._selectedBook != null && (bookCategory = this.FindBookCategory(this._selectedBook)).Category != category)
+            {
+                bookCategory.Remove(this._selectedBook);
+                this.FindBookCategory(category).AddBook(this._selectedBook);
+            }
+            this.UseAction(this._bookItemListChanged);
+            this.UseAction(this._bookInformationChanged);
         }
         #endregion
 
@@ -120,7 +147,7 @@ namespace LibraryManagementSystem.Model
                 return;
             string category = bookData[index++];
             Book book = new Book(bookData[index++], bookData[index++], bookData[index++], bookData[index++], bookData[index++]);
-            BookCategory bookCategoryQueryResult = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
+            BookCategory bookCategoryQueryResult = this.FindBookCategory(category);
             this._bookItemList.Add(new BookItem(book, quantity));
             if (bookCategoryQueryResult == null)
             {
@@ -142,6 +169,18 @@ namespace LibraryManagementSystem.Model
             return this._bookItemList.Find(content => content.Book == book);
         }
 
+        // 使用 Category 找到 BookCategory
+        private BookCategory FindBookCategory(string category)
+        {
+            return this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
+        }
+
+        // 使用書籍找到 BookCategory
+        private BookCategory FindBookCategory(Book book)
+        {
+            return this._bookCategoryList.Find(content => content.ContainBook(book));
+        }
+
         // 將書籍還回 _bookItemList 清單
         private void ReturnBookItem(BookItem returnItem)
         {
@@ -151,7 +190,7 @@ namespace LibraryManagementSystem.Model
         // 建立 BookInformation 物件
         private BookInformation CreateBookInformation(Book book)
         {
-            return book != null ? new BookInformation(this.FindBookItem(book), this._bookCategoryList.Find(content => content.ContainBook(book)).Category) : null;
+            return book != null ? new BookInformation(this.FindBookItem(book), this.FindBookCategory(book).Category) : null;
         }
         #endregion
 
@@ -224,13 +263,11 @@ namespace LibraryManagementSystem.Model
         }
         #endregion
 
-        #region Event Invoke Function
-        // handle _modelChanged evnet
-        private void ModelChanged()
+        // handle Action evnet
+        private void UseAction(Action action)
         {
-            if (this._modelChanged != null)
-                this._modelChanged.Invoke();
+            if (action != null)
+                action.Invoke();
         }
-        #endregion
     }
 }

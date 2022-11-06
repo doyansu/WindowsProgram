@@ -24,8 +24,8 @@ namespace LibraryManagementSystem.PresentationModel
         public BookInventoryFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._modelChanged += this.UpdateInventoryList;
-            this._model._modelChanged += this.NotifyPropertyChanged;
+            this._model._bookItemListChanged += this.UpdateInventoryList;
+            this._model._bookItemListChanged += this.NotifyPropertyChanged;
             this.UpdateInventoryList();
         }
 
@@ -42,7 +42,8 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊補貨按鈕
         public void ClickAddingButton(int addingQuantity)
         {
-            this._model.AddBook(this._inventoryList[this.SelectedRowIndex].BookName, addingQuantity);
+            this._model.SelectBook(this._inventoryList[this.SelectedRowIndex].BookName);
+            this._model.AddSelectedBookQuantity(addingQuantity);
         }
         #endregion
 

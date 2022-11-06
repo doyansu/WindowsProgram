@@ -97,9 +97,11 @@ namespace LibraryManagementSystem
             {
                 Image image = Image.FromFile(TRASH_IMAGE_PATH);
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                this._controlPresentationModel.SetDeleteButtonSize(image.Width, image.Height);
-                this._controlPresentationModel.SetCell(e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Width, e.CellBounds.Height);
-                e.Graphics.DrawImage(image, new Rectangle(this._controlPresentationModel.DeleteButtonLocationLeft, this._controlPresentationModel.DeleteButtonLocationTop, this._controlPresentationModel.DeleteButtonWidth, this._controlPresentationModel.DeleteButtonHeight));
+                var w = image.Width;
+                var h = image.Height;
+                var x = e.CellBounds.Left + ((e.CellBounds.Width - w) >> 1);
+                var y = e.CellBounds.Top + ((e.CellBounds.Height - h) >> 1);
+                e.Graphics.DrawImage(image, new Rectangle(x, y, w, h));
                 e.Handled = true;
             }
         }

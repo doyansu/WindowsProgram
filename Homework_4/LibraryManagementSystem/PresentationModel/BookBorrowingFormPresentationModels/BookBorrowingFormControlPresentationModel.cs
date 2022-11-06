@@ -14,12 +14,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private int _buttonIndex;
         private int _buttonWidth;
         private int _buttonHeight;
-        private int _deleteButtonLocationLeft;
-        private int _deleteButtonLocationTop;
-        private int _deleteButtonWidth;
-        private int _deleteButtonHeight;
-        private int _cellWidth;
-        private int _cellHeight;
 
         public BookBorrowingFormControlPresentationModel()
         {
@@ -38,22 +32,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             this.TabPageWidth = this.ButtonWidth = width;
             this.ButtonHeight = height;
-        }
-
-        // 設定 DeleteButtonSize
-        public void SetDeleteButtonSize(int width, int height)
-        {
-            this._deleteButtonWidth = width;
-            this._deleteButtonHeight = height;
-        }
-
-        // 設定 Cell data
-        public void SetCell(int cellLeft, int cellTop, int cellWidth, int cellHeight)
-        {
-            this.DeleteButtonLocationLeft = cellLeft;
-            this.DeleteButtonLocationTop = cellTop;
-            this._cellWidth = cellWidth;
-            this._cellHeight = cellHeight;
         }
         #endregion
 
@@ -104,54 +82,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             set
             {
                 this._buttonHeight = value;
-            }
-        }
-
-        public int DeleteButtonLocationLeft 
-        {
-            get
-            {
-                return this._deleteButtonLocationLeft + ((this._cellWidth - this.DeleteButtonWidth) >> 1);
-            }
-            set
-            {
-                this._deleteButtonLocationLeft = value;
-            }
-        }
-
-        public int DeleteButtonLocationTop 
-        {
-            get
-            {
-                return this._deleteButtonLocationTop + ((this._cellHeight - this._deleteButtonHeight) >> 1);
-            }
-            set
-            {
-                this._deleteButtonLocationTop = value;
-            }
-        }
-
-        public int DeleteButtonWidth 
-        {
-            get
-            {
-                return _deleteButtonWidth;
-            }
-            set
-            {
-                _deleteButtonWidth = value;
-            }
-        }
-
-        public int DeleteButtonHeight 
-        {
-            get
-            {
-                return _deleteButtonHeight;
-            }
-            set
-            {
-                _deleteButtonHeight = value;
             }
         }
         #endregion

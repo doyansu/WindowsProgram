@@ -43,6 +43,12 @@ namespace LibraryManagementSystem.Model
         {
             return this._bookList.Contains(book);
         }
+
+        // Remove book
+        public void Remove(Book book)
+        {
+            this._bookList.Remove(book);
+        }
         #endregion
 
         #region Getter and Setter

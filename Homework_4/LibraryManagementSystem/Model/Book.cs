@@ -34,6 +34,16 @@ namespace LibraryManagementSystem.Model
             return book;
         }
 
+        // copyContent
+        public void CopyContent(Book book)
+        {
+            this.InternationalStandardBookNumber = book.InternationalStandardBookNumber;
+            this.Name = book.Name;
+            this.Author = book.Author;
+            this.PublicationItem = book.PublicationItem;
+            this.ImagePath = book.ImagePath;
+        }
+
         // get a format information string
         public string GetFormatInformation()
         {

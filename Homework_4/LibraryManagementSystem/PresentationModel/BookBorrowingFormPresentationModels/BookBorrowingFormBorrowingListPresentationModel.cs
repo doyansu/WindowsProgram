@@ -41,6 +41,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public BookBorrowingFormBorrowingListPresentationModel(Library model, BookBorrowingFormPresentationModel presentationModel)
         {
             this._model = model;
+            this._model._bookInformationChanged += this.RefreshBorrowingList;
             this._presentationModel = presentationModel;
             this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
         }
@@ -61,6 +62,13 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this._borrowingList[rowIndex].BorrowingCount = changeValue;
             this.NotifyPropertyChanged(NOTIFY_BORROWING_LIST_QUANTITY_TEXT);
             return this._borrowingList[rowIndex].BorrowingCount;
+        }
+
+        // 刷新 BorrowingList bookInformation 
+        private void RefreshBorrowingList()
+        {
+            foreach (BorrowingListRow row in this._borrowingList)
+                row.Refresh();
         }
         #endregion
 
@@ -92,7 +100,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             foreach (BorrowingListRow row in this._borrowingList)
             {
                 books += string.Format(" 、 [{0}] {1}本", row.BookName, row.BorrowingCount);
-                this._model.BorrowBook(row.BookName, row.BorrowingCount);
+                this._model.SelectBook(row.BookName);
+                this._model.BorrowSelectedBook(row.BorrowingCount);
             }
             this.ShowMessage(string.Format("{0}\n\n已成功借出!", books).Substring(3), TITLE_BORROWING_RESULT);
             this._borrowingList.Clear();

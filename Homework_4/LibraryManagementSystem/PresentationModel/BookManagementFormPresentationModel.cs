@@ -63,7 +63,11 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊儲存按鈕
         public void SaveBookButtonClick()
         {
-            
+            BookInformation bookInformation = this._managementList[this._selectedIndex].BookInformationObject;
+            bookInformation.Commit();
+            this._model.SelectBook(bookInformation.BookName);
+            this._model.ChangeSelectedBookCategory(bookInformation.BookCategory);
+            //this.UpdateManagementList();
         }
         #endregion
 

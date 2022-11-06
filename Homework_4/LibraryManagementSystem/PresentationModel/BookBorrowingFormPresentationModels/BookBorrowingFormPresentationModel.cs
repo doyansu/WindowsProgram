@@ -21,7 +21,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._modelChanged += this.SelectedBookNameChanged;
+            this._model._bookItemListChanged += this.SelectedBookNameChanged;
         }
 
         // 取消選擇書籍
