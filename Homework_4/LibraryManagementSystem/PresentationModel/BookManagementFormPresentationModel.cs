@@ -19,12 +19,11 @@ namespace LibraryManagementSystem.PresentationModel
         private int _selectedIndex = 0;
         private bool _isAddEnabled = false;
         private bool _isBrowseEnabled = false;
-        private bool _isSaveEnabled = false;
 
         private const string NOTIFY_ADD = "IsAddEnabled";
         private const string NOTIFY_BROWSE = "IsBrowseEnabled";
-        private const string NOTIFY_SAVE = "IsSaveEnabled";
         private const string NOTIFY_SELECTED_INDEX = "SelectIndex";
+        private const string NOTIFY_IS_SELECTED = "IsSelected";
 
         public BookManagementFormPresentationModel(Library model)
         {
@@ -63,11 +62,13 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊儲存按鈕
         public void SaveBookButtonClick()
         {
-            BookInformation bookInformation = this._managementList[this._selectedIndex].BookInformationObject;
-            bookInformation.Commit();
+            ManagementListRow managementListRow = this._managementList[this._selectedIndex];
+            BookInformation bookInformation = managementListRow.BookInformationObject;
+            bookInformation.CommitInformation();
             this._model.SelectBook(bookInformation.BookName);
             this._model.ChangeSelectedBookCategory(bookInformation.BookCategory);
-            //this.UpdateManagementList();
+            this._model.SelectBook(bookInformation.BookName);
+            this._managementList[this._selectedIndex] = new ManagementListRow(this._model.GetSelectedBookInformation());
         }
         #endregion
 
@@ -120,22 +121,6 @@ namespace LibraryManagementSystem.PresentationModel
             }
         }
 
-        public bool IsSaveEnabled 
-        {
-            get
-            {
-                return this._isSaveEnabled;
-            }
-            set
-            {
-                if (this._isSaveEnabled != value)
-                {
-                    this._isSaveEnabled = value;
-                    this.NotifyPropertyChanged(NOTIFY_SAVE);
-                }
-            }
-        }
-
         public string SelectedBookImagePath
         {
             get
@@ -161,8 +146,17 @@ namespace LibraryManagementSystem.PresentationModel
                 {
                     this._selectedIndex = value;
                     this.NotifyPropertyChanged(NOTIFY_SELECTED_INDEX);
+                    this.NotifyPropertyChanged(NOTIFY_IS_SELECTED);
                 }
                 this.IsBrowseEnabled = this._selectedIndex >= 0;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return this.SelectedIndex != -1;
             }
         }
         #endregion

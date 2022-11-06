@@ -38,9 +38,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         #endregion
         #endregion
 
-        public BookBorrowingFormBorrowingListPresentationModel(Library model, BookBorrowingFormPresentationModel presentationModel)
+        public BookBorrowingFormBorrowingListPresentationModel(BookBorrowingFormPresentationModel presentationModel)
         {
-            this._model = model;
+            this._model = presentationModel.Model;
             this._model._bookInformationChanged += this.RefreshBorrowingList;
             this._presentationModel = presentationModel;
             this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
@@ -106,6 +106,12 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this.ShowMessage(string.Format("{0}\n\n已成功借出!", books).Substring(3), TITLE_BORROWING_RESULT);
             this._borrowingList.Clear();
             this.NotifyPropertyChanged();
+        }
+
+        // 關閉借書視窗
+        public void BookBorrowingFromClosing()
+        {
+            this._borrowingList.Clear();
         }
 
         // 數量儲存格值改變

@@ -68,7 +68,7 @@ namespace LibraryManagementSystem
             // _bookListBox
             // 
             this._bookListBox.DataSource = this._managementListRowBindingSource;
-            this._bookListBox.DisplayMember = "BookName";
+            this._bookListBox.DisplayMember = "SourceBookName";
             this._bookListBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._bookListBox.FormattingEnabled = true;
             this._bookListBox.ItemHeight = 20;
@@ -287,7 +287,7 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.TextBox _bookNumberTextBox;
         private System.Windows.Forms.TextBox _bookPublicationItemTextBox;
         private System.Windows.Forms.TextBox _bookNameTextBox;
-        private System.Windows.Forms.BindingSource _managementListRowBindingSource;
         private System.Windows.Forms.BindingSource _managementCategoryBindingSource;
+        private System.Windows.Forms.BindingSource _managementListRowBindingSource;
     }
 }

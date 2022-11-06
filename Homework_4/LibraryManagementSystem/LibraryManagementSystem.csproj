@@ -96,7 +96,7 @@
     <Compile Include="PresentationModel\BindingListObject\InventoryListRow.cs" />
     <Compile Include="PresentationModel\BindingListObject\ManagementCategory.cs" />
     <Compile Include="PresentationModel\BindingListObject\ManagementListRow.cs" />
-    <Compile Include="PresentationModel\BindingListObject\TabPageButtonVisible.cs" />
+    <Compile Include="PresentationModel\BindingListObject\TabPageButton.cs" />
     <Compile Include="PresentationModel\BookAddingFormPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModel.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormButtonPresentationModel.cs" />

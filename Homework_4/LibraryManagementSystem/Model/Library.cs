@@ -39,32 +39,11 @@ namespace LibraryManagementSystem.Model
         #endregion
 
         #region Member Function
-        // 透過類別選擇書籍
-        public void SelectBook(string category, int index)
-        {
-            BookCategory bookCategoryQuery = this._bookCategoryList.Find(bookCategory => bookCategory.Category == category);
-            BookItem bookItemQuery = this.FindBookItem(bookCategoryQuery.GetBookByIndex(index));
-            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
-        }
-
         // 透過名稱選擇書籍
         public void SelectBook(string bookName)
         {
             BookItem bookItemQuery = this.FindBookItem(bookName);
             this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
-        }
-
-        // 透過書籍資訊選擇書籍
-        public void SelectBook(BookInformation bookInformation)
-        {
-            BookItem bookItemQuery = this.FindBookItem(bookInformation != null ? bookInformation.BookName : null);
-            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
-        }
-
-        // 不選擇任何書籍
-        public void UnselectedBook()
-        {
-            this._selectedBook = null;
         }
 
         // 借書
@@ -212,7 +191,22 @@ namespace LibraryManagementSystem.Model
                 data[bookCategory.Category] = bookCategory.GetBookCount();
             return data;
         }
-        
+
+        // 取得每類書籍對映的BookInformation鍵值對
+        public Dictionary<string, List<BookInformation>> GetCategoryBookInformationPair()
+        {
+            Dictionary<string, List<BookInformation>> data = new Dictionary<string, List<BookInformation>>();
+            foreach (BookCategory bookCategory in this._bookCategoryList)
+            {
+                List<BookInformation> bookInformation = new List<BookInformation>();
+                foreach (BookItem bookItem in this._bookItemList)
+                    if (bookCategory.ContainBook(bookItem.Book))
+                        bookInformation.Add(new BookInformation(bookItem, bookCategory.Category));
+                data[bookCategory.Category] = bookInformation;
+            }
+            return data;
+        }
+
         // 取得所選書籍的書籍名稱
         public string GetSelectedBookName()
         {

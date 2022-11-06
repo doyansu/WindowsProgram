@@ -20,7 +20,7 @@ namespace LibraryManagementSystem
 
         const string BIND_ATTRIBUTE_TEXT = "Text";
         const string BIND_ATTRIBUTE_ENABLED = "Enabled";
-        const string BIND_ATTRIBUTE_SELECTED_INDEX = "SelectedIndex";
+        const string BIND_PROPERTY_IS_SELECTED = "IsSelected";
 
         public BookManagementForm(Library model)
         {
@@ -30,28 +30,22 @@ namespace LibraryManagementSystem
             BindData();
         }
 
-        // BindingManager
-        private BindingManagerBase BindingManager(IBindingList bindingList)
-        {
-            return BindingContext[bindingList]; 
-        }
-
         #region Private Function
         // Binding data
         private void BindData()
         {
-            this._bookNameTextBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookNameTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookName");
-            this._bookNumberTextBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookNumberTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookInternationalStandardBookNumber");
-            this._bookAuthorTextBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookAuthorTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookAuthor");
-            this._bookCategoryComboBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookCategoryComboBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookCategory");
-            this._bookPublicationItemTextBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookPublicationItemTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookPublicationItem");
-            this._bookImagePathTextBox.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            this._bookImagePathTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookImagePath");
+            this._bookNameTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookName", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookNameTextBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
+            this._bookNumberTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookInternationalStandardBookNumber", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookNumberTextBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
+            this._bookAuthorTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookAuthor", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookAuthorTextBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
+            this._bookCategoryComboBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookCategory", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookCategoryComboBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
+            this._bookPublicationItemTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookPublicationItem", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookPublicationItemTextBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
+            this._bookImagePathTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel.ManagementList, "BookImagePath", true, DataSourceUpdateMode.OnPropertyChanged);
+            this._bookImagePathTextBox.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, BIND_PROPERTY_IS_SELECTED);
             this._saveBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel.ManagementList, "IsStoreAble");
             this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsAddEnabled");
             this._browseImageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsBrowseEnabled");
@@ -63,6 +57,7 @@ namespace LibraryManagementSystem
         // Form load
         private void BookManagementFormLoad(object sender, EventArgs e)
         {
+            //this._bookListBox.ClearSelected();
         }
 
         // 點擊新增書籍按鈕

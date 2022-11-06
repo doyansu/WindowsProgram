@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.PresentationModel.BindingListObject
 {
-    public class TabPageButtonVisible : INotifyPropertyChanged
+    public class TabPageButton : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private BookInformation _bookInformation;
         private bool _isVisible = false;
 
         const string NOTIFY_BUTTON_VISIBLE = "IsVisible";
 
-        public TabPageButtonVisible()
+        public TabPageButton(BookInformation bookInformation)
         {
-
+            this._bookInformation = bookInformation;
         }
 
         public bool IsVisible 
@@ -33,6 +35,30 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
                     this._isVisible = value;
                     this.NotifyPropertyChanged(NOTIFY_BUTTON_VISIBLE);
                 }
+            }
+        }
+
+        public string BookName
+        {
+            get
+            {
+                return this._bookInformation.BookName;
+            }
+        }
+
+        public string BookImagePath
+        {
+            get
+            {
+                return this._bookInformation.BookImagePath;
+            }
+        }
+
+        public BookInformation BookInformationObject
+        {
+            get
+            {
+                return this._bookInformation;
             }
         }
 

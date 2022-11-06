@@ -30,15 +30,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this.SelectedBookName = null;
         }
 
-        #region Form Event
-        // 點擊書籍按鈕
-        public void ClickTabPageButton(string category, object buttonTag)
-        {
-            this._model.SelectBook(category, int.Parse(buttonTag.ToString()));
-            this.SelectedBookName = this._model.GetSelectedBookName();
-        }
-        #endregion
-
         #region Output
         // 取得所選書籍的書籍名稱
         public string GetSelectedBookName()
@@ -82,6 +73,14 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                     this._selectedBookName = value;
                     this.SelectedBookNameChanged();
                 }
+            }
+        }
+
+        public Library Model 
+        {
+            get
+            {
+                return _model;
             }
         }
 

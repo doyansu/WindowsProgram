@@ -162,6 +162,14 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             }
         }
 
+        public string SourceBookName
+        {
+            get
+            {
+                return this._bookInformation.SourceBookName;
+            }
+        }
+
         public BookInformation BookInformationObject
         {
             get

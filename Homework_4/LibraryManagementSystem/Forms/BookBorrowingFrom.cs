@@ -31,14 +31,15 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this.FormClosing += this.BookBorrowingFormClosing;
             this._model = model;
+            this._model._bookInformationChanged += this.UpdateTabPage;
             this._presentationModel = new BookBorrowingFormPresentationModel(model);
             this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(this._presentationModel);
-            this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(model, this._presentationModel);
+            this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(this._presentationModel);
             this._textPresentationModel = new BookBorrowingFormTextPresentationModel(this._presentationModel);
             this._borrowingListPresentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
-            this.CreateAllTabPage();
+            this.UpdateTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.CellValueChanged += this.ChangeCellValue;
             this._bookInformationDataGridView.EditingControlShowing += this.EditingControlShowing;
@@ -53,36 +54,37 @@ namespace LibraryManagementSystem
         }
 
         // 生成所有 tabpage 
-        private void CreateAllTabPage()
+        private void UpdateTabPage()
         {
             this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
             this._bookCategoryTabControl.TabPages.Clear();
+            this._buttonPresentationModel.UpdateBookButtonList();
             Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
-            int imageName = 1;
+            int categoryIndex = 0;
             foreach (var data in categoryQuantity)
             {
                 string category = data.Key;
                 int quantity = data.Value;
                 TabPage tabPage = new TabPage(category);
-                this._bookCategoryTabControl.TabPages.Add(tabPage);
-                this._bookCategoryTabControl.SelectTab(tabPage);
                 for (int index = 0; index < quantity; index++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(imageName++, index));
+                    tabPage.Controls.Add(this.CreateTabPageButton(categoryIndex, index));
+                categoryIndex++;
+                this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
+            this._buttonPresentationModel.UnselectBookButton();
             this._bookCategoryTabControl.SelectTab(0);
         }
 
         // 創建 tabpagebuttons
-        private Button CreateTabPageButton(int imageName, int categoryIndex)
+        private Button CreateTabPageButton(int categoryIndex, int index)
         {
-            const string BUTTON_IMAGE_PATH_FORMAT = "../../../image/{0}.jpg";
-            string imageFileName = string.Format(BUTTON_IMAGE_PATH_FORMAT, imageName);
-            this._controlPresentationModel.ButtonIndex = categoryIndex;
+            this._controlPresentationModel.ButtonIndex = index;
+            this._buttonPresentationModel.SelectBookButton(categoryIndex, index);
             Button button = new Button();
-            button.Tag = categoryIndex;
+            button.Tag = new Point(categoryIndex, index);
             button.Click += ClickTabPageButton;
-            button.DataBindings.Add("Visible", this._buttonPresentationModel.CreateButtonBindingObject(), "IsVisible");
-            button.BackgroundImage = Image.FromFile(imageFileName);
+            button.DataBindings.Add("Visible", this._buttonPresentationModel.BookButtonObject, "IsVisible");
+            button.BackgroundImage = Image.FromFile(this._buttonPresentationModel.BookButtonImage);
             button.BackgroundImageLayout = ImageLayout.Stretch;
             button.Location = new Point(this._controlPresentationModel.GetButtonLocation(), 0);
             button.Size = new Size(this._controlPresentationModel.ButtonWidth, this._controlPresentationModel.ButtonHeight);
@@ -136,7 +138,8 @@ namespace LibraryManagementSystem
         // 點擊書籍按鈕
         private void ClickTabPageButton(object sender, EventArgs e)
         {
-            this._presentationModel.ClickTabPageButton(this._bookCategoryTabControl.SelectedTab.Text, ((Button)sender).Tag);
+            Point point = (Point)(((Button)sender).Tag);
+            this._buttonPresentationModel.SelectBookButton(point.X, point.Y);
         }
 
         // 點擊加入借書單
@@ -216,6 +219,7 @@ namespace LibraryManagementSystem
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
             this._buttonPresentationModel.BookBorrowingFromClosing();
+            this._borrowingListPresentationModel.BookBorrowingFromClosing();
         }
         #endregion
     }

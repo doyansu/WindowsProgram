@@ -24,9 +24,9 @@ namespace LibraryManagementSystem.Model
         }
 
         // 書籍來源相同
-        public bool IsSourceBookEquals(Book book)
+        public bool IsSourceBookEquals(BookInformation other)
         {
-            return this._bookItem.Book == book;
+            return this.SourceBook == other.SourceBook;
         }
 
         // reset value
@@ -38,9 +38,8 @@ namespace LibraryManagementSystem.Model
         }
 
         // commit value 到 model
-        public void Commit()
+        public void CommitInformation()
         {
-            this._bookItem.Quantity = this.BookQuantity;
             this.SourceBook.CopyContent(this._book);
         }
 
@@ -142,6 +141,14 @@ namespace LibraryManagementSystem.Model
             get
             {
                 return this.BookName != this.SourceBook.Name || this.BookNumber != this.SourceBook.InternationalStandardBookNumber || this.BookAuthor != this.SourceBook.Author || this.BookPublicationItem != this.SourceBook.PublicationItem || this.BookImagePath != this.SourceBook.ImagePath || this.BookCategory != this._sourceCategory || this.BookQuantity != this._bookItem.Quantity;
+            }
+        }
+
+        public string SourceBookName
+        {
+            get
+            {
+                return this.SourceBook.Name;
             }
         }
 
