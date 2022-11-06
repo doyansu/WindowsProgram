@@ -57,8 +57,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\BookCategoryTests.cs" />
+    <Compile Include="Model\BookInformationTests.cs" />
     <Compile Include="Model\BookItemTests.cs" />
     <Compile Include="Model\BookTests.cs" />
+    <Compile Include="Model\BorrowedItemTests.cs" />
+    <Compile Include="Model\BorrowedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,1 @@
+please move this floder to "LibraryManagementSystemTests\bin\Debug" for FCC 

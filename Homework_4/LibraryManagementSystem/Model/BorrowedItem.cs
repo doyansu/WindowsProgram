@@ -48,10 +48,6 @@ namespace LibraryManagementSystem.Model
             {
                 return this._bookItem.Book;
             }
-            set
-            {
-                this._bookItem.Book = value;
-            }
         }
 
         public BookItem BookItem

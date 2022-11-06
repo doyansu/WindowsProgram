@@ -23,7 +23,7 @@ namespace LibraryManagementSystem.Model.Tests
         {
             _bookCategory = new BookCategory(CATEGORY);
             _PrivateObject = new PrivateObject(_bookCategory);
-            ReadFile("hw1_books_source.txt");
+            ReadFile("TestFile/hw1_books_source.txt");
         }
 
         // TestBookCategory

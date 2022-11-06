@@ -22,13 +22,6 @@ namespace LibraryManagementSystem.Model
             this._borrowedItems.Add(borrowedItem);
         }
 
-        // 刪除已借書籍
-        public void RemoveAt(int index)
-        {
-            if (index >= 0 && index < this._borrowedItems.Count)
-                this._borrowedItems.RemoveAt(index);
-        }
-
         // 清除清單資料
         public void Clear()
         {
@@ -39,18 +32,6 @@ namespace LibraryManagementSystem.Model
         public void RefreshList()
         {
             this._borrowedItems = this._borrowedItems.FindAll(content => content.BookItem.Quantity > 0);
-        }
-
-        // 取得清單書本內數量
-        public int GetCount()
-        {
-            return this._borrowedItems.Count();
-        }
-
-        // 取得書本
-        public Book GetBookAt(int index)
-        {
-            return index >= 0 && index < this._borrowedItems.Count ? this._borrowedItems[index].Book : null;
         }
 
         // 取得 BOOKITEM
@@ -66,6 +47,14 @@ namespace LibraryManagementSystem.Model
             foreach (BorrowedItem borrowedItem in this._borrowedItems)
                 informationList.Add(new BorrowedBookInformation(borrowedItem));
             return informationList;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return _borrowedItems.Count;
+            }
         }
         #endregion
     }
