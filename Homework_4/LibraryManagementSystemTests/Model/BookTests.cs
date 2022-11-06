@@ -52,6 +52,18 @@ namespace LibraryManagementSystem.Model.Tests
             Assert.AreEqual(copyBook.PublicationItem, _book.PublicationItem);
         }
 
+        // TestCopyContent
+        [TestMethod()]
+        public void TestCopyContent()
+        {
+            Book copyBook = new Book("", "", "", "", "");
+            copyBook.CopyContent(_book);
+            Assert.AreEqual(copyBook.Name, _book.Name);
+            Assert.AreEqual(copyBook.InternationalStandardBookNumber, _book.InternationalStandardBookNumber);
+            Assert.AreEqual(copyBook.Author, _book.Author);
+            Assert.AreEqual(copyBook.PublicationItem, _book.PublicationItem);
+        }
+
         // TestGetFormatInformation
         [TestMethod()]
         public void TestGetFormatInformation()
