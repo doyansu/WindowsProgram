@@ -64,7 +64,7 @@ namespace LibraryManagementSystem.PresentationModel
         {
             ManagementListRow managementListRow = this._managementList[this._selectedIndex];
             BookInformation bookInformation = managementListRow.BookInformationObject;
-            bookInformation.CommitInformation();
+            bookInformation.CommitBook();
             this._model.SelectBook(bookInformation.BookName);
             this._model.ChangeSelectedBookCategory(bookInformation.BookCategory);
             this._model.SelectBook(bookInformation.BookName);

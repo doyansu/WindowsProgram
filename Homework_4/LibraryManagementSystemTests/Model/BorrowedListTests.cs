@@ -18,6 +18,7 @@ namespace LibraryManagementSystem.Model.Tests
         List<BookItem> _bookItemList = new List<BookItem>();
         const string CATEGORY = "category";
 
+
         // Initialize
         [TestInitialize()]
         public void Initialize()
@@ -92,24 +93,40 @@ namespace LibraryManagementSystem.Model.Tests
             _borrowedList.RefreshList();
 
             Assert.AreEqual(answer, _borrowedList.Count);
+
+            _borrowedList.Clear();
+            for (int i = 0; i < _bookItemList.Count; i++)
+                    _bookItemList[i].Quantity = 0;
+
+            foreach (BookItem bookItem in _bookItemList)
+                _borrowedList.Add(new BorrowedItem(bookItem));
+            _borrowedList.RefreshList();
+
+            Assert.AreEqual(0, _borrowedList.Count);
         }
 
-        // GetInformationListTest
+        // TestGetBookItemAt
         [TestMethod()]
-        public void GetBookItemAtTest()
+        public void TestGetBookItemAt()
         {
             foreach (BookItem bookItem in _bookItemList)
                 _borrowedList.Add(new BorrowedItem(bookItem));
 
             for(int i = 0; i < _bookItemList.Count; i++)
                 Assert.AreEqual(_bookItemList[i], _borrowedList.GetBookItemAt(i));
+            Assert.AreEqual(null, _borrowedList.GetBookItemAt(-1));
+            Assert.AreEqual(null, _borrowedList.GetBookItemAt(_borrowedList.Count + 1));
         }
 
-        // GetInformationListTest
+        // TestGetInformationList
         [TestMethod()]
-        public void GetInformationListTest()
+        public void TestGetInformationList()
         {
-            Assert.Fail();
+            foreach (BookItem bookItem in _bookItemList)
+                _borrowedList.Add(new BorrowedItem(bookItem));
+
+            List<BorrowedBookInformation>  borrowedBookInformation = _borrowedList.GetInformationList();
+            Assert.AreEqual(_bookItemList.Count, borrowedBookInformation.Count);
         }
     }
 }

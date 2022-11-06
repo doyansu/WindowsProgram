@@ -38,7 +38,7 @@ namespace LibraryManagementSystem.Model
         }
 
         // commit value 到 model
-        public void CommitInformation()
+        public void CommitBook()
         {
             this.SourceBook.CopyContent(this._book);
         }
