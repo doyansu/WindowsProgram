@@ -43,6 +43,7 @@ namespace LibraryManagementSystem.Model.Tests
         {
             _library = new Library(string.Format(DATA_FILE_NAME_FORMAT, 4));
             _privateObject = new PrivateObject(_library);
+
             _book = new Book(bookInformationList[0], bookInformationList[1], bookInformationList[2], bookInformationList[3], bookInformationList[4]);
 
             _bookItem = new BookItem(_book, 0);
@@ -241,12 +242,11 @@ namespace LibraryManagementSystem.Model.Tests
         [TestMethod()]
         public void TestReturnBorrowedListItem()
         {
+            //_privateObject.SetFieldOrProperty("_borrowedList", _borrowedList);
             BorrowedList borrowedList = (BorrowedList)_privateObject.GetFieldOrProperty("_borrowedList");
-            _library.ReturnBorrowedListItem(1, 1);
 
-            _privateObject.SetFieldOrProperty("_bookItemList", _bookItems);
-            _privateObject.SetFieldOrProperty("_selectedBook", _book);
-            _privateObject.SetFieldOrProperty("_borrowedList", _borrowedList);
+            _library.ReturnBorrowedListItem(-1, 0);
+            Assert.AreEqual(0, borrowedList.Count);
 
             _library.ReturnBorrowedListItem(1, 1);
 
