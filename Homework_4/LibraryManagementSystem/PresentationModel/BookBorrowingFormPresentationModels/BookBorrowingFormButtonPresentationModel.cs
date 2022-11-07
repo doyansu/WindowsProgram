@@ -66,14 +66,12 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void SelectBookButton(int rowIndex, int columnIndex)
         {
             this._selectedButton = this._bookButtonList[rowIndex][columnIndex];
-            this._presentationModel.SelectedBookName = this._selectedButton.BookName;
         }
 
-        // UnSelectBookButton
-        public void UnselectBookButton()
+        // SelectBook
+        public void SelectBook(int rowIndex, int columnIndex)
         {
-            this._selectedButton = null;
-            this._presentationModel.UnselectBook();
+            this._presentationModel.SelectedBookInformation = this._bookButtonList[rowIndex][columnIndex].BookInformationObject;
         }
 
         // 切換 Tabpage
@@ -137,10 +135,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             return (this._bookButtonList[this.SelectedTabPageIndex].Count - 1) / BUTTONS_PER_PAGE;
         }
-        #endregion
-
-        #region Output
-        
         #endregion
 
         #region Property

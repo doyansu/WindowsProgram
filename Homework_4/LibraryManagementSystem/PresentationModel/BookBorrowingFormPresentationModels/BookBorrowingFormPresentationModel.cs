@@ -2,77 +2,96 @@
 using LibraryManagementSystem.PresentationModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels
 {
-    public class BookBorrowingFormPresentationModel
+    public class BookBorrowingFormPresentationModel : INotifyPropertyChanged
     {
         #region Event
-        public event Action _selectedBookNameChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event Action _selectedBookChanged;
         #endregion
 
         private Library _model;
 
-        private string _selectedBookName = null;
+        private BookInformation _lastSelectedBookInformation = null;
+        private BookInformation _selectedBookInformation = null;
+
+        private readonly string[] _notifyList = {
+            "SelectedBookInformation",
+            "SelectedBookQuantityString", };
 
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._bookItemListChanged += this.SelectedBookNameChanged;
+            this._model._bookItemListChanged += this.SelectedBookChanged;
         }
 
         // 取消選擇書籍
         public void UnselectBook()
         {
-            this.SelectedBookName = null;
+            this.SelectedBookInformation = null;
+        }
+
+        // 選擇最後一次選擇的書籍書籍
+        public void SelectLastBook()
+        {
+            this.SelectedBookInformation = this._lastSelectedBookInformation;
         }
 
         #region Output
-        // 取得所選書籍的書籍名稱
-        public string GetSelectedBookName()
-        {
-            this._model.SelectBook(this._selectedBookName);
-            return this._model.GetSelectedBookName();
-        }
-
-        // 取得所選書籍的書籍資訊
-        public string GetSelectedBookInformation()
-        {
-            this._model.SelectBook(this._selectedBookName);
-            return this._model.GetSelectedBookFormatInformation();
-        }
-
         // 取得所選書籍的剩餘數量
         public int GetSelectedBookQuantity()
         {
-            this._model.SelectBook(this._selectedBookName);
-            return this._model.GetSelectedBookQuantity();
-        }
-
-        // 取得所選書籍的剩餘數量字串
-        public string GetSelectedBookQuantityString()
-        {
-            this._model.SelectBook(this._selectedBookName);
-            return this._model.GetSelectedBookQuantityString();
+            const int NULL_VALUE = -1; 
+            return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookQuantity : NULL_VALUE;
         }
         #endregion
+
+        public BookInformation SelectedBookInformation
+        {
+            get
+            {
+                if (this._selectedBookInformation != null && this._selectedBookInformation.ContentEdited)
+                    this._selectedBookInformation.Reset();
+                return this._selectedBookInformation;
+            }
+            set
+            {
+                if (this._selectedBookInformation != null)
+                    this._lastSelectedBookInformation = this._selectedBookInformation;
+                this._selectedBookInformation = value;
+                SelectedBookChanged();
+            }
+        }
 
         public string SelectedBookName 
         {
             get
             {
-                return this._selectedBookName;
+                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookName : null;
             }
-            set
+        }
+
+        public string SelectedBookFormatInformation
+        {
+            get
             {
-                if (this._selectedBookName != value)
-                {
-                    this._selectedBookName = value;
-                    this.SelectedBookNameChanged();
-                }
+                const string NULL_VALUE = "";
+                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookFormatInformation : NULL_VALUE;
+            }
+        }
+
+        public string SelectedBookQuantityString
+        {
+            get
+            {
+                int quantity = this.GetSelectedBookQuantity();
+                return "剩餘數量 : " + (quantity >= 0 ? quantity.ToString() : "");
             }
         }
 
@@ -84,13 +103,28 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             }
         }
 
-        #region Event Invoke Function
         // handle _modelChanged evnet
-        private void SelectedBookNameChanged()
+        private void SelectedBookChanged()
         {
-            if (this._selectedBookNameChanged != null)
-                this._selectedBookNameChanged.Invoke();
+            if (this._selectedBookChanged != null)
+            {
+                this._selectedBookChanged.Invoke();
+                NotifyPropertyChanged();
+            }
         }
-        #endregion
+
+        // 通知所有 databing 改變
+        private void NotifyPropertyChanged()
+        {
+            foreach (string dataBinding in this._notifyList)
+                this.NotifyPropertyChanged(dataBinding);
+        }
+
+        // 通知 databing 改變
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

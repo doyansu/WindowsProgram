@@ -19,7 +19,6 @@ namespace LibraryManagementSystem
         private Library _model;
         private BookBorrowingFormPresentationModel _presentationModel;
         private BookBorrowingFormButtonPresentationModel _buttonPresentationModel;
-        private BookBorrowingFormTextPresentationModel _textPresentationModel;
         private BookBorrowingFormBorrowingListPresentationModel _borrowingListPresentationModel;
         private BookBorrowingFormControlPresentationModel _controlPresentationModel = new BookBorrowingFormControlPresentationModel();
         #endregion
@@ -35,7 +34,6 @@ namespace LibraryManagementSystem
             this._presentationModel = new BookBorrowingFormPresentationModel(model);
             this._buttonPresentationModel = new BookBorrowingFormButtonPresentationModel(this._presentationModel);
             this._borrowingListPresentationModel = new BookBorrowingFormBorrowingListPresentationModel(this._presentationModel);
-            this._textPresentationModel = new BookBorrowingFormTextPresentationModel(this._presentationModel);
             this._borrowingListPresentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
@@ -57,8 +55,8 @@ namespace LibraryManagementSystem
         private void UpdateTabPage()
         {
             this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
-            this._bookCategoryTabControl.TabPages.Clear();
             this._buttonPresentationModel.UpdateBookButtonList();
+            this._bookCategoryTabControl.TabPages.Clear();
             Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
             int categoryIndex = 0;
             foreach (var data in categoryQuantity)
@@ -71,8 +69,7 @@ namespace LibraryManagementSystem
                 categoryIndex++;
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
-            this._buttonPresentationModel.UnselectBookButton();
-            this._bookCategoryTabControl.SelectTab(0);
+            this._presentationModel.SelectLastBook();
         }
 
         // 創建 tabpagebuttons
@@ -120,8 +117,8 @@ namespace LibraryManagementSystem
             this._lastPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsLastButtonButtonEnabled");
             this._backPackButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsBackPackButtonEnabled");
             this._pageLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._buttonPresentationModel, "PageLabelString");
-            this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookInformation");
-            this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._textPresentationModel, "SelectedBookQuantityString");
+            this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookFormatInformation");
+            this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
             this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._borrowingListPresentationModel, "BorrowingListQuantityString");
             this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._buttonPresentationModel, "SelectedTabPageIndex");
             this._bookInformationDataGridView.DataSource = this._borrowingListPresentationModel.BorrowingList;
@@ -139,7 +136,7 @@ namespace LibraryManagementSystem
         private void ClickTabPageButton(object sender, EventArgs e)
         {
             Point point = (Point)(((Button)sender).Tag);
-            this._buttonPresentationModel.SelectBookButton(point.X, point.Y);
+            this._buttonPresentationModel.SelectBook(point.X, point.Y);
         }
 
         // 點擊加入借書單

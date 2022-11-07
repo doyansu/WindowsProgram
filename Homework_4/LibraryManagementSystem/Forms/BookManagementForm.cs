@@ -71,7 +71,7 @@ namespace LibraryManagementSystem
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Files|*.jpg;*.jpeg;*.png;";
-            dialog.InitialDirectory = this._presentationModel.SelectedBookImagePath;
+            dialog.InitialDirectory = @"../../../image";
             dialog.Title = "請選擇書籍圖片";
             if (dialog.ShowDialog() == DialogResult.OK)
                 this._presentationModel.SelectedBookImagePath = dialog.FileName;

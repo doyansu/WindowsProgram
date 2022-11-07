@@ -43,7 +43,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this._model = presentationModel.Model;
             this._model._bookInformationChanged += this.RefreshBorrowingList;
             this._presentationModel = presentationModel;
-            this._presentationModel._selectedBookNameChanged += this.NotifyPropertyChanged;
+            this._presentationModel._selectedBookChanged += this.NotifyPropertyChanged;
         }
 
         #region Private Function

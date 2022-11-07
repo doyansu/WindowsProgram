@@ -244,9 +244,13 @@ namespace LibraryManagementSystem.Model.Tests
         {
             //_privateObject.SetFieldOrProperty("_borrowedList", _borrowedList);
             BorrowedList borrowedList = (BorrowedList)_privateObject.GetFieldOrProperty("_borrowedList");
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            BookItem bookItem = bookItems[0].Copy();
+            int quantity = bookItems[0].Quantity;
+            borrowedList.Add(new BorrowedItem(bookItem));
 
             _library.ReturnBorrowedListItem(-1, 0);
-            Assert.AreEqual(0, borrowedList.Count);
+            Assert.AreEqual(quantity, bookItems[0].Quantity);
 
             _library.ReturnBorrowedListItem(1, 1);
 

@@ -86,7 +86,7 @@ namespace LibraryManagementSystem.Model
             if (targetBookItem != null)
             {
                 BookItem returnItem = targetBookItem.Take(quantity);
-                this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnItem)).AddQuantity(returnItem);
+                this.FindBookItem(returnItem.Book).AddQuantity(returnItem);
                 this._borrowedList.RefreshList();
                 this.UseAction(this._bookItemListChanged);
             }
@@ -107,9 +107,9 @@ namespace LibraryManagementSystem.Model
             {
                 bookCategory.Remove(this._selectedBook);
                 this.FindBookCategory(category).AddBook(this._selectedBook);
-                this.UseAction(this._bookItemListChanged);
-                this.UseAction(this._bookInformationChanged);
             }
+            this.UseAction(this._bookItemListChanged);
+            this.UseAction(this._bookInformationChanged);
         }
         #endregion
 
