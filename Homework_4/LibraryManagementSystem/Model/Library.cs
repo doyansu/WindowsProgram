@@ -26,74 +26,18 @@ namespace LibraryManagementSystem.Model
         #endregion
 
         #region Constrctor
-        public Library()
+        public Library(string dataFileName)
         {
+            this.LoadBooksData(@dataFileName);
             this._bookItemListChanged += () => 
             { 
                 if (this._borrowedListChanged != null)
                     this._borrowedListChanged.Invoke();
             };
-            const string FILE_NAME = "../../../hw4_books_source.txt";
-            this.LoadBooksData(FILE_NAME);
         }
         #endregion
 
         #region Member Function
-        // 透過名稱選擇書籍
-        public void SelectBook(string bookName)
-        {
-            BookItem bookItemQuery = this.FindBookItem(bookName);
-            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
-        }
-
-        // 借書
-        public void BorrowSelectedBook(int quantity)
-        {
-            BookItem bookItem = this.FindBookItem(this._selectedBook);
-            if (bookItem != null)
-                this._borrowedList.Add(new BorrowedItem(bookItem.Take(quantity)));
-            this.UseAction(this._bookItemListChanged);
-        }
-
-        // 歸還書籍
-        public void ReturnBorrowedListItem(int index, int quantity)
-        {
-            this.ReturnBookItem(this._borrowedList.GetBookItemAt(index).Take(quantity));
-            this._borrowedList.RefreshList();
-            this.UseAction(this._bookItemListChanged);
-        }
-
-        // 補貨
-        public void AddSelectedBookQuantity(int quantity)
-        {
-            this.FindBookItem(this._selectedBook).Quantity += quantity;
-            this.UseAction(this._bookItemListChanged);
-        }
-
-        // 編輯書籍類別
-        public void ChangeSelectedBookCategory(string category)
-        {
-            BookCategory bookCategory;
-            if (this._selectedBook != null && (bookCategory = this.FindBookCategory(this._selectedBook)).Category != category)
-            {
-                bookCategory.Remove(this._selectedBook);
-                this.FindBookCategory(category).AddBook(this._selectedBook);
-            }
-            this.UseAction(this._bookItemListChanged);
-            this.UseAction(this._bookInformationChanged);
-        }
-        #endregion
-
-        #region Private Function
-        // 重置 model
-        private void Reset()
-        {
-            this._selectedBook = null;
-            this._bookItemList.Clear();
-            this._bookCategoryList.Clear();
-            this._borrowedList.Clear();
-        }
-
         // 下載書籍資料
         private void LoadBooksData(string fileName)
         {
@@ -114,6 +58,69 @@ namespace LibraryManagementSystem.Model
                     this.SaveBook(bookData);
                 }
             }
+        }
+
+        // 透過名稱選擇書籍
+        public void SelectBook(string bookName)
+        {
+            BookItem bookItemQuery = this.FindBookItem(bookName);
+            this._selectedBook = bookItemQuery != null ? bookItemQuery.Book : null;
+        }
+
+        // 借書
+        public void BorrowSelectedBook(int quantity)
+        {
+            BookItem bookItem = this.FindBookItem(this._selectedBook);
+            if (bookItem != null)
+            {
+                this._borrowedList.Add(new BorrowedItem(bookItem.Take(quantity)));
+                this._borrowedList.RefreshList();
+                this.UseAction(this._bookItemListChanged);
+            }
+        }
+
+        // 歸還書籍
+        public void ReturnBorrowedListItem(int index, int quantity)
+        {
+            BookItem targetBookItem = this._borrowedList.GetBookItemAt(index);
+            if (targetBookItem != null)
+            {
+                BookItem returnItem = targetBookItem.Take(quantity);
+                this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnItem)).AddQuantity(returnItem);
+                this._borrowedList.RefreshList();
+                this.UseAction(this._bookItemListChanged);
+            }
+        }
+
+        // 補貨
+        public void AddSelectedBookQuantity(int quantity)
+        {
+            this.FindBookItem(this._selectedBook).Quantity += quantity;
+            this.UseAction(this._bookItemListChanged);
+        }
+
+        // 編輯書籍類別
+        public void ChangeSelectedBookCategory(string category)
+        {
+            BookCategory bookCategory;
+            if (this._selectedBook != null && (bookCategory = this.FindBookCategory(this._selectedBook)).Category != category)
+            {
+                bookCategory.Remove(this._selectedBook);
+                this.FindBookCategory(category).AddBook(this._selectedBook);
+                this.UseAction(this._bookItemListChanged);
+                this.UseAction(this._bookInformationChanged);
+            }
+        }
+        #endregion
+
+        #region Private Function
+        // 重置 model
+        private void Reset()
+        {
+            this._selectedBook = null;
+            this._bookItemList.Clear();
+            this._bookCategoryList.Clear();
+            this._borrowedList.Clear();
         }
 
         // 存取書籍資料
@@ -158,12 +165,6 @@ namespace LibraryManagementSystem.Model
         private BookCategory FindBookCategory(Book book)
         {
             return this._bookCategoryList.Find(content => content.ContainBook(book));
-        }
-
-        // 將書籍還回 _bookItemList 清單
-        private void ReturnBookItem(BookItem returnItem)
-        {
-            this._bookItemList.Find(bookItem => bookItem.IsBookEquals(returnItem)).AddQuantity(returnItem);
         }
 
         // 建立 BookInformation 物件

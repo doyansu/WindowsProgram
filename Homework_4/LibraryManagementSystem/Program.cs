@@ -18,7 +18,8 @@ namespace LibraryManagementSystem
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Library model = new Library();
+            const string DATA_FILE_NAME = "../../../hw4_books_source.txt";
+            Library model = new Library(DATA_FILE_NAME);
             Application.Run(new MenuForm(model));
         }
     }

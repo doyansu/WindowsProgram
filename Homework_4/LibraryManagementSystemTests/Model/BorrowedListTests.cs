@@ -13,7 +13,6 @@ namespace LibraryManagementSystem.Model.Tests
     public class BorrowedListTests
     {
         BorrowedList _borrowedList;
-        PrivateObject _PrivateObject;
         List<Book> _bookList = new List<Book>();
         List<BookItem> _bookItemList = new List<BookItem>();
         const string CATEGORY = "category";
