@@ -86,10 +86,10 @@ namespace LibraryManagementSystem.Model
             if (targetBookItem != null)
             {
                 BookItem returnItem = targetBookItem.Take(quantity);
-                this.FindBookItem(returnItem.Book).AddQuantity(returnItem);
-                this._borrowedList.RefreshList();
-                this.UseAction(this._bookItemListChanged);
+                this.ReturnBookItem(returnItem);
             }
+            this._borrowedList.RefreshList();
+            this.UseAction(this._bookItemListChanged);
         }
 
         // 補貨
@@ -167,6 +167,12 @@ namespace LibraryManagementSystem.Model
             return this._bookCategoryList.Find(content => content.ContainBook(book));
         }
 
+        // 將書籍還回 _bookItemList 清單
+        private void ReturnBookItem(BookItem returnItem)
+        {
+            this.FindBookItem(returnItem.Book).AddQuantity(returnItem);
+        }
+
         // 建立 BookInformation 物件
         private BookInformation CreateBookInformation(Book book)
         {
@@ -208,32 +214,11 @@ namespace LibraryManagementSystem.Model
             return data;
         }
 
-        // 取得所選書籍的書籍名稱
-        public string GetSelectedBookName()
-        {
-            const string NULL_VALUE = null;
-            return this._selectedBook != null ? this._selectedBook.Name : NULL_VALUE;
-        }
-
-        // 取得所選書籍的書籍資訊
-        public string GetSelectedBookFormatInformation()
-        {
-            const string NULL_VALUE = null;
-            return this._selectedBook != null ? this._selectedBook.GetFormatInformation() : NULL_VALUE;
-        }
-
         // 取得所選書籍的剩餘數量
         public int GetSelectedBookQuantity()
         {
             const int NULL_VALUE = -1;
             return this._selectedBook != null ? this.FindBookItem(this._selectedBook).Quantity : NULL_VALUE;
-        }
-
-        // 取得所選書籍的剩餘數量字串
-        public string GetSelectedBookQuantityString()
-        {
-            const string NULL_VALUE = "";
-            return this._selectedBook != null ? this.FindBookItem(this._selectedBook).Quantity.ToString() : NULL_VALUE;
         }
 
         // 取得書籍的資訊物件
