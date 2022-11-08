@@ -24,8 +24,8 @@ namespace LibraryManagementSystem.PresentationModel
         public BookInventoryFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._bookItemListChanged += this.UpdateInventoryList;
-            this._model._bookItemListChanged += this.NotifyPropertyChanged;
+            this._model._modelChanged += this.UpdateInventoryList;
+            this._model._modelChanged += this.NotifyPropertyChanged;
             this.UpdateInventoryList();
         }
 

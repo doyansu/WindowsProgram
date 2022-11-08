@@ -37,10 +37,10 @@ namespace LibraryManagementSystem.Model
             this._book.CopyContent(this.SourceBook);
         }
 
-        // commit value 到 model
-        public void CommitBook()
+        // 取得書籍資訊的複本
+        public Book GetCopyBook()
         {
-            this.SourceBook.CopyContent(this._book);
+            return this._book.Copy();
         }
 
         #region Getter and Setter

@@ -11,9 +11,10 @@ namespace LibraryManagementSystem.Model
     public class Library
     {
         #region Event
-        public event Action _bookItemListChanged;
+        public event Action _modelChanged;
         public event Action _borrowedListChanged;
         public event Action _bookInformationChanged;
+        public event Action _bookCategoryChanged;
         #endregion
 
         #region Attributes
@@ -29,7 +30,7 @@ namespace LibraryManagementSystem.Model
         public Library(string dataFileName)
         {
             this.LoadBooksData(@dataFileName);
-            this._bookItemListChanged += () => 
+            this._modelChanged += () => 
             { 
                 if (this._borrowedListChanged != null)
                     this._borrowedListChanged.Invoke();
@@ -75,7 +76,7 @@ namespace LibraryManagementSystem.Model
             {
                 this._borrowedList.Add(new BorrowedItem(bookItem.Take(quantity)));
                 this._borrowedList.RefreshList();
-                this.UseAction(this._bookItemListChanged);
+                this.UseAction(this._modelChanged);
             }
         }
 
@@ -89,27 +90,32 @@ namespace LibraryManagementSystem.Model
                 this.ReturnBookItem(returnItem);
             }
             this._borrowedList.RefreshList();
-            this.UseAction(this._bookItemListChanged);
+            this.UseAction(this._modelChanged);
         }
 
         // 補貨
         public void AddSelectedBookQuantity(int quantity)
         {
             this.FindBookItem(this._selectedBook).Quantity += quantity;
-            this.UseAction(this._bookItemListChanged);
+            this.UseAction(this._modelChanged);
         }
 
         // 編輯書籍類別
-        public void ChangeSelectedBookCategory(string category)
+        public void ChangeBookInformation(BookInformation bookInformation)
         {
-            BookCategory bookCategory;
-            if (this._selectedBook != null && (bookCategory = this.FindBookCategory(this._selectedBook)).Category != category)
+            if (bookInformation != null)
             {
-                bookCategory.Remove(this._selectedBook);
-                this.FindBookCategory(category).AddBook(this._selectedBook);
+                Book changeBook = this.FindBookItem(bookInformation.SourceBookName).Book;
+                changeBook.CopyContent(bookInformation.GetCopyBook());
+                BookCategory bookCategory;
+                if ((bookCategory = this.FindBookCategory(changeBook)).Category != bookInformation.BookCategory)
+                {
+                    bookCategory.Remove(changeBook);
+                    this.FindBookCategory(bookInformation.BookCategory).AddBook(changeBook);
+                }
+                this.UseAction(this._bookInformationChanged);
+                this.UseAction(this._modelChanged);
             }
-            this.UseAction(this._bookItemListChanged);
-            this.UseAction(this._bookInformationChanged);
         }
         #endregion
 

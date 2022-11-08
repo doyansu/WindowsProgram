@@ -21,14 +21,14 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private BookInformation _lastSelectedBookInformation = null;
         private BookInformation _selectedBookInformation = null;
 
-        private readonly string[] _notifyList = {
+        private readonly string[] _notifyList = { 
             "SelectedBookInformation",
             "SelectedBookQuantityString", };
 
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._bookItemListChanged += this.SelectedBookChanged;
+            this._model._modelChanged += this.SelectedBookChanged;
         }
 
         // 取消選擇書籍

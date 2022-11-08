@@ -37,10 +37,10 @@ namespace LibraryManagementSystem
             this._borrowingListPresentationModel._showMessage += this.ShowMessage;
             this._backPackForm = new BackPackForm(model);
             this._backPackForm.FormClosing += this.BackPackFormClosing;
-            this.UpdateTabPage();
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.CellValueChanged += this.ChangeCellValue;
             this._bookInformationDataGridView.EditingControlShowing += this.EditingControlShowing;
+            this.UpdateTabPage();
             this.BindData();
         }
 
