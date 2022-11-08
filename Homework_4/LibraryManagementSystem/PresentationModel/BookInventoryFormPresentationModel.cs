@@ -42,8 +42,7 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊補貨按鈕
         public void ClickAddingButton(int addingQuantity)
         {
-            this._model.SelectBook(this._inventoryList[this.SelectedRowIndex].BookName);
-            this._model.AddSelectedBookQuantity(addingQuantity);
+            this._model.AddBookQuantity(this._inventoryList[this.SelectedRowIndex].BookName, addingQuantity);
         }
         #endregion
 

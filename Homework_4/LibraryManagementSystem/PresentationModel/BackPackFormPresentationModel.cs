@@ -29,7 +29,7 @@ namespace LibraryManagementSystem.PresentationModel
         public BackPackFormPresentationModel(Library model)
         {
             this._model = model;
-            this._model._borrowedListChanged += this.UpdateBackPackList;
+            this._model._modelChanged += this.UpdateBackPackList;
         }
         #endregion
 

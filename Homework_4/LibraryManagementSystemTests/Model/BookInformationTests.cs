@@ -13,6 +13,7 @@ namespace LibraryManagementSystem.Model.Tests
     public class BookInformationTests
     {
         BookInformation _bookInformation;
+        PrivateObject _privateObject;
         List<Book> _bookList = new List<Book>();
         List<BookItem> _bookItemList = new List<BookItem>();
         const string CATEGORY = "category";
@@ -120,18 +121,18 @@ namespace LibraryManagementSystem.Model.Tests
         [TestMethod()]
         public void TestReset()
         {
-            BookInformation bookInformationIndex1 = new BookInformation(_bookItemList[1], CATEGORY_BOOK);
+            BookInformation bookInformationIndex = new BookInformation(_bookItemList[1], CATEGORY_BOOK);
             BookItem bookItem = _bookItemList[0];
             Book book = bookItem.Book;
             _bookInformation = new BookInformation(bookItem, CATEGORY);
 
-            _bookInformation.BookQuantity = bookInformationIndex1.BookQuantity;
-            _bookInformation.BookName = bookInformationIndex1.BookName;
-            _bookInformation.BookNumber = bookInformationIndex1.BookNumber;
-            _bookInformation.BookPublicationItem = bookInformationIndex1.BookPublicationItem;
-            _bookInformation.BookAuthor = bookInformationIndex1.BookAuthor;
-            _bookInformation.BookImagePath = bookInformationIndex1.BookImagePath;
-            _bookInformation.BookCategory = bookInformationIndex1.BookCategory;
+            _bookInformation.BookQuantity = bookInformationIndex.BookQuantity;
+            _bookInformation.BookName = bookInformationIndex.BookName;
+            _bookInformation.BookNumber = bookInformationIndex.BookNumber;
+            _bookInformation.BookPublicationItem = bookInformationIndex.BookPublicationItem;
+            _bookInformation.BookAuthor = bookInformationIndex.BookAuthor;
+            _bookInformation.BookImagePath = bookInformationIndex.BookImagePath;
+            _bookInformation.BookCategory = bookInformationIndex.BookCategory;
             _bookInformation.Reset();
 
             Assert.AreEqual(bookItem.Quantity, _bookInformation.BookQuantity);
@@ -146,36 +147,25 @@ namespace LibraryManagementSystem.Model.Tests
             Assert.AreEqual(CATEGORY, _bookInformation.BookCategory);
         }
 
-        // TestCommitInformation
+        // TestGetCopyBook
         [TestMethod()]
-        public void TestCommitInformation()
+        public void TestGetCopyBook()
         {
-            BookInformation bookInformationIndex1 = new BookInformation(_bookItemList[1], CATEGORY_BOOK);
+            BookInformation bookInformationIndex = new BookInformation(_bookItemList[1], CATEGORY_BOOK);
             BookItem bookItem = _bookItemList[0];
             Book book = bookItem.Book;
             _bookInformation = new BookInformation(bookItem, CATEGORY);
 
-            _bookInformation.BookQuantity = bookInformationIndex1.BookQuantity;
-            _bookInformation.BookName = bookInformationIndex1.BookName;
-            _bookInformation.BookNumber = bookInformationIndex1.BookNumber;
-            _bookInformation.BookPublicationItem = bookInformationIndex1.BookPublicationItem;
-            _bookInformation.BookAuthor = bookInformationIndex1.BookAuthor;
-            _bookInformation.BookImagePath = bookInformationIndex1.BookImagePath;
-            _bookInformation.BookCategory = bookInformationIndex1.BookCategory;
-            _bookInformation.CommitBook();
+            _privateObject = new PrivateObject(_bookInformation); 
+            Book copyBook = _bookInformation.GetCopyBook();
 
-            Assert.AreEqual(bookInformationIndex1.BookQuantity, _bookInformation.BookQuantity);
-            Assert.AreEqual(book.Name, bookInformationIndex1.BookName);
-            Assert.AreEqual(book.InternationalStandardBookNumber, bookInformationIndex1.BookNumber);
-            Assert.AreEqual(book.PublicationItem, bookInformationIndex1.BookPublicationItem);
-            Assert.AreEqual(book.Author, bookInformationIndex1.BookAuthor);
-            Assert.AreEqual(book.ImagePath, bookInformationIndex1.BookImagePath);
-            Assert.AreEqual(book.Name, _bookInformation.SourceBookName);
-            Assert.AreEqual(true, _bookInformation.ContentEdited);
-            Assert.AreEqual(CATEGORY_BOOK, _bookInformation.BookCategory);
-            _bookInformation.BookQuantity = bookItem.Quantity;
-            _bookInformation.BookCategory = CATEGORY;
-            Assert.AreEqual(false, _bookInformation.ContentEdited);
+            Assert.AreEqual(copyBook.Name, _bookInformation.BookName);
+            Assert.AreEqual(copyBook.InternationalStandardBookNumber, _bookInformation.BookNumber);
+            Assert.AreEqual(copyBook.PublicationItem, _bookInformation.BookPublicationItem);
+            Assert.AreEqual(copyBook.Author, _bookInformation.BookAuthor);
+            Assert.AreEqual(copyBook.ImagePath, _bookInformation.BookImagePath);
+            Assert.AreEqual(false, copyBook == ((BookItem)_privateObject.GetFieldOrProperty("_bookItem")).Book);
+            Assert.AreEqual(true, book.Name == _bookInformation.SourceBookName);
         }
     }
 }

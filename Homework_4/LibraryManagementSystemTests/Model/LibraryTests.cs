@@ -24,14 +24,14 @@ namespace LibraryManagementSystem.Model.Tests
         const int BOOK_COUNT = 20;
         const int CATEGORY_COUNT = 4;
 
-        readonly string[] bookInformationList = {
+        readonly string[] _bookInformationList = {
             "微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書",
             "964 8394:2 - 5 2021",
             "ingectar - e",
             "原點出版: 大雁發行, 2021[民110]",
             "../../../image/1.jpg" };
 
-        readonly string[] bookCategoryList = {
+        readonly string[] _bookCategoryList = {
             "6月暢銷書",
             "4月暢銷書",
             "英文學習",
@@ -44,7 +44,7 @@ namespace LibraryManagementSystem.Model.Tests
             _library = new Library(string.Format(DATA_FILE_NAME_FORMAT, 4));
             _privateObject = new PrivateObject(_library);
 
-            _book = new Book(bookInformationList[0], bookInformationList[1], bookInformationList[2], bookInformationList[3], bookInformationList[4]);
+            _book = new Book(_bookInformationList[0], _bookInformationList[1], _bookInformationList[2], _bookInformationList[3], _bookInformationList[4]);
 
             _bookItem = new BookItem(_book, 0);
 
@@ -73,7 +73,7 @@ namespace LibraryManagementSystem.Model.Tests
             const int BOOK_QUANTITY = 1;
             bookData.Add(BOOK_QUANTITY.ToString());
             bookData.Add(CATEGORY);
-            foreach (string data in bookInformationList)
+            foreach (string data in _bookInformationList)
                 bookData.Add(data);
             ////
             _privateObject.Invoke("SaveBook", new object[] { bookData });
@@ -112,7 +112,7 @@ namespace LibraryManagementSystem.Model.Tests
         {
             List<string> bookData = new List<string>();
             bookData.Add(CATEGORY);
-            foreach (string data in bookInformationList)
+            foreach (string data in _bookInformationList)
                 bookData.Add(data);
 
             _privateObject.Invoke("SaveBook", new object[] { bookData });
@@ -140,7 +140,7 @@ namespace LibraryManagementSystem.Model.Tests
             const int BOOK_QUANTITY = 1;
             bookData.Add(BOOK_QUANTITY.ToString());
             bookData.Add(CATEGORY);
-            foreach (string data in bookInformationList)
+            foreach (string data in _bookInformationList)
                 bookData.Add(data);
 
             _privateObject.Invoke("SaveBook", new object[] { bookData });
@@ -168,7 +168,7 @@ namespace LibraryManagementSystem.Model.Tests
             Assert.AreEqual(2, bookCategories.Count);
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(bookCategoryList[i], bookCategories[i].Category);
+                Assert.AreEqual(_bookCategoryList[i], bookCategories[i].Category);
                 Assert.AreEqual(3, bookCategories[i].GetBookCount());
             }
 
@@ -187,7 +187,7 @@ namespace LibraryManagementSystem.Model.Tests
             int[] categotyBookCount = { 4, 5, 8, 3 };
             for (int i = 0; i < 4; i++)
             {
-                Assert.AreEqual(bookCategoryList[i], bookCategories[i].Category);
+                Assert.AreEqual(_bookCategoryList[i], bookCategories[i].Category);
                 Assert.AreEqual(categotyBookCount[i], bookCategories[i].GetBookCount());
             }
 
@@ -242,36 +242,110 @@ namespace LibraryManagementSystem.Model.Tests
         [TestMethod()]
         public void TestReturnBorrowedListItem()
         {
-            //_privateObject.SetFieldOrProperty("_borrowedList", _borrowedList);
             BorrowedList borrowedList = (BorrowedList)_privateObject.GetFieldOrProperty("_borrowedList");
             List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
-            BookItem bookItem = bookItems[0].Copy();
-            int quantity = bookItems[0].Quantity;
-            borrowedList.Add(new BorrowedItem(bookItem));
+            BookItem bookItem = bookItems[0];
+            int borrowCount = 2;
+            int sourseQuantity = bookItem.Quantity;
+            BorrowedItem borrowedItem = new BorrowedItem(bookItem.Take(borrowCount));
+            borrowedList.Add(borrowedItem);
 
             _library.ReturnBorrowedListItem(-1, 0);
-            Assert.AreEqual(quantity, bookItems[0].Quantity);
+            Assert.AreEqual(1, borrowedList.Count);
+            Assert.AreEqual(borrowCount, borrowedItem.BookItem.Quantity);
+            Assert.AreEqual(sourseQuantity - borrowCount, bookItem.Quantity);
 
-            _library.ReturnBorrowedListItem(1, 1);
+            _library.ReturnBorrowedListItem(borrowedList.Count + 1, 0);
+            Assert.AreEqual(1, borrowedList.Count);
+            Assert.AreEqual(borrowCount, borrowedItem.BookItem.Quantity);
+            Assert.AreEqual(sourseQuantity - borrowCount, bookItem.Quantity);
 
+            _library.ReturnBorrowedListItem(0, 1);
+            borrowCount -= 1;
+            Assert.AreEqual(1, borrowedList.Count);
+            Assert.AreEqual(borrowCount, borrowedItem.BookItem.Quantity);
+            Assert.AreEqual(sourseQuantity - borrowCount, bookItem.Quantity);
+
+            _library.ReturnBorrowedListItem(0, 2);
+            borrowCount -= 1;
+            Assert.AreEqual(0, borrowedList.Count);
+            Assert.AreEqual(borrowCount, borrowedItem.BookItem.Quantity);
+            Assert.AreEqual(sourseQuantity - borrowCount, bookItem.Quantity);
         }
 
+        // TestAddBookQuantity
         [TestMethod()]
-        public void AddSelectedBookQuantityTest()
+        public void TestAddBookQuantity()
         {
-            Assert.Fail();
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            BookItem bookItem = bookItems[0];
+            int quantity = bookItem.Quantity;
+            int addingQuantity = 1;
+            string bookName = bookItem.Book.Name;
+
+            _library.AddBookQuantity("", addingQuantity);
+            _library.AddBookQuantity(bookName, -1);
+            Assert.AreEqual(quantity, bookItem.Quantity);
+
+            _library.AddBookQuantity(bookName, addingQuantity);
+            Assert.AreEqual(quantity + addingQuantity, bookItem.Quantity);
         }
 
+        // TestChangeBookInformation
         [TestMethod()]
-        public void ChangeSelectedBookCategoryTest()
+        public void TestChangeBookInformation()
         {
-            Assert.Fail();
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            BookItem bookItem = bookItems[0];
+            Book sourceBook = bookItem.Book;
+            Book copySourceBook = sourceBook.Copy();
+            Book changeBook = bookItems[10].Book.Copy();
+            List<BookCategory> bookCategories = (List<BookCategory>)_privateObject.GetFieldOrProperty("_bookCategoryList");
+            BookInformation bookInformation = new BookInformation(bookItem, bookCategories[0].Category);
+
+            _library.ChangeBookInformation(null);
+            Assert.AreEqual(copySourceBook.Name, sourceBook.Name);
+            Assert.AreEqual(copySourceBook.InternationalStandardBookNumber, sourceBook.InternationalStandardBookNumber);
+            Assert.AreEqual(copySourceBook.Author, sourceBook.Author);
+            Assert.AreEqual(copySourceBook.PublicationItem, sourceBook.PublicationItem);
+            Assert.AreEqual(copySourceBook.ImagePath, sourceBook.ImagePath);
+            Assert.AreEqual(true, bookCategories[0].ContainBook(sourceBook));
+
+            bookInformation.BookName = changeBook.Name;
+            bookInformation.BookNumber = changeBook.InternationalStandardBookNumber;
+            bookInformation.BookPublicationItem = changeBook.PublicationItem;
+            bookInformation.BookAuthor = changeBook.Author;
+            bookInformation.BookImagePath = changeBook.ImagePath;
+            _library.ChangeBookInformation(bookInformation);
+            Assert.AreEqual(changeBook.Name, sourceBook.Name);
+            Assert.AreEqual(changeBook.InternationalStandardBookNumber, sourceBook.InternationalStandardBookNumber);
+            Assert.AreEqual(changeBook.Author, sourceBook.Author);
+            Assert.AreEqual(changeBook.PublicationItem, sourceBook.PublicationItem);
+            Assert.AreEqual(changeBook.ImagePath, sourceBook.ImagePath);
+            Assert.AreEqual(true, bookCategories[0].ContainBook(sourceBook));
+
+            bookInformation.BookCategory = bookCategories[1].Category;
+            _library.ChangeBookInformation(bookInformation);
+            Assert.AreEqual(changeBook.Name, sourceBook.Name);
+            Assert.AreEqual(changeBook.InternationalStandardBookNumber, sourceBook.InternationalStandardBookNumber);
+            Assert.AreEqual(changeBook.Author, sourceBook.Author);
+            Assert.AreEqual(changeBook.PublicationItem, sourceBook.PublicationItem);
+            Assert.AreEqual(changeBook.ImagePath, sourceBook.ImagePath);
+            Assert.AreEqual(false, bookCategories[0].ContainBook(sourceBook));
+            Assert.AreEqual(true, bookCategories[1].ContainBook(sourceBook));
         }
 
+        // TestGetCategoryList
         [TestMethod()]
-        public void GetCategoryListTest()
+        public void TestGetCategoryList()
         {
-            Assert.Fail();
+            List<BookCategory> bookCategories = (List<BookCategory>)_privateObject.GetFieldOrProperty("_bookCategoryList");
+            List<string> categoryList = _library.GetCategoryList();
+            for (int i = 0; i < 4; i++)
+            {
+                Assert.AreEqual(bookCategories[i].Category, categoryList[i]);
+                Assert.AreEqual(_bookCategoryList[i], categoryList[i]);
+            }
         }
 
         [TestMethod()]
@@ -287,25 +361,7 @@ namespace LibraryManagementSystem.Model.Tests
         }
 
         [TestMethod()]
-        public void GetSelectedBookNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetSelectedBookFormatInformationTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void GetSelectedBookQuantityTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetSelectedBookQuantityStringTest()
         {
             Assert.Fail();
         }

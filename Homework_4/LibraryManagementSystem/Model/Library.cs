@@ -12,9 +12,7 @@ namespace LibraryManagementSystem.Model
     {
         #region Event
         public event Action _modelChanged;
-        public event Action _borrowedListChanged;
         public event Action _bookInformationChanged;
-        public event Action _bookCategoryChanged;
         #endregion
 
         #region Attributes
@@ -30,37 +28,10 @@ namespace LibraryManagementSystem.Model
         public Library(string dataFileName)
         {
             this.LoadBooksData(@dataFileName);
-            this._modelChanged += () => 
-            { 
-                if (this._borrowedListChanged != null)
-                    this._borrowedListChanged.Invoke();
-            };
         }
         #endregion
 
         #region Member Function
-        // 下載書籍資料
-        private void LoadBooksData(string fileName)
-        {
-            this.Reset();
-            const string START_LINE = "BOOK";
-            string imagePathFormat = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"../../../image/{0}.jpg"));
-            int imageIndex = 1;
-            StreamReader file = new StreamReader(@fileName);
-            while (!file.EndOfStream)
-            {
-                string line = file.ReadLine();
-                if (line == START_LINE)
-                {
-                    List<string> bookData = new List<string>();
-                    for (int i = 0; i < BOOK_DATA_ROWS; i++)
-                        bookData.Add(file.ReadLine());
-                    bookData.Add(string.Format(imagePathFormat, imageIndex++));
-                    this.SaveBook(bookData);
-                }
-            }
-        }
-
         // 透過名稱選擇書籍
         public void SelectBook(string bookName)
         {
@@ -94,10 +65,14 @@ namespace LibraryManagementSystem.Model
         }
 
         // 補貨
-        public void AddSelectedBookQuantity(int quantity)
+        public void AddBookQuantity(string bookName, int quantity)
         {
-            this.FindBookItem(this._selectedBook).Quantity += quantity;
-            this.UseAction(this._modelChanged);
+            BookItem bookItem = this.FindBookItem(bookName);
+            if (quantity >= 0 && bookItem!= null)
+            {
+                bookItem.Quantity += quantity;
+                this.UseAction(this._modelChanged);
+            }
         }
 
         // 編輯書籍類別
@@ -127,6 +102,28 @@ namespace LibraryManagementSystem.Model
             this._bookItemList.Clear();
             this._bookCategoryList.Clear();
             this._borrowedList.Clear();
+        }
+
+        // 下載書籍資料
+        private void LoadBooksData(string fileName)
+        {
+            this.Reset();
+            const string START_LINE = "BOOK";
+            string imagePathFormat = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"../../../image/{0}.jpg"));
+            int imageIndex = 1;
+            StreamReader file = new StreamReader(@fileName);
+            while (!file.EndOfStream)
+            {
+                string line = file.ReadLine();
+                if (line == START_LINE)
+                {
+                    List<string> bookData = new List<string>();
+                    for (int i = 0; i < BOOK_DATA_ROWS; i++)
+                        bookData.Add(file.ReadLine());
+                    bookData.Add(string.Format(imagePathFormat, imageIndex++));
+                    this.SaveBook(bookData);
+                }
+            }
         }
 
         // 存取書籍資料
