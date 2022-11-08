@@ -348,40 +348,103 @@ namespace LibraryManagementSystem.Model.Tests
             }
         }
 
+        // TestGetCategoryQuantityPair
         [TestMethod()]
-        public void GetCategoryQuantityPairTest()
+        public void TestGetCategoryQuantityPair()
         {
-            Assert.Fail();
+            List<BookCategory> bookCategories = (List<BookCategory>)_privateObject.GetFieldOrProperty("_bookCategoryList");
+            Dictionary<string, int> CategoryQuantityPair = _library.GetCategoryQuantityPair();
+            
+            for (int i = 0; i < bookCategories.Count; i++)
+                Assert.AreEqual(bookCategories[i].GetBookCount(), CategoryQuantityPair[bookCategories[i].Category]);
         }
 
+        // TestGetCategoryBookInformationPair
         [TestMethod()]
-        public void GetCategoryBookInformationPairTest()
+        public void TestGetCategoryBookInformationPair()
         {
-            Assert.Fail();
+            List<BookCategory> bookCategories = (List<BookCategory>)_privateObject.GetFieldOrProperty("_bookCategoryList");
+            Dictionary<string, List<BookInformation>> categoryBookInformationPair = _library.GetCategoryBookInformationPair();
+
+            for (int i = 0; i < bookCategories.Count; i++)
+            {
+                List<BookInformation> bookInformations = categoryBookInformationPair[bookCategories[i].Category];
+                Assert.AreEqual(bookCategories[i].GetBookCount(), bookInformations.Count);
+                foreach (BookInformation bookInformation in bookInformations)
+                    Assert.AreEqual(bookCategories[i].Category, bookInformation.BookCategory);
+            }
         }
 
+        // TestGetSelectedBookQuantity
         [TestMethod()]
-        public void GetSelectedBookQuantityTest()
+        public void TestGetSelectedBookQuantity()
         {
-            Assert.Fail();
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            BookItem bookItem = bookItems[0];
+
+            const int NULL_VALUE = -1;
+
+            Assert.AreEqual(NULL_VALUE, _library.GetSelectedBookQuantity());
+
+            _privateObject.SetFieldOrProperty("_selectedBook", bookItem.Book);
+            Assert.AreEqual(bookItem.Quantity, _library.GetSelectedBookQuantity());
         }
 
+        // TestGetSelectedBookInformation
         [TestMethod()]
-        public void GetSelectedBookInformationTest()
+        public void TestGetSelectedBookInformation()
         {
-            Assert.Fail();
+            List<BookCategory> bookCategories = (List<BookCategory>)_privateObject.GetFieldOrProperty("_bookCategoryList");
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            BookItem bookItem = bookItems[0];
+            Book book = bookItem.Book;
+
+            Assert.AreEqual(null, _library.GetSelectedBookInformation());
+
+            _privateObject.SetFieldOrProperty("_selectedBook", book);
+
+            BookInformation bookInformation = _library.GetSelectedBookInformation();
+            Assert.AreEqual(book.Name, bookInformation.BookName);
+            Assert.AreEqual(book.InternationalStandardBookNumber, bookInformation.BookNumber);
+            Assert.AreEqual(book.Author, bookInformation.BookAuthor);
+            Assert.AreEqual(book.PublicationItem, bookInformation.BookPublicationItem);
+            Assert.AreEqual(book.ImagePath, bookInformation.BookImagePath);
+            Assert.AreEqual(bookCategories[0].Category, bookInformation.BookCategory);
+            Assert.AreEqual(bookItem.Quantity, bookInformation.BookQuantity);
         }
 
+        // TestGetBookItemsInformationList
         [TestMethod()]
-        public void GetBookItemsInformationListTest()
+        public void TestGetBookItemsInformationList()
         {
-            Assert.Fail();
+            List<BookItem> bookItems = (List<BookItem>)_privateObject.GetFieldOrProperty("_bookItemList");
+            List<BookInformation> bookInformation = _library.GetBookItemsInformationList();
+            Assert.AreEqual(bookItems.Count, bookInformation.Count);
         }
 
+        // TestGetBorrowedListInformationList
         [TestMethod()]
-        public void GetBorrowedListInformationListTest()
+        public void TestGetBorrowedListInformationList()
         {
-            Assert.Fail();
+            BorrowedList borrowedList = (BorrowedList)_privateObject.GetFieldOrProperty("_borrowedList");
+            List<BorrowedBookInformation> borrowedBookInformation = _library.GetBorrowedListInformationList();
+            Assert.AreEqual(borrowedList.Count, borrowedBookInformation.Count);
+        }
+        
+        // TestUseAction
+        [TestMethod()]
+        public void TestUseAction()
+        {
+            Action action = null;
+            int test = 0;
+            _privateObject.Invoke("UseAction", new object[] { action });
+            Assert.AreEqual(0, test);
+
+            action += () => {
+                test = 1;
+            };
+            _privateObject.Invoke("UseAction", new object[] { action });
+            Assert.AreEqual(1, test);
         }
     }
 }

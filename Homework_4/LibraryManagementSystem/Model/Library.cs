@@ -68,7 +68,7 @@ namespace LibraryManagementSystem.Model
         public void AddBookQuantity(string bookName, int quantity)
         {
             BookItem bookItem = this.FindBookItem(bookName);
-            if (quantity >= 0 && bookItem!= null)
+            if (quantity >= 0 && bookItem != null)
             {
                 bookItem.Quantity += quantity;
                 this.UseAction(this._modelChanged);
