@@ -18,7 +18,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
 
         private Library _model;
 
-        private BookInformation _lastSelectedBookInformation = null;
         private BookInformation _selectedBookInformation = null;
 
         private readonly string[] _notifyList = { 
@@ -35,12 +34,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void UnselectBook()
         {
             this.SelectedBookInformation = null;
-        }
-
-        // 選擇最後一次選擇的書籍書籍
-        public void SelectLastBook()
-        {
-            this.SelectedBookInformation = this._lastSelectedBookInformation;
         }
 
         #region Output
@@ -62,8 +55,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             }
             set
             {
-                if (this._selectedBookInformation != null)
-                    this._lastSelectedBookInformation = this._selectedBookInformation;
                 this._selectedBookInformation = value;
                 SelectedBookChanged();
             }

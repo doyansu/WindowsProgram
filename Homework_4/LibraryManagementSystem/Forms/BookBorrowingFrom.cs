@@ -69,7 +69,6 @@ namespace LibraryManagementSystem
                 categoryIndex++;
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
-            this._presentationModel.SelectLastBook();
         }
 
         // 創建 tabpagebuttons
