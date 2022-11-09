@@ -34,14 +34,13 @@ namespace LibraryManagementSystem.PresentationModel
         private void UpdateInventoryList()
         {
             List<BookInformation> informationList = this._model.GetBookItemsInformationList();
-            for (int i = informationList.Count; i < this._inventoryList.Count; i++)
-                this._inventoryList.RemoveAt(i);
+            /*for (int i = informationList.Count; i < this._inventoryList.Count; i++)
+                this._inventoryList.RemoveAt(i);*/
             for (int i = 0; i < informationList.Count; i++)
                 if (i < this._inventoryList.Count)
                     this._inventoryList[i] = new InventoryListRow(informationList[i]);
                 else
                     this._inventoryList.Add(new InventoryListRow(informationList[i]));
-            
             this.UseAction(_inventoryListChanged);
         }
 
@@ -49,7 +48,8 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊補貨按鈕
         public void ClickAddingButton(int addingQuantity)
         {
-            this._model.AddBookQuantity(this._inventoryList[this.SelectedRowIndex].BookName, addingQuantity);
+            if (this.SelectedRowIndex >= 0 && this.SelectedRowIndex < this._inventoryList.Count)
+                this._model.AddBookQuantity(this._inventoryList[this.SelectedRowIndex].BookName, addingQuantity);
         }
         #endregion
 
@@ -83,7 +83,7 @@ namespace LibraryManagementSystem.PresentationModel
         {
             get
             {
-                return this._inventoryList[this.SelectedRowIndex].BookImagePath;
+                return (this.SelectedRowIndex >= 0 && this.SelectedRowIndex < this._inventoryList.Count) ? this._inventoryList[this.SelectedRowIndex].BookImagePath : "";
             }
         }
 
@@ -91,7 +91,7 @@ namespace LibraryManagementSystem.PresentationModel
         {
             get
             {
-                return this._inventoryList[this.SelectedRowIndex].BookFormatInformation;
+                return (this.SelectedRowIndex >= 0 && this.SelectedRowIndex < this._inventoryList.Count) ? this._inventoryList[this.SelectedRowIndex].BookFormatInformation : "";
             }
         }
 
