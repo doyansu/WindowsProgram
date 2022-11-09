@@ -34,19 +34,14 @@ namespace LibraryManagementSystem.PresentationModel
         private void UpdateInventoryList()
         {
             List<BookInformation> informationList = this._model.GetBookItemsInformationList();
-            if (this._inventoryList.Count == 0)
-            {
-                foreach (BookInformation bookInformation in informationList)
-                    this._inventoryList.Add(new InventoryListRow(bookInformation));
-            }
-            else
-            {
-                for (int i = 0; i < informationList.Count; i++)
-                    if (i < this._inventoryList.Count)
-                        this._inventoryList[i] = new InventoryListRow(informationList[i]);
-                    else
-                        this._inventoryList.Add(new InventoryListRow(informationList[i]));
-            }
+            for (int i = informationList.Count; i < this._inventoryList.Count; i++)
+                this._inventoryList.RemoveAt(i);
+            for (int i = 0; i < informationList.Count; i++)
+                if (i < this._inventoryList.Count)
+                    this._inventoryList[i] = new InventoryListRow(informationList[i]);
+                else
+                    this._inventoryList.Add(new InventoryListRow(informationList[i]));
+            
             this.UseAction(_inventoryListChanged);
         }
 

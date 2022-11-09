@@ -64,6 +64,7 @@
     <Compile Include="Model\BorrowedItemTests.cs" />
     <Compile Include="Model\BorrowedListTests.cs" />
     <Compile Include="Model\LibraryTests.cs" />
+    <Compile Include="PresentationModel\BackPackFormPresentationModelTests.cs" />
     <Compile Include="PresentationModel\BindingListObject\BackPackListRowTests.cs" />
     <Compile Include="PresentationModel\BindingListObject\BorrowingListRowTests.cs" />
     <Compile Include="PresentationModel\BindingListObject\InventoryListRowTests.cs" />

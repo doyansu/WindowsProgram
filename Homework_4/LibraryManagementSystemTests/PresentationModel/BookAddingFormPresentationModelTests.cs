@@ -51,6 +51,9 @@ namespace LibraryManagementSystem.PresentationModel.Tests
         [TestMethod()]
         public void TestSetAddingQuantity()
         {
+            _bookAddingFormPresentationModel.SetAddingQuantity("");
+            Assert.AreEqual(0, _bookAddingFormPresentationModel.AddingQuantity);
+
             _bookAddingFormPresentationModel.SetAddingQuantity("fasfsaf");
             Assert.AreEqual(0, _bookAddingFormPresentationModel.AddingQuantity);
 

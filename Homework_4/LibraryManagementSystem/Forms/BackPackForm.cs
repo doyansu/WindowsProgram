@@ -59,7 +59,7 @@ namespace LibraryManagementSystem
         private void ChangeCellValue(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this._returnCountDataGridViewTextBoxColumn.Index && e.RowIndex >= 0)
-                this._presentationModel.ChangeCellValue(e.RowIndex, this._backPackDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                this._presentationModel.ChangeCellValue(e.RowIndex);
         }
 
         // 編輯模式儲存格內容改變
