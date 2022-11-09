@@ -47,20 +47,13 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             this._bookInformation.Reset();
             this.NotifyPropertyChanged();
         }
+
         #region Property
         public string BookName
         {
             get
             {
                 return this._bookInformation.BookName;
-            }
-            set
-            {
-                if (this._bookInformation.BookName != value)
-                {
-                    this._bookInformation.BookName = value;
-                    this.NotifyPropertyChanged(NOTIFY_NAME);
-                }
             }
         }
 
@@ -82,14 +75,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return this._bookInformation.BookNumber;
             }
-            set
-            {
-                if (this._bookInformation.BookNumber != value)
-                {
-                    this._bookInformation.BookNumber = value;
-                    this.NotifyPropertyChanged(NOTIFY_NUMBER);
-                }
-            }
         }
 
         public string BookAuthor
@@ -98,14 +83,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return this._bookInformation.BookAuthor;
             }
-            set
-            {
-                if (this._bookInformation.BookAuthor != value)
-                {
-                    this._bookInformation.BookAuthor = value;
-                    this.NotifyPropertyChanged(NOTIFY_AUTHOR);
-                }
-            }
         }
 
         public string BookPublicationItem
@@ -113,14 +90,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return this._bookInformation.BookPublicationItem;
-            }
-            set
-            {
-                if (this._bookInformation.BookPublicationItem != value)
-                {
-                    this._bookInformation.BookPublicationItem = value;
-                    this.NotifyPropertyChanged(NOTIFY_PUBLICATION_ITEM);
-                }
             }
         }
         #endregion
