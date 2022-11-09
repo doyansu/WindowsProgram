@@ -65,10 +65,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _bookName;
             }
-            set
-            {
-                _bookName = value;
-            }
         }
 
         public int BorrowedCount 
@@ -76,10 +72,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return _borrowedCount;
-            }
-            set
-            {
-                _borrowedCount = value;
             }
         }
 
@@ -89,10 +81,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _borrowingDate;
             }
-            set
-            {
-                _borrowingDate = value;
-            }
         }
 
         public string ReturnDue
@@ -100,10 +88,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return _returnDue;
-            }
-            set
-            {
-                _returnDue = value;
             }
         }
 
@@ -113,10 +97,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _bookNumber;
             }
-            set
-            {
-                _bookNumber = value;
-            }
         }
 
         public string BookAuthor 
@@ -125,11 +105,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             {
                 return _bookAuthor; 
             }
-
-            set
-            {
-                _bookAuthor = value;
-            }
         }
 
         public string BookPublicationItem 
@@ -137,10 +112,6 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             get
             {
                 return _bookPublicationItem;
-            }
-            set
-            {
-                _bookPublicationItem = value;
             }
         }
         #endregion
