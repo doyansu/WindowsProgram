@@ -28,7 +28,8 @@ namespace LibraryManagementSystem.PresentationModel
         // SetAddingQuantity by string
         public void SetAddingQuantity(string quantity)
         {
-            this.AddingQuantity = quantity != "" ? int.Parse(quantity) : 0;
+            int tryResult = 0;
+            this.AddingQuantity = int.TryParse(quantity, out tryResult) && tryResult > 0 ? tryResult : 0;
         }
 
         #region Property

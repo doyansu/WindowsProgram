@@ -35,7 +35,7 @@ namespace LibraryManagementSystem.PresentationModel.Tests
 
         // TestShowBorrowingForm
         [TestMethod()]
-        public void ShowBorrowingFormTest()
+        public void TestShowBorrowingForm()
         {
             _menuFormPresentationModel.ShowBorrowingForm();
             Assert.AreEqual(false, _menuFormPresentationModel.IsBorrowingEnabled);
