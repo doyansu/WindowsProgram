@@ -69,13 +69,13 @@ namespace LibraryManagementSystem.PresentationModel
         private void UpdateBackPackList()
         {
             List<BorrowedBookInformation> informationList = this._model.GetBorrowedListInformationList();
-            for (int i = informationList.Count; i < this._backPackList.Count; i++)
-                this._backPackList.RemoveAt(i);
+            for (int k = informationList.Count; k < this._backPackList.Count; k++)
+                this._backPackList.RemoveAt(0);
             for (int i = 0; i < informationList.Count; i++)
                 if (i < this._backPackList.Count)
                     this._backPackList[i] = new BackPackListRow(informationList[i]);
                 else
-                    this._backPackList.Add(new BackPackListRow(informationList[i]));
+                    this._backPackList.Add(new BackPackListRow(informationList[i])); 
         }
         #endregion
 

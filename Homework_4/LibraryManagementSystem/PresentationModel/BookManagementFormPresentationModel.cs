@@ -93,14 +93,14 @@ namespace LibraryManagementSystem.PresentationModel
             {
                 return this._isAddEnabled;
             }
-            set
+            /*set
             {
                 if (this._isAddEnabled != value)
                 {
                     this._isAddEnabled = value;
                     this.NotifyPropertyChanged(NOTIFY_ADD);
                 }
-            }
+            }*/
         }
 
         public bool IsBrowseEnabled 
