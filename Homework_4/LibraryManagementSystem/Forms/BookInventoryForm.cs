@@ -23,6 +23,7 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._model = model;
             this._presentationModel = new BookInventoryFormPresentationModel(model);
+            this._presentationModel._inventoryListChanged += this.UpdateImage;
             this._bookInformationDataGridView.CellPainting += this.PatingDataGridView;
             this._bookInformationDataGridView.SelectionChanged += this.ChangeDataGridViewSelection;
             this.BindData();
@@ -37,6 +38,12 @@ namespace LibraryManagementSystem
             this._bookInformationRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "BookInformation");
             this._bookInformationDataGridView.DataSource = this._presentationModel.InventoryList;
         }
+
+        // 更新書籍圖片
+        private void UpdateImage()
+        {
+            this._bookImageLabel.Image = Image.FromFile(this._presentationModel.SelectedBookImage);
+        }
         #endregion
 
         #region Form Event
@@ -44,10 +51,7 @@ namespace LibraryManagementSystem
         private void ChangeDataGridViewSelection(object sender, EventArgs e)
         {
             if (this._bookInformationDataGridView.SelectedRows.Count == 1)
-            {
                 this._presentationModel.SelectedRowIndex = this._bookInformationDataGridView.SelectedRows[0].Index;
-                this._bookImageLabel.Image = Image.FromFile(this._presentationModel.SelectedBookImage);
-            }
         }
 
         // 點擊儲存格

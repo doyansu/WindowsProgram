@@ -12,9 +12,10 @@ namespace LibraryManagementSystem.PresentationModel
     public class BookInventoryFormPresentationModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action _inventoryListChanged;
 
         private Library _model;
-        private int _selectedRowIndex = 0;
+        private int _selectedRowIndex = -1;
         private BindingList<InventoryListRow> _inventoryList = new BindingList<InventoryListRow>();
 
         const string NOTIFY_BOOK_INFORMATION_CHANGED = "BookInformation";
@@ -33,9 +34,20 @@ namespace LibraryManagementSystem.PresentationModel
         private void UpdateInventoryList()
         {
             List<BookInformation> informationList = this._model.GetBookItemsInformationList();
-            this._inventoryList.Clear();
-            foreach (BookInformation bookInformation in informationList)
-                this._inventoryList.Add(new InventoryListRow(bookInformation));
+            if (this._inventoryList.Count == 0)
+            {
+                foreach (BookInformation bookInformation in informationList)
+                    this._inventoryList.Add(new InventoryListRow(bookInformation));
+            }
+            else
+            {
+                for (int i = 0; i < informationList.Count; i++)
+                    if (i < this._inventoryList.Count)
+                        this._inventoryList[i] = new InventoryListRow(informationList[i]);
+                    else
+                        this._inventoryList.Add(new InventoryListRow(informationList[i]));
+            }
+            this.UseAction(_inventoryListChanged);
         }
 
         #region Form Event
@@ -67,6 +79,7 @@ namespace LibraryManagementSystem.PresentationModel
                 {
                     this._selectedRowIndex = value;
                     this.NotifyPropertyChanged(NOTIFY_BOOK_INFORMATION_CHANGED);
+                    this.UseAction(_inventoryListChanged);
                 }
             }
         }
@@ -111,6 +124,13 @@ namespace LibraryManagementSystem.PresentationModel
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // 使用 action event
+        private void UseAction(Action action)
+        {
+            if (action != null)
+                action.Invoke();
         }
         #endregion
     }
