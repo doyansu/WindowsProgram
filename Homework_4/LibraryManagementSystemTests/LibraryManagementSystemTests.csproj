@@ -66,6 +66,9 @@
     <Compile Include="Model\LibraryTests.cs" />
     <Compile Include="PresentationModel\BindingListObject\BackPackListRowTests.cs" />
     <Compile Include="PresentationModel\BindingListObject\BorrowingListRowTests.cs" />
+    <Compile Include="PresentationModel\BindingListObject\InventoryListRowTests.cs" />
+    <Compile Include="PresentationModel\BindingListObject\ManagementCategoryTests.cs" />
+    <Compile Include="PresentationModel\BindingListObject\ManagementListRowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

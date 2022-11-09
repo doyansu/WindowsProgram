@@ -27,6 +27,11 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject.Tests
             "原點出版: 大雁發行, 2021[民110]",
             "../../../image/1.jpg" };
 
+        readonly string[] _notifyList = {
+            "",
+            "notify"
+        };
+
         // Initialize
         [TestInitialize()]
         public void Initialize()
@@ -64,14 +69,15 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject.Tests
         public void TestNotifyPropertyChanged()
         {
             List<string> receivedEvents = new List<string>();
+            _privateObject.Invoke("NotifyPropertyChanged", "");
             _backPackListRow.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 receivedEvents.Add(e.PropertyName);
             };
-            foreach (string propertyName in _bookInformationList)
+            foreach (string propertyName in _notifyList)
                 _privateObject.Invoke("NotifyPropertyChanged", propertyName);
-            for (int i = 0; i < 5; i++)
-                Assert.AreEqual(_bookInformationList[i], receivedEvents[i]);
+            for (int i = 0; i < _notifyList.Count(); i++)
+                Assert.AreEqual(_notifyList[i], receivedEvents[i]);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
 
         private string _category;
 
+        private const string NOTIFY_CATEGORY = "Category";
+
         public ManagementCategory(string category)
         {
             this._category = category;
@@ -29,6 +31,7 @@ namespace LibraryManagementSystem.PresentationModel.BindingListObject
             set
             {
                 this._category = value;
+                NotifyPropertyChanged(NOTIFY_CATEGORY);
             }
         }
 
