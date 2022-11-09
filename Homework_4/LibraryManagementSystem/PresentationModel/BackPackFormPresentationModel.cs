@@ -30,6 +30,7 @@ namespace LibraryManagementSystem.PresentationModel
         {
             this._model = model;
             this._model._modelChanged += this.UpdateBackPackList;
+            this.UpdateBackPackList();
         }
         #endregion
 
@@ -37,15 +38,17 @@ namespace LibraryManagementSystem.PresentationModel
         // 點擊書包的歸還按鈕
         public void ClickDataGridView1CellContent(int rowIndex)
         {
-            int returnQuantity = this._backPackList[rowIndex].ReturnCount;
-            this.ShowMessage(string.Format("[{0}] 已成功歸還{1}本", this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
-            this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
+            if (rowIndex >= 0 && rowIndex < this._backPackList.Count)
+            {
+                int returnQuantity = this._backPackList[rowIndex].ReturnCount;
+                this.ShowMessage(string.Format("[{0}] 已成功歸還{1}本", this._backPackList[rowIndex].BookName, returnQuantity), TITLE_RETURN_RESULT);
+                this._model.ReturnBorrowedListItem(rowIndex, returnQuantity);
+            }
         }
 
         // 儲存格數值改變
-        public void ChangeCellValue(int rowIndex, object changeValueObject)
+        public void ChangeCellValue(int rowIndex)
         {
-            // int changeValue = int.Parse(changeValueObject.ToString());
             int returnQuantity = this._backPackList[rowIndex].ReturnCount;
             int borrowedQuantity = this._backPackList[rowIndex].BorrowedCount;
             if (returnQuantity > borrowedQuantity)
@@ -66,13 +69,14 @@ namespace LibraryManagementSystem.PresentationModel
         private void UpdateBackPackList()
         {
             List<BorrowedBookInformation> informationList = this._model.GetBorrowedListInformationList();
-            this._backPackList.Clear();
-            foreach (BorrowedBookInformation borrowedBookInformation in informationList)
-                this._backPackList.Add(new BackPackListRow(borrowedBookInformation));
+            for (int i = informationList.Count; i < this._backPackList.Count; i++)
+                this._backPackList.RemoveAt(i);
+            for (int i = 0; i < informationList.Count; i++)
+                if (i < this._backPackList.Count)
+                    this._backPackList[i] = new BackPackListRow(informationList[i]);
+                else
+                    this._backPackList.Add(new BackPackListRow(informationList[i]));
         }
-        #endregion
-
-        #region Output
         #endregion
 
         #region Property
