@@ -39,6 +39,8 @@ namespace LibraryManagementSystem
             // 
             // _addingBookListLabel
             // 
+            this._addingBookListLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._addingBookListLabel.AutoSize = true;
             this._addingBookListLabel.Font = new System.Drawing.Font("微軟正黑體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addingBookListLabel.Location = new System.Drawing.Point(264, 9);
