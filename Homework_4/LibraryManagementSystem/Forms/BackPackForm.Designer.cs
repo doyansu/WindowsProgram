@@ -31,7 +31,6 @@ namespace LibraryManagementSystem
         {
             this.components = new System.ComponentModel.Container();
             this._backPackDataGridView = new System.Windows.Forms.DataGridView();
-            this._backPackBookRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._returnButtonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this._returnCountDataGridViewTextBoxColumn = new DataGridViewNumericUpDownElements.DataGridViewNumericUpDownColumn();
             this._bookNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +40,7 @@ namespace LibraryManagementSystem
             this._bookNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookAuthorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._bookPublicationItemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._backPackBookRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._backPackDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._backPackBookRowBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -62,18 +62,15 @@ namespace LibraryManagementSystem
             this._bookAuthorDataGridViewTextBoxColumn,
             this._bookPublicationItemDataGridViewTextBoxColumn});
             this._backPackDataGridView.DataSource = this._backPackBookRowBindingSource;
-            this._backPackDataGridView.Location = new System.Drawing.Point(12, 12);
+            this._backPackDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._backPackDataGridView.Location = new System.Drawing.Point(0, 0);
             this._backPackDataGridView.Name = "_backPackDataGridView";
             this._backPackDataGridView.RowHeadersVisible = false;
             this._backPackDataGridView.RowTemplate.Height = 24;
             this._backPackDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._backPackDataGridView.Size = new System.Drawing.Size(1040, 657);
+            this._backPackDataGridView.Size = new System.Drawing.Size(624, 441);
             this._backPackDataGridView.TabIndex = 0;
             this._backPackDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickDataGridView1CellContent);
-            // 
-            // _backPackBookRowBindingSource
-            // 
-            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackListRow);
             // 
             // _returnButtonDataGridViewTextBoxColumn
             // 
@@ -148,11 +145,15 @@ namespace LibraryManagementSystem
             this._bookPublicationItemDataGridViewTextBoxColumn.Name = "_bookPublicationItemDataGridViewTextBoxColumn";
             this._bookPublicationItemDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // _backPackBookRowBindingSource
+            // 
+            this._backPackBookRowBindingSource.DataSource = typeof(LibraryManagementSystem.PresentationModel.BindingListObject.BackPackListRow);
+            // 
             // BackPackForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this._backPackDataGridView);
             this.Name = "BackPackForm";
             this.Text = "我的書包(還書)";
