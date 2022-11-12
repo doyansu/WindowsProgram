@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels
 {
     // 處理元件屬性
-    class BookBorrowingFormControlPresentationModel
+    public class BookBorrowingFormControlPresentationModel
     {
         private const int BUTTONS_PER_PAGE = 3;
-        private int _tabPageWidth;
-        private int _buttonIndex;
-        private int _buttonWidth;
-        private int _buttonHeight;
+        private int _tabPageWidth = 0;
+        private int _buttonIndex = 0;
+        private int _buttonWidth = 0;
+        private int _buttonHeight = 0;
 
         public BookBorrowingFormControlPresentationModel()
         {
@@ -24,14 +24,17 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 取得 ButtonLocation
         public int GetButtonLocation()
         {
-            return (this.TabPageWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE) * (this.ButtonIndex % BUTTONS_PER_PAGE);
+            return this.ButtonWidth * (this.ButtonIndex % BUTTONS_PER_PAGE);
         }
 
         // 設定 ButtonSize
         public void SetButtonSize(int width, int height)
         {
-            this.TabPageWidth = this.ButtonWidth = width;
-            this.ButtonHeight = height;
+            if (width >= 0 && height >= 0)
+            {
+                this._tabPageWidth = this._buttonWidth = width;
+                this._buttonHeight = height;
+            }
         }
         #endregion
 
@@ -41,10 +44,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             get
             {
                 return _tabPageWidth;
-            }
-            set 
-            {
-                _tabPageWidth = value; 
             }
         }
 
@@ -56,7 +55,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             }
             set
             {
-                _buttonIndex = value;
+                if (value >= 0)
+                    _buttonIndex = value;
             }
         }
 
@@ -64,11 +64,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return this._buttonWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE;
-            }
-            set
-            {
-                this._buttonWidth = value;
+                int width = this._buttonWidth / BUTTONS_PER_PAGE - BUTTONS_PER_PAGE;
+                return width >= 0 ? width : 0;
             }
         }
 
@@ -78,10 +75,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             {
                 const int BUTTON_HEIGHT_ZOOM = 5;
                 return this._buttonHeight * (BUTTON_HEIGHT_ZOOM - 1) / BUTTON_HEIGHT_ZOOM;
-            }
-            set
-            {
-                this._buttonHeight = value;
             }
         }
         #endregion

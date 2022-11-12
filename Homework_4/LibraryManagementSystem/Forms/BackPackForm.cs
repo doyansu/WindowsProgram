@@ -75,8 +75,5 @@ namespace LibraryManagementSystem
             e.Control.TextChanged += this.EditTextChanged;
         }
         #endregion
-
-        #region Event Invoke Function
-        #endregion
     }
 }
