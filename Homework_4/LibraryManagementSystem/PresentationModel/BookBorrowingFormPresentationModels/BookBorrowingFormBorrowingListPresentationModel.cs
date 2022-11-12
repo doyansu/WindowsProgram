@@ -151,7 +151,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             get
             {
                 string bookName = this._presentationModel.SelectedBookName;
-                return this._presentationModel.GetSelectedBookQuantity() > 0 && this._borrowingList.SingleOrDefault(BookRow => BookRow.BookName == bookName) == null;
+                return this._presentationModel.SelectedBookQuantity > 0 && this._borrowingList.SingleOrDefault(BookRow => BookRow.BookName == bookName) == null;
             }
         }
 

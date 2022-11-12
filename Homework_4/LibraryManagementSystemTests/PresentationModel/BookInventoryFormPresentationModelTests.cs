@@ -80,6 +80,7 @@ namespace LibraryManagementSystem.PresentationModel.Tests
             List<string> receivedEvents = new List<string>();
             string[] notifyList = (string[])_privateObject.GetFieldOrProperty("_notifyList");
             _privateObject.Invoke("NotifyPropertyChanged");
+            Assert.AreEqual(0, receivedEvents.Count);
             _inventoryFormPresentationModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 receivedEvents.Add(e.PropertyName);

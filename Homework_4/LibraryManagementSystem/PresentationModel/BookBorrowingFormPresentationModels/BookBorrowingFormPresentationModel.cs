@@ -24,6 +24,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             "SelectedBookInformation",
             "SelectedBookQuantityString", };
 
+        const string STRING_EMPTY_VALUE = "";
+
         public BookBorrowingFormPresentationModel(Library model)
         {
             this._model = model;
@@ -35,15 +37,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             this.SelectedBookInformation = null;
         }
-
-        #region Output
-        // 取得所選書籍的剩餘數量
-        public int GetSelectedBookQuantity()
-        {
-            const int NULL_VALUE = -1; 
-            return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookQuantity : NULL_VALUE;
-        }
-        #endregion
 
         public BookInformation SelectedBookInformation
         {
@@ -64,7 +57,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookName : null;
+                
+                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookName : STRING_EMPTY_VALUE;
             }
         }
 
@@ -72,8 +66,16 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                const string NULL_VALUE = "";
-                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookFormatInformation : NULL_VALUE;
+                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookFormatInformation : STRING_EMPTY_VALUE;
+            }
+        }
+
+        public int SelectedBookQuantity
+        {
+            get
+            {
+                const int NULL_VALUE = -1;
+                return this.SelectedBookInformation != null ? this.SelectedBookInformation.BookQuantity : NULL_VALUE;
             }
         }
 
@@ -81,8 +83,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             get
             {
-                int quantity = this.GetSelectedBookQuantity();
-                return "剩餘數量 : " + (quantity >= 0 ? quantity.ToString() : "");
+                return "剩餘數量 : " + (this.SelectedBookQuantity >= 0 ? this.SelectedBookQuantity.ToString() : STRING_EMPTY_VALUE);
             }
         }
 
