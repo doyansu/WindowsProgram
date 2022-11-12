@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentationModels
 {
-    class BookBorrowingFormBorrowingListPresentationModel : INotifyPropertyChanged
+    public class BookBorrowingFormBorrowingListPresentationModel : INotifyPropertyChanged
     {
         #region Event
         public event PropertyChangedEventHandler PropertyChanged;
