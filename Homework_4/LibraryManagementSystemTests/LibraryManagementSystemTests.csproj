@@ -73,6 +73,7 @@
     <Compile Include="PresentationModel\BindingListObject\TabPageButtonTests.cs" />
     <Compile Include="PresentationModel\BookAddingFormPresentationModelTests.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormBorrowingListPresentationModelTests.cs" />
+    <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormButtonPresentationModelTests.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormControlPresentationModelTests.cs" />
     <Compile Include="PresentationModel\BookBorrowingFormPresentationModels\BookBorrowingFormPresentationModelTests.cs" />
     <Compile Include="PresentationModel\BookInventoryFormPresentationModelTests.cs" />

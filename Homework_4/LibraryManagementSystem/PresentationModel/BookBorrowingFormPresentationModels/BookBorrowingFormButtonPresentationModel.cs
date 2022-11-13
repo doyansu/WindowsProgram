@@ -21,7 +21,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private TabPageButton _selectedButton = null;
         private List<List<TabPageButton>> _bookButtonList = new List<List<TabPageButton>>();
         private int _buttonPageIndex = 0;
-        private int _selectedTabPageIndex = 0;
+        private int _selectedTabPageIndex = -1;
         private bool _isBackPackButtonEnabled = true;
 
         #region Const Attributes
@@ -65,13 +65,15 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // SetButtonIndex
         public void SelectBookButton(int rowIndex, int columnIndex)
         {
-            this._selectedButton = this._bookButtonList[rowIndex][columnIndex];
+            if (rowIndex >= 0 && rowIndex < this._bookButtonList.Count && columnIndex >= 0 && columnIndex < this._bookButtonList[rowIndex].Count)
+                this._selectedButton = this._bookButtonList[rowIndex][columnIndex];
         }
 
         // SelectBook
         public void SelectBook(int rowIndex, int columnIndex)
         {
-            this._presentationModel.SelectedBookInformation = this._bookButtonList[rowIndex][columnIndex].BookInformationObject;
+            if (rowIndex >= 0 && rowIndex < this._bookButtonList.Count && columnIndex >= 0 && columnIndex < this._bookButtonList[rowIndex].Count)
+                this._presentationModel.SelectedBookInformation = this._bookButtonList[rowIndex][columnIndex].BookInformationObject;
         }
 
         // 切換 Tabpage
@@ -92,7 +94,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 點擊上一頁按鈕
         public void ClickLastPageButton()
         {
-            this.ButtonPageIndex--; 
+            this.ButtonPageIndex--;
             this._presentationModel.UnselectBook();
         }
 
@@ -120,7 +122,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 更新 buttonVisible
         private void UpdateButtonsVisible()
         {
-            if (this.SelectedTabPageIndex < this._bookButtonList.Count && this.SelectedTabPageIndex >= 0)
+            if (this.SelectedTabPageIndex >= 0 && this.SelectedTabPageIndex < this._bookButtonList.Count)
             {
                 foreach (TabPageButton tabPageButtonVisible in this._bookButtonList[this.SelectedTabPageIndex])
                     tabPageButtonVisible.IsVisible = false;
@@ -133,7 +135,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         // 取得當前頁面最大的 page index
         private int GetMaxTabPageIndex()
         {
-            return (this._bookButtonList[this.SelectedTabPageIndex].Count - 1) / BUTTONS_PER_PAGE;
+            return (this.SelectedTabPageIndex >= 0 && this.SelectedTabPageIndex < this._bookButtonList.Count) ? (this._bookButtonList[this.SelectedTabPageIndex].Count - 1) / BUTTONS_PER_PAGE : 0;
         }
         #endregion
 
@@ -188,7 +190,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             {
                 if (this._selectedTabPageIndex != value)
                 {
-                    this._selectedTabPageIndex = value >= 0 ? value : 0;
+                    this._selectedTabPageIndex =  (value >= 0 && value < this._bookButtonList.Count) ? value : -1;
                     this.UpdateButtonsVisible();
                     this.NotifyPropertyChanged(NOTIFY_SELECTED_INDEX_CHANGED);
                 }
