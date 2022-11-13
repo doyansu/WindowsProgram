@@ -21,7 +21,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private TabPageButton _selectedButton = null;
         private List<List<TabPageButton>> _bookButtonList = new List<List<TabPageButton>>();
         private int _buttonPageIndex = 0;
-        private int _selectedTabPageIndex = -1;
+        private int _selectedTabPageIndex = 0;
         private bool _isBackPackButtonEnabled = true;
 
         #region Const Attributes
@@ -33,7 +33,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         private readonly string[] _notifyList = { 
             "IsNextButtonButtonEnabled",
             "IsLastButtonButtonEnabled",
-            "PageLabelString", };
+            "PageLabelString",
+            NOTIFY_SELECTED_INDEX_CHANGED,
+            NOTIFY_BACK_PACK_BUTTON_ENABLED, };
         #endregion
         #endregion
 
@@ -57,7 +59,8 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                     newList.Add(new TabPageButton(bookInformation));
                 this._bookButtonList.Add(newList);
             }
-            this.SelectedTabPageIndex = this.ButtonPageIndex = 0;
+            this.SelectedTabPageIndex = 0;
+            this.ButtonPageIndex = 0;
             this.UpdateButtonsVisible();
             this.NotifyPropertyChanged();
         }
@@ -81,21 +84,21 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         {
             this.SelectedTabPageIndex = index;
             this.ButtonPageIndex = 0;
-            this._presentationModel.UnselectBook();
+            //this._presentationModel.UnselectBook();
         }
 
         // 點擊下一頁按鈕
         public void ClickNextPageButton()
         {
             this.ButtonPageIndex++;
-            this._presentationModel.UnselectBook();
+            //this._presentationModel.UnselectBook();
         }
 
         // 點擊上一頁按鈕
         public void ClickLastPageButton()
         {
             this.ButtonPageIndex--;
-            this._presentationModel.UnselectBook();
+            //this._presentationModel.UnselectBook();
         }
 
         // 點擊我的書包
@@ -183,9 +186,9 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             {
                 if (this._selectedTabPageIndex != value)
                 {
-                    this._selectedTabPageIndex =  (value >= 0 && value < this._bookButtonList.Count) ? value : -1;
+                    this._selectedTabPageIndex = (value >= 0 && value < this._bookButtonList.Count) ? value : 0;
                     this.UpdateButtonsVisible();
-                    this.NotifyPropertyChanged(NOTIFY_SELECTED_INDEX_CHANGED);
+                    this.NotifyPropertyChanged();
                 }
             }
         }

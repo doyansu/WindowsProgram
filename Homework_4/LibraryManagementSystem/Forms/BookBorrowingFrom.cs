@@ -55,8 +55,8 @@ namespace LibraryManagementSystem
         private void UpdateTabPage()
         {
             this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
-            this._buttonPresentationModel.UpdateBookButtonList();
             this._bookCategoryTabControl.TabPages.Clear();
+            this._buttonPresentationModel.UpdateBookButtonList();
             Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
             int categoryIndex = 0;
             foreach (var data in categoryQuantity)
@@ -69,6 +69,7 @@ namespace LibraryManagementSystem
                 categoryIndex++;
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
+            this._bookCategoryTabControl.SelectTab(0);
         }
 
         // 創建 tabpagebuttons
@@ -109,7 +110,6 @@ namespace LibraryManagementSystem
         {
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             const string BIND_ATTRIBUTE_TEXT = "Text";
-            const string BIND_ATTRIBUTE_SELECTED_INDEX = "SelectedIndex";
             this._addBookButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._borrowingListPresentationModel, "IsAddBookButtonEnabled");
             this._confirmBorrowingButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._borrowingListPresentationModel, "IsConfirmBorrowingButtonEnabled");
             this._nextPageButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._buttonPresentationModel, "IsNextButtonButtonEnabled");
@@ -119,7 +119,6 @@ namespace LibraryManagementSystem
             this._bookIntroductionRichTextBox.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookFormatInformation");
             this._remainingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._presentationModel, "SelectedBookQuantityString");
             this._borrowingBookQuantityLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._borrowingListPresentationModel, "BorrowingListQuantityString");
-            this._bookCategoryTabControl.DataBindings.Add(BIND_ATTRIBUTE_SELECTED_INDEX, this._buttonPresentationModel, "SelectedTabPageIndex");
             this._bookInformationDataGridView.DataSource = this._borrowingListPresentationModel.BorrowingList;
         }
         #endregion
@@ -214,8 +213,7 @@ namespace LibraryManagementSystem
         // 關閉借書視窗
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
-            this._buttonPresentationModel.BookBorrowingFromClosing();
-            this._borrowingListPresentationModel.BookBorrowingFromClosing();
+            _backPackForm.Close();
         }
         #endregion
     }

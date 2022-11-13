@@ -56,7 +56,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             Assert.AreEqual(false, _borrowingFormButtonPresentationModel.IsNextButtonButtonEnabled); 
             Assert.AreEqual(null, _borrowingFormButtonPresentationModel.BookButtonImage);
             Assert.AreEqual(null, _borrowingFormButtonPresentationModel.BookButtonObject);
-            Assert.AreEqual(-1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
+            Assert.AreEqual(0, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
             Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
             Assert.AreEqual("Page : 1 / 1", _borrowingFormButtonPresentationModel.PageLabelString);
         }
@@ -74,7 +74,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                     _bookButtonList[i].Add(new TabPageButton(_bookInformation));
             }
 
-            _borrowingFormButtonPresentationModel.SelectedTabPageIndex = -1;
+            _privateObject.SetFieldOrProperty("_selectedTabPageIndex", -1);
             _privateObject.Invoke("UpdateButtonsVisible");
             for (int i = 0; i < TABPAGE_COUNT; i++)
                 for (int j = 0; j < PER_PAGE_COUNT * i + 1; j++)
@@ -101,7 +101,7 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
                     _bookButtonList[i].Add(new TabPageButton(_bookInformation));
             }
 
-            _borrowingFormButtonPresentationModel.SelectedTabPageIndex = -1;
+            _privateObject.SetFieldOrProperty("_selectedTabPageIndex", -1);
             int result = (int)_privateObject.Invoke("GetMaxTabPageIndex");
             Assert.AreEqual(0, result);
 
@@ -188,39 +188,31 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
         public void TestBookCategoryTabControlSelectedIndexChanged()
         {
             _bookButtonList.Add(new List<TabPageButton>());
+            _bookButtonList.Add(new List<TabPageButton>());
 
-            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(-1);
-            Assert.AreEqual(-1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
-            Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
-            Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
-
-            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(0);
-            Assert.AreEqual(0, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
+            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(1);
+            Assert.AreEqual(1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
             Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
             Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
 
             _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(-2);
-            Assert.AreEqual(-1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
-            Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
-            Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
-
-            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(0);
             Assert.AreEqual(0, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
             Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
             Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
 
             _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(10);
-            Assert.AreEqual(-1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
-            Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
-            Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
-
-            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(0);
             Assert.AreEqual(0, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
             Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
             Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
 
-            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(-1);
-            Assert.AreEqual(-1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
+            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(1);
+            Assert.AreEqual(1, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
+            Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
+            Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
+
+
+            _borrowingFormButtonPresentationModel.BookCategoryTabControlSelectedIndexChanged(0);
+            Assert.AreEqual(0, _borrowingFormButtonPresentationModel.SelectedTabPageIndex);
             Assert.AreEqual(0, _privateObject.GetFieldOrProperty("ButtonPageIndex"));
             Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
         }
