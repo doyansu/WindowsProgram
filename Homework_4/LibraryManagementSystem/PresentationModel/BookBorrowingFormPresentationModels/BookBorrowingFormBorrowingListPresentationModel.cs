@@ -121,13 +121,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this.NotifyPropertyChanged();
         }
 
-        // 關閉借書視窗
-        public void BookBorrowingFromClosing()
-        {
-            this._borrowingList.Clear();
-            this.NotifyPropertyChanged();
-        }
-
         // 數量儲存格值改變
         public void ChangeCellValue(int rowIndex, object changeValueObject)
         {

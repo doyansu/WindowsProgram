@@ -251,20 +251,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             Assert.AreEqual(false, _borrowingFormButtonPresentationModel.IsBackPackButtonEnabled);
         }
 
-        // TestBookBorrowingFromClosing
-        [TestMethod()]
-        public void TestBookBorrowingFromClosing()
-        {
-            _borrowingFormButtonPresentationModel.BookBorrowingFromClosing();
-            Assert.AreEqual(null, _presentationModel.SelectedBookInformation);
-            Assert.AreEqual(true, _borrowingFormButtonPresentationModel.IsBackPackButtonEnabled);
-            Assert.AreEqual(false, _borrowingFormButtonPresentationModel.IsLastButtonButtonEnabled);
-            Assert.AreEqual(false, _borrowingFormButtonPresentationModel.IsNextButtonButtonEnabled);
-            Assert.AreEqual(null, _borrowingFormButtonPresentationModel.BookButtonImage);
-            Assert.AreEqual(null, _borrowingFormButtonPresentationModel.BookButtonObject);
-            Assert.AreEqual("Page : 1 / 1", _borrowingFormButtonPresentationModel.PageLabelString);
-        }
-
         // TestBackPackFormClosing
         [TestMethod()]
         public void TestBackPackFormClosing()

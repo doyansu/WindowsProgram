@@ -28,8 +28,6 @@ namespace LibraryManagementSystem
             InitializeComponent();
             this._model = model;
             this._menuFormPresentationModel = new MenuFormPresentationModel();
-            this._bookBorrowingFrom = new BookBorrowingFrom(model);
-            this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
             BindData();
         }
         #endregion
@@ -55,6 +53,8 @@ namespace LibraryManagementSystem
         // 顯示借書視窗
         private void BookBorrowingSystemButtonClick(object sender, EventArgs e)
         {
+            this._bookBorrowingFrom = new BookBorrowingFrom(this._model);
+            this._bookBorrowingFrom.FormClosing += BookBorrowingFormClosing;
             this._bookBorrowingFrom.Show();
             this._menuFormPresentationModel.ShowBorrowingForm();
         }
@@ -81,9 +81,9 @@ namespace LibraryManagementSystem
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
             // 關閉視窗時取消
-            e.Cancel = true;
+            //e.Cancel = true;
             // 隱藏式窗，下次再show出
-            ((Form)sender).Hide();
+            //((Form)sender).Hide();
             this._menuFormPresentationModel.CloseBorrowingForm();
         }
 

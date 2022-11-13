@@ -104,13 +104,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             this.IsBackPackButtonEnabled = false;
         }
 
-        // 關閉借書視窗
-        public void BookBorrowingFromClosing()
-        {
-            this.ButtonPageIndex = this.SelectedTabPageIndex = 0;
-            this._presentationModel.UnselectBook();
-        }
-
         // 關閉我的書包視窗
         public void BackPackFormClosing()
         {

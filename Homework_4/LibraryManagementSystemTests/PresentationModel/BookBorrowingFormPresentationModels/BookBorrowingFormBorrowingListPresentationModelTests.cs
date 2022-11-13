@@ -213,16 +213,6 @@ namespace LibraryManagementSystem.PresentationModel.BookBorrowingFormPresentatio
             Assert.AreEqual(false, _bookBorrowingFormBorrowingListPresentationModel.IsConfirmBorrowingButtonEnabled);
         }
 
-        // TestBookBorrowingFromClosing
-        [TestMethod()]
-        public void TestBookBorrowingFromClosing()
-        {
-            _borrowingList.Add(new BorrowingListRow(_bookInformation));
-            _bookBorrowingFormBorrowingListPresentationModel.BookBorrowingFromClosing();
-            Assert.AreEqual(0, _borrowingList.Count);
-            Assert.AreEqual("借書數量 : 0", _bookBorrowingFormBorrowingListPresentationModel.BorrowingListQuantityString);
-        }
-
         // TestChangeCellValue
         [TestMethod()]
         public void TestChangeCellValue()
