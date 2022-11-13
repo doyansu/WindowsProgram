@@ -28,6 +28,7 @@ namespace LibraryManagementSystem
             this._presentationModel = new BookManagementFormPresentationModel(model);
             InitializeComponent();
             BindData();
+            this._bookListBox.ClearSelected();
         }
 
         #region Private Function
@@ -57,7 +58,8 @@ namespace LibraryManagementSystem
         // Form load
         private void BookManagementFormLoad(object sender, EventArgs e)
         {
-            //this._bookListBox.ClearSelected();
+            BindingContext[this._presentationModel.ManagementList].SuspendBinding();
+            BindingContext[this._presentationModel.ManagementCategoryList].SuspendBinding();
         }
 
         // 點擊新增書籍按鈕
@@ -87,6 +89,9 @@ namespace LibraryManagementSystem
         private void BookListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this._presentationModel.SelectedIndex = this._bookListBox.SelectedIndex;
+            BindingContext[this._presentationModel.ManagementList].ResumeBinding();
+            BindingContext[this._presentationModel.ManagementCategoryList].ResumeBinding();
+            BindingContext[this._presentationModel.ManagementList].Position = this._presentationModel.SelectedIndex;
         }
     }
 }
