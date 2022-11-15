@@ -214,6 +214,7 @@ namespace LibraryManagementSystem
         private void BookBorrowingFormClosing(object sender, FormClosingEventArgs e)
         {
             _backPackForm.Close();
+            //this._model._bookInformationChanged -= this.UpdateTabPage;
         }
         #endregion
     }
