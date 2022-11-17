@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridViewNumericUpDownEl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagementSystemTests", "LibraryManagementSystemTests\LibraryManagementSystemTests.csproj", "{52C64041-780B-43E5-A158-6DDD9FFBC89E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITestProject", "UITestProject\UITestProject.csproj", "{F2F11995-5906-45DB-B653-D8ABC8228543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52C64041-780B-43E5-A158-6DDD9FFBC89E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2F11995-5906-45DB-B653-D8ABC8228543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2F11995-5906-45DB-B653-D8ABC8228543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2F11995-5906-45DB-B653-D8ABC8228543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F11995-5906-45DB-B653-D8ABC8228543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
