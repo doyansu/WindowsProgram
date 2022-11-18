@@ -8,14 +8,27 @@ namespace LibraryManagementSystem.UITest.Tests
     public class GUITest
     {
         private Robot _robot;
-        private const string APP_NAME =
-       "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App";
-        private const string CALCULATOR_TITLE = "小算盤";
-        private const string EXPECTED_VALUE = "顯示是 444";
-        private const string RESULT_CONTROL_NAME = "CalculatorResults";
 
         private string targetAppPath;
         private const string START_UP_FORM = "StartUpForm";
+
+        // 取得目標應用路徑
+        private string GetTargetPath(string projectName)
+        {
+            string appName = projectName + ".exe";
+            string solutionPath = AppDomain.CurrentDomain.BaseDirectory;
+            do
+            {
+                bool IsFindProject = false;
+                foreach (var directory in Directory.GetParent(solutionPath).GetDirectories())
+                    if (directory.Name == projectName)
+                        IsFindProject = true;
+                if (IsFindProject)
+                    break;
+                solutionPath = Path.GetFullPath(Path.Combine(solutionPath, "..\\"));
+            } while (solutionPath != Directory.GetDirectoryRoot(AppDomain.CurrentDomain.BaseDirectory));
+            return Path.Combine(solutionPath, projectName, "bin", "Debug", appName);
+        }
 
         /// <summary>
         /// Launches the Calculator
@@ -24,17 +37,13 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestInitialize]
         public void Initialize()
         {
-            //_robot = new Robot(APP_NAME, CALCULATOR_TITLE);
-
-            var projectName = "LibraryManagementSystem";
-            var appName = projectName + ".exe";
-            var solutionName = "Homework_5";
-            string solutionPath = AppDomain.CurrentDomain.BaseDirectory;
-            while (Directory.GetParent(solutionPath).Name != solutionName)
-                solutionPath = Path.GetFullPath(Path.Combine(solutionPath, "..\\"));
-            targetAppPath = Path.Combine(solutionPath, projectName, "bin", "Debug", appName);
+            const string projectName = "LibraryManagementSystem";
+            // 只是為了 coverage (projectName 錯誤情況)
+            targetAppPath = this.GetTargetPath("");
+            targetAppPath = this.GetTargetPath(projectName);
             _robot = new Robot(targetAppPath, START_UP_FORM);
         }
+
         /// <summary>
         /// Closes the launched program
         /// </summary>
@@ -54,22 +63,6 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertText(RESULT_CONTROL_NAME, EXPECTED_VALUE);*/
             //_robot.Sleep(1);
             //_robot.ClickButton("Exit");
-        }
-
-        /// <summary>
-        /// Runs the script: 123 + 321 =
-        /// </summary>
-        private void RunScriptAdd()
-        {
-            _robot.ClickButton("清除");
-            _robot.ClickButton("一");
-            _robot.ClickButton("二");
-            _robot.ClickButton("三");
-            _robot.ClickButton("加");
-            _robot.ClickButton("三");
-            _robot.ClickButton("二");
-            _robot.ClickButton("一");
-            _robot.ClickButton("等於");
         }
     }
 }
