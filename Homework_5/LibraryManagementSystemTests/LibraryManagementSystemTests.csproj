@@ -105,6 +105,7 @@
     <Compile Include="PresentationModel\BookManagementFormPresentationModelTests.cs" />
     <Compile Include="PresentationModel\MenuFormPresentationModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITest\BorrwingFormGUITest.cs" />
     <Compile Include="UITest\MeunFormGUITest.cs" />
     <Compile Include="UITest\Robot.cs" />
   </ItemGroup>

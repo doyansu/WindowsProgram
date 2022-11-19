@@ -78,6 +78,7 @@ namespace LibraryManagementSystem
             this._controlPresentationModel.ButtonIndex = index;
             this._buttonPresentationModel.SelectBookButton(categoryIndex, index);
             Button button = new Button();
+            button.Name = "button" + categoryIndex + "-" + index;
             button.Tag = new Point(categoryIndex, index);
             button.Click += ClickTabPageButton;
             button.DataBindings.Add("Visible", this._buttonPresentationModel.BookButtonObject, "IsVisible");
