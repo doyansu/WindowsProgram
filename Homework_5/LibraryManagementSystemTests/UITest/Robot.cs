@@ -84,9 +84,15 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
-        public void ClickButton(string name)
+        public void ClickButtonByName(string name)
         {
             _driver.FindElementByName(name).Click();
+        }
+
+        // test
+        public void ClickButtonById(string id)
+        {
+            _driver.FindElementByAccessibilityId(id).Click();
         }
 
         // test
@@ -141,16 +147,44 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
-        public void AssertEnable(string name, bool state)
+        public void AssertEnableByName(string name, bool state)
         {
             WindowsElement element = _driver.FindElementByName(name);
             Assert.AreEqual(state, element.Enabled);
         }
 
         // test
-        public void AssertText(string name, string text)
+        public void AssertEnableById(string id, bool state)
+        {
+            WindowsElement element = _driver.FindElementByAccessibilityId(id);
+            Assert.AreEqual(state, element.Enabled);
+        }
+
+        // test
+        public void AssertVisibleByName(string name, bool state)
+        {
+            WindowsElement element = _driver.FindElementByName(name);
+            Assert.AreEqual(state, element.Displayed);
+        }
+
+        // test
+        public void AssertVisibleById(string id, bool state)
+        {
+            WindowsElement element = _driver.FindElementByAccessibilityId(id);
+            Assert.AreEqual(state, element.Displayed);
+        }
+
+        // test
+        public void AssertTextByName(string name, string text)
         {
             WindowsElement element = _driver.FindElementByAccessibilityId(name);
+            Assert.AreEqual(text, element.Text);
+        }
+
+        // test
+        public void AssertTextById(string id, string text)
+        {
+            WindowsElement element = _driver.FindElementByAccessibilityId(id);
             Assert.AreEqual(text, element.Text);
         }
 

@@ -61,13 +61,13 @@ namespace LibraryManagementSystem.UITest.Tests
         public void TestBookBorrowingSystemButton()
         {
             string buttonName = "Book Borrowing System";
-            _robot.AssertEnable(buttonName, true);
-            _robot.ClickButton(buttonName);
-            _robot.AssertEnable(buttonName, false);
+            _robot.AssertEnableByName(buttonName, true);
+            _robot.ClickButtonByName(buttonName);
+            _robot.AssertEnableByName(buttonName, false);
             _robot.SwitchTo(BORROWING_FORM);
             _robot.CloseWindow();
             _robot.SwitchTo(MENU_FORM);
-            _robot.AssertEnable(buttonName, true);
+            _robot.AssertEnableByName(buttonName, true);
         }
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace LibraryManagementSystem.UITest.Tests
         public void TestBookInventorySystemButton()
         {
             string buttonName = "Book Inventory System";
-            _robot.AssertEnable(buttonName, true);
-            _robot.ClickButton(buttonName);
-            _robot.AssertEnable(buttonName, false);
+            _robot.AssertEnableByName(buttonName, true);
+            _robot.ClickButtonByName(buttonName);
+            _robot.AssertEnableByName(buttonName, false);
             _robot.SwitchTo(INVENTORY_FORM);
             _robot.CloseWindow();
             _robot.SwitchTo(MENU_FORM);
-            _robot.AssertEnable(buttonName, true);
+            _robot.AssertEnableByName(buttonName, true);
         }
 
         /// <summary>
@@ -93,13 +93,13 @@ namespace LibraryManagementSystem.UITest.Tests
         public void TestBookManagementSystemButton()
         {
             string buttonName = "Book Management System";
-            _robot.AssertEnable(buttonName, true);
-            _robot.ClickButton(buttonName);
-            _robot.AssertEnable(buttonName, false);
+            _robot.AssertEnableByName(buttonName, true);
+            _robot.ClickButtonByName(buttonName);
+            _robot.AssertEnableByName(buttonName, false);
             _robot.SwitchTo(MANAGEREMENT_FORM);
             _robot.CloseWindow();
             _robot.SwitchTo(MENU_FORM);
-            _robot.AssertEnable(buttonName, true);
+            _robot.AssertEnableByName(buttonName, true);
         }
     }
 }
