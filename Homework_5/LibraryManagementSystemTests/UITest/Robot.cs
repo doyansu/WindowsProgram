@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
 using System.Windows.Forms;
 using System.IO;
+using OpenQA.Selenium.Appium.Windows.Enums;
+using OpenQA.Selenium.Support.UI;
 
 namespace LibraryManagementSystem.UITest.Tests
 {
@@ -84,15 +86,17 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
-        public void ClickButtonByName(string name)
+        public void ClickButtonByName(string name, int times = 1)
         {
-            _driver.FindElementByName(name).Click();
+            while (times-- > 0)
+                _driver.FindElementByName(name).Click();
         }
 
         // test
-        public void ClickButtonById(string id)
+        public void ClickButtonById(string id, int times = 1)
         {
-            _driver.FindElementByAccessibilityId(id).Click();
+            while (times-- > 0)
+                _driver.FindElementByAccessibilityId(id).Click();
         }
 
         // test
@@ -126,6 +130,14 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
+        public void PressKey(string key)
+        {
+            //_driver.Keyboard.SendKeys(key);
+            //_driver.Keyboard.PressKey(key);
+            SendKeys.SendWait(key);
+        }
+
+        // test
         public void CloseWindow()
         {
             SendKeys.SendWait("%{F4}");
@@ -138,12 +150,14 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
-        public void ClickDataGridViewCellBy(string name, int rowIndex, string columnName)
+        public void ClickDataGridViewCellBy(string name, int rowIndex, string columnName, int times = 1)
         {
             var dataGridView = _driver.FindElementByAccessibilityId(name);
             //_driver.FindElementByName($"{columnName} 資料列 {rowIndex}").Click();
             const string STRING_FORMAT = "{0} 資料列 {1}";
-            _driver.FindElementByName(String.Format(STRING_FORMAT, columnName, rowIndex)).Click();
+            WindowsElement windowsElement = _driver.FindElementByName(String.Format(STRING_FORMAT, columnName, rowIndex));
+            while(times-- > 0)
+                windowsElement.Click();
         }
 
         // test
@@ -182,6 +196,22 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
+        public void AssertMessageBoxTitle(string expected)
+        {
+            const string MESSAGEBOX_CLASSNAME = "#32770";
+            string messageTitle = _driver.FindElementByClassName(MESSAGEBOX_CLASSNAME).Text;
+            Assert.AreEqual(expected, messageTitle.Replace("\r\n", "\n"));
+        }
+
+        // test
+        public void AssertMessageBoxText(string expected)
+        {
+            const string MESSAGEBOX_CLASSNAME = "#32770";
+            string messageText = _driver.FindElementByClassName(MESSAGEBOX_CLASSNAME).FindElementByXPath($"//Text[@Name='{expected}']").Text;
+            Assert.AreEqual(expected, messageText.Replace("\r\n", "\n"));
+        }
+
+        // test
         public void AssertTextById(string id, string text)
         {
             WindowsElement element = _driver.FindElementByAccessibilityId(id);
@@ -201,6 +231,17 @@ namespace LibraryManagementSystem.UITest.Tests
             {
                 Assert.AreEqual(data[i - 1], rowDatas[i].Text.Replace("(null)", ""));
             }
+        }
+
+        // test
+        public void AssertDataGridViewCellValueBy(string name, int rowIndex, int columnIndex, string value)
+        {
+            const string STRING_FORMAT = "資料列 {0}";
+            var dataGridView = _driver.FindElementByAccessibilityId(name);
+            var rowDatas = dataGridView.FindElementByName(string.Format(STRING_FORMAT, rowIndex)).FindElementsByXPath("//*");
+
+            // FindElementsByXPath("//*") 會把 "row" node 也抓出來，因此 i 要從 1 開始以跳過 "row" node
+            Assert.AreEqual(value, rowDatas[columnIndex + 1].Text.Replace("(null)", ""));
         }
 
         // test

@@ -75,10 +75,11 @@ namespace LibraryManagementSystem
         // 創建 tabpagebuttons
         private Button CreateTabPageButton(int categoryIndex, int index)
         {
+            const string BUTTON_NAME_FORMAT = "bookButton{0}-{1}";
             this._controlPresentationModel.ButtonIndex = index;
             this._buttonPresentationModel.SelectBookButton(categoryIndex, index);
             Button button = new Button();
-            button.Name = "button" + categoryIndex + "-" + index;
+            button.Name = string.Format(BUTTON_NAME_FORMAT, categoryIndex, index);
             button.Tag = new Point(categoryIndex, index);
             button.Click += ClickTabPageButton;
             button.DataBindings.Add("Visible", this._buttonPresentationModel.BookButtonObject, "IsVisible");
