@@ -361,6 +361,8 @@ namespace LibraryManagementSystem.UITest.Tests
             string Due = dateTime.AddDays(30).ToShortDateString();
 
             _robot.ClickButtonByName(BACK_BUTTON_NAME);
+            _robot.SwitchTo(BACK_FORM);
+            _robot.SwitchTo(BORROWING_FORM);
             _robot.ClickButtonById("bookButton0-0");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
 

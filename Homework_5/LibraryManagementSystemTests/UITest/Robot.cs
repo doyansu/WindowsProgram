@@ -132,8 +132,6 @@ namespace LibraryManagementSystem.UITest.Tests
         // test
         public void PressKey(string key)
         {
-            //_driver.Keyboard.SendKeys(key);
-            //_driver.Keyboard.PressKey(key);
             SendKeys.SendWait(key);
         }
 
