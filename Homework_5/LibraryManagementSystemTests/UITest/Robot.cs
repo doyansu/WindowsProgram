@@ -205,7 +205,8 @@ namespace LibraryManagementSystem.UITest.Tests
         public void AssertMessageBoxText(string expected)
         {
             const string MESSAGEBOX_CLASSNAME = "#32770";
-            string messageText = _driver.FindElementByClassName(MESSAGEBOX_CLASSNAME).FindElementByXPath($"//Text[@Name='{expected}']").Text;
+            const string XPATH_FORMAT = "//Text[@Name='{0}']";
+            string messageText = _driver.FindElementByClassName(MESSAGEBOX_CLASSNAME).FindElementByXPath(string.Format(XPATH_FORMAT, expected)).Text;
             Assert.AreEqual(expected, messageText.Replace("\r\n", "\n"));
         }
 
