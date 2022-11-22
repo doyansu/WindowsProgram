@@ -455,6 +455,11 @@ namespace LibraryManagementSystem.UITest.Tests
             string borrowingDate = dateTime.ToShortDateString();
             string Due = dateTime.AddDays(30).ToShortDateString();
 
+            _robot.SwitchTo(MENU_FORM);
+            _robot.ClickButtonByName("Book Inventory System");
+            _robot.SwitchTo(INVENTORY_FORM);
+            _robot.SwitchTo(BORROWING_FORM);
+
             _robot.ClickButtonById("bookButton0-0");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickButtonById("bookButton0-2");
@@ -482,6 +487,8 @@ namespace LibraryManagementSystem.UITest.Tests
 
             _robot.ClickButtonById("bookButton0-0");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 3");
+
+            //_robot.SwitchTo(INVENTORY_FORM);
 
             _robot.SwitchTo(BACK_FORM);
             _robot.ClickDataGridViewCellBy(BACKPACK_DGV_ID, 0, "歸還數量", 2);
