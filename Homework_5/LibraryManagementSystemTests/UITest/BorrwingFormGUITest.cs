@@ -345,8 +345,14 @@ namespace LibraryManagementSystem.UITest.Tests
 
             _robot.ClickButtonById("bookButton1-1");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
+            _robot.Sleep(0.5);
             _robot.AssertMessageBoxTitle("借書違規");
             _robot.AssertMessageBoxText("每次借書限借五本，您的借書單已滿");
+            _robot.CloseMessageBox();
+
+            _robot.ClickButtonByName(CONFIRM_BORROWING_BUTTON_NAME);
+            _robot.AssertMessageBoxTitle("借書結果");
+            _robot.AssertMessageBoxText("[微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書] 2本 、 [創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡] 1本 、 [暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫] 1本 、 [煤氣燈操縱 : 辨識人際中最暗黑的操控術, 走出精神控制與內疚, 重建自信與自尊] 1本\n\n已成功借出!");
             _robot.CloseMessageBox();
         }
 
@@ -455,11 +461,6 @@ namespace LibraryManagementSystem.UITest.Tests
             string borrowingDate = dateTime.ToShortDateString();
             string Due = dateTime.AddDays(30).ToShortDateString();
 
-            _robot.SwitchTo(MENU_FORM);
-            _robot.ClickButtonByName("Book Inventory System");
-            _robot.SwitchTo(INVENTORY_FORM);
-            _robot.SwitchTo(BORROWING_FORM);
-
             _robot.ClickButtonById("bookButton0-0");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickButtonById("bookButton0-2");
@@ -487,8 +488,6 @@ namespace LibraryManagementSystem.UITest.Tests
 
             _robot.ClickButtonById("bookButton0-0");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 3");
-
-            //_robot.SwitchTo(INVENTORY_FORM);
 
             _robot.SwitchTo(BACK_FORM);
             _robot.ClickDataGridViewCellBy(BACKPACK_DGV_ID, 0, "歸還數量", 2);
