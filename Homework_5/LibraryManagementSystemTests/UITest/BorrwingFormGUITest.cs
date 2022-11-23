@@ -123,7 +123,7 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestMethod]
         public void TestBookButton()
         {
-            string buttonId = "bookButton0-0";
+            string buttonId = "微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書";
             _robot.AssertEnableById(buttonId, true);
             _robot.AssertVisibleById(buttonId, true);
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, false);
@@ -133,7 +133,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertTextById(BOOK_INTRO_RICHTEXTBOX_ID, "微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書\r編號 : 964 8394:2-5 2021\r作者 : ingectar-e\r原點出版 : 大雁發行, 2021[民110]");
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, true);
 
-            buttonId = "bookButton0-1";
+            buttonId = "創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡";
             _robot.AssertEnableById(buttonId, true);
             _robot.AssertVisibleById(buttonId, true);
 
@@ -142,7 +142,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertTextById(BOOK_INTRO_RICHTEXTBOX_ID, "創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡\r編號 : 176.51 8564 2022\r作者 : 羅瑞塔.葛蕾吉亞諾.布魯\r閱樂國際文化出版");
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, true);
 
-            buttonId = "bookButton0-2";
+            buttonId = "暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫";
             _robot.AssertEnableById(buttonId, true);
             _robot.AssertVisibleById(buttonId, true);
 
@@ -161,30 +161,30 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.ClickTabControl(_bookCategoryList[0]);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton0-0", true);
-            _robot.AssertVisibleById("bookButton0-1", true);
-            _robot.AssertVisibleById("bookButton0-2", true);
+            _robot.AssertVisibleById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書", true);
+            _robot.AssertVisibleById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡", true);
+            _robot.AssertVisibleById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫", true);
 
             _robot.ClickTabControl(_bookCategoryList[1]);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton1-0", true);
-            _robot.AssertVisibleById("bookButton1-1", true);
-            _robot.AssertVisibleById("bookButton1-2", true);
+            _robot.AssertVisibleById("煤氣燈操縱 : 辨識人際中最暗黑的操控術, 走出精神控制與內疚, 重建自信與自尊", true);
+            _robot.AssertVisibleById("工作焦慮 : 這個世代的上班族七成心裡都有病, 解決壓力與倦怠的8個方法", true);
+            _robot.AssertVisibleById("草莓與灰燼", true);
 
             _robot.ClickTabControl(_bookCategoryList[2]);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton2-0", true);
-            _robot.AssertVisibleById("bookButton2-1", true);
-            _robot.AssertVisibleById("bookButton2-2", true);
+            _robot.AssertVisibleById("常識...常錯! : 破除二十種對英文學習的大迷思", true);
+            _robot.AssertVisibleById("托福電腦化測驗 : TOEFL-CBT = 新高分托福閱讀", true);
+            _robot.AssertVisibleById("旅遊英語快易通 = Travel English easy talk", true);
 
             _robot.ClickTabControl(_bookCategoryList[3]);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, false);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton3-0", true);
-            _robot.AssertVisibleById("bookButton3-1", true);
-            _robot.AssertVisibleById("bookButton3-2", true);
+            _robot.AssertVisibleById("關於工作的9大謊言", true);
+            _robot.AssertVisibleById("量子領導非權威影響力 : 不動用權威讓人自動靠攏,喚醒人才天賦,創造團隊奇蹟的祕密", true);
+            _robot.AssertVisibleById("異見的力量 : 心理學家的7堂決策思考課", true);
         }
 
         /// <summary>
@@ -195,42 +195,42 @@ namespace LibraryManagementSystem.UITest.Tests
         {
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton0-0", true);
-            _robot.AssertVisibleById("bookButton0-1", true);
-            _robot.AssertVisibleById("bookButton0-2", true);
+            _robot.AssertVisibleById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書", true);
+            _robot.AssertVisibleById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡", true);
+            _robot.AssertVisibleById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫", true);
 
             _robot.ClickButtonByName(NEXT_PAGE_BUTTON_NAME);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, false);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, true);
-            _robot.AssertVisibleById("bookButton0-3", true);
+            _robot.AssertVisibleById("零零落落", true);
 
             _robot.ClickButtonByName(LAST_PAGE_BUTTON_NAME);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, false);
-            _robot.AssertVisibleById("bookButton0-0", true);
-            _robot.AssertVisibleById("bookButton0-1", true);
-            _robot.AssertVisibleById("bookButton0-2", true);
+            _robot.AssertVisibleById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書", true);
+            _robot.AssertVisibleById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡", true);
+            _robot.AssertVisibleById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫", true);
 
             _robot.ClickTabControl(_bookCategoryList[2]);
             _robot.ClickButtonByName(NEXT_PAGE_BUTTON_NAME);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, true);
-            _robot.AssertVisibleById("bookButton2-3", true);
-            _robot.AssertVisibleById("bookButton2-4", true);
-            _robot.AssertVisibleById("bookButton2-5", true);
+            _robot.AssertVisibleById("全民英檢. 中級 : 英文聽力總整理", true);
+            _robot.AssertVisibleById("英文面試.履歷EASY過關", true);
+            _robot.AssertVisibleById("全民英檢中級900核心單字", true);
 
             _robot.ClickButtonByName(NEXT_PAGE_BUTTON_NAME);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, false);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, true);
-            _robot.AssertVisibleById("bookButton2-6", true);
-            _robot.AssertVisibleById("bookButton2-7", true);
+            _robot.AssertVisibleById("托福應考勝經 : 核心單字", true);
+            _robot.AssertVisibleById("112要訣!突破英聽力盲點", true);
 
             _robot.ClickButtonByName(LAST_PAGE_BUTTON_NAME);
             _robot.AssertEnableByName(NEXT_PAGE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LAST_PAGE_BUTTON_NAME, true);
-            _robot.AssertVisibleById("bookButton2-3", true);
-            _robot.AssertVisibleById("bookButton2-4", true);
-            _robot.AssertVisibleById("bookButton2-5", true);
+            _robot.AssertVisibleById("全民英檢. 中級 : 英文聽力總整理", true);
+            _robot.AssertVisibleById("英文面試.履歷EASY過關", true);
+            _robot.AssertVisibleById("全民英檢中級900核心單字", true);
         }
 
         /// <summary>
@@ -239,21 +239,21 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestMethod]
         public void TestAddButton()
         {
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 1");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 1);
             _robot.AssertDataGridViewRowDataBy(BORROWING_LIST_DGV_ID, 0, new string[] { "", "微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書", "1", "964 8394:2-5 2021", "ingectar-e", "原點出版 : 大雁發行, 2021[民110]" });
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, false);
 
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 2");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 2);
             _robot.AssertDataGridViewRowDataBy(BORROWING_LIST_DGV_ID, 1, new string[] { "", "創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡", "1", "176.51 8564 2022", "羅瑞塔.葛蕾吉亞諾.布魯", "閱樂國際文化出版" });
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, false);
 
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 3");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 3);
@@ -267,14 +267,14 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestMethod]
         public void TestDeleteButton()
         {
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
 
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "刪除");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 2);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 2");
@@ -282,14 +282,14 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertDataGridViewRowDataBy(BORROWING_LIST_DGV_ID, 1, new string[] { "", "暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫", "1", "415.92 844 2021", "艾德里安.雷恩", "遠流, 2021[民110]" });
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, true);
 
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 1, "刪除");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 1);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 1");
             _robot.AssertDataGridViewRowDataBy(BORROWING_LIST_DGV_ID, 0, new string[] { "", "創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡", "1", "176.51 8564 2022", "羅瑞塔.葛蕾吉亞諾.布魯", "閱樂國際文化出版" });
             _robot.AssertEnableByName(ADD_BOOK_BUTTON_NAME, true);
 
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "刪除");
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 0);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 0");
@@ -303,14 +303,14 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestMethod]
         public void TestUserCaseChangeBorrowingCount()
         {
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickTabControl(_bookCategoryList[1]);
-            _robot.ClickButtonById("bookButton1-0");
+            _robot.ClickButtonById("煤氣燈操縱 : 辨識人際中最暗黑的操控術, 走出精神控制與內疚, 重建自信與自尊");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
 
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "數量", 2);
@@ -343,7 +343,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertDataGridViewRowDataBy(BORROWING_LIST_DGV_ID, 2, new string[] { "", "暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫", "1", "415.92 844 2021", "艾德里安.雷恩", "遠流, 2021[民110]" });
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 5");
 
-            _robot.ClickButtonById("bookButton1-1");
+            _robot.ClickButtonById("工作焦慮 : 這個世代的上班族七成心裡都有病, 解決壓力與倦怠的8個方法");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.Sleep(0.5);
             _robot.AssertMessageBoxTitle("借書違規");
@@ -369,7 +369,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.ClickButtonByName(BACK_BUTTON_NAME);
             _robot.SwitchTo(BACK_FORM);
             _robot.SwitchTo(BORROWING_FORM);
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
 
             _robot.ClickButtonByName(CONFIRM_BORROWING_BUTTON_NAME);
@@ -380,7 +380,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 0);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 0");
             
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 4");
             
             _robot.SwitchTo(BACK_FORM);
@@ -388,11 +388,11 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.AssertDataGridViewRowDataBy(BACKPACK_DGV_ID, 0, new string[] { "歸還", "1", "微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書", "1", borrowingDate, Due, "964 8394:2-5 2021", "ingectar-e", "原點出版 : 大雁發行, 2021[民110]" });
 
             _robot.SwitchTo(BORROWING_FORM);
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "數量", 2);
             _robot.ClickButtonByName("Up", 1);
@@ -403,11 +403,11 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.CloseMessageBox();
             _robot.AssertDataGridViewRowCountBy(BORROWING_LIST_DGV_ID, 0);
             _robot.AssertTextById(BORROWING_QUANTITY_LABEL_ID, "借書數量 : 0");
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 2");
-            _robot.ClickButtonById("bookButton0-1");
+            _robot.ClickButtonById("創造快樂大腦 : 重塑大腦快樂習慣-提升血清素, 多巴胺, 催產素, 腦內啡");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 0");
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 2");
 
             _robot.SwitchTo(BACK_FORM);
@@ -424,7 +424,7 @@ namespace LibraryManagementSystem.UITest.Tests
         [TestMethod]
         public void TestUserCaseChangeReturnCount()
         {
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "數量", 2);
             _robot.ClickButtonByName("Up", 1);
@@ -461,9 +461,9 @@ namespace LibraryManagementSystem.UITest.Tests
             string borrowingDate = dateTime.ToShortDateString();
             string Due = dateTime.AddDays(30).ToShortDateString();
 
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
-            _robot.ClickButtonById("bookButton0-2");
+            _robot.ClickButtonById("暴力犯罪的大腦檔案 : 從神經犯罪學探究惡行的生物根源, 慎思以治療取代懲罰的未來防治計畫");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickDataGridViewCellBy(BORROWING_LIST_DGV_ID, 0, "數量", 2);
             _robot.ClickButtonByName("Up", 1);
@@ -486,7 +486,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.SwitchTo(BORROWING_FORM);
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 2");
 
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.AssertTextById(REMAINING_QUANTITY_LABEL_ID, "剩餘數量 : 3");
 
             _robot.SwitchTo(BACK_FORM);

@@ -162,7 +162,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.SwitchTo(MENU_FORM);
             _robot.ClickButtonByName("Book Borrowing System");
             _robot.SwitchTo(BORROWING_FORM);
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.SwitchTo(INVENTORY_FORM);
             _robot.ClickDataGridViewCellBy(INVENTORY_DGV_ID, 0, "補貨");
             _robot.SwitchTo(ADDING_FORM);
@@ -187,7 +187,7 @@ namespace LibraryManagementSystem.UITest.Tests
             _robot.ClickButtonByName(BACK_BUTTON_NAME);
             _robot.SwitchTo(BACK_FORM);
             _robot.SwitchTo(BORROWING_FORM);
-            _robot.ClickButtonById("bookButton0-0");
+            _robot.ClickButtonById("微調有差の日系新版面設計 : 一本前所未有、聚焦於「微調細節差很大」的設計參考書");
             _robot.ClickButtonByName(ADD_BOOK_BUTTON_NAME);
             _robot.ClickButtonByName(CONFIRM_BORROWING_BUTTON_NAME);
             _robot.CloseMessageBox();

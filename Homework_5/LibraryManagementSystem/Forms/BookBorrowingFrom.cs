@@ -57,15 +57,15 @@ namespace LibraryManagementSystem
             this._controlPresentationModel.SetButtonSize(this._bookCategoryTabControl.Size.Width, this._bookCategoryTabControl.Size.Height);
             this._bookCategoryTabControl.TabPages.Clear();
             this._buttonPresentationModel.UpdateBookButtonList();
-            Dictionary<string, int> categoryQuantity = this._model.GetCategoryQuantityPair();
+            var categoryQuantity = this._model.GetCategoryBookInformationPair();
             int categoryIndex = 0;
             foreach (var data in categoryQuantity)
             {
                 string category = data.Key;
-                int quantity = data.Value;
+                int quantity = data.Value.Count;
                 TabPage tabPage = new TabPage(category);
                 for (int index = 0; index < quantity; index++)
-                    tabPage.Controls.Add(this.CreateTabPageButton(categoryIndex, index));
+                    tabPage.Controls.Add(this.CreateTabPageButton(data.Value[index].BookName, categoryIndex, index));
                 categoryIndex++;
                 this._bookCategoryTabControl.TabPages.Add(tabPage);
             }
@@ -73,13 +73,12 @@ namespace LibraryManagementSystem
         }
 
         // 創建 tabpagebuttons
-        private Button CreateTabPageButton(int categoryIndex, int index)
+        private Button CreateTabPageButton(string bookName, int categoryIndex, int index)
         {
-            const string BUTTON_NAME_FORMAT = "bookButton{0}-{1}";
             this._controlPresentationModel.ButtonIndex = index;
             this._buttonPresentationModel.SelectBookButton(categoryIndex, index);
             Button button = new Button();
-            button.Name = string.Format(BUTTON_NAME_FORMAT, categoryIndex, index);
+            button.Name = bookName;
             button.Tag = new Point(categoryIndex, index);
             button.Click += ClickTabPageButton;
             button.DataBindings.Add("Visible", this._buttonPresentationModel.BookButtonObject, "IsVisible");

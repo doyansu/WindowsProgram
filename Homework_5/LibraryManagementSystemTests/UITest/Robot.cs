@@ -173,13 +173,6 @@ namespace LibraryManagementSystem.UITest.Tests
         }
 
         // test
-        public void AssertVisibleByName(string name, bool state)
-        {
-            WindowsElement element = _driver.FindElementByName(name);
-            Assert.AreEqual(state, element.Displayed);
-        }
-
-        // test
         public void AssertVisibleById(string id, bool state)
         {
             WindowsElement element = _driver.FindElementByAccessibilityId(id);
@@ -189,7 +182,14 @@ namespace LibraryManagementSystem.UITest.Tests
         // test
         public void AssertTextByName(string name, string text)
         {
-            WindowsElement element = _driver.FindElementByAccessibilityId(name);
+            WindowsElement element = _driver.FindElementByName(name);
+            Assert.AreEqual(text, element.Text);
+        }
+
+        // test
+        public void AssertTextById(string id, string text)
+        {
+            WindowsElement element = _driver.FindElementByAccessibilityId(id);
             Assert.AreEqual(text, element.Text);
         }
 
@@ -208,13 +208,6 @@ namespace LibraryManagementSystem.UITest.Tests
             const string XPATH_FORMAT = "//Text[@Name='{0}']";
             string messageText = _driver.FindElementByClassName(MESSAGEBOX_CLASSNAME).FindElementByXPath(string.Format(XPATH_FORMAT, expected)).Text;
             Assert.AreEqual(expected, messageText.Replace("\r\n", "\n"));
-        }
-
-        // test
-        public void AssertTextById(string id, string text)
-        {
-            WindowsElement element = _driver.FindElementByAccessibilityId(id);
-            Assert.AreEqual(text, element.Text);
         }
 
         // test
