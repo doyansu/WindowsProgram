@@ -35,7 +35,7 @@ namespace DrawingModel
             if (_isPressed)
             {
                 ShapeFactory shapeFactory = new ShapeFactory();
-                _hint = shapeFactory.CreateShape(DrawingShapeType, _firstPointX, _firstPointY, pointX, pointY);
+                _hint = shapeFactory.CreateShape(DrawingShapeType, new IPoint(_firstPointX, _firstPointY), new IPoint(pointX, pointY));
                 NotifyModelChanged();
             }
         }

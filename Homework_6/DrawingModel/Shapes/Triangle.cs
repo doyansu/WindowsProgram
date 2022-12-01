@@ -8,22 +8,25 @@ namespace DrawingModel
 {
     class Triangle : Shape
     {
-        private double _x1 = 0;
-        private double _y1 = 0;
-        private double _x2 = 0;
-        private double _y2 = 0;
-
+        private IPoint _topLeft = new IPoint();
+        private IPoint _bottomRight = new IPoint();
         public Triangle()
         {
 
         }
 
+        public Triangle(IPoint topLeft, IPoint bottomRight)
+        {
+            _topLeft = topLeft;
+            _bottomRight = bottomRight;
+        }
+
         public Triangle(double x1, double y1, double x2, double y2)
         {
-            X1 = x1;
-            Y1 = y1;
-            X2 = x2;
-            Y2 = y2;
+            _topLeft.X = x1;
+            _topLeft.Y = y1;
+            _bottomRight.X = x2;
+            _bottomRight.Y = y2;
         }
 
         // 繪製線
@@ -36,44 +39,44 @@ namespace DrawingModel
         {
             get
             {
-                return _x1;
+                return _topLeft.X;
             }
             set
             {
-                _x1 = value;
+                _topLeft.X = value;
             }
         }
         public double Y1
         {
             get
             {
-                return _y1;
+                return _topLeft.Y;
             }
             set
             {
-                _y1 = value;
+                _topLeft.Y = value;
             }
         }
         public double X2
         {
             get
             {
-                return _x2;
+                return _bottomRight.X;
             }
             set
             {
-                _x2 = value;
+                _bottomRight.X = value;
             }
         }
         public double Y2
         {
             get
             {
-                return _y2;
+                return _bottomRight.Y;
             }
             set
             {
-                _y2 = value;
+                _bottomRight.Y = value;
             }
         }
     }

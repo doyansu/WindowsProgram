@@ -122,6 +122,9 @@
     <Compile Include="..\DrawingModel\Model.cs">
       <Link>Model\Model.cs</Link>
     </Compile>
+    <Compile Include="..\DrawingModel\Shapes\IPoint.cs">
+      <Link>Model\IPoint.cs</Link>
+    </Compile>
     <Compile Include="..\DrawingModel\Shapes\Line.cs">
       <Link>Model\Line.cs</Link>
     </Compile>

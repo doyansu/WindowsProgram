@@ -90,10 +90,10 @@ namespace DrawingApp.PresentationModel
         }
 
         // 通知 databing 改變
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        private void NotifyPropertyChanged(string propertyName)
         {
-            // Raise the PropertyChanged event, passing the name of the property whose value has changed.
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

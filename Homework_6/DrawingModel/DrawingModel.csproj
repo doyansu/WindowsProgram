@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IGraphics.cs" />
+    <Compile Include="Shapes\IPoint.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
