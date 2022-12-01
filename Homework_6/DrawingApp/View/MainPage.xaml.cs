@@ -33,14 +33,25 @@ namespace DrawingApp
             _canvas.PointerPressed += HandleCanvasPressed;
             _canvas.PointerReleased += HandleCanvasReleased;
             _canvas.PointerMoved += HandleCanvasMoved;
-            _clear.Click += HandleClearButtonClick;
             _model._modelChanged += HandleModelChanged;
+        }
+
+        // 點擊矩形按鈕
+        private void HandleRectangleButtonClick(object sender, RoutedEventArgs e)
+        {
+            this._presentationModel.HandleRectangleButtonClick();
+        }
+
+        // 點擊三角形按鈕
+        private void HandleTriangleButtonClick(object sender, RoutedEventArgs e)
+        {
+            this._presentationModel.HandleTriangleButtonClick();
         }
 
         // 點擊清除畫布按鈕
         private void HandleClearButtonClick(object sender, RoutedEventArgs e)
         {
-            _model.Clear();
+            this._presentationModel.HandleClearButtonClick();
         }
 
         // 畫布滑鼠點下

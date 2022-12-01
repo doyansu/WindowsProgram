@@ -84,7 +84,6 @@ namespace DrawingModel
             }
         }
 
-
         // 通知 model 改變
         void NotifyModelChanged()
         {

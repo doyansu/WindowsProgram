@@ -13,7 +13,7 @@ namespace DrawingModel
             Null,
             Line,
             Rectangle,
-            Tritangle
+            Triangle
         }
         public ShapeFactory()
         {
@@ -32,7 +32,7 @@ namespace DrawingModel
                 case ShapeType.Rectangle:
                     shape = new Rectangle(x1, y1, x2, y2);
                     break;
-                case ShapeType.Tritangle:
+                case ShapeType.Triangle:
                     shape = new Triangle(x1, y1, x2, y2);
                     break;
                 case ShapeType.Null:

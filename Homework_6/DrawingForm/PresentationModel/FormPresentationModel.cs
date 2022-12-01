@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DrawingModel;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DrawingForm.PresentationModel
 {
@@ -35,7 +36,7 @@ namespace DrawingForm.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = false;
-            this._model.DrawingShapeType = ShapeFactory.ShapeType.Tritangle;
+            this._model.DrawingShapeType = ShapeFactory.ShapeType.Triangle;
         }
 
         // 點擊清除畫布按鈕
@@ -55,11 +56,14 @@ namespace DrawingForm.PresentationModel
             }
             set
             {
-                this._isRectangleButtonEnabled = value;
-                NotifyPropertyChanged("IsRectangleButtonEnabled");
+                if (this._isRectangleButtonEnabled != value)
+                {
+                    this._isRectangleButtonEnabled = value;
+                    NotifyPropertyChanged("IsRectangleButtonEnabled");
+                }
             }
         }
-        public bool IsTriangleButtonEnabled 
+        public bool IsTriangleButtonEnabled
         {
             get
             {
@@ -67,8 +71,11 @@ namespace DrawingForm.PresentationModel
             }
             set
             {
-                this._isTriangleButtonEnabled = value;
-                NotifyPropertyChanged("IsTriangleButtonEnabled");
+                if (this._isTriangleButtonEnabled != value)
+                {
+                    this._isTriangleButtonEnabled = value;
+                    NotifyPropertyChanged("IsTriangleButtonEnabled");
+                }
             }
         }
 

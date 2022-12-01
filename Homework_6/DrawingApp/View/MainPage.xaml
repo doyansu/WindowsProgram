@@ -9,8 +9,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="_clear" Content="Clear" HorizontalAlignment="Stretch"
-Height="44" Margin="99,48,99,0" VerticalAlignment="Top"/>
-        <Canvas x:Name="_canvas" Margin="99,138,99,99" Background="#FFFFFFA0"/>
+        <Button x:Name="_clearButton" Content="Clear" HorizontalAlignment="Stretch"
+Height="44" Margin="1121,48,99,0" VerticalAlignment="Top" Click="HandleClearButtonClick"/>
+        <Button x:Name="_triangleButton" Content="Triangle" HorizontalAlignment="Stretch"
+Height="44" Margin="610,48,610,0" VerticalAlignment="Top" Click="HandleTriangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsTriangleButtonEnabled, Mode=OneWay}"/>
+        <Button x:Name="_rectangleButton" Content="Rectangle" HorizontalAlignment="Stretch"
+Height="44" Margin="99,48,1121,0" VerticalAlignment="Top" Click="HandleRectangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsRectangleButtonEnabled, Mode=OneWay}"/>
+        <Canvas x:Name="_canvas" Margin="0,138,0,0" Background="#FFFFFFA0"/>
     </Grid>
 </Page>
