@@ -64,14 +64,23 @@
     <Compile Include="..\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\Line.cs">
-      <Link>Model\Line.cs</Link>
-    </Compile>
     <Compile Include="..\DrawingModel\Model.cs">
       <Link>Model\Model.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\Shape.cs">
+    <Compile Include="..\DrawingModel\Shapes\Line.cs">
+      <Link>Model\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Rectangle.cs">
+      <Link>Model\Rectangle.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Shape.cs">
       <Link>Model\Shape.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\ShapeFactory.cs">
+      <Link>Model\ShapeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Triangle.cs">
+      <Link>Model\Triangle.cs</Link>
     </Compile>
     <Compile Include="View\DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
@@ -82,8 +91,8 @@
     <Compile Include="View\DrawingForm.Designer.cs">
       <DependentUpon>DrawingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationModel\PresentationModel.cs" />
-    <Compile Include="PresentationModel\FormsGraphicsAdaptor..cs" />
+    <Compile Include="PresentationModel\FormPresentationModel.cs" />
+    <Compile Include="PresentationModel\FormGraphicsAdaptor..cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -123,5 +132,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

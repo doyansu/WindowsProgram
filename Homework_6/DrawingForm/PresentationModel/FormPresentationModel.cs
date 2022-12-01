@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace DrawingForm.PresentationModel
 {
-    class PresentationModel : INotifyPropertyChanged
+    class FormPresentationModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -17,7 +17,7 @@ namespace DrawingForm.PresentationModel
 
         bool _isRectangleButtonEnabled = true;
         bool _isTriangleButtonEnabled = true;
-        public PresentationModel(Model model)
+        public FormPresentationModel(Model model)
         {
             this._model = model;
         }
@@ -27,6 +27,7 @@ namespace DrawingForm.PresentationModel
         {
             this.IsRectangleButtonEnabled = false;
             this.IsTriangleButtonEnabled = true;
+            this._model.DrawingShapeType = ShapeFactory.ShapeType.Rectangle;
         }
 
         // 點擊三角形按鈕
@@ -34,6 +35,16 @@ namespace DrawingForm.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = false;
+            this._model.DrawingShapeType = ShapeFactory.ShapeType.Tritangle;
+        }
+
+        // 點擊清除畫布按鈕
+        public void HandleClearButtonClick()
+        {
+            _model.Clear();
+            this.IsRectangleButtonEnabled = true;
+            this.IsTriangleButtonEnabled = true;
+            this._model.DrawingShapeType = ShapeFactory.ShapeType.Null;
         }
 
         public bool IsRectangleButtonEnabled

@@ -119,14 +119,23 @@
     <Compile Include="..\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\Line.cs">
-      <Link>Model\Line.cs</Link>
-    </Compile>
     <Compile Include="..\DrawingModel\Model.cs">
       <Link>Model\Model.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\Shape.cs">
+    <Compile Include="..\DrawingModel\Shapes\Line.cs">
+      <Link>Model\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Rectangle.cs">
+      <Link>Model\Rectangle.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Shape.cs">
       <Link>Model\Shape.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\ShapeFactory.cs">
+      <Link>Model\ShapeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Triangle.cs">
+      <Link>Model\Triangle.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -134,8 +143,8 @@
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PresentationModel\PresentationModel.cs" />
-    <Compile Include="PresentationModel\WindowsStoreGraphicsAdaptor.cs" />
+    <Compile Include="PresentationModel\AppPresentationModel.cs" />
+    <Compile Include="PresentationModel\AppGraphicsAdaptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +177,7 @@
       <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

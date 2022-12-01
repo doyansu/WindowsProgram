@@ -16,35 +16,38 @@ namespace DrawingModel
         bool _isPressed = false;
         List<Shape> _shapes = new List<Shape>();
         Shape _hint = null;
+        ShapeFactory.ShapeType _drawingShapeType = ShapeFactory.ShapeType.Null;
 
         // 開始繪製
-        public void PointerPressed(double x, double y)
+        public void PressPointer(double pointX, double pointY)
         {
-            if (x > 0 && y > 0)
+            if (pointX > 0 && pointY > 0)
             {
-                _firstPointX = x;
-                _firstPointY = y;
+                _firstPointX = pointX;
+                _firstPointY = pointY;
                 _isPressed = true;
             }
         }
 
         // 繪製移動
-        public void PointerMoved(double x, double y)
+        public void MovePointer(double pointX, double pointY)
         {
             if (_isPressed)
             {
-                _hint = new Line(_firstPointX, _firstPointY, x, y);
+                ShapeFactory shapeFactory = new ShapeFactory();
+                _hint = shapeFactory.CreateShape(DrawingShapeType, _firstPointX, _firstPointY, pointX, pointY);
                 NotifyModelChanged();
             }
         }
 
         // 完成圖形繪製
-        public void PointerReleased(double x, double y)
+        public void ReleasePointer(double pointX, double pointY)
         {
             if (_isPressed)
             {
                 _isPressed = false;
-                _shapes.Add(_hint);
+                if (_hint != null)
+                    _shapes.Add(_hint);
                 _hint = null;
                 NotifyModelChanged();
             }
@@ -68,6 +71,19 @@ namespace DrawingModel
             if (_isPressed && _hint != null) 
                 _hint.Draw(graphics);
         }
+
+        internal ShapeFactory.ShapeType DrawingShapeType 
+        {
+            get
+            {
+                return _drawingShapeType;
+            }
+            set
+            {
+                _drawingShapeType = value;
+            }
+        }
+
 
         // 通知 model 改變
         void NotifyModelChanged()

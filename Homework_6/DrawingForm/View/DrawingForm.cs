@@ -13,7 +13,7 @@ namespace DrawingForm
     public partial class DrawingForm : Form
     {
         DrawingModel.Model _model;
-        PresentationModel.PresentationModel _presentationModel;
+        PresentationModel.FormPresentationModel _presentationModel;
         Panel _canvas = new DoubleBufferedPanel();
 
         public DrawingForm()
@@ -28,42 +28,42 @@ namespace DrawingForm
             Controls.Add(_canvas);
 
             _model = new DrawingModel.Model();
-            _presentationModel = new PresentationModel.PresentationModel(_model);
+            _presentationModel = new PresentationModel.FormPresentationModel(_model);
             _model._modelChanged += HandleModelChanged;
 
-            this.DataBinding();
+            this.BindData();
         }
 
         // DataBinding
-        private void DataBinding()
+        private void BindData()
         {
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             this._rectangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsRectangleButtonEnabled");
             this._triangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsTriangleButtonEnabled");
         }
 
-        // 滑鼠畫布點下
+        // 畫布滑鼠點下
         public void HandleCanvasPressed(object sender, MouseEventArgs e)
         {
-            _model.PointerPressed(e.X, e.Y);
+            _model.PressPointer(e.X, e.Y);
         }
 
-        // 滑鼠畫布放開
+        // 畫布滑鼠放開
         public void HandleCanvasReleased(object sender, MouseEventArgs e)
         {
-            _model.PointerReleased(e.X, e.Y);
+            _model.ReleasePointer(e.X, e.Y);
         }
 
-        // 滑鼠畫布移動
+        // 畫布滑鼠移動
         public void HandleCanvasMoved(object sender, MouseEventArgs e)
         {
-            _model.PointerMoved(e.X, e.Y);
+            _model.MovePointer(e.X, e.Y);
         }
 
         // 畫布繪製
         public void HandleCanvasPaint(object sender, PaintEventArgs e)
         {
-            _model.Draw(new PresentationModel.FormsGraphicsAdaptor(e.Graphics));
+            _model.Draw(new PresentationModel.FormGraphicsAdaptor(e.Graphics));
         }
 
         // HandleModelChanged
@@ -87,7 +87,7 @@ namespace DrawingForm
         // 點擊清除畫布按鈕
         private void HandleClearButtonClick(object sender, EventArgs e)
         {
-            _model.Clear();
+            this._presentationModel.HandleClearButtonClick();
         }
     }
 }
