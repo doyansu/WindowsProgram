@@ -11,8 +11,8 @@ namespace DrawingModel
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler();
 
-        private double firstPointX = 0;
-        private double firstPointY = 0;
+        private double _firstPointX = 0;
+        private double _firstPointY = 0;
         private bool _isPressed = false;
         private Shapes _shapes = new Shapes();
         private Shape _hint = null;
@@ -23,8 +23,8 @@ namespace DrawingModel
         {
             if (pointX > 0 && pointY > 0)
             {
-                firstPointX = pointX;
-                firstPointY = pointY;
+                _firstPointX = pointX;
+                _firstPointY = pointY;
                 _isPressed = true;
             }
         }
@@ -36,8 +36,8 @@ namespace DrawingModel
             {
                 if ((_hint = _shapes.CreateShape(DrawingShapeType)) != null)
                 {
-                    _hint.X1 = firstPointX;
-                    _hint.Y1 = firstPointY;
+                    _hint.X1 = _firstPointX;
+                    _hint.Y1 = _firstPointY;
                     _hint.X2 = pointX;
                     _hint.Y2 = pointY;
                 }
