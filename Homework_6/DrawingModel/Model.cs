@@ -11,6 +11,8 @@ namespace DrawingModel
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler();
 
+        private double firstPointX = 0;
+        private double firstPointY = 0;
         private bool _isPressed = false;
         private Shapes _shapes = new Shapes();
         private Shape _hint = null;
@@ -21,22 +23,24 @@ namespace DrawingModel
         {
             if (pointX > 0 && pointY > 0)
             {
-                if ((_hint = _shapes.CreateShape(DrawingShapeType)) != null)
-                {
-                    _hint.X1 = pointX;
-                    _hint.Y1 = pointY;
-                    _isPressed = true;
-                }
+                firstPointX = pointX;
+                firstPointY = pointY;
+                _isPressed = true;
             }
         }
 
         // 繪製移動
         public void MovePointer(double pointX, double pointY)
         {
-            if (_isPressed && _hint != null)
+            if (_isPressed)
             {
-                _hint.X2 = pointX;
-                _hint.Y2 = pointY;
+                if ((_hint = _shapes.CreateShape(DrawingShapeType)) != null)
+                {
+                    _hint.X1 = firstPointX;
+                    _hint.Y1 = firstPointY;
+                    _hint.X2 = pointX;
+                    _hint.Y2 = pointY;
+                }
                 NotifyModelChanged();
             }
         }

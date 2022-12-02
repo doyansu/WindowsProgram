@@ -26,7 +26,7 @@ namespace DrawingForm
             _canvas.MouseMove += HandleCanvasMoved;
             _canvas.Paint += HandleCanvasPaint;
             Controls.Add(_canvas);
-
+            
             _model = new DrawingModel.Model();
             _presentationModel = new PresentationModel.FormPresentationModel(_model);
             _model._modelChanged += HandleModelChanged;
