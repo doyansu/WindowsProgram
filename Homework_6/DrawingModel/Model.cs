@@ -11,31 +11,32 @@ namespace DrawingModel
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler();
 
-        double _firstPointX;
-        double _firstPointY;
-        bool _isPressed = false;
-        List<Shape> _shapes = new List<Shape>();
-        Shape _hint = null;
-        ShapeFactory.ShapeType _drawingShapeType = ShapeFactory.ShapeType.Null;
+        private bool _isPressed = false;
+        private Shapes _shapes = new Shapes();
+        private Shape _hint = null;
+        private ShapeFactory.ShapeType _drawingShapeType = ShapeFactory.ShapeType.Null;
 
         // 開始繪製
         public void PressPointer(double pointX, double pointY)
         {
             if (pointX > 0 && pointY > 0)
             {
-                _firstPointX = pointX;
-                _firstPointY = pointY;
-                _isPressed = true;
+                if ((_hint = _shapes.CreateShape(DrawingShapeType)) != null)
+                {
+                    _hint.X1 = pointX;
+                    _hint.Y1 = pointY;
+                    _isPressed = true;
+                }
             }
         }
 
         // 繪製移動
         public void MovePointer(double pointX, double pointY)
         {
-            if (_isPressed)
+            if (_isPressed && _hint != null)
             {
-                ShapeFactory shapeFactory = new ShapeFactory();
-                _hint = shapeFactory.CreateShape(DrawingShapeType, new IPoint(_firstPointX, _firstPointY), new IPoint(pointX, pointY));
+                _hint.X2 = pointX;
+                _hint.Y2 = pointY;
                 NotifyModelChanged();
             }
         }
@@ -47,8 +48,10 @@ namespace DrawingModel
             {
                 _isPressed = false;
                 if (_hint != null)
+                {
                     _shapes.Add(_hint);
-                _hint = null;
+                    _hint = null;
+                }
                 NotifyModelChanged();
             }
         }
@@ -66,13 +69,12 @@ namespace DrawingModel
         public void Draw(IGraphics graphics)
         {
             graphics.ClearAll();
-            foreach (Shape shape in _shapes)
-                shape.Draw(graphics);
+            _shapes.Draw(graphics);
             if (_isPressed && _hint != null) 
                 _hint.Draw(graphics);
         }
 
-        internal ShapeFactory.ShapeType DrawingShapeType 
+        public ShapeFactory.ShapeType DrawingShapeType 
         {
             get
             {

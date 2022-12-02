@@ -82,6 +82,9 @@
     <Compile Include="..\DrawingModel\Shapes\ShapeFactory.cs">
       <Link>Model\ShapeFactory.cs</Link>
     </Compile>
+    <Compile Include="..\DrawingModel\Shapes\Shapes.cs">
+      <Link>Model\Shapes.cs</Link>
+    </Compile>
     <Compile Include="..\DrawingModel\Shapes\Triangle.cs">
       <Link>Model\Triangle.cs</Link>
     </Compile>

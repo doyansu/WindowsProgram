@@ -8,76 +8,28 @@ namespace DrawingModel
 {
     class Rectangle : Shape
     {
-        private IPoint _topLeft = new IPoint();
-        private IPoint _bottomRight = new IPoint();
         public Rectangle()
         {
 
         }
 
-        public Rectangle(IPoint topLeft, IPoint bottomRight)
+        public Rectangle(IPoint topLeft, IPoint bottomRight) : base(topLeft, bottomRight)
         {
-            _topLeft = topLeft;
-            _bottomRight = bottomRight;
+
         }
 
         public Rectangle(double x1, double y1, double x2, double y2)
         {
-            _topLeft.X = x1;
-            _topLeft.Y = y1;
-            _bottomRight.X = x2;
-            _bottomRight.Y = y2;
+            this.X1 = x1;
+            this.Y1 = y1;
+            this.X2 = x2;
+            this.Y2 = y2;
         }
 
         // 繪製線
-        public void Draw(IGraphics graphics)
+        public override void Draw(IGraphics graphics)
         {
             graphics.DrawRectangle(X1, Y1, X2, Y2);
-        }
-
-        public double X1
-        {
-            get
-            {
-                return _topLeft.X;
-            }
-            set
-            {
-                _topLeft.X = value;
-            }
-        }
-        public double Y1
-        {
-            get
-            {
-                return _topLeft.Y;
-            }
-            set
-            {
-                _topLeft.Y = value;
-            }
-        }
-        public double X2
-        {
-            get
-            {
-                return _bottomRight.X;
-            }
-            set
-            {
-                _bottomRight.X = value;
-            }
-        }
-        public double Y2
-        {
-            get
-            {
-                return _bottomRight.Y;
-            }
-            set
-            {
-                _bottomRight.Y = value;
-            }
         }
     }
 }

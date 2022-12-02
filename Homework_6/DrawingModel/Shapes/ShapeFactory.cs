@@ -21,19 +21,19 @@ namespace DrawingModel
         }
 
         // 創建圖形
-        public Shape CreateShape(ShapeType shapeType, IPoint topLeft, IPoint bottomRight)
+        public Shape CreateShape(ShapeType shapeType)
         {
             Shape shape = null;
             switch (shapeType)
             {
                 case ShapeType.Line:
-                    shape = new Line(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y);
+                    shape = new Line();
                     break;
                 case ShapeType.Rectangle:
-                    shape = new Rectangle(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y);
+                    shape = new Rectangle();
                     break;
                 case ShapeType.Triangle:
-                    shape = new Triangle(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y);
+                    shape = new Triangle();
                     break;
                 case ShapeType.Null:
                 default:

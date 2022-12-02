@@ -26,6 +26,14 @@ namespace DrawingApp.PresentationModel
             _graphics = graphics;
         }
 
+        // 重置狀態
+        private void Reset()
+        {
+            this.IsRectangleButtonEnabled = true;
+            this.IsTriangleButtonEnabled = true;
+            this._model.DrawingShapeType = ShapeFactory.ShapeType.Null;
+        }
+
         // 點擊矩形按鈕
         public void HandleRectangleButtonClick()
         {
@@ -46,9 +54,14 @@ namespace DrawingApp.PresentationModel
         public void HandleClearButtonClick()
         {
             _model.Clear();
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = true;
-            this._model.DrawingShapeType = ShapeFactory.ShapeType.Null;
+            this.Reset();
+        }
+
+        // 完成畫布繪製
+        public void HandleCanvasReleased(double pointX, double pointY)
+        {
+            _model.ReleasePointer(pointX, pointY);
+            this.Reset();
         }
 
         // 繪製圖形

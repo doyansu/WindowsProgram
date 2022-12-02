@@ -51,7 +51,7 @@ namespace DrawingForm
         // 畫布滑鼠放開
         public void HandleCanvasReleased(object sender, MouseEventArgs e)
         {
-            _model.ReleasePointer(e.X, e.Y);
+            _presentationModel.HandleCanvasReleased(e.X, e.Y);
         }
 
         // 畫布滑鼠移動

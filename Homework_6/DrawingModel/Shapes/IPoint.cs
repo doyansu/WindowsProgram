@@ -22,6 +22,13 @@ namespace DrawingModel
             _y = pointY;
         }
 
+        // 取得複製 IPoint 物件
+        public IPoint Copy()
+        {
+            IPoint copyPoint = new IPoint(this.X, this.Y);
+            return copyPoint;
+        }
+
         public double X 
         {
             get

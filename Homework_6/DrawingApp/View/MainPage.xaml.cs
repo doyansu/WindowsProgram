@@ -63,7 +63,7 @@ namespace DrawingApp
         // 畫布滑鼠放開
         public void HandleCanvasReleased(object sender, PointerRoutedEventArgs e)
         {
-            _model.ReleasePointer(e.GetCurrentPoint(_canvas).Position.X, e.GetCurrentPoint(_canvas).Position.Y);
+            _presentationModel.HandleCanvasReleased(e.GetCurrentPoint(_canvas).Position.X, e.GetCurrentPoint(_canvas).Position.Y);
         }
 
         // 畫布滑鼠移動
