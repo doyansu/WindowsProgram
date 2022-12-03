@@ -15,6 +15,6 @@ Height="44" Margin="1121,24,99,0" VerticalAlignment="Top" Click="HandleClearButt
 Height="44" Margin="610,24,610,0" VerticalAlignment="Top" Click="HandleTriangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsTriangleButtonEnabled, Mode=OneWay}" RenderTransformOrigin="0.479,-0.384" Canvas.ZIndex="1"/>
         <Button x:Name="_rectangleButton" Content="Rectangle" HorizontalAlignment="Stretch"
 Height="44" Margin="99,24,1121,0" VerticalAlignment="Top" Click="HandleRectangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsRectangleButtonEnabled, Mode=OneWay}" Canvas.ZIndex="1"/>
-        <Canvas x:Name="_canvas" Background="#FFFFFFA0"/>
+        <Canvas x:Name="_canvas" Background="#FFFFFFA0" Margin="0,73,0,0"/>
     </Grid>
 </Page>
