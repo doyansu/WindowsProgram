@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    abstract class Shape
+    public abstract class Shape
     {
         private IPoint _topLeft = new IPoint();
         private IPoint _bottomRight = new IPoint();

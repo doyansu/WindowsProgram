@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class Rectangle : Shape
+    public class Rectangle : Shape
     {
         public Rectangle()
         {

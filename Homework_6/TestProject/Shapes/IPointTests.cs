@@ -48,7 +48,7 @@ namespace DrawingModel.Tests
             double pointY = 5;
             _point = new IPoint(pointX, pointY);
             IPoint copyPoint = _point.Copy();
-            Assert.AreEqual(false, _point == copyPoint);
+            Assert.AreNotEqual(copyPoint, _point);
             Assert.AreEqual(copyPoint.X, _point.X);
             Assert.AreEqual(copyPoint.Y, _point.Y);
         }

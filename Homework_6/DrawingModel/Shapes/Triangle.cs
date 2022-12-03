@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class Triangle : Shape
+    public class Triangle : Shape
     {
         public Triangle()
         {
