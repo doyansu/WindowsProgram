@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class IPoint
+    public class IPoint
     {
         double _x = 0;
         double _y = 0;

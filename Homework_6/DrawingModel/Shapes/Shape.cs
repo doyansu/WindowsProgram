@@ -8,13 +8,12 @@ namespace DrawingModel
 {
     abstract class Shape
     {
-        private IPoint _topLeft;
-        private IPoint _bottomRight;
+        private IPoint _topLeft = new IPoint();
+        private IPoint _bottomRight = new IPoint();
 
         protected Shape()
         {
-            _topLeft = new IPoint();
-            _bottomRight = new IPoint();
+
         }
 
         protected Shape(IPoint topLeft, IPoint bottomRight)
