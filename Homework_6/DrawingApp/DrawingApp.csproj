@@ -116,6 +116,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\DrawingModel\Factorys\IShapeFactory.cs">
+      <Link>Model\IShapeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\Factorys\ShapeFactory.cs">
+      <Link>Model\ShapeFactory.cs</Link>
+    </Compile>
     <Compile Include="..\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
     </Compile>
@@ -133,9 +139,6 @@
     </Compile>
     <Compile Include="..\DrawingModel\Shapes\Shape.cs">
       <Link>Model\Shape.cs</Link>
-    </Compile>
-    <Compile Include="..\DrawingModel\Shapes\ShapeFactory.cs">
-      <Link>Model\ShapeFactory.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\Shapes\Shapes.cs">
       <Link>Model\Shapes.cs</Link>

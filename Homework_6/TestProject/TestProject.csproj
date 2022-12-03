@@ -73,6 +73,8 @@
     <Compile Include="Shapes\IPointTests.cs" />
     <Compile Include="Shapes\LineTests.cs" />
     <Compile Include="Shapes\RectangleTests.cs" />
+    <Compile Include="Factorys\ShapeFactoryTests.cs" />
+    <Compile Include="Shapes\ShapesTests.cs" />
     <Compile Include="Shapes\TriangleTests.cs" />
   </ItemGroup>
   <ItemGroup>

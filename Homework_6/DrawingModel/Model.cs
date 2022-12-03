@@ -14,9 +14,14 @@ namespace DrawingModel
         private double _firstPointX = 0;
         private double _firstPointY = 0;
         private bool _isPressed = false;
-        private Shapes _shapes = new Shapes();
+        private Shapes _shapes;
         private Shape _hint = null;
-        private ShapeFactory.ShapeType _drawingShapeType = ShapeFactory.ShapeType.Null;
+        private ShapeType _drawingShapeType = ShapeType.Null;
+
+        public Model()
+        {
+            _shapes = new Shapes(new ShapeFactory());
+        }
 
         // 開始繪製
         public void PressPointer(double pointX, double pointY)
@@ -78,7 +83,7 @@ namespace DrawingModel
                 _hint.Draw(graphics);
         }
 
-        public ShapeFactory.ShapeType DrawingShapeType 
+        public ShapeType DrawingShapeType 
         {
             get
             {

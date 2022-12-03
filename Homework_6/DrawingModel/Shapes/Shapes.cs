@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class Shapes
+    public class Shapes
     {
         List<Shape> _shapes = new List<Shape>();
+        IShapeFactory _shapeFactory;
+
+        public Shapes(IShapeFactory shapeFactory)
+        {
+            _shapeFactory = shapeFactory;
+        }
 
         // Add
         public void Add(Shape shape)
@@ -23,10 +29,9 @@ namespace DrawingModel
         }
 
         // 創建圖形
-        public Shape CreateShape(ShapeFactory.ShapeType shapeType)
+        public Shape CreateShape(ShapeType shapeType)
         {
-            ShapeFactory shapeFactory = new ShapeFactory();
-            return shapeFactory.CreateShape(shapeType);
+            return _shapeFactory.CreateShape(shapeType);
         }
 
         // 繪製所有圖形
@@ -34,6 +39,21 @@ namespace DrawingModel
         {
             foreach (Shape shape in _shapes)
                 shape.Draw(graphics);
+        }
+
+        // Get Shape
+        public Shape GetBy(int index)
+        {
+            Shape shape = (index >= 0 && index < this.Count) ? _shapes[index] : null;
+            return shape;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return this._shapes.Count;
+            }
         }
     }
 }

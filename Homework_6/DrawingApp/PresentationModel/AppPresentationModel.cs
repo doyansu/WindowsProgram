@@ -31,7 +31,7 @@ namespace DrawingApp.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = true;
-            this._model.DrawingShapeType = ShapeFactory.ShapeType.Null;
+            this._model.DrawingShapeType = ShapeType.Null;
         }
 
         // 點擊矩形按鈕
@@ -39,7 +39,7 @@ namespace DrawingApp.PresentationModel
         {
             this.IsRectangleButtonEnabled = false;
             this.IsTriangleButtonEnabled = true;
-            this._model.DrawingShapeType = ShapeFactory.ShapeType.Rectangle;
+            this._model.DrawingShapeType = ShapeType.Rectangle;
         }
 
         // 點擊三角形按鈕
@@ -47,7 +47,7 @@ namespace DrawingApp.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = false;
-            this._model.DrawingShapeType = ShapeFactory.ShapeType.Triangle;
+            this._model.DrawingShapeType = ShapeType.Triangle;
         }
 
         // 點擊清除畫布按鈕

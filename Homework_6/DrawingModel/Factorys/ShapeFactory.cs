@@ -6,15 +6,8 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class ShapeFactory
+    public class ShapeFactory : IShapeFactory
     {
-        public enum ShapeType
-        {
-            Null,
-            Line,
-            Rectangle,
-            Triangle
-        }
         public ShapeFactory()
         {
             
@@ -35,7 +28,6 @@ namespace DrawingModel
                 case ShapeType.Triangle:
                     shape = new Triangle();
                     break;
-                case ShapeType.Null:
                 default:
                     break;
             }
