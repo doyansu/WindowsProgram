@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    class Model
+    public class Model
     {
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler();
@@ -96,7 +96,7 @@ namespace DrawingModel
         }
 
         // 通知 model 改變
-        void NotifyModelChanged()
+        private void NotifyModelChanged()
         {
             if (_modelChanged != null)
                 _modelChanged();
