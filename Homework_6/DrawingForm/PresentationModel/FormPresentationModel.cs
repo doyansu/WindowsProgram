@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace DrawingForm.PresentationModel
 {
-    class FormPresentationModel : INotifyPropertyChanged
+    public class FormPresentationModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
