@@ -1,5 +1,6 @@
 ##Myignore 
 */BadSmell.smell
+*/*/BadSmell.smell
 ##
 
 ## Ignore Visual Studio temporary files, build results, and
