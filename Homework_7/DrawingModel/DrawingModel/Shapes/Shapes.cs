@@ -29,7 +29,7 @@ namespace DrawingModel
         }
 
         // RemoveAt
-        public void RemoveAt(int index)
+        public void RemoveBy(int index)
         {
             if (index >= 0)
                 _shapes.RemoveAt(index);

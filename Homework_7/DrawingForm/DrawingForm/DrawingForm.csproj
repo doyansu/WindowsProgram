@@ -100,8 +100,14 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Triangle.cs">
       <Link>Model\Triangle.cs</Link>
     </Compile>
-    <Compile Include="View\DoubleBufferedPanel.cs">
+    <Compile Include="View\Components\DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Components\ToolStripBindableButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Components\ToolStripBindableButton.Designer.cs">
+      <DependentUpon>ToolStripBindableButton.cs</DependentUpon>
     </Compile>
     <Compile Include="View\DrawingForm.cs">
       <SubType>Form</SubType>

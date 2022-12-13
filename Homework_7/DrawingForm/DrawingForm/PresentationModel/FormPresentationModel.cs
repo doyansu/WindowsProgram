@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DrawingForm.PresentationModel
+namespace DrawingFormSpace.PresentationModel
 {
     public class FormPresentationModel : INotifyPropertyChanged
     {

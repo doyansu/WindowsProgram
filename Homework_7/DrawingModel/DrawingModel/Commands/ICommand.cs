@@ -10,6 +10,6 @@ namespace DrawingModel
         // 執行命令
         void Execute();
         // 取消命令
-        void UnExecute();
+        void CancelExecute();
     }
 }

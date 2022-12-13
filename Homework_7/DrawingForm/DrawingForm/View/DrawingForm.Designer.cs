@@ -1,5 +1,5 @@
 ﻿
-namespace DrawingForm
+namespace DrawingFormSpace
 {
     partial class DrawingForm
     {
@@ -29,11 +29,17 @@ namespace DrawingForm
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DrawingForm));
             this._clearButton = new System.Windows.Forms.Button();
             this._rectangleButton = new System.Windows.Forms.Button();
             this._triangleButton = new System.Windows.Forms.Button();
             this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this._toolStrip = new System.Windows.Forms.ToolStrip();
+            this._toolStripUndoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
+            this._toolStripRedoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
+            this._canvas = new DrawingFormSpace.DoubleBufferedPanel();
             this._tableLayoutPanel.SuspendLayout();
+            this._toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _clearButton
@@ -88,24 +94,69 @@ namespace DrawingForm
             this._tableLayoutPanel.Controls.Add(this._clearButton, 2, 0);
             this._tableLayoutPanel.Controls.Add(this._triangleButton, 1, 0);
             this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this._tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this._tableLayoutPanel.Location = new System.Drawing.Point(0, 25);
             this._tableLayoutPanel.Name = "_tableLayoutPanel";
             this._tableLayoutPanel.RowCount = 1;
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.Size = new System.Drawing.Size(800, 50);
             this._tableLayoutPanel.TabIndex = 4;
             // 
+            // _toolStrip
+            // 
+            this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolStripUndoButton,
+            this._toolStripRedoButton});
+            this._toolStrip.Location = new System.Drawing.Point(0, 0);
+            this._toolStrip.Name = "_toolStrip";
+            this._toolStrip.Size = new System.Drawing.Size(800, 25);
+            this._toolStrip.TabIndex = 5;
+            this._toolStrip.Text = "toolStrip1";
+            // 
+            // _toolStripUndoButton
+            // 
+            this._toolStripUndoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._toolStripUndoButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripUndoButton.Image")));
+            this._toolStripUndoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripUndoButton.Name = "_toolStripUndoButton";
+            this._toolStripUndoButton.Size = new System.Drawing.Size(43, 22);
+            this._toolStripUndoButton.Text = "Undo";
+            this._toolStripUndoButton.Click += new System.EventHandler(this.HandleToolStripUndoButtonClick);
+            // 
+            // _toolStripRedoButton
+            // 
+            this._toolStripRedoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._toolStripRedoButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripRedoButton.Image")));
+            this._toolStripRedoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripRedoButton.Name = "_toolStripRedoButton";
+            this._toolStripRedoButton.Size = new System.Drawing.Size(42, 22);
+            this._toolStripRedoButton.Text = "Redo";
+            this._toolStripRedoButton.Click += new System.EventHandler(this.HandleToolStripRedoButtonClick);
+            // 
+            // _canvas
+            // 
+            this._canvas.BackColor = System.Drawing.Color.LightYellow;
+            this._canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._canvas.Location = new System.Drawing.Point(0, 75);
+            this._canvas.Name = "_canvas";
+            this._canvas.Size = new System.Drawing.Size(800, 375);
+            this._canvas.TabIndex = 6;
+            // 
             // DrawingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._canvas);
             this.Controls.Add(this._tableLayoutPanel);
+            this.Controls.Add(this._toolStrip);
             this.Name = "DrawingForm";
             this.Text = "DrawingForm";
             this._tableLayoutPanel.ResumeLayout(false);
             this._tableLayoutPanel.PerformLayout();
+            this._toolStrip.ResumeLayout(false);
+            this._toolStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -114,6 +165,10 @@ namespace DrawingForm
         private System.Windows.Forms.Button _rectangleButton;
         private System.Windows.Forms.Button _triangleButton;
         private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
+        private System.Windows.Forms.ToolStrip _toolStrip;
+        private View.Components.ToolStripBindingButton _toolStripUndoButton;
+        private View.Components.ToolStripBindingButton _toolStripRedoButton;
+        private DoubleBufferedPanel _canvas;
     }
 }
 

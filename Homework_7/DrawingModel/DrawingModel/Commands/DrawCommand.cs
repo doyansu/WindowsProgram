@@ -20,7 +20,7 @@ namespace DrawingModel
         }
 
         // 取消命令
-        public void UnExecute()
+        public void CancelExecute()
         {
             _model.DeleteShape();
         }

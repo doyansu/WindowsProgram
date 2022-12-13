@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace DrawingModel
     public class Model
     {
         public event ModelChangedEventHandler _modelChanged;
+
         public delegate void ModelChangedEventHandler();
 
         private double _firstPointX = 0;
@@ -84,6 +86,20 @@ namespace DrawingModel
                 _hint.Draw(graphics);
         }
 
+        // 回上一個命令
+        public void Undo()
+        {
+            _commandManager.Undo();
+            NotifyModelChanged();
+        }
+
+        // 回下一個命令
+        public void Redo()
+        {
+            _commandManager.Redo();
+            NotifyModelChanged();
+        }
+
         // 加入繪製圖形
         public void DrawShape(Shape shape)
         {
@@ -93,7 +109,15 @@ namespace DrawingModel
         // 移除最後一個圖形
         public void DeleteShape()
         {
-            _shapes.RemoveAt(-1);
+            _shapes.RemoveBy(-1);
+        }
+
+        public object CommandBindingObject
+        {
+            get
+            {
+                return this._commandManager;
+            }
         }
 
         public ShapeType DrawingShapeType 

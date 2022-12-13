@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using DrawingModel;
 
-namespace DrawingForm.PresentationModel
+namespace DrawingFormSpace.PresentationModel
 {
     class FormGraphicsAdaptor : IGraphics
     {
@@ -45,7 +45,7 @@ namespace DrawingForm.PresentationModel
             float height = (float)Math.Abs(y2 - y1);
             float startX = x1 > x2 ? (float)x2 : (float)x1;
             float startY = y1 > y2 ? (float)y2 : (float)y1;
-            System.Drawing.Brush brush = new System.Drawing.SolidBrush(System.Drawing.Color.Yellow); ;
+            System.Drawing.Brush brush = new System.Drawing.SolidBrush(System.Drawing.Color.Yellow);
             _graphics.FillRectangle(brush, startX, startY, width, height);
             _graphics.DrawRectangle(this._pen, startX, startY, width, height);
             brush.Dispose();
@@ -62,7 +62,7 @@ namespace DrawingForm.PresentationModel
                 new PointF((float)x1, (float)y2),
                 new PointF((float)x2, (float)y2),
                 new PointF((float)((x1 + x2) / 2), (float)y1) };
-            System.Drawing.Brush brush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange); ;
+            System.Drawing.Brush brush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange);
             _graphics.FillPolygon(brush, points);
             _graphics.DrawPolygon(this._pen, points);
             brush.Dispose();

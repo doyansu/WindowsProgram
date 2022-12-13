@@ -8,24 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DrawingForm
+namespace DrawingFormSpace
 {
     public partial class DrawingForm : Form
     {
         DrawingModel.Model _model;
         PresentationModel.FormPresentationModel _presentationModel;
-        Panel _canvas = new DoubleBufferedPanel();
 
         public DrawingForm()
         {
             InitializeComponent();
-            _canvas.Dock = DockStyle.Fill;
-            _canvas.BackColor = System.Drawing.Color.LightYellow;
             _canvas.MouseDown += HandleCanvasPressed;
             _canvas.MouseUp += HandleCanvasReleased;
             _canvas.MouseMove += HandleCanvasMoved;
             _canvas.Paint += HandleCanvasPaint;
-            Controls.Add(_canvas);
             
             _model = new DrawingModel.Model();
             _presentationModel = new PresentationModel.FormPresentationModel(_model);
@@ -40,6 +36,8 @@ namespace DrawingForm
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
             this._rectangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsRectangleButtonEnabled");
             this._triangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsTriangleButtonEnabled");
+            this._toolStripRedoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsRedoEnabled");
+            this._toolStripUndoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsUndoEnabled");
         }
 
         // 畫布滑鼠點下
@@ -88,6 +86,18 @@ namespace DrawingForm
         private void HandleClearButtonClick(object sender, EventArgs e)
         {
             this._presentationModel.HandleClearButtonClick();
+        }
+
+        // Undo 按鈕點擊
+        private void HandleToolStripUndoButtonClick(object sender, EventArgs e)
+        {
+            this._model.Undo();
+        }
+
+        // Redo 按鈕點擊
+        private void HandleToolStripRedoButtonClick(object sender, EventArgs e)
+        {
+            this._model.Redo();
         }
     }
 }

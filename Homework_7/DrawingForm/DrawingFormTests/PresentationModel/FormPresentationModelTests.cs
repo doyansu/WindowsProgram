@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DrawingForm.PresentationModel;
+using DrawingFormSpace.PresentationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using Moq;
 using DrawingModel;
 using System.ComponentModel;
 
-namespace DrawingForm.PresentationModel.Tests
+namespace DrawingFormSpace.PresentationModel.Tests
 {
     [TestClass()]
     public class FormPresentationModelTests
