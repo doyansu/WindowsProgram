@@ -28,6 +28,17 @@ namespace DrawingModel
             _shapes.Clear();
         }
 
+        // RemoveAt
+        public void RemoveAt(int index)
+        {
+            if (index >= 0)
+                _shapes.RemoveAt(index);
+            else if (this.Count + index >= 0)
+                _shapes.RemoveAt(this.Count + index);
+            else
+                throw new ArgumentOutOfRangeException();
+        }
+
         // 創建圖形
         public Shape CreateShape(ShapeType shapeType)
         {

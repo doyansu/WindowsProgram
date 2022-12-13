@@ -61,6 +61,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\CommandManager.cs">
+      <Link>Model\CommandManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\DrawCommand.cs">
+      <Link>Model\DrawCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ICommand.cs">
+      <Link>Model\ICommand.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\IShapeFactory.cs">
       <Link>Model\IShapeFactory.cs</Link>
     </Compile>

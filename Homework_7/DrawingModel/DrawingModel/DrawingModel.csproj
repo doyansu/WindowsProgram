@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Commands\DrawCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Factorys\IShapeFactory.cs" />
     <Compile Include="IGraphics.cs" />
     <Compile Include="Shapes\IPoint.cs" />

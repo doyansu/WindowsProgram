@@ -17,6 +17,7 @@ namespace DrawingModel
         private Shapes _shapes;
         private Shape _hint = null;
         private ShapeType _drawingShapeType = ShapeType.Null;
+        private CommandManager _commandManager = new CommandManager();
 
         public Model()
         {
@@ -58,7 +59,7 @@ namespace DrawingModel
                 _isPressed = false;
                 if (_hint != null)
                 {
-                    _shapes.Add(_hint);
+                    _commandManager.Execute(new DrawCommand(this, _hint));
                     _hint = null;
                 }
                 NotifyModelChanged();
@@ -81,6 +82,18 @@ namespace DrawingModel
             _shapes.Draw(graphics);
             if (_isPressed && _hint != null) 
                 _hint.Draw(graphics);
+        }
+
+        // 加入繪製圖形
+        public void DrawShape(Shape shape)
+        {
+            _shapes.Add(shape);
+        }
+
+        // 移除最後一個圖形
+        public void DeleteShape()
+        {
+            _shapes.RemoveAt(-1);
         }
 
         public ShapeType DrawingShapeType 
