@@ -22,12 +22,6 @@ namespace DrawingModel
             _shapes.Add(shape);
         }
 
-        //Clear
-        public void Clear()
-        {
-            _shapes.Clear();
-        }
-
         // RemoveAt
         public void RemoveBy(int index)
         {
@@ -39,22 +33,18 @@ namespace DrawingModel
                 throw new ArgumentOutOfRangeException();
         }
 
-        // 刪除最後一個並回傳
-        public Shape Pop()
+        // Contains
+        public bool Contains(Shape shape)
         {
-            Shape shape = null;
-            if (this.Count > 0)
-            {
-                shape = this._shapes[this.Count - 1];
-                this._shapes.Remove(shape);
-            }
-            return shape;
+            return _shapes.Contains(shape);
         }
 
-        // 創建圖形
-        public Shape CreateShape(ShapeType shapeType)
+        //Clear
+        public Shape[] Clear()
         {
-            return _shapeFactory.CreateShape(shapeType);
+            Shape[] shapes = _shapes.ToArray();
+            _shapes.Clear();
+            return shapes;
         }
 
         // 繪製所有圖形
@@ -62,6 +52,25 @@ namespace DrawingModel
         {
             foreach (Shape shape in _shapes)
                 shape.Draw(graphics);
+        }
+
+        // 檢查是否包含在圖形內，回傳最上面的一個
+        public Shape CheckPointContains(double pointX, double pointY)
+        {
+            Shape shape = null;
+            for (int i = this.Count - 1; i >= 0; i--)
+                if (_shapes[i].IsContains(pointX, pointY))
+                {
+                    shape = _shapes[i];
+                    break;
+                }
+            return shape;
+        }
+
+        // 創建圖形
+        public Shape CreateShape(ShapeType shapeType)
+        {
+            return _shapeFactory.CreateShape(shapeType);
         }
 
         // Get Shape

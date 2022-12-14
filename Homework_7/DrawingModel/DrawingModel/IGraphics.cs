@@ -16,6 +16,8 @@ namespace DrawingModel
         void DrawRectangle(double x1, double y1, double x2, double y2);
         // 繪製三角形
         void DrawTriangle(double x1, double y1, double x2, double y2);
+        // 繪製選取虛線方框
+        void DrawSelectedRectangle(double x1, double y1, double x2, double y2);
     }
 
 }

@@ -20,16 +20,22 @@ namespace DrawingModel
 
         public Line(double x1, double y1, double x2, double y2)
         {
-            this.X1 = x1;
-            this.Y1 = y1;
-            this.X2 = x2;
-            this.Y2 = y2;
+            this.StartX = x1;
+            this.StartY = y1;
+            this.EndX = x2;
+            this.EndY = y2;
         }
 
         // 繪製線
         public override void Draw(IGraphics graphics)
         {
-            graphics.DrawLine(X1, Y1, X2, Y2);
+            graphics.DrawLine(StartX, StartY, EndX, EndY);
+        }
+
+        // IsContains Line always false
+        public override bool IsContains(double pointX, double pointY)
+        {
+            return false;
         }
     }
 }

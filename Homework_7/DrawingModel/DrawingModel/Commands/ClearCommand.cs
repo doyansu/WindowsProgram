@@ -20,9 +20,7 @@ namespace DrawingModel.Commands
         // 執行命令
         public void Execute()
         {
-            while (_shapes.Count > 0)
-                _shapeList.Add(_shapes.Pop());
-            _shapeList.Reverse();
+            _shapeList = _shapes.Clear().ToList();
         }
 
         // 取消命令

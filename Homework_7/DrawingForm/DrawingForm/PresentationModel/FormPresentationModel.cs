@@ -18,6 +18,8 @@ namespace DrawingFormSpace.PresentationModel
 
         bool _isRectangleButtonEnabled = true;
         bool _isTriangleButtonEnabled = true;
+        bool _isLineButtonEnabled = true;
+
         public FormPresentationModel(Model model)
         {
             this._model = model;
@@ -28,6 +30,7 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = true;
+            this.IsLineButtonEnabled = true;
             this._model.DrawingShapeMode = ShapeType.Null;
         }
 
@@ -36,6 +39,7 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = false;
             this.IsTriangleButtonEnabled = true;
+            this.IsLineButtonEnabled = true;
             this._model.DrawingShapeMode = ShapeType.Rectangle;
         }
 
@@ -44,7 +48,17 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = false;
+            this.IsLineButtonEnabled = true;
             this._model.DrawingShapeMode = ShapeType.Triangle;
+        }
+
+        // 點擊畫線按鈕
+        public void HandleLineButtonClick()
+        {
+            this.IsRectangleButtonEnabled = true;
+            this.IsTriangleButtonEnabled = true;
+            this.IsLineButtonEnabled = false;
+            this._model.DrawingShapeMode = ShapeType.Line;
         }
 
         // 點擊清除畫布按鈕
@@ -88,6 +102,22 @@ namespace DrawingFormSpace.PresentationModel
                 {
                     this._isTriangleButtonEnabled = value;
                     NotifyPropertyChanged("IsTriangleButtonEnabled");
+                }
+            }
+        }
+
+        public bool IsLineButtonEnabled 
+        {
+            get
+            {
+                return _isLineButtonEnabled;
+            }
+            set
+            {
+                if (this._isLineButtonEnabled != value)
+                {
+                    this._isLineButtonEnabled = value;
+                    NotifyPropertyChanged("IsLineButtonEnabled");
                 }
             }
         }

@@ -20,16 +20,23 @@ namespace DrawingModel
 
         public Rectangle(double x1, double y1, double x2, double y2)
         {
-            this.X1 = x1;
-            this.Y1 = y1;
-            this.X2 = x2;
-            this.Y2 = y2;
+            this.StartX = x1;
+            this.StartY = y1;
+            this.EndX = x2;
+            this.EndY = y2;
         }
 
         // 繪製線
         public override void Draw(IGraphics graphics)
         {
-            graphics.DrawRectangle(X1, Y1, X2, Y2);
+            graphics.DrawRectangle(this.Left, this.Top, this.Right, this.Bottom);
+        }
+
+        // 圖形資訊
+        public override string ShapeInformation()
+        {
+            const string SHAPE_NAME = "Rectangle";
+            return FormatShapeInformation(SHAPE_NAME);
         }
     }
 }

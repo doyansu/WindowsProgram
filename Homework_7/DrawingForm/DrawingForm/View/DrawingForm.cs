@@ -34,10 +34,13 @@ namespace DrawingFormSpace
         private void BindData()
         {
             const string BIND_ATTRIBUTE_ENABLED = "Enabled";
+            const string BIND_ATTRIBUTE_TEXT = "Text";
             this._rectangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsRectangleButtonEnabled");
             this._triangleButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsTriangleButtonEnabled");
+            this._lineButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsLineButtonEnabled");
             this._toolStripRedoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsRedoEnabled");
             this._toolStripUndoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsUndoEnabled");
+            this._selectedShapeLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._model, "SelectedShapeInformation");
         }
 
         // 畫布滑鼠點下
@@ -88,6 +91,12 @@ namespace DrawingFormSpace
             this._presentationModel.HandleClearButtonClick();
         }
 
+        // 點擊畫線按鈕
+        private void HandleLineButtonClick(object sender, EventArgs e)
+        {
+            this._presentationModel.HandleLineButtonClick();
+        }
+
         // Undo 按鈕點擊
         private void HandleToolStripUndoButtonClick(object sender, EventArgs e)
         {
@@ -98,11 +107,6 @@ namespace DrawingFormSpace
         private void HandleToolStripRedoButtonClick(object sender, EventArgs e)
         {
             this._model.Redo();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -20,16 +20,41 @@ namespace DrawingModel
 
         public Triangle(double x1, double y1, double x2, double y2)
         {
-            this.X1 = x1;
-            this.Y1 = y1;
-            this.X2 = x2;
-            this.Y2 = y2;
+            this.StartX = x1;
+            this.StartY = y1;
+            this.EndX = x2;
+            this.EndY = y2;
         }
 
         // 繪製線
         public override void Draw(IGraphics graphics)
         {
-            graphics.DrawTriangle(X1, Y1, X2, Y2);
+            graphics.DrawTriangle(this.Left, this.Top, this.Right, this.Bottom);
+        }
+
+        // IsContains
+        public override bool IsContains(double pointX, double pointY)
+        {
+            const int HALF = 2;
+            IPoint point1 = new IPoint((this.Left + this.Right) / HALF, this.Top);
+            IPoint point2 = new IPoint(this.Left, this.Bottom);
+            IPoint point3 = new IPoint(this.Right, this.Bottom);
+            IPoint point = new IPoint(pointX, pointY);
+            return GetProduct(point1, point2, point) < 0 && GetProduct(point2, point3, point) < 0 && GetProduct(point3, point1, point) < 0;
+        }
+
+        // 圖形資訊
+        public override string ShapeInformation()
+        {
+            const string SHAPE_NAME = "Triangle";
+            return FormatShapeInformation(SHAPE_NAME);
+        }
+
+        // 向量 Product
+        private double GetProduct(IPoint point1, IPoint point2, IPoint point3)
+        {
+            double product = (point2.X - point1.X) * (point3.Y - point1.Y) - (point2.Y - point1.Y) * (point3.X - point1.X);
+            return product;
         }
     }
 }
