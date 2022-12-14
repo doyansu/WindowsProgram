@@ -39,6 +39,18 @@ namespace DrawingModel
                 throw new ArgumentOutOfRangeException();
         }
 
+        // 刪除最後一個並回傳
+        public Shape Pop()
+        {
+            Shape shape = null;
+            if (this.Count > 0)
+            {
+                shape = this._shapes[this.Count - 1];
+                this._shapes.Remove(shape);
+            }
+            return shape;
+        }
+
         // 創建圖形
         public Shape CreateShape(ShapeType shapeType)
         {
