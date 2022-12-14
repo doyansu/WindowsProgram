@@ -99,5 +99,10 @@ namespace DrawingFormSpace
         {
             this._model.Redo();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
