@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ClearCommand.cs">
+      <Link>Model\ClearCommand.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Commands\CommandManager.cs">
       <Link>Model\CommandManager.cs</Link>
     </Compile>

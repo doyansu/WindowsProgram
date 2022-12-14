@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DrawingModel.Commands;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -73,7 +74,8 @@ namespace DrawingModel
         {
             _isPressed = false;
             _hint = null;
-            _shapes.Clear();
+            if (this._shapes.Count > 0)
+                _commandManager.Execute(new ClearCommand(this._shapes));
             NotifyModelChanged();
         }
 

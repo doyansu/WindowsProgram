@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace DrawingModel
+namespace DrawingModel.Commands
 {
     class DrawCommand : ICommand
     {
