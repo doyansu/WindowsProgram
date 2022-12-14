@@ -19,7 +19,7 @@ namespace DrawingModel
         private bool _isPressed = false;
         private Shapes _shapes;
         private Shape _hint = null;
-        private ShapeType _drawingShapeType = ShapeType.Null;
+        private ShapeType _drawingShapeMode = ShapeType.Null;
         private CommandManager _commandManager = new CommandManager();
 
         public Model()
@@ -43,7 +43,7 @@ namespace DrawingModel
         {
             if (_isPressed)
             {
-                if ((_hint = _shapes.CreateShape(DrawingShapeType)) != null)
+                if ((_hint = _shapes.CreateShape(DrawingShapeMode)) != null)
                 {
                     _hint.X1 = _firstPointX;
                     _hint.Y1 = _firstPointY;
@@ -122,15 +122,15 @@ namespace DrawingModel
             }
         }
 
-        public ShapeType DrawingShapeType 
+        public ShapeType DrawingShapeMode 
         {
             get
             {
-                return _drawingShapeType;
+                return _drawingShapeMode;
             }
             set
             {
-                _drawingShapeType = value;
+                _drawingShapeMode = value;
             }
         }
 

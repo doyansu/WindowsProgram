@@ -32,7 +32,7 @@ namespace DrawingModel.Tests
             Assert.AreEqual(0.0, _privateObject.GetFieldOrProperty("_firstPointY"));
             Assert.IsFalse((bool)_privateObject.GetFieldOrProperty("_isPressed"));
             Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
-            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeType);
+            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
         }
 
         // TestPressPointer
@@ -96,7 +96,7 @@ namespace DrawingModel.Tests
             _model.MovePointer(MoveTo.X, MoveTo.Y);
             Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
 
-            _model.DrawingShapeType = ShapeType.Line;
+            _model.DrawingShapeMode = ShapeType.Line;
             // isPressed true, ShapeType not null
             _model.MovePointer(MoveTo.X, MoveTo.Y);
             Shape shape = (Shape)_privateObject.GetFieldOrProperty("_hint");
@@ -119,7 +119,7 @@ namespace DrawingModel.Tests
             Assert.AreEqual(0.0, _privateObject.GetFieldOrProperty("_firstPointY"));
             Assert.IsFalse((bool)_privateObject.GetFieldOrProperty("_isPressed"));
             Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
-            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeType);
+            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
 
             // isPressed true, hint null 
             _privateObject.SetFieldOrProperty("_isPressed", true);
@@ -128,7 +128,7 @@ namespace DrawingModel.Tests
             Assert.AreEqual(0.0, _privateObject.GetFieldOrProperty("_firstPointY"));
             Assert.IsFalse((bool)_privateObject.GetFieldOrProperty("_isPressed"));
             Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
-            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeType);
+            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
 
             // isPressed true, hint not null 
             Shape shape = new Line(3, 4, 0, 0);
@@ -139,7 +139,7 @@ namespace DrawingModel.Tests
             Assert.AreEqual(0.0, _privateObject.GetFieldOrProperty("_firstPointY"));
             Assert.IsFalse((bool)_privateObject.GetFieldOrProperty("_isPressed"));
             Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
-            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeType);
+            Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
 
             Shapes shapes = (Shapes)_privateObject.GetFieldOrProperty("_shapes");
             Assert.AreEqual(1, shapes.Count);

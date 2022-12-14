@@ -28,7 +28,7 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = true;
-            this._model.DrawingShapeType = ShapeType.Null;
+            this._model.DrawingShapeMode = ShapeType.Null;
         }
 
         // 點擊矩形按鈕
@@ -36,7 +36,7 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = false;
             this.IsTriangleButtonEnabled = true;
-            this._model.DrawingShapeType = ShapeType.Rectangle;
+            this._model.DrawingShapeMode = ShapeType.Rectangle;
         }
 
         // 點擊三角形按鈕
@@ -44,7 +44,7 @@ namespace DrawingFormSpace.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = false;
-            this._model.DrawingShapeType = ShapeType.Triangle;
+            this._model.DrawingShapeMode = ShapeType.Triangle;
         }
 
         // 點擊清除畫布按鈕
