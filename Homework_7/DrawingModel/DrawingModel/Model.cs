@@ -38,13 +38,18 @@ namespace DrawingModel
             {
                 _firstPointX = pointX;
                 _firstPointY = pointY;
-                _isPressed = true;
+                
                 if (this.DrawingShapeMode == ShapeType.Null)
                 {
                     SelectedShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
                     _isPressed = false;
-                    NotifyModelChanged();
                 }
+                else
+                {
+                    SelectedShape = null;
+                    _isPressed = true;
+                }
+                NotifyModelChanged();
             }
         }
 
