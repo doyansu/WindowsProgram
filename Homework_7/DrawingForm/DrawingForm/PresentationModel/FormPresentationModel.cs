@@ -71,8 +71,8 @@ namespace DrawingFormSpace.PresentationModel
         // 完成畫布繪製
         public void HandleCanvasReleased(int pointX, int pointY)
         {
-            _model.ReleasePointer(pointX, pointY);
-            this.Reset();
+            if (_model.ReleasePointer(pointX, pointY))
+                this.Reset();
         }
 
         public bool IsRectangleButtonEnabled

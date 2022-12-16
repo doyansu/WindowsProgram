@@ -8,28 +8,24 @@ namespace DrawingModel
 {
     public class Line : Shape
     {
+        Shape _startShape;
+        Shape _endShape;
+
         public Line()
         {
 
         }
 
-        public Line(IPoint topLeft, IPoint bottomRight) : base(topLeft, bottomRight)
+        public Line(Shape startShape, Shape endShape) : base(startShape.GetCenter(), endShape.GetCenter())
         {
-            
-        }
-
-        public Line(double x1, double y1, double x2, double y2)
-        {
-            this.StartX = x1;
-            this.StartY = y1;
-            this.EndX = x2;
-            this.EndY = y2;
+            _startShape = startShape;
+            _endShape = endShape;
         }
 
         // 繪製線
         public override void Draw(IGraphics graphics)
         {
-            graphics.DrawLine(StartX, StartY, EndX, EndY);
+            graphics.DrawLine(_startShape.GetCenterX(), _startShape.GetCenterY(), _endShape.GetCenterX(), _endShape.GetCenterY());
         }
 
         // IsContains Line always false

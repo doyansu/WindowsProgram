@@ -40,7 +40,7 @@ namespace DrawingFormSpace
             this._lineButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._presentationModel, "IsLineButtonEnabled");
             this._toolStripRedoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsRedoEnabled");
             this._toolStripUndoButton.DataBindings.Add(BIND_ATTRIBUTE_ENABLED, this._model.CommandBindingObject, "IsUndoEnabled");
-            this._selectedShapeLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._model, "SelectedShapeInformation");
+            this._selectedShapeLabel.DataBindings.Add(BIND_ATTRIBUTE_TEXT, this._model.ShapeBindingObject, "SelectedShapeInformation");
         }
 
         // 畫布滑鼠點下

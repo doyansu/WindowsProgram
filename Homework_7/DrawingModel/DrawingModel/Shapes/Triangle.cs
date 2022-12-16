@@ -30,13 +30,14 @@ namespace DrawingModel
         public override void Draw(IGraphics graphics)
         {
             graphics.DrawTriangle(this.Left, this.Top, this.Right, this.Bottom);
+            if (this.IsSelected)
+                graphics.DrawSelectedRectangle(this.Left, this.Top, this.Right, this.Bottom);
         }
 
         // IsContains
         public override bool IsContains(double pointX, double pointY)
         {
-            const int HALF = 2;
-            IPoint point1 = new IPoint((this.Left + this.Right) / HALF, this.Top);
+            IPoint point1 = new IPoint(this.GetCenterX(), this.Top);
             IPoint point2 = new IPoint(this.Left, this.Bottom);
             IPoint point3 = new IPoint(this.Right, this.Bottom);
             IPoint point = new IPoint(pointX, pointY);

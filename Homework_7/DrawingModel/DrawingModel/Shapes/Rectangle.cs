@@ -30,6 +30,8 @@ namespace DrawingModel
         public override void Draw(IGraphics graphics)
         {
             graphics.DrawRectangle(this.Left, this.Top, this.Right, this.Bottom);
+            if (this.IsSelected)
+                graphics.DrawSelectedRectangle(this.Left, this.Top, this.Right, this.Bottom);
         }
 
         // 圖形資訊

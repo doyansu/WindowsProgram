@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    public class Shapes
+    public class Shapes : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         List<Shape> _shapes = new List<Shape>();
         IShapeFactory _shapeFactory;
+
+        private const string PROPERTY_NAME_SELECTED_SHAPE_INFORMATION = "SelectedShapeInformation";
 
         public Shapes(IShapeFactory shapeFactory)
         {
@@ -54,6 +59,23 @@ namespace DrawingModel
                 shape.Draw(graphics);
         }
 
+        // 選取一個圖形
+        public void SelectShape(double pointX, double pointY)
+        {
+            Shape shape;
+            this.CancelSelectAll();
+            if ((shape = this.CheckPointContains(pointX, pointY)) != null)
+                shape.IsSelected = true;
+            NotifyPropertyChanged(PROPERTY_NAME_SELECTED_SHAPE_INFORMATION);
+        }
+
+        // 清除選取
+        public void CancelSelectAll()
+        {
+            _shapes.ForEach(shape => shape.IsSelected = false);
+            NotifyPropertyChanged(PROPERTY_NAME_SELECTED_SHAPE_INFORMATION);
+        }
+
         // 檢查是否包含在圖形內，回傳最上面的一個
         public Shape CheckPointContains(double pointX, double pointY)
         {
@@ -86,6 +108,24 @@ namespace DrawingModel
             {
                 return this._shapes.Count;
             }
+        }
+
+        public string SelectedShapeInformation
+        {
+            get
+            {
+                const string NULL_VALUE = "";
+                const string SELECTED = "Selected：";
+                Shape selectedShape = _shapes.Find(shape => shape.IsSelected == true);
+                return selectedShape != null ? SELECTED + selectedShape.ShapeInformation() : NULL_VALUE;
+            }
+        }
+
+        // 通知 databing 改變
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

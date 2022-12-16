@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    public class Model : INotifyPropertyChanged
+    public class Model
     {
         public event ModelChangedEventHandler _modelChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public delegate void ModelChangedEventHandler();
 
         private double _firstPointX = 0;
@@ -20,11 +18,8 @@ namespace DrawingModel
         private bool _isPressed = false;
         private Shapes _shapes;
         private Shape _hint = null;
-        private Shape _selectedShape = null;
         private ShapeType _drawingShapeMode = ShapeType.Null;
         private CommandManager _commandManager = new CommandManager();
-
-        private const string PROPERTY_NAME_SELECTED_SHAPE_INFORMATION = "SelectedShapeInformation";
 
         public Model()
         {
@@ -38,16 +33,16 @@ namespace DrawingModel
             {
                 _firstPointX = pointX;
                 _firstPointY = pointY;
-                
                 if (this.DrawingShapeMode == ShapeType.Null)
                 {
-                    SelectedShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
+                    _shapes.SelectShape(pointX, pointY);
                     _isPressed = false;
                 }
                 else
                 {
-                    SelectedShape = null;
-                    _isPressed = true;
+                    _shapes.CancelSelectAll();
+                    if (this.DrawingShapeMode != ShapeType.Line || _shapes.CheckPointContains(_firstPointX, _firstPointY) != null)
+                        _isPressed = true;
                 }
                 NotifyModelChanged();
             }
@@ -58,29 +53,44 @@ namespace DrawingModel
         {
             if (_isPressed)
             {
-                if ((_hint = _shapes.CreateShape(DrawingShapeMode)) != null)
+                if (this.DrawingShapeMode != ShapeType.Null)
                 {
-                    _hint.StartX = _firstPointX;
-                    _hint.StartY = _firstPointY;
-                    _hint.EndX = pointX;
-                    _hint.EndY = pointY;
+                    if (this.DrawingShapeMode != ShapeType.Line)
+                    {
+                        _hint = _shapes.CreateShape(DrawingShapeMode);
+                        _hint.StartX = _firstPointX;
+                        _hint.StartY = _firstPointY;
+                        _hint.EndX = pointX;
+                        _hint.EndY = pointY;
+                    }
+                    else
+                        _hint = new Line(_shapes.CheckPointContains(_firstPointX, _firstPointY), new Rectangle(pointX, pointY, pointX, pointY));
                 }
                 NotifyModelChanged();
             }
         }
 
         // 完成圖形繪製
-        public void ReleasePointer(double pointX, double pointY)
+        public bool ReleasePointer(double pointX, double pointY)
         {
+            bool release = false;
             if (_isPressed)
             {
                 _isPressed = false;
+                if (this.DrawingShapeMode == ShapeType.Line)
+                {
+                    Shape endShape = _shapes.CheckPointContains(pointX, pointY);
+                    _hint = (endShape != null) ? new Line(_shapes.CheckPointContains(_firstPointX, _firstPointY), endShape) : null;
+                }
                 if (_hint != null)
                 {
-                    _commandManager.Execute(new DrawCommand(this, _hint));
+                    _commandManager.Execute(new DrawCommand(this._shapes, _hint));
                     _hint = null;
+                    release = true;
                 }
+                NotifyModelChanged();
             }
+            return release;
         }
 
         // 清除所有圖形
@@ -88,7 +98,6 @@ namespace DrawingModel
         {
             _isPressed = false;
             _hint = null;
-            SelectedShape = null;
             if (this._shapes.Count > 0)
                 _commandManager.Execute(new ClearCommand(this._shapes));
             NotifyModelChanged();
@@ -101,10 +110,6 @@ namespace DrawingModel
             _shapes.Draw(graphics);
             if (_isPressed && _hint != null) 
                 _hint.Draw(graphics);
-            if (SelectedShape != null && _shapes.Contains(SelectedShape))
-                SelectedShape.DrawSelected(graphics);
-            else
-                SelectedShape = null;
         }
 
         // 回上一個命令
@@ -121,23 +126,19 @@ namespace DrawingModel
             NotifyModelChanged();
         }
 
-        // 加入繪製圖形
-        public void DrawShape(Shape shape)
-        {
-            _shapes.Add(shape);
-        }
-
-        // 移除最後一個圖形
-        public void DeleteShape()
-        {
-            _shapes.RemoveBy(-1);
-        }
-
         public object CommandBindingObject
         {
             get
             {
                 return this._commandManager;
+            }
+        }
+
+        public object ShapeBindingObject
+        {
+            get
+            {
+                return this._shapes;
             }
         }
 
@@ -153,44 +154,11 @@ namespace DrawingModel
             }
         }
 
-        private Shape SelectedShape 
-        {
-            get
-            {
-                return _selectedShape;
-            }
-            set
-            {
-                if (_selectedShape != value)
-                {
-                    _selectedShape = value;
-                    NotifyPropertyChanged(PROPERTY_NAME_SELECTED_SHAPE_INFORMATION);
-                }
-            }
-        }
-
-        public string SelectedShapeInformation
-        {
-            get
-            {
-                const string NULL_VALUE = "";
-                const string SELECTED = "Selected：";
-                return _selectedShape != null ? SELECTED + _selectedShape.ShapeInformation() : NULL_VALUE;
-            }
-        }
-
         // 通知 model 改變
         private void NotifyModelChanged()
         {
             if (_modelChanged != null)
                 _modelChanged();
-        }
-
-        // 通知 databing 改變
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

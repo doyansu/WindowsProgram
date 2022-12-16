@@ -14,18 +14,12 @@ namespace DrawingFormSpace.PresentationModel
         Graphics _graphics;
         Pen _pen;
 
+        const int HALF = 2;
+
         public FormGraphicsAdaptor(Graphics graphics)
         {
             this._graphics = graphics;
             this._pen = Pens.Black;
-        }
-
-        // 交換數值
-        private void Swap(ref double value1, ref double value2)
-        {
-            double temp = value1;
-            value1 = value2;
-            value2 = temp;
         }
 
         // 設定 Pen
@@ -43,7 +37,19 @@ namespace DrawingFormSpace.PresentationModel
         // 繪製線
         public void DrawLine(double x1, double y1, double x2, double y2)
         {
-            _graphics.DrawLine(this._pen, (float)x1, (float)y1, (float)x2, (float)y2);
+            double pointX = (x1 + x2) / HALF;
+            double pointY = (y1 + y2) / HALF;
+            double distanceX = Math.Abs(x2 - x1);
+            double distanceY = Math.Abs(y2 - y1);
+
+            PointF centerPoint1 = distanceX > distanceY ? new PointF((float)pointX, (float)y1) : new PointF((float)x1, (float)pointY);
+            PointF centerPoint2 = distanceX > distanceY ? new PointF((float)pointX, (float)y2) : new PointF((float)x2, (float)pointY);
+            PointF[] points = { 
+                new PointF((float)x1, (float)y1),
+                centerPoint1,
+                centerPoint2,
+                new PointF((float)x2, (float)y2), };
+            _graphics.DrawLines(this._pen, points);
         }
 
         // 繪製矩形
@@ -62,7 +68,6 @@ namespace DrawingFormSpace.PresentationModel
         // 繪製三角形
         public void DrawTriangle(double x1, double y1, double x2, double y2)
         {
-            const int HALF = 2;
             PointF[] points = { 
                 new PointF((float)x1, (float)y2),
                 new PointF((float)x2, (float)y2),

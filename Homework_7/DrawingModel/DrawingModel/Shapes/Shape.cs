@@ -10,6 +10,7 @@ namespace DrawingModel
     {
         private IPoint _start = new IPoint();
         private IPoint _end = new IPoint();
+        private bool _isSelected = false;
 
         protected Shape()
         {
@@ -25,16 +26,28 @@ namespace DrawingModel
         // 繪製圖形
         abstract public void Draw(IGraphics graphics);
 
-        // 繪製選取虛線方框
-        virtual public void DrawSelected(IGraphics graphics)
-        {
-            graphics.DrawSelectedRectangle(this.Left, this.Top, this.Right, this.Bottom);
-        }
-
         // 點是否包含在圖形內
         virtual public bool IsContains(double pointX, double pointY)
         {
             return pointX >= this.Left && pointX <= this.Right && pointY >= this.Top && pointY <= this.Bottom;
+        }
+
+        // 取得中心點
+        virtual public IPoint GetCenter()
+        {
+            return _start.GetCenter(_end);
+        }
+
+        // 取得中心 X
+        virtual public double GetCenterX()
+        {
+            return _start.GetCenterX(_end);
+        }
+
+        // 取得中心 Y
+        virtual public double GetCenterY()
+        {
+            return _start.GetCenterY(_end);
         }
 
         // 圖形資訊
@@ -121,6 +134,18 @@ namespace DrawingModel
             get
             {
                 return _start.Y > _end.Y ? _start.Y : _end.Y;
+            }
+        }
+
+        public bool IsSelected 
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
             }
         }
     }
