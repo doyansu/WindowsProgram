@@ -57,7 +57,7 @@ namespace DrawingModel
         }
 
         // 是否在三角形內
-        public bool InTriangle(IPoint point1, IPoint point2, IPoint point3)
+        public bool IsInTriangle(IPoint point1, IPoint point2, IPoint point3)
         {
             return this.GetProduct(point1, point2) < 0 && this.GetProduct(point2, point3) < 0 && this.GetProduct(point3, point1) < 0;
         }

@@ -39,7 +39,7 @@ namespace DrawingModel
             IPoint point2 = new IPoint(this.Left, this.Bottom);
             IPoint point3 = new IPoint(this.Right, this.Bottom);
             IPoint point = new IPoint(pointX, pointY);
-            return point.InTriangle(point1, point2, point3);
+            return point.IsInTriangle(point1, point2, point3);
         }
 
         // 圖形資訊
