@@ -26,6 +26,13 @@ namespace DrawingModel
         // 繪製圖形
         abstract public void Draw(IGraphics graphics);
 
+        // 繪製被選擇圖示
+        virtual public void DrawSelected(IGraphics graphics)
+        {
+            if (this.IsSelected)
+                graphics.DrawSelectedRectangle(this.Left, this.Top, this.Right, this.Bottom);
+        }
+
         // 點是否包含在圖形內
         virtual public bool IsContains(double pointX, double pointY)
         {

@@ -49,6 +49,19 @@ namespace DrawingModel
             return new IPoint(this.GetCenterX(point), this.GetCenterY(point));
         }
 
+        // 向量 Product
+        private double GetProduct(IPoint point1, IPoint point2)
+        {
+            double product = (point2.X - point1.X) * (this.Y - point1.Y) - (point2.Y - point1.Y) * (this.X - point1.X);
+            return product;
+        }
+
+        // 是否在三角形內
+        public bool InTriangle(IPoint point1, IPoint point2, IPoint point3)
+        {
+            return this.GetProduct(point1, point2) < 0 && this.GetProduct(point2, point3) < 0 && this.GetProduct(point3, point1) < 0;
+        }
+
         public double X 
         {
             get

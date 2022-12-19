@@ -30,8 +30,6 @@ namespace DrawingModel
         public override void Draw(IGraphics graphics)
         {
             graphics.DrawTriangle(this.Left, this.Top, this.Right, this.Bottom);
-            if (this.IsSelected)
-                graphics.DrawSelectedRectangle(this.Left, this.Top, this.Right, this.Bottom);
         }
 
         // IsContains
@@ -41,7 +39,7 @@ namespace DrawingModel
             IPoint point2 = new IPoint(this.Left, this.Bottom);
             IPoint point3 = new IPoint(this.Right, this.Bottom);
             IPoint point = new IPoint(pointX, pointY);
-            return GetProduct(point1, point2, point) < 0 && GetProduct(point2, point3, point) < 0 && GetProduct(point3, point1, point) < 0;
+            return point.InTriangle(point1, point2, point3);
         }
 
         // 圖形資訊
@@ -49,13 +47,6 @@ namespace DrawingModel
         {
             const string SHAPE_NAME = "Triangle";
             return FormatShapeInformation(SHAPE_NAME);
-        }
-
-        // 向量 Product
-        private double GetProduct(IPoint point1, IPoint point2, IPoint point3)
-        {
-            double product = (point2.X - point1.X) * (point3.Y - point1.Y) - (point2.Y - point1.Y) * (point3.X - point1.X);
-            return product;
         }
     }
 }

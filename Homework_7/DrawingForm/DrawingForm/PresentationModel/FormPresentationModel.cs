@@ -25,39 +25,39 @@ namespace DrawingFormSpace.PresentationModel
             this._model = model;
         }
 
+        // 設定按鈕啟用
+        private void SetButtonEnable(bool isRectangleButtonEnabled, bool isTriangleButtonEnabled, bool isLineButtonEnabled)
+        {
+            this.IsRectangleButtonEnabled = isRectangleButtonEnabled;
+            this.IsTriangleButtonEnabled = isTriangleButtonEnabled;
+            this.IsLineButtonEnabled = isLineButtonEnabled;
+        }
+
         // 重置狀態
         private void Reset()
         {
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = true;
-            this.IsLineButtonEnabled = true;
+            SetButtonEnable(true, true, true);
             this._model.DrawingShapeMode = ShapeType.Null;
         }
 
         // 點擊矩形按鈕
         public void HandleRectangleButtonClick()
         {
-            this.IsRectangleButtonEnabled = false;
-            this.IsTriangleButtonEnabled = true;
-            this.IsLineButtonEnabled = true;
+            SetButtonEnable(false, true, true);
             this._model.DrawingShapeMode = ShapeType.Rectangle;
         }
 
         // 點擊三角形按鈕
         public void HandleTriangleButtonClick()
         {
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = false;
-            this.IsLineButtonEnabled = true;
+            SetButtonEnable(true, false, true);
             this._model.DrawingShapeMode = ShapeType.Triangle;
         }
 
         // 點擊畫線按鈕
         public void HandleLineButtonClick()
         {
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = true;
-            this.IsLineButtonEnabled = false;
+            SetButtonEnable(true, true, false);
             this._model.DrawingShapeMode = ShapeType.Line;
         }
 

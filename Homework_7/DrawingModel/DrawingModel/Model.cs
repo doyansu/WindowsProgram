@@ -55,16 +55,16 @@ namespace DrawingModel
             {
                 if (this.DrawingShapeMode != ShapeType.Null)
                 {
-                    if (this.DrawingShapeMode != ShapeType.Line)
+                    _hint = _shapes.CreateShape(DrawingShapeMode);
+                    _hint.StartX = _firstPointX;
+                    _hint.StartY = _firstPointY;
+                    _hint.EndX = pointX;
+                    _hint.EndY = pointY;
+                    if (this.DrawingShapeMode == ShapeType.Line)
                     {
-                        _hint = _shapes.CreateShape(DrawingShapeMode);
-                        _hint.StartX = _firstPointX;
-                        _hint.StartY = _firstPointY;
-                        _hint.EndX = pointX;
-                        _hint.EndY = pointY;
+                        ((Line)_hint).StartShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
+                        ((Line)_hint).EndShape = new Rectangle(pointX, pointY, pointX, pointY);
                     }
-                    else
-                        _hint = new Line(_shapes.CheckPointContains(_firstPointX, _firstPointY), new Rectangle(pointX, pointY, pointX, pointY));
                 }
                 NotifyModelChanged();
             }
@@ -78,10 +78,7 @@ namespace DrawingModel
             {
                 _isPressed = false;
                 if (this.DrawingShapeMode == ShapeType.Line)
-                {
-                    Shape endShape = _shapes.CheckPointContains(pointX, pointY);
-                    _hint = (endShape != null) ? new Line(_shapes.CheckPointContains(_firstPointX, _firstPointY), endShape) : null;
-                }
+                    _hint = (((Line)_hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null ? _hint : null;
                 if (_hint != null)
                 {
                     _commandManager.Execute(new DrawCommand(this._shapes, _hint));

@@ -57,6 +57,8 @@ namespace DrawingModel
         {
             foreach (Shape shape in _shapes)
                 shape.Draw(graphics);
+            foreach (Shape shape in _shapes)
+                shape.DrawSelected(graphics);
         }
 
         // 選取一個圖形

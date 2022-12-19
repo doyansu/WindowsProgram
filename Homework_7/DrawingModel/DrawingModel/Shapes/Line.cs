@@ -13,19 +13,53 @@ namespace DrawingModel
 
         public Line()
         {
-
+            _startShape = _endShape = null;
         }
 
-        public Line(Shape startShape, Shape endShape) : base(startShape.GetCenter(), endShape.GetCenter())
+        public Line(Shape startShape, Shape endShape) 
+        { 
+            StartShape = startShape;
+            EndShape = endShape;
+        }
+
+        // 可繪製線
+        public bool CanDraw
         {
-            _startShape = startShape;
-            _endShape = endShape;
+            get
+            {
+                return _startShape != null && _endShape != null;
+            }
+        }
+
+        public Shape StartShape 
+        {
+            get
+            {
+                return _startShape;
+            }
+            set
+            {
+                _startShape = value;
+            }
+        }
+
+        public Shape EndShape 
+        {
+            get
+            {
+                return _endShape;
+            }
+            set
+            {
+                _endShape = value;
+            }
         }
 
         // 繪製線
         public override void Draw(IGraphics graphics)
         {
-            graphics.DrawLine(_startShape.GetCenterX(), _startShape.GetCenterY(), _endShape.GetCenterX(), _endShape.GetCenterY());
+            if (this.CanDraw)
+                graphics.DrawLine(_startShape.GetCenterX(), _startShape.GetCenterY(), _endShape.GetCenterX(), _endShape.GetCenterY());
         }
 
         // IsContains Line always false
