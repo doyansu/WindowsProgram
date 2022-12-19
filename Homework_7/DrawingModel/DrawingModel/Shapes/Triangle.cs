@@ -10,20 +10,7 @@ namespace DrawingModel
     {
         public Triangle()
         {
-
-        }
-
-        public Triangle(IPoint topLeft, IPoint bottomRight) : base(topLeft, bottomRight)
-        {
-
-        }
-
-        public Triangle(double x1, double y1, double x2, double y2)
-        {
-            this.StartX = x1;
-            this.StartY = y1;
-            this.EndX = x2;
-            this.EndY = y2;
+            this._shapeType = ShapeType.Triangle;
         }
 
         // 繪製線

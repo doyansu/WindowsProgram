@@ -55,7 +55,10 @@ namespace DrawingModel
         // 繪製所有圖形
         public void Draw(IGraphics graphics)
         {
-            foreach (Shape shape in _shapes)
+            List<Shape> drawList = new List<Shape>();
+            drawList = _shapes.FindAll(shape => shape.ShapeType == ShapeType.Line);
+            drawList.AddRange(_shapes.FindAll(shape => shape.ShapeType != ShapeType.Line));
+            foreach (Shape shape in drawList)
                 shape.Draw(graphics);
             foreach (Shape shape in _shapes)
                 shape.DrawSelected(graphics);

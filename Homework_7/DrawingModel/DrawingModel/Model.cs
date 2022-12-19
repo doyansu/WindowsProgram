@@ -78,7 +78,7 @@ namespace DrawingModel
             {
                 _isPressed = false;
                 if (this.DrawingShapeMode == ShapeType.Line)
-                    _hint = (((Line)_hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null ? _hint : null;
+                    _hint = (((Line)_hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null && (((Line)_hint).StartShape != ((Line)_hint).EndShape) ? _hint : null;
                 if (_hint != null)
                 {
                     _commandManager.Execute(new DrawCommand(this._shapes, _hint));

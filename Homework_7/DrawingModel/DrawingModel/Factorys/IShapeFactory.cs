@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace DrawingModel
 {
-    public enum ShapeType
-    {
-        Null,
-        Line,
-        Rectangle,
-        Triangle
-    }
-
     public interface IShapeFactory
     {
         // 創建圖形

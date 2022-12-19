@@ -13,13 +13,8 @@ namespace DrawingModel
 
         public Line()
         {
+            this._shapeType = ShapeType.Line;
             _startShape = _endShape = null;
-        }
-
-        public Line(Shape startShape, Shape endShape) 
-        { 
-            StartShape = startShape;
-            EndShape = endShape;
         }
 
         // 可繪製線

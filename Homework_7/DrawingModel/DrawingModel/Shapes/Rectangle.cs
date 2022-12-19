@@ -10,16 +10,12 @@ namespace DrawingModel
     {
         public Rectangle()
         {
-
-        }
-
-        public Rectangle(IPoint topLeft, IPoint bottomRight) : base(topLeft, bottomRight)
-        {
-
+            this._shapeType = ShapeType.Rectangle;
         }
 
         public Rectangle(double x1, double y1, double x2, double y2)
         {
+            this._shapeType = ShapeType.Rectangle;
             this.StartX = x1;
             this.StartY = y1;
             this.EndX = x2;

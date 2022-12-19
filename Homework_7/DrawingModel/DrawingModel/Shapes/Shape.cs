@@ -11,6 +11,7 @@ namespace DrawingModel
         private IPoint _start = new IPoint();
         private IPoint _end = new IPoint();
         private bool _isSelected = false;
+        protected ShapeType _shapeType = ShapeType.Null;
 
         protected Shape()
         {
@@ -155,5 +156,21 @@ namespace DrawingModel
                 _isSelected = value;
             }
         }
+
+        public ShapeType ShapeType 
+        {
+            get
+            {
+                return _shapeType;
+            }
+        }
+    }
+
+    public enum ShapeType
+    {
+        Null,
+        Line,
+        Rectangle,
+        Triangle
     }
 }
