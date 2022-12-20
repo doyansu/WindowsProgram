@@ -21,7 +21,6 @@ namespace DrawingApp.PresentationModel
         private bool _isTriangleButtonEnabled = true;
         private bool _isLineButtonEnabled = true;
 
-
         public AppPresentationModel(Model model, IGraphics graphics)
         {
             this._model = model;

@@ -15,6 +15,7 @@ namespace DrawingApp.PresentationModel
     {
         Canvas _canvas;
 
+        const int HALF = 2;
         private DoubleCollection DashArray 
         {
             get
@@ -39,13 +40,18 @@ namespace DrawingApp.PresentationModel
         // 繪製線
         public void DrawLine(double x1, double y1, double x2, double y2)
         {
-            Windows.UI.Xaml.Shapes.Line line = new Windows.UI.Xaml.Shapes.Line();
-            line.X1 = x1;
-            line.Y1 = y1;
-            line.X2 = x2;
-            line.Y2 = y2;
-            line.Stroke = new SolidColorBrush(Colors.Black);
-            _canvas.Children.Add(line);
+            double pointX = (x1 + x2) / HALF;
+            double pointY = (y1 + y2) / HALF;
+            double distanceX = Math.Abs(x2 - x1);
+            double distanceY = Math.Abs(y2 - y1);
+            Windows.Foundation.Point centerPoint1 = distanceX > distanceY ? new Windows.Foundation.Point((float)pointX, (float)y1) : new Windows.Foundation.Point((float)x1, (float)pointY);
+            Windows.Foundation.Point centerPoint2 = distanceX > distanceY ? new Windows.Foundation.Point((float)pointX, (float)y2) : new Windows.Foundation.Point((float)x2, (float)pointY);
+            Windows.UI.Xaml.Shapes.Polyline lines = new Polyline();
+            lines.Points = new PointCollection() 
+            { 
+                new Windows.Foundation.Point(x1, y1), centerPoint1, centerPoint2, new Windows.Foundation.Point(x2, y2) };
+            lines.Stroke = new SolidColorBrush(Colors.Black);
+            _canvas.Children.Add(lines);
         }
 
         // 繪製矩形
