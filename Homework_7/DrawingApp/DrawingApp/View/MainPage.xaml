@@ -11,8 +11,10 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
         <Canvas x:Name="_canvas" Background="#FFFFFFA0" Margin="0,73,0,0"/>
         <Button x:Name="_clearButton" Content="Clear" HorizontalAlignment="Stretch" Height="44" Margin="1121,24,99,0" VerticalAlignment="Top" Click="HandleClearButtonClick" RenderTransformOrigin="0.526,-0.182" Canvas.ZIndex="1"/>
-        <Button x:Name="_triangleButton" Content="Triangle" HorizontalAlignment="Stretch" Height="44" Margin="787,24,433,0" VerticalAlignment="Top" Click="HandleTriangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsTriangleButtonEnabled, Mode=OneWay}" RenderTransformOrigin="0.479,-0.384" Canvas.ZIndex="1"/>
-        <Button x:Name="_rectangleButton" Content="Rectangle" HorizontalAlignment="Stretch" Height="44" Margin="99,24,1121,0" VerticalAlignment="Top" Click="HandleRectangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsRectangleButtonEnabled, Mode=OneWay}" Canvas.ZIndex="1"/>
-        <Button x:Name="_lineButton" Content="Line" HorizontalAlignment="Stretch" Height="44" Margin="452,24,768,0" VerticalAlignment="Top" Click="HandleLineButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsLineButtonEnabled, Mode=OneWay}" Canvas.ZIndex="1"/>
+        <Button x:Name="_triangleButton" Content="Triangle" HorizontalAlignment="Stretch" Height="44" Margin="829,24,391,0" VerticalAlignment="Top" Click="HandleTriangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsTriangleButtonEnabled, Mode=OneWay}" RenderTransformOrigin="0.479,-0.384" Canvas.ZIndex="1"/>
+        <Button x:Name="_rectangleButton" Content="Rectangle" HorizontalAlignment="Stretch" Height="44" Margin="236,24,984,0" VerticalAlignment="Top" Click="HandleRectangleButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsRectangleButtonEnabled, Mode=OneWay}" Canvas.ZIndex="1"/>
+        <Button x:Name="_lineButton" Content="Line" HorizontalAlignment="Stretch" Height="44" Margin="537,24,683,0" VerticalAlignment="Top" Click="HandleLineButtonClick" IsEnabled="{x:Bind Path=_presentationModel.IsLineButtonEnabled, Mode=OneWay}" Canvas.ZIndex="1"/>
+        <Button x:Name="_redoButton" Content="Redo" Margin="68,10,0,0" VerticalAlignment="Top" Click="HandleToolStripRedoButtonClick" IsEnabled="{x:Bind Path=_model.CommandBindingObject.IsRedoEnabled, Mode=OneWay}"/>
+        <Button x:Name="_undoButton" Content="Undo" Margin="10,10,0,0" VerticalAlignment="Top" Click="HandleToolStripUndoButtonClick" IsEnabled="{x:Bind Path=_model.CommandBindingObject.IsUndoEnabled, Mode=OneWay}"/>
     </Grid>
 </Page>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DrawingModel.Commands
 {
-    class CommandManager : INotifyPropertyChanged
+    public class CommandManager : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

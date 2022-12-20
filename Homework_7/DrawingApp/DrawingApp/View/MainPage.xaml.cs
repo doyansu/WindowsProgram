@@ -60,6 +60,18 @@ namespace DrawingApp
             this._presentationModel.HandleClearButtonClick();
         }
 
+        // Undo 按鈕點擊
+        private void HandleToolStripUndoButtonClick(object sender, RoutedEventArgs e)
+        {
+            this._model.Undo();
+        }
+
+        // Redo 按鈕點擊
+        private void HandleToolStripRedoButtonClick(object sender, RoutedEventArgs e)
+        {
+            this._model.Redo();
+        }
+
         // 畫布滑鼠點下
         public void HandleCanvasPressed(object sender, PointerRoutedEventArgs e)
         {

@@ -123,7 +123,7 @@ namespace DrawingModel
             NotifyModelChanged();
         }
 
-        public object CommandBindingObject
+        public CommandManager CommandBindingObject
         {
             get
             {
