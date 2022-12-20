@@ -131,7 +131,7 @@ namespace DrawingModel
             }
         }
 
-        public object ShapeBindingObject
+        public Shapes ShapeBindingObject
         {
             get
             {
