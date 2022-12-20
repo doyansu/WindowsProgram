@@ -116,11 +116,23 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ClearCommand.cs">
+      <Link>Model\Commands\ClearCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\CommandManager.cs">
+      <Link>Model\Commands\CommandManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\DrawCommand.cs">
+      <Link>Model\Commands\DrawCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ICommand.cs">
+      <Link>Model\Commands\ICommand.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\IShapeFactory.cs">
-      <Link>Model\IShapeFactory.cs</Link>
+      <Link>Model\Factorys\IShapeFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\ShapeFactory.cs">
-      <Link>Model\ShapeFactory.cs</Link>
+      <Link>Model\Factorys\ShapeFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
@@ -129,22 +141,22 @@
       <Link>Model\Model.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\IPoint.cs">
-      <Link>Model\IPoint.cs</Link>
+      <Link>Model\Shapes\IPoint.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Line.cs">
-      <Link>Model\Line.cs</Link>
+      <Link>Model\Shapes\Line.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Rectangle.cs">
-      <Link>Model\Rectangle.cs</Link>
+      <Link>Model\Shapes\Rectangle.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Shape.cs">
-      <Link>Model\Shape.cs</Link>
+      <Link>Model\Shapes\Shape.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Shapes.cs">
-      <Link>Model\Shapes.cs</Link>
+      <Link>Model\Shapes\Shapes.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Triangle.cs">
-      <Link>Model\Triangle.cs</Link>
+      <Link>Model\Shapes\Triangle.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
