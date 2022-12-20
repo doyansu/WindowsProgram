@@ -48,6 +48,12 @@ namespace DrawingApp
             this._presentationModel.HandleTriangleButtonClick();
         }
 
+        // 點擊線按鈕
+        private void HandleLineButtonClick(object sender, RoutedEventArgs e)
+        {
+            this._presentationModel.HandleLineButtonClick();
+        }
+
         // 點擊清除畫布按鈕
         private void HandleClearButtonClick(object sender, RoutedEventArgs e)
         {

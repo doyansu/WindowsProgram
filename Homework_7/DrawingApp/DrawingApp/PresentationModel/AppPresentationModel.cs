@@ -19,6 +19,8 @@ namespace DrawingApp.PresentationModel
 
         private bool _isRectangleButtonEnabled = true;
         private bool _isTriangleButtonEnabled = true;
+        private bool _isLineButtonEnabled = true;
+
 
         public AppPresentationModel(Model model, IGraphics graphics)
         {
@@ -31,23 +33,37 @@ namespace DrawingApp.PresentationModel
         {
             this.IsRectangleButtonEnabled = true;
             this.IsTriangleButtonEnabled = true;
+            this.IsLineButtonEnabled = true;
             this._model.DrawingShapeMode = ShapeType.Null;
+        }
+
+        // 設定按鈕啟用
+        private void SetButtonEnable(bool isRectangleButtonEnabled, bool isTriangleButtonEnabled, bool isLineButtonEnabled)
+        {
+            this.IsRectangleButtonEnabled = isRectangleButtonEnabled;
+            this.IsTriangleButtonEnabled = isTriangleButtonEnabled;
+            this.IsLineButtonEnabled = isLineButtonEnabled;
         }
 
         // 點擊矩形按鈕
         public void HandleRectangleButtonClick()
         {
-            this.IsRectangleButtonEnabled = false;
-            this.IsTriangleButtonEnabled = true;
+            SetButtonEnable(false, true, true);
             this._model.DrawingShapeMode = ShapeType.Rectangle;
         }
 
         // 點擊三角形按鈕
         public void HandleTriangleButtonClick()
         {
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = false;
+            SetButtonEnable(true, false, true);
             this._model.DrawingShapeMode = ShapeType.Triangle;
+        }
+
+        // 點擊畫線按鈕
+        public void HandleLineButtonClick()
+        {
+            SetButtonEnable(true, true, false);
+            this._model.DrawingShapeMode = ShapeType.Line;
         }
 
         // 點擊清除畫布按鈕
@@ -60,8 +76,8 @@ namespace DrawingApp.PresentationModel
         // 完成畫布繪製
         public void HandleCanvasReleased(double pointX, double pointY)
         {
-            _model.ReleasePointer(pointX, pointY);
-            this.Reset();
+            if (_model.ReleasePointer(pointX, pointY))
+                this.Reset();
         }
 
         // 繪製圖形
@@ -98,6 +114,22 @@ namespace DrawingApp.PresentationModel
                 {
                     this._isTriangleButtonEnabled = value;
                     NotifyPropertyChanged("IsTriangleButtonEnabled");
+                }
+            }
+        }
+
+        public bool IsLineButtonEnabled
+        {
+            get
+            {
+                return _isLineButtonEnabled;
+            }
+            set
+            {
+                if (this._isLineButtonEnabled != value)
+                {
+                    this._isLineButtonEnabled = value;
+                    NotifyPropertyChanged("IsLineButtonEnabled");
                 }
             }
         }
