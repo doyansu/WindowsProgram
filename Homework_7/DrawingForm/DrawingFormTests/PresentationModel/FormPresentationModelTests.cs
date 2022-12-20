@@ -34,6 +34,7 @@ namespace DrawingFormSpace.PresentationModel.Tests
             Assert.AreEqual(_model, _privateObject.GetFieldOrProperty("_model"));
             Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
             Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
         }
 
         // TestHandleRectangleButtonClick
@@ -43,6 +44,7 @@ namespace DrawingFormSpace.PresentationModel.Tests
             _presentationModel.HandleRectangleButtonClick();
             Assert.IsFalse(_presentationModel.IsRectangleButtonEnabled);
             Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
             Assert.AreEqual(ShapeType.Rectangle, _model.DrawingShapeMode);
         }
 
@@ -53,7 +55,19 @@ namespace DrawingFormSpace.PresentationModel.Tests
             _presentationModel.HandleTriangleButtonClick();
             Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
             Assert.IsFalse(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
             Assert.AreEqual(ShapeType.Triangle, _model.DrawingShapeMode);
+        }
+
+        // TestHandleTriangleButtonClick
+        [TestMethod()]
+        public void TestHandleLineButtonClick()
+        {
+            _presentationModel.HandleLineButtonClick();
+            Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsFalse(_presentationModel.IsLineButtonEnabled);
+            Assert.AreEqual(ShapeType.Line, _model.DrawingShapeMode);
         }
 
         // TestHandleClearButtonClick
@@ -63,6 +77,7 @@ namespace DrawingFormSpace.PresentationModel.Tests
             _presentationModel.HandleClearButtonClick();
             Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
             Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
             Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
         }
 
@@ -74,6 +89,14 @@ namespace DrawingFormSpace.PresentationModel.Tests
             _presentationModel.HandleCanvasReleased((int)point.X, (int)point.Y);
             Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
             Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
+            _model.DrawingShapeMode = ShapeType.Rectangle;
+            _model.PressPointer(1, 1);
+            _model.MovePointer((int)point.X, (int)point.Y);
+            _presentationModel.HandleCanvasReleased((int)point.X, (int)point.Y);
+            Assert.IsTrue(_presentationModel.IsRectangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsTriangleButtonEnabled);
+            Assert.IsTrue(_presentationModel.IsLineButtonEnabled);
             Assert.AreEqual(ShapeType.Null, _model.DrawingShapeMode);
         }
 
