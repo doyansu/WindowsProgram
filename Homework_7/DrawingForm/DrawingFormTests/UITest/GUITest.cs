@@ -76,16 +76,47 @@ namespace DrawingFormTests.UITest
         /// <summary>
         /// 測試 Draw Rectangle Button
         /// </summary>
-        /*[TestMethod]
+        [TestMethod]
         public void TestRectangleButton()
         {
             _robot.ClickButtonByName(RECTANGLE_BUTTON_NAME);
             _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, false);
             _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
             _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, true);
-            _robot.DragAndDrop(CANVAS_ID, 10, 10, 100, 100);
-            _robot.ClickCanvas(CANVAS_ID, 55, 55);
-            _robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(10, 10, 100, 100)");
-        }*/
+            _robot.DragAndDrop(CANVAS_ID, 100, 100, 200, 200);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            _robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(100, 100, 200, 200)");
+        }
+
+        /// <summary>
+        /// 測試 Draw Triangle Button
+        /// </summary>
+        [TestMethod]
+        public void TestTriangleButton()
+        {
+            _robot.ClickButtonByName(TRIANGLE_BUTTON_NAME);
+            _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, false);
+            _robot.DragAndDrop(CANVAS_ID, 100, 100, 200, 200);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            _robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+        }
+
+        /// <summary>
+        /// 測試 Draw Clear Button
+        /// </summary>
+        [TestMethod]
+        public void TestClearButton()
+        {
+            _robot.ClickButtonByName(TRIANGLE_BUTTON_NAME);
+            _robot.DragAndDrop(CANVAS_ID, 100, 100, 200, 200);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            _robot.ClickButtonByName(TRIANGLE_BUTTON_NAME);
+            _robot.ClickButtonByName(CLEAR_BUTTON_NAME);
+            _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, false);
+        }
     }
 }

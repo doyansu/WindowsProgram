@@ -81,6 +81,8 @@ namespace DrawingModel
                     _hint = (((Line)_hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null && (((Line)_hint).StartShape != ((Line)_hint).EndShape) ? _hint : null;
                 if (_hint != null)
                 {
+                    _hint.EndX = pointX;
+                    _hint.EndY = pointY;
                     _commandManager.Execute(new DrawCommand(this._shapes, _hint));
                     _hint = null;
                     release = true;
