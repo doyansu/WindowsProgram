@@ -36,10 +36,10 @@ namespace DrawingFormSpace
             this._lineButton = new System.Windows.Forms.Button();
             this._rectangleButton = new System.Windows.Forms.Button();
             this._toolStrip = new System.Windows.Forms.ToolStrip();
-            this._toolStripUndoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
-            this._toolStripRedoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
             this._canvas = new DrawingFormSpace.DoubleBufferedPanel();
             this._selectedShapeLabel = new System.Windows.Forms.Label();
+            this._toolStripUndoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
+            this._toolStripRedoButton = new DrawingFormSpace.View.Components.ToolStripBindingButton();
             this._tableLayoutPanel.SuspendLayout();
             this._toolStrip.SuspendLayout();
             this._canvas.SuspendLayout();
@@ -50,10 +50,10 @@ namespace DrawingFormSpace
             this._clearButton.AutoSize = true;
             this._clearButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._clearButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._clearButton.Location = new System.Drawing.Point(610, 3);
+            this._clearButton.Location = new System.Drawing.Point(718, 3);
             this._clearButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this._clearButton.Name = "_clearButton";
-            this._clearButton.Size = new System.Drawing.Size(183, 44);
+            this._clearButton.Size = new System.Drawing.Size(216, 44);
             this._clearButton.TabIndex = 1;
             this._clearButton.Text = "Clear";
             this._clearButton.UseVisualStyleBackColor = true;
@@ -64,10 +64,10 @@ namespace DrawingFormSpace
             this._triangleButton.AutoSize = true;
             this._triangleButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._triangleButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._triangleButton.Location = new System.Drawing.Point(410, 3);
+            this._triangleButton.Location = new System.Drawing.Point(482, 3);
             this._triangleButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this._triangleButton.Name = "_triangleButton";
-            this._triangleButton.Size = new System.Drawing.Size(180, 44);
+            this._triangleButton.Size = new System.Drawing.Size(216, 44);
             this._triangleButton.TabIndex = 3;
             this._triangleButton.Text = "Triangle";
             this._triangleButton.UseVisualStyleBackColor = true;
@@ -90,7 +90,7 @@ namespace DrawingFormSpace
             this._tableLayoutPanel.RowCount = 1;
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this._tableLayoutPanel.Size = new System.Drawing.Size(803, 50);
+            this._tableLayoutPanel.Size = new System.Drawing.Size(944, 50);
             this._tableLayoutPanel.TabIndex = 4;
             // 
             // _lineButton
@@ -98,10 +98,10 @@ namespace DrawingFormSpace
             this._lineButton.AutoSize = true;
             this._lineButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._lineButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._lineButton.Location = new System.Drawing.Point(210, 3);
+            this._lineButton.Location = new System.Drawing.Point(246, 3);
             this._lineButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this._lineButton.Name = "_lineButton";
-            this._lineButton.Size = new System.Drawing.Size(180, 44);
+            this._lineButton.Size = new System.Drawing.Size(216, 44);
             this._lineButton.TabIndex = 4;
             this._lineButton.Text = "Line";
             this._lineButton.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@ namespace DrawingFormSpace
             this._rectangleButton.Location = new System.Drawing.Point(10, 3);
             this._rectangleButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this._rectangleButton.Name = "_rectangleButton";
-            this._rectangleButton.Size = new System.Drawing.Size(180, 44);
+            this._rectangleButton.Size = new System.Drawing.Size(216, 44);
             this._rectangleButton.TabIndex = 5;
             this._rectangleButton.Text = "Rectangle";
             this._rectangleButton.UseVisualStyleBackColor = true;
@@ -129,9 +129,29 @@ namespace DrawingFormSpace
             this._toolStripRedoButton});
             this._toolStrip.Location = new System.Drawing.Point(0, 0);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(803, 25);
+            this._toolStrip.Size = new System.Drawing.Size(944, 25);
             this._toolStrip.TabIndex = 5;
             this._toolStrip.Text = "toolStrip1";
+            // 
+            // _canvas
+            // 
+            this._canvas.BackColor = System.Drawing.Color.LightYellow;
+            this._canvas.Controls.Add(this._selectedShapeLabel);
+            this._canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._canvas.Location = new System.Drawing.Point(0, 75);
+            this._canvas.Name = "_canvas";
+            this._canvas.Size = new System.Drawing.Size(944, 606);
+            this._canvas.TabIndex = 6;
+            // 
+            // _selectedShapeLabel
+            // 
+            this._selectedShapeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._selectedShapeLabel.AutoSize = true;
+            this._selectedShapeLabel.Location = new System.Drawing.Point(714, 585);
+            this._selectedShapeLabel.Name = "_selectedShapeLabel";
+            this._selectedShapeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this._selectedShapeLabel.Size = new System.Drawing.Size(0, 12);
+            this._selectedShapeLabel.TabIndex = 0;
             // 
             // _toolStripUndoButton
             // 
@@ -153,31 +173,11 @@ namespace DrawingFormSpace
             this._toolStripRedoButton.Text = "Redo";
             this._toolStripRedoButton.Click += new System.EventHandler(this.HandleToolStripRedoButtonClick);
             // 
-            // _canvas
-            // 
-            this._canvas.BackColor = System.Drawing.Color.LightYellow;
-            this._canvas.Controls.Add(this._selectedShapeLabel);
-            this._canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._canvas.Location = new System.Drawing.Point(0, 75);
-            this._canvas.Name = "_canvas";
-            this._canvas.Size = new System.Drawing.Size(803, 526);
-            this._canvas.TabIndex = 6;
-            // 
-            // _selectedShapeLabel
-            // 
-            this._selectedShapeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._selectedShapeLabel.AutoSize = true;
-            this._selectedShapeLabel.Location = new System.Drawing.Point(573, 505);
-            this._selectedShapeLabel.Name = "_selectedShapeLabel";
-            this._selectedShapeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this._selectedShapeLabel.Size = new System.Drawing.Size(0, 12);
-            this._selectedShapeLabel.TabIndex = 0;
-            // 
             // DrawingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 601);
+            this.ClientSize = new System.Drawing.Size(944, 681);
             this.Controls.Add(this._canvas);
             this.Controls.Add(this._tableLayoutPanel);
             this.Controls.Add(this._toolStrip);

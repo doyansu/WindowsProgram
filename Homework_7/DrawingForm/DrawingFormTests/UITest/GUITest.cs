@@ -104,6 +104,21 @@ namespace DrawingFormTests.UITest
         }
 
         /// <summary>
+        /// 測試 Draw Triangle Button
+        /// </summary>
+        [TestMethod]
+        public void TestLineButton()
+        {
+            /*_robot.ClickButtonByName(TRIANGLE_BUTTON_NAME);
+            _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, false);
+            _robot.DragAndDrop(CANVAS_ID, 100, 100, 200, 200);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);*/
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+        }
+
+        /// <summary>
         /// 測試 Draw Clear Button
         /// </summary>
         [TestMethod]
@@ -116,7 +131,7 @@ namespace DrawingFormTests.UITest
             _robot.ClickButtonByName(CLEAR_BUTTON_NAME);
             _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, true);
             _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
-            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, false);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, true);
         }
     }
 }
