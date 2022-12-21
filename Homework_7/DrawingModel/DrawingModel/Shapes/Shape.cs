@@ -18,12 +18,6 @@ namespace DrawingModel
 
         }
 
-        protected Shape(IPoint start, IPoint end)
-        {
-            _start = start.Copy();
-            _end = end.Copy();
-        }
-
         // 繪製圖形
         abstract public void Draw(IGraphics graphics);
 

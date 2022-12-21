@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingModel.Commands
 {
-    class ClearCommand : ICommand
+    public class ClearCommand : ICommand
     {
         Shapes _shapes;
         List<Shape> _shapeList;

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace DrawingModel.Commands
 {
-    class DrawCommand : ICommand
+    public class DrawCommand : ICommand
     {
         Shape _shape;
         Shapes _shapes;
@@ -22,7 +22,7 @@ namespace DrawingModel.Commands
         // 取消命令
         public void CancelExecute()
         {
-            _shapes.RemoveBy(-1);
+            _shapes.Remove(_shape);
         }
     }
 }

@@ -52,5 +52,17 @@ namespace DrawingModel.Tests
             Assert.AreEqual(copyPoint.X, _point.X);
             Assert.AreEqual(copyPoint.Y, _point.Y);
         }
+
+        // TestGetCenter
+        [TestMethod()]
+        public void TestGetCenter()
+        {
+            double pointX = 10;
+            double pointY = 10;
+            _point = new IPoint(pointX, pointY);
+            IPoint centerPoint = _point.GetCenter(new IPoint(20, 20));
+            Assert.AreEqual(15, centerPoint.X);
+            Assert.AreEqual(15, centerPoint.Y);
+        }
     }
 }

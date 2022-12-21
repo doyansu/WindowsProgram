@@ -71,6 +71,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Commands\ClearCommandTests.cs" />
+    <Compile Include="Commands\CommandManagerTests.cs" />
+    <Compile Include="Commands\DrawCommandTests.cs" />
     <Compile Include="ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shapes\IPointTests.cs" />
@@ -78,6 +81,8 @@
     <Compile Include="Shapes\RectangleTests.cs" />
     <Compile Include="Factorys\ShapeFactoryTests.cs" />
     <Compile Include="Shapes\ShapesTests.cs" />
+    <Compile Include="Shapes\ShapeTests.cs" />
+    <Compile Include="MockObjects\TestShape.cs" />
     <Compile Include="Shapes\TriangleTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +94,9 @@
       <Name>DrawingModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -28,14 +28,9 @@ namespace DrawingModel
         }
 
         // RemoveAt
-        public void RemoveBy(int index)
+        public void Remove(Shape shape)
         {
-            if (index >= 0)
-                _shapes.RemoveAt(index);
-            else if (this.Count + index >= 0)
-                _shapes.RemoveAt(this.Count + index);
-            else
-                throw new ArgumentOutOfRangeException();
+            _shapes.Remove(shape);
         }
 
         // Contains
@@ -77,7 +72,8 @@ namespace DrawingModel
         // 清除選取
         public void CancelSelectAll()
         {
-            _shapes.ForEach(shape => shape.IsSelected = false);
+            foreach (Shape shape in _shapes)
+                shape.IsSelected = false;
             NotifyPropertyChanged(PROPERTY_NAME_SELECTED_SHAPE_INFORMATION);
         }
 

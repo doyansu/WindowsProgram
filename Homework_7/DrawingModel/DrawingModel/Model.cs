@@ -95,6 +95,7 @@ namespace DrawingModel
         {
             _isPressed = false;
             _hint = null;
+            _shapes.CancelSelectAll();
             if (this._shapes.Count > 0)
                 _commandManager.Execute(new ClearCommand(this._shapes));
             NotifyModelChanged();
@@ -112,6 +113,7 @@ namespace DrawingModel
         // 回上一個命令
         public void Undo()
         {
+            _shapes.CancelSelectAll();
             _commandManager.Undo();
             NotifyModelChanged();
         }
@@ -119,6 +121,7 @@ namespace DrawingModel
         // 回下一個命令
         public void Redo()
         {
+            _shapes.CancelSelectAll();
             _commandManager.Redo();
             NotifyModelChanged();
         }
