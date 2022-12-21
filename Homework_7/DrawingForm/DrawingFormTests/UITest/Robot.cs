@@ -119,14 +119,25 @@ namespace DrawingFormTests.UITest
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        public void DragAndDrop(string name, int x1, int y1, int x2, int y2)
+        public void DragAndDrop(string id, int x1, int y1, int x2, int y2)
         {
             Actions action = new Actions(_driver);
-            var element = _driver.FindElementByName(name);
+            var element = _driver.FindElementByAccessibilityId(id);
             Point center = new Point(element.Size.Width / 2, element.Size.Height / 2);
             action.MoveToElement(element).Perform();
-            action.MoveByOffset(x1 - (int)center.X, y1 - (int)center.Y).ClickAndHold().Perform();
+            //action.MoveByOffset(x1 - (int)center.X, y1 - (int)center.Y).ClickAndHold().Perform();
+            action.MoveByOffset(x1 - (int)center.X, y1 - (int)center.Y).ClickAndHold();
             action.MoveByOffset(x2 - x1, y2 - y1).Release().Perform();
+        }
+
+        // test
+        public void ClickCanvas(string id, int x1, int y1)
+        {
+            Actions action = new Actions(_driver);
+            var element = _driver.FindElementByAccessibilityId(id);
+            Point center = new Point(element.Size.Width / 2, element.Size.Height / 2);
+            action.MoveToElement(element);
+            action.MoveByOffset(x1 - (int)center.X, y1 - (int)center.Y).Click().Perform();
         }
 
         // test

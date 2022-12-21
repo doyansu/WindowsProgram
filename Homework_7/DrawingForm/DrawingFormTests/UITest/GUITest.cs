@@ -10,6 +10,16 @@ namespace DrawingFormTests.UITest
         private Robot _robot;
         private string DRAWING_FORM = "DrawingForm";
 
+        const string CANVAS_ID = "_canvas";
+        const string SELECTED_LABEL_ID = "_selectedShapeLabel";
+
+        const string REDO_BUTTON_NAME = "Redo";
+        const string UNDO_BUTTON_NAME = "Undo";
+        const string RECTANGLE_BUTTON_NAME = "Rectangle";
+        const string LINE_BUTTON_NAME = "Line";
+        const string TRIANGLE_BUTTON_NAME = "Triangle";
+        const string CLEAR_BUTTON_NAME = "Clear";
+
         // 取得目標應用路徑
         private string GetTargetPath(string projectName)
         {
@@ -17,11 +27,11 @@ namespace DrawingFormTests.UITest
             string solutionPath = AppDomain.CurrentDomain.BaseDirectory;
             do
             {
-                bool IsFindProject = false;
+                bool findProject = false;
                 foreach (var directory in Directory.GetParent(solutionPath).GetDirectories())
                     if (directory.Name == projectName)
-                        IsFindProject = true;
-                if (IsFindProject)
+                        findProject = true;
+                if (findProject)
                     break;
                 solutionPath = Path.GetFullPath(Path.Combine(solutionPath, "..\\"));
             } while (solutionPath != Directory.GetDirectoryRoot(AppDomain.CurrentDomain.BaseDirectory));
@@ -50,12 +60,32 @@ namespace DrawingFormTests.UITest
         }
 
         /// <summary>
-        /// 測試 Borrowing Form 初始化狀態
+        /// 測試 DrawingForm 初始化狀態
         /// </summary>
         [TestMethod]
         public void TestFormInitialize()
         {
-            
+            _robot.AssertEnableByName(REDO_BUTTON_NAME, false);
+            _robot.AssertEnableByName(UNDO_BUTTON_NAME, false);
+            _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(CLEAR_BUTTON_NAME, true);
         }
+
+        /// <summary>
+        /// 測試 Draw Rectangle Button
+        /// </summary>
+        /*[TestMethod]
+        public void TestRectangleButton()
+        {
+            _robot.ClickButtonByName(RECTANGLE_BUTTON_NAME);
+            _robot.AssertEnableByName(RECTANGLE_BUTTON_NAME, false);
+            _robot.AssertEnableByName(LINE_BUTTON_NAME, true);
+            _robot.AssertEnableByName(TRIANGLE_BUTTON_NAME, true);
+            _robot.DragAndDrop(CANVAS_ID, 10, 10, 100, 100);
+            _robot.ClickCanvas(CANVAS_ID, 55, 55);
+            _robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(10, 10, 100, 100)");
+        }*/
     }
 }
