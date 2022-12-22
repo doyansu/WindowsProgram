@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="MultithreadingStoreApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MultithreadingStoreApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Unloaded="Unload">
+        <Button x:Name="_computeButton" Content="Compute" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="293,34,0,0" Click="ClickComputeButton"/>
+        <Button x:Name="_asyncComputeButton" Content="AsyncCompute" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="417,34,0,0" Click="ClickAsyncComputeButton"/>
+        <Button x:Name="_demoButton" Content="Demo (can it be clicked?)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,175,0,0" Width="517"/>
+        <TextBox x:Name="_textBox" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="38,37,0,0"/>
+        <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="38,116,0,0"/>
+        <ProgressBar x:Name="_progressBar" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="511" Margin="38,239,0,0"/>
+
+    </Grid>
+</Page>
