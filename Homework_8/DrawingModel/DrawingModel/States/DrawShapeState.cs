@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace DrawingModel.States
 {
-    class DrawShapeState
+    class DrawShapeState : IState
     {
+        // MovePointer
+        public void MovePointer(double pointX, double pointY)
+        {
+            throw new NotImplementedException();
+        }
+
+        // PressPointer
+        public void PressPointer(double pointX, double pointY)
+        {
+            throw new NotImplementedException();
+        }
+
+        // ReleasePointer
+        public void ReleasePointer(double pointX, double pointY)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
