@@ -38,28 +38,28 @@ namespace DrawingFormSpace.PresentationModel
         private void Reset()
         {
             SetButtonEnable(true, true, true);
-            this._model.DrawingShapeMode = ShapeType.Null;
+            this._model.SetSelectionMode();
         }
 
         // 點擊矩形按鈕
         public void HandleRectangleButtonClick()
         {
             SetButtonEnable(false, true, true);
-            this._model.DrawingShapeMode = ShapeType.Rectangle;
+            this._model.SetDrawShapeMode(ShapeType.Rectangle);
         }
 
         // 點擊三角形按鈕
         public void HandleTriangleButtonClick()
         {
             SetButtonEnable(true, false, true);
-            this._model.DrawingShapeMode = ShapeType.Triangle;
+            this._model.SetDrawShapeMode(ShapeType.Triangle);
         }
 
         // 點擊畫線按鈕
         public void HandleLineButtonClick()
         {
             SetButtonEnable(true, true, false);
-            this._model.DrawingShapeMode = ShapeType.Line;
+            this._model.SetDrawLineMode();
         }
 
         // 點擊清除畫布按鈕

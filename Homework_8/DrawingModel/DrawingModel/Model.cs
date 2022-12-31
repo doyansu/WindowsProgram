@@ -153,6 +153,24 @@ namespace DrawingModel
             return result;
         }
 
+        // 變更為選取模式
+        public void SetSelectionMode()
+        {
+            this.DrawingShapeMode = ShapeType.Null;
+        }
+
+        // 變更為畫圖模式
+        public void SetDrawShapeMode(ShapeType shapeType)
+        {
+            this.DrawingShapeMode = shapeType;
+        }
+
+        // 變更為畫線模式
+        public void SetDrawLineMode()
+        {
+            this.DrawingShapeMode = ShapeType.Line;
+        }
+
         public CommandManager CommandBindingObject
         {
             get
