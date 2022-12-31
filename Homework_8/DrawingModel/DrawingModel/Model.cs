@@ -99,8 +99,7 @@ namespace DrawingModel
         public void Clear()
         {
             _isPressed = false;
-            if (this._shapes.Count > 0)
-                this.ExecuteCommand(new ClearCommand(this));
+            this.ExecuteCommand(new ClearCommand(this));
             NotifyModelChanged();
         }
 
