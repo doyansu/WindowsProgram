@@ -89,13 +89,21 @@ namespace DrawingModel.Tests
         [TestMethod()]
         public void TestGetByIndexOutOfRange()
         {
-            Shape shape;
-            shape = _shapes.GetBy(-1);
-            Assert.IsNull(shape);
-            shape = _shapes.GetBy(0);
-            Assert.IsNull(shape);
-            shape = _shapes.GetBy(9999);
-            Assert.IsNull(shape);
+            Func<Shape> funcZero = () =>
+            {
+                return _shapes.GetBy(0);
+            };
+            Assert.ThrowsException<Exception>(funcZero, "index out of range");
+            Func<Shape> funcNegative = () =>
+            {
+                return _shapes.GetBy(-1);
+            };
+            Assert.ThrowsException<Exception>(funcNegative, "index out of range");
+            Func<Shape> funcLargeNumber = () =>
+            {
+                return _shapes.GetBy(999);
+            };
+            Assert.ThrowsException<Exception>(funcLargeNumber, "index out of range");
         }
 
         // TestCheckPointContains

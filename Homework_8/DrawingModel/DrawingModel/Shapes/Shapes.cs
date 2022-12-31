@@ -94,8 +94,10 @@ namespace DrawingModel
         // Get Shape
         public Shape GetBy(int index)
         {
-            Shape shape = (index >= 0 && index < this.Count) ? _shapes[index] : null;
-            return shape;
+            const string EXCEPTION_MESSAGE = "index out of range";
+            if (index < 0 || index >= this.Count)
+                throw new Exception(EXCEPTION_MESSAGE);
+            return _shapes[index];
         }
 
         public int Count
