@@ -24,7 +24,7 @@ namespace DrawingModel.Tests
         {
             _mockIGraphics = new Mock<IGraphics>();
             _mockShapeFactory = new Mock<IShapeFactory>();
-            _shapes = new Shapes(_mockShapeFactory.Object);
+            _shapes = new Shapes();
             _privateObject = new PrivateObject(_shapes);
         }
 
@@ -59,28 +59,6 @@ namespace DrawingModel.Tests
             _shapes.Add(shape);
             _shapes.Clear();
             Assert.AreEqual(0, _shapes.Count);
-        }
-
-        // TestCreateShape
-        [TestMethod()]
-        public void TestCreateShape()
-        {
-            _mockShapeFactory.Setup(obj => obj.CreateShape(ShapeType.Null))
-                .Returns(new Rectangle()
-                {
-                    StartX = 1,
-                    StartY = 2,
-                    EndX = 3,
-                    EndY = 4
-                });
-
-            Shape shape;
-            shape = _shapes.CreateShape(ShapeType.Null);
-            _mockShapeFactory.Verify(obj => obj.CreateShape(ShapeType.Null));
-            Assert.AreEqual(1, shape.StartX);
-            Assert.AreEqual(2, shape.StartY);
-            Assert.AreEqual(3, shape.EndX);
-            Assert.AreEqual(4, shape.EndY);
         }
 
         // TestDraw

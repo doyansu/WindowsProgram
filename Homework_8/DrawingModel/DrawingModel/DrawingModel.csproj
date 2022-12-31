@@ -58,7 +58,7 @@
     <Compile Include="Shapes\Triangle.cs" />
     <Compile Include="States\DrawLineState.cs" />
     <Compile Include="States\DrawShapeState.cs" />
-    <Compile Include="States\IState.cs" />
+    <Compile Include="States\IDrawingState.cs" />
     <Compile Include="States\SelectionState.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -8,9 +8,14 @@ namespace DrawingModel.States
 {
     public abstract class IDrawingState
     {
-        protected Model _model;
+        protected Model _model = null;
         protected double _firstPointX = 0;
         protected double _firstPointY = 0;
+
+        protected IDrawingState()
+        {
+
+        }
 
         protected IDrawingState(Model model)
         {

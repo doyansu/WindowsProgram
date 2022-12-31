@@ -179,7 +179,7 @@ namespace DrawingModel
             }
         }
 
-        internal IDrawingState CurrentState 
+        public IDrawingState CurrentState 
         {
             get
             {
