@@ -14,6 +14,9 @@ namespace DrawingModel
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler();
 
+        public event CommandReleasedEventHandler _commandReleased;
+        public delegate void CommandReleasedEventHandler();
+
         private double _firstPointX = 0;
         private double _firstPointY = 0;
         private bool _isPressed = false;
@@ -74,9 +77,8 @@ namespace DrawingModel
         }
 
         // 完成圖形繪製
-        public bool ReleasePointer(double pointX, double pointY)
+        public void ReleasePointer(double pointX, double pointY)
         {
-            bool release = false;
             if (_isPressed)
             {
                 _isPressed = false;
@@ -86,13 +88,11 @@ namespace DrawingModel
                 {
                     this._shapes.Hint.EndX = pointX;
                     this._shapes.Hint.EndY = pointY;
-                    _commandManager.Execute(new DrawCommand(this, this._shapes.Hint));
+                    this.ExecuteCommand(new DrawCommand(this, this._shapes.Hint));
                     this._shapes.Hint = null;
-                    release = true;
                 }
                 NotifyModelChanged();
             }
-            return release;
         }
 
         // 清除所有圖形
@@ -100,7 +100,7 @@ namespace DrawingModel
         {
             _isPressed = false;
             if (this._shapes.Count > 0)
-                _commandManager.Execute(new ClearCommand(this));
+                this.ExecuteCommand(new ClearCommand(this));
             NotifyModelChanged();
         }
 
@@ -109,6 +109,13 @@ namespace DrawingModel
         {
             graphics.ClearAll();
             _shapes.Draw(graphics);
+        }
+
+        // 執行命令
+        public void ExecuteCommand(ICommand command)
+        {
+            _commandManager.Execute(command);
+            NotifyCommandReleased();
         }
 
         // 回上一個命令
@@ -180,5 +187,13 @@ namespace DrawingModel
             if (_modelChanged != null)
                 _modelChanged();
         }
+
+        // 通知 CommandReleased
+        private void NotifyCommandReleased()
+        {
+            if (_commandReleased != null)
+                _commandReleased();
+        }
+        
     }
 }

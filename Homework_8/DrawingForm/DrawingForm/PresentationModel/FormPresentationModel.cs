@@ -23,6 +23,7 @@ namespace DrawingFormSpace.PresentationModel
         public FormPresentationModel(Model model)
         {
             this._model = model;
+            this._model._commandReleased += this.Reset;
         }
 
         // 設定按鈕啟用
@@ -65,14 +66,12 @@ namespace DrawingFormSpace.PresentationModel
         public void HandleClearButtonClick()
         {
             _model.Clear();
-            this.Reset();
         }
 
         // 完成畫布繪製
         public void HandleCanvasReleased(int pointX, int pointY)
         {
-            if (_model.ReleasePointer(pointX, pointY))
-                this.Reset();
+            _model.ReleasePointer(pointX, pointY);
         }
 
         public bool IsRectangleButtonEnabled
