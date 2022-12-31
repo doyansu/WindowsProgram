@@ -22,13 +22,13 @@ namespace DrawingModel.States
         // MovePointer
         public override void MovePointer(double pointX, double pointY)
         {
-            // do nothing
+            // nothing to do
         }
 
         // ReleasePointer
         public override void ReleasePointer(double pointX, double pointY)
         {
-            // do nothing
+            // nothing to do
         }
     }
 }

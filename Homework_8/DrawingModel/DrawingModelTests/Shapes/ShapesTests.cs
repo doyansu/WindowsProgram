@@ -39,6 +39,9 @@ namespace DrawingModel.Tests
         [TestMethod()]
         public void TestAdd()
         {
+            _shapes.Add(null);
+            Assert.AreEqual(0, _shapes.Count);
+
             Shape shape = new Line();
             _shapes.Add(shape);
             Assert.AreEqual(shape, _shapes.GetBy(0));

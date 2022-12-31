@@ -84,6 +84,9 @@
     <Compile Include="Shapes\ShapeTests.cs" />
     <Compile Include="MockObjects\TestShape.cs" />
     <Compile Include="Shapes\TriangleTests.cs" />
+    <Compile Include="States\DrawLineStateTests.cs" />
+    <Compile Include="States\DrawShapeStateTests.cs" />
+    <Compile Include="States\SelectionStateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

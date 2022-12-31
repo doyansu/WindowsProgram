@@ -144,7 +144,7 @@ namespace DrawingModel.Tests
 
             // isPressed true, hint not null, shapes have obj
             Shapes shapes = (Shapes)_privateObject.GetFieldOrProperty("_shapes");
-            shapes.Add(new Rectangle(5, 8, 10 ,11));
+            shapes.Add(new Rectangle(5, 8, 10, 11));
             shapes.Add(new Triangle(9, 9, 7, 7));
             _mockIGraphics = new Mock<IGraphics>();
             _model.Draw(_mockIGraphics.Object);
@@ -176,8 +176,8 @@ namespace DrawingModel.Tests
             Assert.AreEqual(0, excuteTimes);
 
             _model._modelChanged += () =>
-                { 
-                    excuteTimes++; 
+                {
+                    excuteTimes++;
                 };
             _privateObject.Invoke("NotifyModelChanged");
             Assert.AreEqual(1, excuteTimes);
@@ -197,6 +197,61 @@ namespace DrawingModel.Tests
             };
             _privateObject.Invoke("NotifyCommandReleased");
             Assert.AreEqual(1, excuteTimes);
+        }
+
+        // TestCheckShapeContains
+        [TestMethod()]
+        public void TestCheckShapeContains()
+        {
+            _model.CheckShapeContains(3, 4);
+        }
+
+        // TestSelectShape
+        [TestMethod()]
+        public void TestSelectShape()
+        {
+            _model.SelectShape(3, 4);
+        }
+
+        // TestDrawHint
+        [TestMethod()]
+        public void TestDrawHint()
+        {
+            Shape shape = new Rectangle();
+            _model.DrawHint();
+            _model.Hint = shape;
+            _model.DrawHint();
+            Assert.IsNull((Shape)_privateObject.GetFieldOrProperty("_hint"));
+            Assert.IsTrue(_model.CommandBindingObject.IsUndoEnabled);
+        }
+
+        // TestSetSelectionMode
+        [TestMethod()]
+        public void TestSetSelectionMode()
+        {
+            _model.SetSelectionMode();
+            Assert.IsInstanceOfType(_model.CurrentState, typeof(SelectionState));
+        }
+
+        // TestSetDrawShapeMode
+        [TestMethod()]
+        public void TestSetDrawShapeMode()
+        {
+            _model.SetDrawShapeMode(ShapeType.Rectangle);
+            Assert.IsInstanceOfType(_model.CurrentState, typeof(DrawShapeState));
+            Assert.AreEqual(ShapeType.Rectangle, ((DrawShapeState)_model.CurrentState).DrawShapeType);
+
+            _model.SetDrawShapeMode(ShapeType.Triangle);
+            Assert.IsInstanceOfType(_model.CurrentState, typeof(DrawShapeState));
+            Assert.AreEqual(ShapeType.Triangle, ((DrawShapeState)_model.CurrentState).DrawShapeType);
+        }
+
+        // TestSetDrawLineMode
+        [TestMethod()]
+        public void TestSetDrawLineMode()
+        {
+            _model.SetDrawLineMode();
+            Assert.IsInstanceOfType(_model.CurrentState, typeof(DrawLineState));
         }
     }
 }
