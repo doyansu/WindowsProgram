@@ -1,4 +1,5 @@
 ﻿using DrawingModel.Commands;
+using DrawingModel.States;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,9 +22,12 @@ namespace DrawingModel
         private ShapeType _drawingShapeMode = ShapeType.Null;
         private CommandManager _commandManager = new CommandManager();
 
+        private IState _currentState;
+
         public Model()
         {
             _shapes = new Shapes(new ShapeFactory());
+            _currentState = new SelectionState();
         }
 
         // 開始繪製
