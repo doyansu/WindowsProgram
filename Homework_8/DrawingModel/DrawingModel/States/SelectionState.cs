@@ -6,22 +6,27 @@ using System.Threading.Tasks;
 
 namespace DrawingModel.States
 {
-    class SelectionState : IState
+    class SelectionState : IDrawingState
     {
+        public SelectionState(IDrawingState state) : base(state)
+        {
+
+        }
+
         // MovePointer
-        public void MovePointer(double pointX, double pointY)
+        public override void MovePointer(double pointX, double pointY)
         {
             throw new NotImplementedException();
         }
 
         // PressPointer
-        public void PressPointer(double pointX, double pointY)
+        public override void PressPointer(double pointX, double pointY)
         {
             throw new NotImplementedException();
         }
 
         // ReleasePointer
-        public void ReleasePointer(double pointX, double pointY)
+        public override void ReleasePointer(double pointX, double pointY)
         {
             throw new NotImplementedException();
         }
