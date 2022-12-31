@@ -12,6 +12,7 @@ namespace DrawingModel.Commands.Tests
     public class DrawCommandTests
     {
         DrawCommand _drawCommand;
+        Model _model;
         Shapes _shapes;
         Shape _shape;
         PrivateObject _privateObject;
@@ -20,9 +21,10 @@ namespace DrawingModel.Commands.Tests
         [TestInitialize()]
         public void Initialize()
         {
+            _model = new Model();
             _shape = new Rectangle();
-            _shapes = new Shapes(new ShapeFactory());
-            _drawCommand = new DrawCommand(_shapes, _shape);
+            _shapes = _model.ShapeBindingObject;
+            _drawCommand = new DrawCommand(_model, _shape);
             _privateObject = new PrivateObject(_drawCommand);
         }
 
@@ -30,7 +32,7 @@ namespace DrawingModel.Commands.Tests
         [TestMethod()]
         public void TestDrawCommand()
         {
-            Assert.AreEqual(_shapes, _privateObject.GetFieldOrProperty("_shapes"));
+            Assert.AreEqual(_model, _privateObject.GetFieldOrProperty("_model"));
             Assert.AreEqual(_shape, _privateObject.GetFieldOrProperty("_shape"));
         }
 

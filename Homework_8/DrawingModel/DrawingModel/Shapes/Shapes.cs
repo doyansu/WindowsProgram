@@ -39,7 +39,7 @@ namespace DrawingModel
             return _shapes.Contains(shape);
         }
 
-        //Clear
+        // Clear
         public Shape[] Clear()
         {
             Shape[] shapes = _shapes.ToArray();

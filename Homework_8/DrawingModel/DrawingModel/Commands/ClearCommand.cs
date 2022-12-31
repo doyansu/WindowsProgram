@@ -8,26 +8,26 @@ namespace DrawingModel.Commands
 {
     public class ClearCommand : ICommand
     {
-        Shapes _shapes;
+        Model _model;
         List<Shape> _shapeList;
 
-        public ClearCommand(Shapes shapes)
+        public ClearCommand(Model model)
         {
-            _shapes = shapes;
+            _model = model;
             _shapeList = new List<Shape>();
         }
 
         // 執行命令
         public void Execute()
         {
-            _shapeList = _shapes.Clear().ToList();
+            _shapeList = _model.RemoveAllShape().ToList();
         }
 
         // 取消命令
         public void CancelExecute()
         {
             foreach (Shape shape in _shapeList)
-                _shapes.Add(shape);
+                _model.AddShape(shape);
             _shapeList.Clear();
         }
     }

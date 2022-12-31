@@ -5,24 +5,25 @@ namespace DrawingModel.Commands
 {
     public class DrawCommand : ICommand
     {
+        Model _model;
         Shape _shape;
-        Shapes _shapes;
-        public DrawCommand(Shapes shapes, Shape shape)
+
+        public DrawCommand(Model model, Shape shape)
         {
+            _model = model;
             _shape = shape;
-            _shapes = shapes;
         }
 
         // 執行命令
         public void Execute()
         {
-            _shapes.Add(_shape);
+            _model.AddShape(_shape);
         }
 
         // 取消命令
         public void CancelExecute()
         {
-            _shapes.Remove(_shape);
+            _model.RemoveShape(_shape);
         }
     }
 }

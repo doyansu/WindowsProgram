@@ -83,7 +83,7 @@ namespace DrawingModel
                 {
                     _hint.EndX = pointX;
                     _hint.EndY = pointY;
-                    _commandManager.Execute(new DrawCommand(this._shapes, _hint));
+                    _commandManager.Execute(new DrawCommand(this, _hint));
                     _hint = null;
                     release = true;
                 }
@@ -99,7 +99,7 @@ namespace DrawingModel
             _hint = null;
             _shapes.CancelSelectAll();
             if (this._shapes.Count > 0)
-                _commandManager.Execute(new ClearCommand(this._shapes));
+                _commandManager.Execute(new ClearCommand(this));
             NotifyModelChanged();
         }
 
@@ -126,6 +126,25 @@ namespace DrawingModel
             _shapes.CancelSelectAll();
             _commandManager.Redo();
             NotifyModelChanged();
+        }
+
+        // 新增圖形
+        public void AddShape(Shape shape)
+        {
+            this._shapes.Add(shape);
+        }
+
+        // 移除圖形
+        public void RemoveShape(Shape shape)
+        {
+            this._shapes.Remove(shape);
+        }
+
+        // 移除所有圖形並回傳
+        public Shape[] RemoveAllShape()
+        {
+            Shape[] result = this._shapes.Clear();
+            return result;
         }
 
         public CommandManager CommandBindingObject

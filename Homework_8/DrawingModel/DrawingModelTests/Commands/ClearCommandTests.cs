@@ -12,6 +12,7 @@ namespace DrawingModel.Commands.Tests
     public class ClearCommandTests
     {
         ClearCommand _clearCommand;
+        Model _model;
         Shapes _shapes;
         Shape _shape;
         PrivateObject _privateObject;
@@ -20,10 +21,11 @@ namespace DrawingModel.Commands.Tests
         [TestInitialize()]
         public void Initialize()
         {
+            _model = new Model();
             _shape = new Rectangle();
-            _shapes = new Shapes(new ShapeFactory());
+            _shapes = _model.ShapeBindingObject;
             _shapes.Add(_shape);
-            _clearCommand = new ClearCommand(_shapes);
+            _clearCommand = new ClearCommand(_model);
             _privateObject = new PrivateObject(_clearCommand);
         }
 
@@ -31,7 +33,7 @@ namespace DrawingModel.Commands.Tests
         [TestMethod()]
         public void TestDrawCommand()
         {
-            Assert.AreEqual(_shapes, _privateObject.GetFieldOrProperty("_shapes"));
+            Assert.AreEqual(_model, _privateObject.GetFieldOrProperty("_model"));
         }
 
         // TestExecute

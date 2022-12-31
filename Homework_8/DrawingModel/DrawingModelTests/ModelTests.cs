@@ -269,7 +269,7 @@ namespace DrawingModel.Tests
         [TestMethod()]
         public void TestUndoRedo()
         {
-            _model.CommandBindingObject.Execute(new ClearCommand(_model.ShapeBindingObject));
+            _model.CommandBindingObject.Execute(new ClearCommand(_model));
             _model.Undo();
             Assert.IsTrue(_model.CommandBindingObject.IsRedoEnabled);
             Assert.IsFalse(_model.CommandBindingObject.IsUndoEnabled);
