@@ -17,19 +17,15 @@ namespace DrawingModel
         public event CommandReleasedEventHandler _commandReleased;
         public delegate void CommandReleasedEventHandler();
 
-        private double _firstPointX = 0;
-        private double _firstPointY = 0;
         private bool _isPressed = false;
-        private Shapes _shapes;
-        private ShapeType _drawingShapeMode = ShapeType.Null;
+        private Shape _hint = null;
+        private Shapes _shapes = new Shapes();
         private CommandManager _commandManager = new CommandManager();
-
-        private IState _currentState;
+        private IDrawingState _currentState;
 
         public Model()
         {
-            _shapes = new Shapes(new ShapeFactory());
-            _currentState = new SelectionState();
+            _currentState = new SelectionState(this);
         }
 
         // 開始繪製
@@ -37,19 +33,8 @@ namespace DrawingModel
         {
             if (pointX > 0 && pointY > 0)
             {
-                _firstPointX = pointX;
-                _firstPointY = pointY;
-                if (this.DrawingShapeMode == ShapeType.Null)
-                {
-                    _shapes.SelectShape(pointX, pointY);
-                    _isPressed = false;
-                }
-                else
-                {
-                    _shapes.CancelSelectAll();
-                    if (this.DrawingShapeMode != ShapeType.Line || _shapes.CheckPointContains(_firstPointX, _firstPointY) != null)
-                        _isPressed = true;
-                }
+                _isPressed = true;
+                _currentState.PressPointer(pointX, pointY);
                 NotifyModelChanged();
             }
         }
@@ -59,19 +44,7 @@ namespace DrawingModel
         {
             if (_isPressed)
             {
-                if (this.DrawingShapeMode != ShapeType.Null)
-                {
-                    this._shapes.Hint = _shapes.CreateShape(DrawingShapeMode);
-                    this._shapes.Hint.StartX = _firstPointX;
-                    this._shapes.Hint.StartY = _firstPointY;
-                    this._shapes.Hint.EndX = pointX;
-                    this._shapes.Hint.EndY = pointY;
-                    if (this.DrawingShapeMode == ShapeType.Line)
-                    {
-                        ((Line)this._shapes.Hint).StartShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
-                        ((Line)this._shapes.Hint).EndShape = new Rectangle(pointX, pointY, pointX, pointY);
-                    }
-                }
+                _currentState.MovePointer(pointX, pointY);
                 NotifyModelChanged();
             }
         }
@@ -82,15 +55,7 @@ namespace DrawingModel
             if (_isPressed)
             {
                 _isPressed = false;
-                if (this._shapes.Hint != null && this.DrawingShapeMode == ShapeType.Line)
-                    this._shapes.Hint = (((Line)this._shapes.Hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null && (((Line)this._shapes.Hint).StartShape != ((Line)this._shapes.Hint).EndShape) ? this._shapes.Hint : null;
-                if (this._shapes.Hint != null)
-                {
-                    this._shapes.Hint.EndX = pointX;
-                    this._shapes.Hint.EndY = pointY;
-                    this.ExecuteCommand(new DrawCommand(this, this._shapes.Hint));
-                    this._shapes.Hint = null;
-                }
+                _currentState.ReleasePointer(pointX, pointY);
                 NotifyModelChanged();
             }
         }
@@ -99,7 +64,8 @@ namespace DrawingModel
         public void Clear()
         {
             _isPressed = false;
-            this.ExecuteCommand(new ClearCommand(this));
+            Hint = null;
+            ExecuteCommand(new ClearCommand(this));
             NotifyModelChanged();
         }
 
@@ -108,6 +74,8 @@ namespace DrawingModel
         {
             graphics.ClearAll();
             _shapes.Draw(graphics);
+            if (Hint != null)
+                Hint.Draw(graphics);
         }
 
         // 執行命令
@@ -152,22 +120,47 @@ namespace DrawingModel
             return result;
         }
 
+        // 檢查是否包含在圖形內，回傳最上面的一個
+        public Shape CheckShapeContains(double pointX, double pointY)
+        {
+            Shape result = _shapes.CheckPointContains(pointX, pointY);
+            return result;
+        }
+
+        // SelectShape
+        public void SelectShape(double pointX, double pointY)
+        {
+            _shapes.SelectShape(pointX, pointY);
+        }
+
+        // DrawHint
+        public void DrawHint()
+        {
+            if (Hint != null)
+            {
+                this.ExecuteCommand(new DrawCommand(this, this.Hint));
+                Hint = null;
+            }
+        }
+        
         // 變更為選取模式
         public void SetSelectionMode()
         {
-            this.DrawingShapeMode = ShapeType.Null;
+            this.CurrentState = new SelectionState(this);
         }
 
         // 變更為畫圖模式
         public void SetDrawShapeMode(ShapeType shapeType)
         {
-            this.DrawingShapeMode = shapeType;
+            DrawShapeState drawShapeState = new DrawShapeState(this);
+            drawShapeState.DrawShapeType = shapeType;
+            this.CurrentState = drawShapeState;
         }
 
         // 變更為畫線模式
         public void SetDrawLineMode()
         {
-            this.DrawingShapeMode = ShapeType.Line;
+            this.CurrentState = new DrawLineState(this);
         }
 
         public CommandManager CommandBindingObject
@@ -186,15 +179,27 @@ namespace DrawingModel
             }
         }
 
-        public ShapeType DrawingShapeMode 
+        internal IDrawingState CurrentState 
         {
             get
             {
-                return _drawingShapeMode;
+                return _currentState;
             }
             set
             {
-                _drawingShapeMode = value;
+                _currentState = value;
+            }
+        }
+
+        public Shape Hint
+        {
+            get
+            {
+                return _hint;
+            }
+            set
+            {
+                _hint = value;
             }
         }
 

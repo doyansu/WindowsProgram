@@ -109,8 +109,8 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\States\DrawShapeState.cs">
       <Link>Model\States\DrawShapeState.cs</Link>
     </Compile>
-    <Compile Include="..\..\DrawingModel\DrawingModel\States\IState.cs">
-      <Link>Model\States\IState.cs</Link>
+    <Compile Include="..\..\DrawingModel\DrawingModel\States\IDrawingState.cs">
+      <Link>Model\States\IDrawingState.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\States\SelectionState.cs">
       <Link>Model\States\SelectionState.cs</Link>

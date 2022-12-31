@@ -6,29 +6,45 @@ using System.Threading.Tasks;
 
 namespace DrawingModel.States
 {
-    class DrawLineState : IDrawingState
+    public class DrawLineState : IDrawingState
     {
-        public DrawLineState(IDrawingState state) : base(state)
+        private Shape _firstShape = null;
+
+        public DrawLineState(Model model) : base(model)
         {
 
-        }
-
-        // MovePointer
-        public override void MovePointer(double pointX, double pointY)
-        {
-            throw new NotImplementedException();
         }
 
         // PressPointer
         public override void PressPointer(double pointX, double pointY)
         {
-            throw new NotImplementedException();
+            base.PressPointer(pointX, pointY);
+            _firstShape = _model.CheckShapeContains(_firstPointX, _firstPointY);
+        }
+
+        // MovePointer
+        public override void MovePointer(double pointX, double pointY)
+        {
+            if (_firstShape != null)
+            {
+                Line line = new Line();
+                line.StartShape = _firstShape;
+                line.EndShape = new Rectangle(pointX, pointY, pointX, pointY);
+                _model.Hint = line;
+            }
         }
 
         // ReleasePointer
         public override void ReleasePointer(double pointX, double pointY)
         {
-            throw new NotImplementedException();
+            if (_firstShape != null)
+            {
+                Line line = new Line();
+                line.StartShape = _firstShape;
+                line.EndShape = _model.CheckShapeContains(pointX, pointY);
+                _model.Hint = line.EndShape != null ? line : null;
+                _model.DrawHint();
+            }
         }
     }
 }

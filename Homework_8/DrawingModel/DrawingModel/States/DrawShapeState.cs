@@ -6,29 +6,49 @@ using System.Threading.Tasks;
 
 namespace DrawingModel.States
 {
-    class DrawShapeState : IDrawingState
+    public class DrawShapeState : IDrawingState
     {
-        public DrawShapeState(IDrawingState state) : base(state)
+        ShapeType _drawShapeType = ShapeType.Null;
+
+        public DrawShapeState(Model model) : base(model)
         {
 
-        }
-
-        // MovePointer
-        public override void MovePointer(double pointX, double pointY)
-        {
-            throw new NotImplementedException();
         }
 
         // PressPointer
         public override void PressPointer(double pointX, double pointY)
         {
-            throw new NotImplementedException();
+            base.PressPointer(pointX, pointY);
+        }
+
+        // MovePointer
+        public override void MovePointer(double pointX, double pointY)
+        {
+            ShapeFactory shapeFactory = new ShapeFactory();
+            Shape shape = shapeFactory.CreateShape(this._drawShapeType);
+            shape.StartX = _firstPointX;
+            shape.StartY = _firstPointY;
+            shape.EndX = pointX;
+            shape.EndY = pointY;
+            _model.Hint = shape;
         }
 
         // ReleasePointer
         public override void ReleasePointer(double pointX, double pointY)
         {
-            throw new NotImplementedException();
+            _model.DrawHint();
+        }
+
+        public ShapeType DrawShapeType 
+        {
+            get
+            {
+                return _drawShapeType;
+            }
+            set
+            {
+                _drawShapeType = value;
+            }
         }
     }
 }

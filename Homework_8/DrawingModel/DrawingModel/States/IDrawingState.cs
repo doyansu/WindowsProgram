@@ -8,19 +8,25 @@ namespace DrawingModel.States
 {
     public abstract class IDrawingState
     {
-        private double _firstPointX = 0;
-        private double _firstPointY = 0;
+        protected Model _model;
+        protected double _firstPointX = 0;
+        protected double _firstPointY = 0;
 
-        protected IDrawingState(IDrawingState state)
+        protected IDrawingState(Model model)
         {
-            this._firstPointX = state._firstPointX;
-            this._firstPointY = state._firstPointY;
+            _model = model;
         }
 
         // PressPointer
-        abstract public void PressPointer(double pointX, double pointY);
+        virtual public void PressPointer(double pointX, double pointY)
+        {
+            this._firstPointX = pointX;
+            this._firstPointY = pointY;
+        }
+
         // MovePointer
         abstract public void MovePointer(double pointX, double pointY);
+
         // ReleasePointer
         abstract public void ReleasePointer(double pointX, double pointY);
     }
