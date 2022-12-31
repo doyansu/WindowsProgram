@@ -158,6 +158,18 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\Shapes\Triangle.cs">
       <Link>Model\Shapes\Triangle.cs</Link>
     </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\States\DrawLineState.cs">
+      <Link>Model\States\DrawLineState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\States\DrawShapeState.cs">
+      <Link>Model\States\DrawShapeState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\States\IDrawingState.cs">
+      <Link>Model\States\IDrawingState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\States\SelectionState.cs">
+      <Link>Model\States\SelectionState.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

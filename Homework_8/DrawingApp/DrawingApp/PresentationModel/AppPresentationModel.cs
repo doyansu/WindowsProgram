@@ -25,15 +25,14 @@ namespace DrawingApp.PresentationModel
         {
             this._model = model;
             _graphics = graphics;
+            this._model._commandReleased += this.Reset;
         }
 
         // 重置狀態
         private void Reset()
         {
-            this.IsRectangleButtonEnabled = true;
-            this.IsTriangleButtonEnabled = true;
-            this.IsLineButtonEnabled = true;
-            this._model.DrawingShapeMode = ShapeType.Null;
+            SetButtonEnable(true, true, true);
+            this._model.SetSelectionMode();
         }
 
         // 設定按鈕啟用
@@ -48,21 +47,21 @@ namespace DrawingApp.PresentationModel
         public void HandleRectangleButtonClick()
         {
             SetButtonEnable(false, true, true);
-            this._model.DrawingShapeMode = ShapeType.Rectangle;
+            this._model.SetDrawShapeMode(ShapeType.Rectangle);
         }
 
         // 點擊三角形按鈕
         public void HandleTriangleButtonClick()
         {
             SetButtonEnable(true, false, true);
-            this._model.DrawingShapeMode = ShapeType.Triangle;
+            this._model.SetDrawShapeMode(ShapeType.Triangle);
         }
 
         // 點擊畫線按鈕
         public void HandleLineButtonClick()
         {
             SetButtonEnable(true, true, false);
-            this._model.DrawingShapeMode = ShapeType.Line;
+            this._model.SetDrawLineMode();
         }
 
         // 點擊清除畫布按鈕
@@ -75,8 +74,7 @@ namespace DrawingApp.PresentationModel
         // 完成畫布繪製
         public void HandleCanvasReleased(double pointX, double pointY)
         {
-            if (_model.ReleasePointer(pointX, pointY))
-                this.Reset();
+            _model.ReleasePointer(pointX, pointY);
         }
 
         // 繪製圖形
