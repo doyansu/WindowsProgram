@@ -11,8 +11,9 @@ namespace DrawingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        List<Shape> _shapes = new List<Shape>();
-        IShapeFactory _shapeFactory;
+        private List<Shape> _shapes = new List<Shape>();
+        private IShapeFactory _shapeFactory;
+        private Shape _hint = null;
 
         private const string PROPERTY_NAME_SELECTED_SHAPE_INFORMATION = "SelectedShapeInformation";
 
@@ -43,6 +44,8 @@ namespace DrawingModel
         public Shape[] Clear()
         {
             Shape[] shapes = _shapes.ToArray();
+            _hint = null;
+            this.CancelSelectAll();
             _shapes.Clear();
             return shapes;
         }
@@ -57,6 +60,8 @@ namespace DrawingModel
                 shape.Draw(graphics);
             foreach (Shape shape in _shapes)
                 shape.DrawSelected(graphics);
+            if (_hint != null)
+                _hint.Draw(graphics);
         }
 
         // 選取一個圖形
@@ -119,6 +124,18 @@ namespace DrawingModel
                 const string SELECTED = "Selected：";
                 Shape selectedShape = _shapes.Find(shape => shape.IsSelected == true);
                 return selectedShape != null ? SELECTED + selectedShape.ShapeInformation() : NULL_VALUE;
+            }
+        }
+
+        public Shape Hint 
+        {
+            get
+            {
+                return _hint;
+            }
+            set
+            {
+                _hint = value;
             }
         }
 

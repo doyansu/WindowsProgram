@@ -18,7 +18,6 @@ namespace DrawingModel
         private double _firstPointY = 0;
         private bool _isPressed = false;
         private Shapes _shapes;
-        private Shape _hint = null;
         private ShapeType _drawingShapeMode = ShapeType.Null;
         private CommandManager _commandManager = new CommandManager();
 
@@ -59,15 +58,15 @@ namespace DrawingModel
             {
                 if (this.DrawingShapeMode != ShapeType.Null)
                 {
-                    _hint = _shapes.CreateShape(DrawingShapeMode);
-                    _hint.StartX = _firstPointX;
-                    _hint.StartY = _firstPointY;
-                    _hint.EndX = pointX;
-                    _hint.EndY = pointY;
+                    this._shapes.Hint = _shapes.CreateShape(DrawingShapeMode);
+                    this._shapes.Hint.StartX = _firstPointX;
+                    this._shapes.Hint.StartY = _firstPointY;
+                    this._shapes.Hint.EndX = pointX;
+                    this._shapes.Hint.EndY = pointY;
                     if (this.DrawingShapeMode == ShapeType.Line)
                     {
-                        ((Line)_hint).StartShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
-                        ((Line)_hint).EndShape = new Rectangle(pointX, pointY, pointX, pointY);
+                        ((Line)this._shapes.Hint).StartShape = _shapes.CheckPointContains(_firstPointX, _firstPointY);
+                        ((Line)this._shapes.Hint).EndShape = new Rectangle(pointX, pointY, pointX, pointY);
                     }
                 }
                 NotifyModelChanged();
@@ -81,14 +80,14 @@ namespace DrawingModel
             if (_isPressed)
             {
                 _isPressed = false;
-                if (_hint != null && this.DrawingShapeMode == ShapeType.Line)
-                    _hint = (((Line)_hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null && (((Line)_hint).StartShape != ((Line)_hint).EndShape) ? _hint : null;
-                if (_hint != null)
+                if (this._shapes.Hint != null && this.DrawingShapeMode == ShapeType.Line)
+                    this._shapes.Hint = (((Line)this._shapes.Hint).EndShape = _shapes.CheckPointContains(pointX, pointY)) != null && (((Line)this._shapes.Hint).StartShape != ((Line)this._shapes.Hint).EndShape) ? this._shapes.Hint : null;
+                if (this._shapes.Hint != null)
                 {
-                    _hint.EndX = pointX;
-                    _hint.EndY = pointY;
-                    _commandManager.Execute(new DrawCommand(this, _hint));
-                    _hint = null;
+                    this._shapes.Hint.EndX = pointX;
+                    this._shapes.Hint.EndY = pointY;
+                    _commandManager.Execute(new DrawCommand(this, this._shapes.Hint));
+                    this._shapes.Hint = null;
                     release = true;
                 }
                 NotifyModelChanged();
@@ -100,8 +99,6 @@ namespace DrawingModel
         public void Clear()
         {
             _isPressed = false;
-            _hint = null;
-            _shapes.CancelSelectAll();
             if (this._shapes.Count > 0)
                 _commandManager.Execute(new ClearCommand(this));
             NotifyModelChanged();
@@ -112,8 +109,6 @@ namespace DrawingModel
         {
             graphics.ClearAll();
             _shapes.Draw(graphics);
-            if (_isPressed && _hint != null) 
-                _hint.Draw(graphics);
         }
 
         // 回上一個命令
