@@ -193,6 +193,7 @@ namespace DrawingFormSpace
             this._saveButton.TabIndex = 6;
             this._saveButton.Text = "Save";
             this._saveButton.UseVisualStyleBackColor = true;
+            this._saveButton.Click += new System.EventHandler(this.HandleSaveButtonClick);
             // 
             // _loadButton
             // 
@@ -206,6 +207,7 @@ namespace DrawingFormSpace
             this._loadButton.TabIndex = 7;
             this._loadButton.Text = "Load";
             this._loadButton.UseVisualStyleBackColor = true;
+            this._loadButton.Click += new System.EventHandler(this.HandleLoadButtonClick);
             // 
             // DrawingForm
             // 

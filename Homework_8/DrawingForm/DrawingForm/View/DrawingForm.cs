@@ -97,6 +97,30 @@ namespace DrawingFormSpace
             this._presentationModel.HandleLineButtonClick();
         }
 
+        // 點擊儲存按鈕
+        private void HandleSaveButtonClick(object sender, EventArgs e)
+        {
+            const string MESSAGE_BOX_TITLE = "Save Shapes";
+            const string MESSAGE_BOX_CONTENT = "是否要儲存?";
+            DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                this._model.HandleSaveButtonClick();
+            }
+        }
+
+        // 點擊下載按鈕
+        private void HandleLoadButtonClick(object sender, EventArgs e)
+        {
+            const string MESSAGE_BOX_TITLE = "Load Shapes";
+            const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
+            DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                this._model.HandleLoadButtonClick();
+            }
+        }
+
         // Undo 按鈕點擊
         private void HandleToolStripUndoButtonClick(object sender, EventArgs e)
         {

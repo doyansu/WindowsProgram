@@ -163,6 +163,16 @@ namespace DrawingModel
             this.CurrentState = new DrawLineState(this);
         }
 
+        public void HandleSaveButtonClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HandleLoadButtonClick()
+        {
+            throw new NotImplementedException();
+        }
+
         public CommandManager CommandBindingObject
         {
             get
