@@ -163,14 +163,16 @@ namespace DrawingModel
             this.CurrentState = new DrawLineState(this);
         }
 
-        public void HandleSaveButtonClick()
+        // 將圖形儲存到 google 雲端
+        public void SaveShapesToGoogle()
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void HandleLoadButtonClick()
+        // 從 google 雲端讀取圖形資料
+        public void LoadShapesFormGoogle()
         {
-            throw new NotImplementedException();
+
         }
 
         public CommandManager CommandBindingObject

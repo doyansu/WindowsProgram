@@ -98,14 +98,17 @@ namespace DrawingFormSpace
         }
 
         // 點擊儲存按鈕
-        private void HandleSaveButtonClick(object sender, EventArgs e)
+        private async void HandleSaveButtonClick(object sender, EventArgs e)
         {
             const string MESSAGE_BOX_TITLE = "Save Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要儲存?";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
-                this._model.HandleSaveButtonClick();
+                Task task = new Task(() => this._model.SaveShapesToGoogle());
+                task.Start();
+                await task;
+                // task end
             }
         }
 
@@ -117,7 +120,7 @@ namespace DrawingFormSpace
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
-                this._model.HandleLoadButtonClick();
+                this._model.LoadShapesFormGoogle();
             }
         }
 
