@@ -174,6 +174,7 @@ namespace DrawingModel
         public void LoadShapes()
         {
             this._shapes.LoadShapes();
+            NotifyModelChanged();
         }
 
         public CommandManager CommandBindingObject

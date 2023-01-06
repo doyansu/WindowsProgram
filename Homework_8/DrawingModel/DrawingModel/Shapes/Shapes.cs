@@ -1,12 +1,9 @@
 ﻿using DrawingModel.GoogleDrive;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace DrawingModel
 {
@@ -16,9 +13,19 @@ namespace DrawingModel
 
         private List<Shape> _shapes = new List<Shape>();
 
+        private IFileBaseService _saveFileService = null;
+
         private const string PROPERTY_NAME_SELECTED_SHAPE_INFORMATION = "SelectedShapeInformation";
         private const string TEMP_FILE_NAME = "DrawingShapes.txt";
-        private IFileBaseService _saveFileService = null;
+        private const string SHAPE_TYPE = "ShapeType";
+        private const string SOFT_NEW_LINE = "\r";
+        private const string NEW_LINE_STRING = "\n";
+        private const string STRING_EMPTY = "";
+        private const string SPACE = " ";
+        private const string START_SHAPE = "StartShape";
+        private const string END_SHAPE = "EndShape";
+        private const char NEW_LINE = '\n';
+        private const char SPLIT_ELEMENT = '*';
 
         public Shapes()
         {
@@ -113,23 +120,51 @@ namespace DrawingModel
                 throw new Exception(EXCEPTION_MESSAGE);
 
             const string CONTENT_TYPE = "text/xml";
-            const string NEW_LINE = "\n";
             string content = "";
             foreach (Shape shape in this._shapes)
                 content += shape.GetObjectString() + NEW_LINE;
+            if (content != "")
+                content = content.Substring(0, content.Length - 1);
             this.SaveFileService.UploadFile(TEMP_FILE_NAME, content, CONTENT_TYPE);
         }
 
         // LoadShapes
         public void LoadShapes()
         {
-            Console.WriteLine(this.SaveFileService.ReadFile(TEMP_FILE_NAME));
+            this.Clear();
+            string fileDate = this.SaveFileService.ReadFile(TEMP_FILE_NAME);
+            List<string> objects = fileDate.Split(NEW_LINE).ToList();
+            if (objects.Contains(STRING_EMPTY))
+                return;
+            foreach (string shapeObject in objects)
+                this.Add(GetObject((ShapeType)(int.Parse(JsonConvert.DeserializeObject<Dictionary<string, object>>(shapeObject)[SHAPE_TYPE].ToString())), shapeObject));
+            for (int i = 0; i < this._shapes.Count; i++)
+                if (this._shapes[i].ShapeType == ShapeType.Line)
+                {
+                    var shapeDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(objects[i]);
+                    Line line = (Line)this._shapes[i];
+                    line.StartShape = this._shapes[objects.IndexOf(ClearString(shapeDict[START_SHAPE].ToString()))];
+                    line.EndShape = this._shapes[objects.IndexOf(ClearString(shapeDict[END_SHAPE].ToString()))];
+                }
         }
 
-        // GetObject
-        private T GetObject<T>(string objectString)
+        // GetDeserializeObject
+        private Shape GetObject(ShapeType shapeType, string objectString)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<T>(objectString);
+            Shape shape = null;
+            if (shapeType == ShapeType.Line)
+                shape = new Line();
+            else if (shapeType == ShapeType.Rectangle)
+                shape = JsonConvert.DeserializeObject<Rectangle>(objectString);
+            else if (shapeType == ShapeType.Triangle)
+                shape = JsonConvert.DeserializeObject<Triangle>(objectString);
+            return shape;
+        }
+
+        // ClearString
+        private string ClearString(string data)
+        {
+            return data.Replace(SOFT_NEW_LINE, STRING_EMPTY).Replace(NEW_LINE_STRING, STRING_EMPTY).Replace(SPACE, STRING_EMPTY);
         }
 
         public int Count

@@ -70,10 +70,7 @@ namespace DrawingModel
         // GetJsonString
         virtual public string GetObjectString()
         {
-            var options = new JsonSerializerOptions
-            { 
-                WriteIndented = true };
-            return JsonSerializer.Serialize(this, options);
+            return JsonSerializer.Serialize(this);
         }
 
         public double StartX

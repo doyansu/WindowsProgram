@@ -67,10 +67,7 @@ namespace DrawingModel
         // GetJsonString
         public override string GetObjectString()
         {
-            var options = new JsonSerializerOptions
-            { 
-                WriteIndented = true };
-            return JsonSerializer.Serialize(this, options);
+            return JsonSerializer.Serialize(this);
         }
     }
 }
