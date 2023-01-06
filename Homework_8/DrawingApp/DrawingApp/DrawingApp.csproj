@@ -128,11 +128,20 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ICommand.cs">
       <Link>Model\Commands\ICommand.cs</Link>
     </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\LoadCommand.cs">
+      <Link>Model\Commands\LoadCommand.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\IShapeFactory.cs">
       <Link>Model\Factorys\IShapeFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\ShapeFactory.cs">
       <Link>Model\Factorys\ShapeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\GoogleDrive\GoogleDriveService.cs">
+      <Link>Model\GoogleDrive\GoogleDriveService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\GoogleDrive\IFileBaseService.cs">
+      <Link>Model\GoogleDrive\IFileBaseService.cs</Link>
     </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
@@ -206,11 +215,21 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v2">
+      <Version>1.58.0.2859</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\DrawingModel\DrawingModel\GoogleDrive\clientSecret.json">
+      <Link>Model\GoogleDrive\clientSecret.json</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Text.Json, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
