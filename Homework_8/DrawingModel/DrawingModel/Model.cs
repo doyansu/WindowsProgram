@@ -171,10 +171,21 @@ namespace DrawingModel
         }
 
         // 從 google 雲端讀取圖形資料
-        public void LoadShapes()
+        public void LoadShapesCommand()
         {
+            const string EXCEPTION_MESSAGE = "找不到儲存檔案";
+            if (!this._shapes.IsFileExist())
+                throw new Exception(EXCEPTION_MESSAGE);
+            this._commandManager.Execute(new LoadCommand(this));
+        }
+
+        // 從 google 雲端讀取圖形資料 回傳原本在 model 的圖形內容
+        public Shape[] LoadShapes()
+        {
+            var temp = this.RemoveAllShape();
             this._shapes.LoadShapes();
             NotifyModelChanged();
+            return temp;
         }
 
         public CommandManager CommandBindingObject

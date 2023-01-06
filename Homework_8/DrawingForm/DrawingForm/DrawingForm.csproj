@@ -122,6 +122,9 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\Commands\ICommand.cs">
       <Link>Model\Commands\ICommand.cs</Link>
     </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\Commands\LoadCommand.cs">
+      <Link>Model\Commands\LoadCommand.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\Factorys\IShapeFactory.cs">
       <Link>Model\Factorys\IShapeFactory.cs</Link>
     </Compile>

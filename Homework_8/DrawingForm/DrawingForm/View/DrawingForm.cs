@@ -117,9 +117,20 @@ namespace DrawingFormSpace
         {
             const string MESSAGE_BOX_TITLE = "Load Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
+            const string EXCEPTION_MESSAGE = "找不到儲存檔案";
+            const string EXCEPTION_TITLE = "Load Error";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
-                this._model.LoadShapes();
+            {
+                try
+                {
+                    this._model.LoadShapesCommand();
+                }
+                catch
+                {
+                    MessageBox.Show(EXCEPTION_MESSAGE, EXCEPTION_TITLE);
+                }
+            }
         }
 
         // Undo 按鈕點擊

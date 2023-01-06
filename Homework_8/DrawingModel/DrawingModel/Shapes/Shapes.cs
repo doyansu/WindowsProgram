@@ -131,7 +131,6 @@ namespace DrawingModel
         // LoadShapes
         public void LoadShapes()
         {
-            this.Clear();
             string fileDate = this.SaveFileService.ReadFile(TEMP_FILE_NAME);
             List<string> objects = fileDate.Split(NEW_LINE).ToList();
             if (objects.Contains(STRING_EMPTY))
@@ -146,6 +145,12 @@ namespace DrawingModel
                     line.StartShape = this._shapes[objects.IndexOf(ClearString(shapeDict[START_SHAPE].ToString()))];
                     line.EndShape = this._shapes[objects.IndexOf(ClearString(shapeDict[END_SHAPE].ToString()))];
                 }
+        }
+
+        // TestReadFile
+        public bool IsFileExist()
+        {
+            return this.SaveFileService.IsContain(TEMP_FILE_NAME);
         }
 
         // GetDeserializeObject

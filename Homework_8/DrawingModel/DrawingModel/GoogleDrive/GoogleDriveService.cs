@@ -204,5 +204,15 @@ namespace DrawingModel.GoogleDrive
                 throw exception;
             }
         }
+
+        // IsContain
+        public bool IsContain(string fileName)
+        {
+            var foundFile = this.ListRootFileAndFolder().Find(item =>
+            {
+                return item.Title == fileName;
+            });
+            return foundFile != null;
+        }
     }
 }
