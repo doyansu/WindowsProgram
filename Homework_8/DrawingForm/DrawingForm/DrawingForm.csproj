@@ -103,6 +103,9 @@
     <Compile Include="..\..\DrawingModel\DrawingModel\GoogleDrive\GoogleDriveService.cs">
       <Link>Model\GoogleDrive\GoogleDriveService.cs</Link>
     </Compile>
+    <Compile Include="..\..\DrawingModel\DrawingModel\GoogleDrive\IFileBaseService.cs">
+      <Link>Model\GoogleDrive\IFileBaseService.cs</Link>
+    </Compile>
     <Compile Include="..\..\DrawingModel\DrawingModel\IGraphics.cs">
       <Link>Model\IGraphics.cs</Link>
     </Compile>

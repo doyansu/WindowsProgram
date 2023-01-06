@@ -17,6 +17,9 @@ namespace DrawingFormSpace
 
         public DrawingForm()
         {
+            const string APPLICATION_NAME = "DrawingForm";
+            const string CLIENT_SECRET_FILE_NAME = @"./Model/GoogleDrive/clientSecret.json";
+
             InitializeComponent();
             _canvas.MouseDown += HandleCanvasPressed;
             _canvas.MouseUp += HandleCanvasReleased;
@@ -24,8 +27,10 @@ namespace DrawingFormSpace
             _canvas.Paint += HandleCanvasPaint;
             
             _model = new DrawingModel.Model();
-            _presentationModel = new PresentationModel.FormPresentationModel(_model);
+            _model.FileService = new DrawingModel.GoogleDrive.GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
             _model._modelChanged += HandleModelChanged;
+
+            _presentationModel = new PresentationModel.FormPresentationModel(_model);
 
             this.BindData();
         }
@@ -98,18 +103,13 @@ namespace DrawingFormSpace
         }
 
         // 點擊儲存按鈕
-        private async void HandleSaveButtonClick(object sender, EventArgs e)
+        private void HandleSaveButtonClick(object sender, EventArgs e)
         {
             const string MESSAGE_BOX_TITLE = "Save Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要儲存?";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
-            {
-                Task task = new Task(() => this._model.SaveShapesToGoogle());
-                task.Start();
-                await task;
-                // task end
-            }
+                Task.Run(this._model.SaveShapes);
         }
 
         // 點擊下載按鈕
@@ -119,9 +119,7 @@ namespace DrawingFormSpace
             const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
-            {
-                this._model.LoadShapesFormGoogle();
-            }
+                this._model.LoadShapes();
         }
 
         // Undo 按鈕點擊

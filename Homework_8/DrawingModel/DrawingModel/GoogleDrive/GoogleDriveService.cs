@@ -16,12 +16,12 @@ using System.Net;
 
 namespace DrawingModel.GoogleDrive
 {
-    public class GoogleDriveService
+    public class GoogleDriveService : IFileBaseService
     {
         private static readonly string[] SCOPES = new[] { DriveService.Scope.DriveFile, DriveService.Scope.Drive };
         private DriveService _service;
         private const int KB = 0x400;
-        private const int DOWNLOAD_CHUNK_SIZE = 256 * KB;
+        //private const int DOWNLOAD_CHUNK_SIZE = 256 * KB;
         private int _timeStamp;
         private string _applicationName;
         private string _clientSecretFileName;
@@ -39,6 +39,7 @@ namespace DrawingModel.GoogleDrive
             this.CreateNewService(applicationName, clientSecretFileName);
         }
 
+        // CreateNewService
         private void CreateNewService(string applicationName, string clientSecretFileName)
         {
             const string USER = "user";
@@ -251,6 +252,16 @@ namespace DrawingModel.GoogleDrive
             {
                 throw exception;
             }
+        }
+
+        public void UploadFile(string fileName, string contentType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DownloadFile(string fileName, string downloadPath)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -23,14 +23,11 @@ namespace DrawingModel
         private Shapes _shapes = new Shapes();
         private CommandManager _commandManager = new CommandManager();
         private IDrawingState _currentState;
-        private GoogleDriveService _service;
+        private IFileBaseService _saveFileService = null;
 
         public Model()
         {
-            const string APPLICATION_NAME = "DrawingForm";
-            const string CLIENT_SECRET_FILE_NAME = @"./Model/GoogleDrive/clientSecret.json";
             _currentState = new SelectionState(this);
-            _service = new GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
         }
 
         // 開始繪製
@@ -169,14 +166,23 @@ namespace DrawingModel
         }
 
         // 將圖形儲存到 google 雲端
-        public void SaveShapesToGoogle()
+        public void SaveShapes()
         {
-            
+            const string EXCEPTION_MESSAGE = "Service 未建立";
+            if (FileService == null)
+                throw new Exception(EXCEPTION_MESSAGE);
+
+            const string FILE_NAME = "";
+            const string CONTENT_TYPE = "";
+            FileService.UploadFile(FILE_NAME, CONTENT_TYPE);
         }
 
         // 從 google 雲端讀取圖形資料
-        public void LoadShapesFormGoogle()
+        public void LoadShapes()
         {
+            const string EXCEPTION_MESSAGE = "Service 未建立";
+            if (FileService == null)
+                throw new Exception(EXCEPTION_MESSAGE);
 
         }
 
@@ -217,6 +223,18 @@ namespace DrawingModel
             set
             {
                 _hint = value;
+            }
+        }
+
+        public IFileBaseService FileService 
+        {
+            get
+            {
+                return _saveFileService;
+            }
+            set
+            {
+                _saveFileService = value;
             }
         }
 
