@@ -84,7 +84,9 @@
     <Compile Include="States\SelectionState.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GoogleDrive\clientSecret.json" />
+    <None Include="GoogleDrive\clientSecret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

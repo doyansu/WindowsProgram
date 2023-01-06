@@ -1,5 +1,6 @@
 ﻿using DrawingModel.Commands;
 using DrawingModel.States;
+using DrawingModel.GoogleDrive;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,10 +23,14 @@ namespace DrawingModel
         private Shapes _shapes = new Shapes();
         private CommandManager _commandManager = new CommandManager();
         private IDrawingState _currentState;
+        private GoogleDriveService _service;
 
         public Model()
         {
+            const string APPLICATION_NAME = "DrawingForm";
+            const string CLIENT_SECRET_FILE_NAME = @"./Model/GoogleDrive/clientSecret.json";
             _currentState = new SelectionState(this);
+            _service = new GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
         }
 
         // 開始繪製
