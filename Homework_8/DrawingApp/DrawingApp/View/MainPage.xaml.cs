@@ -36,7 +36,7 @@ namespace DrawingApp
             const string CLIENT_SECRET_FILE_NAME = @"./Model/GoogleDrive/clientSecret.json";
             this.InitializeComponent();
             _model = new DrawingModel.Model();
-            //_model.FileService = new DrawingModel.GoogleDrive.GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
+            _model.FileService = new DrawingModel.GoogleDrive.GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
             _model._modelChanged += HandleModelChanged;
             _presentationModel = new PresentationModel.AppPresentationModel(_model, new PresentationModel.AppGraphicsAdaptor(_canvas));
             _canvas.PointerPressed += HandleCanvasPressed;
