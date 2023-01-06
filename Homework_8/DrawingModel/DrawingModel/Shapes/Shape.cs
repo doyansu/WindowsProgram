@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DrawingModel
@@ -64,6 +65,15 @@ namespace DrawingModel
         {
             const string STRING_FORMAT = "{0}({1}, {2}, {3}, {4})";
             return string.Format(STRING_FORMAT, shapeName, this.Left, this.Top, this.Right, this.Bottom);
+        }
+
+        // GetJsonString
+        virtual public string GetObjectString()
+        {
+            var options = new JsonSerializerOptions
+            { 
+                WriteIndented = true };
+            return JsonSerializer.Serialize(this, options);
         }
 
         public double StartX

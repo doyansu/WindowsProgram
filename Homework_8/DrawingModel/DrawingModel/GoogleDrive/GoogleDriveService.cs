@@ -254,14 +254,61 @@ namespace DrawingModel.GoogleDrive
             }
         }
 
-        public void UploadFile(string fileName, string contentType)
+        // CreateFile
+        private void CreateFile(string fileName, string content, string contentType)
         {
-            throw new NotImplementedException();
+            CheckCredentialTimeStamp();
+            try
+            {
+                MemoryStream stream = new MemoryStream(Encoding.Default.GetBytes(content));
+                Google.Apis.Drive.v2.Data.File fileToInsert = new Google.Apis.Drive.v2.Data.File { Title = fileName };
+                FilesResource.InsertMediaUpload insertRequest = _service.Files.Insert(fileToInsert, stream, contentType);
+                insertRequest.ChunkSize = FilesResource.InsertMediaUpload.MinimumChunkSize * 2;
+                insertRequest.Upload();
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
 
-        public void DownloadFile(string fileName, string downloadPath)
+        // UploadFile
+        public void UploadFile(string fileName, string content, string contentType)
         {
-            throw new NotImplementedException();
+            var fileList = this.ListRootFileAndFolder();
+            var foundFiles = fileList.FindAll(item =>
+            {
+                return item.Title == fileName;
+            });
+            if (foundFiles.Count > 0)
+            {
+                foreach (var file in foundFiles)
+                    DeleteFile(file.Id);
+            }
+            CreateFile(fileName, content, contentType);
+        }
+
+        // DownloadFile
+        public string ReadFile(string fileName)
+        {
+            var fileList = this.ListRootFileAndFolder();
+            var foundFiles = fileList.FindAll(item =>
+            {
+                return item.Title == fileName;
+            });
+            if (foundFiles.Count != 1)
+                throw new Exception();
+            var fileToDownload = foundFiles[0];
+            try
+            {
+                Task<byte[]> downloadByte = _service.HttpClient.GetByteArrayAsync(fileToDownload.DownloadUrl);
+                byte[] byteArray = downloadByte.Result;
+                return Encoding.Default.GetString(byteArray);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DrawingModel.GoogleDrive;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DrawingModel
@@ -14,10 +17,12 @@ namespace DrawingModel
         private List<Shape> _shapes = new List<Shape>();
 
         private const string PROPERTY_NAME_SELECTED_SHAPE_INFORMATION = "SelectedShapeInformation";
+        private const string TEMP_FILE_NAME = "DrawingShapes.txt";
+        private IFileBaseService _saveFileService = null;
 
         public Shapes()
         {
-            
+
         }
 
         // Add
@@ -100,6 +105,33 @@ namespace DrawingModel
             return _shapes[index];
         }
 
+        // SaveShapes
+        public void SaveShapes()
+        {
+            const string EXCEPTION_MESSAGE = "Service 未建立";
+            if (SaveFileService == null)
+                throw new Exception(EXCEPTION_MESSAGE);
+
+            const string CONTENT_TYPE = "text/xml";
+            const string NEW_LINE = "\n";
+            string content = "";
+            foreach (Shape shape in this._shapes)
+                content += shape.GetObjectString() + NEW_LINE;
+            this.SaveFileService.UploadFile(TEMP_FILE_NAME, content, CONTENT_TYPE);
+        }
+
+        // LoadShapes
+        public void LoadShapes()
+        {
+            Console.WriteLine(this.SaveFileService.ReadFile(TEMP_FILE_NAME));
+        }
+
+        // GetObject
+        private T GetObject<T>(string objectString)
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<T>(objectString);
+        }
+
         public int Count
         {
             get
@@ -116,6 +148,18 @@ namespace DrawingModel
                 const string SELECTED = "Selected：";
                 Shape selectedShape = _shapes.Find(shape => shape.IsSelected == true);
                 return selectedShape != null ? SELECTED + selectedShape.ShapeInformation() : NULL_VALUE;
+            }
+        }
+
+        public IFileBaseService SaveFileService 
+        {
+            get
+            {
+                return _saveFileService;
+            }
+            set
+            {
+                _saveFileService = value;
             }
         }
 

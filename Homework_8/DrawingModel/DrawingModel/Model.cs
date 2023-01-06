@@ -23,7 +23,6 @@ namespace DrawingModel
         private Shapes _shapes = new Shapes();
         private CommandManager _commandManager = new CommandManager();
         private IDrawingState _currentState;
-        private IFileBaseService _saveFileService = null;
 
         public Model()
         {
@@ -168,22 +167,13 @@ namespace DrawingModel
         // 將圖形儲存到 google 雲端
         public void SaveShapes()
         {
-            const string EXCEPTION_MESSAGE = "Service 未建立";
-            if (FileService == null)
-                throw new Exception(EXCEPTION_MESSAGE);
-
-            const string FILE_NAME = "";
-            const string CONTENT_TYPE = "";
-            FileService.UploadFile(FILE_NAME, CONTENT_TYPE);
+            this._shapes.SaveShapes();
         }
 
         // 從 google 雲端讀取圖形資料
         public void LoadShapes()
         {
-            const string EXCEPTION_MESSAGE = "Service 未建立";
-            if (FileService == null)
-                throw new Exception(EXCEPTION_MESSAGE);
-
+            this._shapes.LoadShapes();
         }
 
         public CommandManager CommandBindingObject
@@ -230,11 +220,11 @@ namespace DrawingModel
         {
             get
             {
-                return _saveFileService;
+                return this._shapes.SaveFileService;
             }
             set
             {
-                _saveFileService = value;
+                this._shapes.SaveFileService = value;
             }
         }
 

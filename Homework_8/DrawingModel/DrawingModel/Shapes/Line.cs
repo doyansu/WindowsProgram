@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DrawingModel
@@ -61,6 +62,15 @@ namespace DrawingModel
         public override bool IsContains(double pointX, double pointY)
         {
             return false;
+        }
+
+        // GetJsonString
+        public override string GetObjectString()
+        {
+            var options = new JsonSerializerOptions
+            { 
+                WriteIndented = true };
+            return JsonSerializer.Serialize(this, options);
         }
     }
 }

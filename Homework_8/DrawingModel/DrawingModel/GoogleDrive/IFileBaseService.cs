@@ -9,8 +9,8 @@ namespace DrawingModel.GoogleDrive
     public interface IFileBaseService
     {
         // 上傳檔案
-        void UploadFile(string fileName, string contentType);
+        void UploadFile(string fileName, string content, string contentType);
         // 下載檔案
-        void DownloadFile(string fileName, string downloadPath);
+        string ReadFile(string fileName);
     }
 }
