@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,15 +26,22 @@ namespace DrawingApp
         DrawingModel.Model _model;
         PresentationModel.AppPresentationModel _presentationModel;
 
+        const string PRIMARY_TEXT = "確定";
+        const string CLOSE_TEXT = "取消";
+        const string STRING_EMPTY = "";
+
         public MainPage()
         {
+            const string APPLICATION_NAME = "DrawingApp";
+            const string CLIENT_SECRET_FILE_NAME = @"./Model/GoogleDrive/clientSecret.json";
             this.InitializeComponent();
             _model = new DrawingModel.Model();
+            //_model.FileService = new DrawingModel.GoogleDrive.GoogleDriveService(APPLICATION_NAME, CLIENT_SECRET_FILE_NAME);
+            _model._modelChanged += HandleModelChanged;
             _presentationModel = new PresentationModel.AppPresentationModel(_model, new PresentationModel.AppGraphicsAdaptor(_canvas));
             _canvas.PointerPressed += HandleCanvasPressed;
             _canvas.PointerReleased += HandleCanvasReleased;
             _canvas.PointerMoved += HandleCanvasMoved;
-            _model._modelChanged += HandleModelChanged;
         }
 
         // 點擊矩形按鈕
@@ -94,6 +102,54 @@ namespace DrawingApp
         public void HandleModelChanged()
         {
             _presentationModel.Draw();
+        }
+
+        // 點擊儲存按鈕
+        private async void HandleSaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            const string MESSAGE_BOX_TITLE = "Save Shapes";
+            const string MESSAGE_BOX_CONTENT = "是否要儲存?";
+            ContentDialogResult result = await ShowDialogAsync(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, CLOSE_TEXT, PRIMARY_TEXT);
+            if (result == ContentDialogResult.Primary)
+                await Task.Run(this._model.SaveShapes);
+        }
+
+        
+
+        // 點擊下載按鈕
+        private async void HandleLoadButtonClick(object sender, RoutedEventArgs e)
+        {
+            const string MESSAGE_BOX_TITLE = "Load Shapes";
+            const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
+            const string EXCEPTION_MESSAGE = "找不到儲存檔案";
+            const string EXCEPTION_TITLE = "Load Error";
+            ContentDialogResult result = await ShowDialogAsync(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, CLOSE_TEXT, PRIMARY_TEXT);
+            if (result == ContentDialogResult.Primary)
+            {
+                try
+                {
+                    this._model.LoadShapesCommand();
+                }
+                catch
+                {
+                    await ShowDialogAsync(EXCEPTION_MESSAGE, EXCEPTION_TITLE);
+                }
+            }
+        }
+
+        // ShowDialog
+        private async Task<ContentDialogResult> ShowDialogAsync(string content, string title = STRING_EMPTY, string closeButtonText = PRIMARY_TEXT, string primaryButtonText = null)
+        {
+            ContentDialog locationPromptDialog = new ContentDialog
+            {
+                Title = title,
+                Content = content,
+                CloseButtonText = closeButtonText
+            };
+            if (primaryButtonText != null)
+                locationPromptDialog.PrimaryButtonText = primaryButtonText;
+            ContentDialogResult result = await locationPromptDialog.ShowAsync();
+            return result;
         }
     }
 }

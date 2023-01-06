@@ -225,6 +225,7 @@
   <ItemGroup>
     <None Include="..\..\DrawingModel\DrawingModel\GoogleDrive\clientSecret.json">
       <Link>Model\GoogleDrive\clientSecret.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
