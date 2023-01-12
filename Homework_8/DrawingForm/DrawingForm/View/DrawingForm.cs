@@ -103,13 +103,17 @@ namespace DrawingFormSpace
         }
 
         // 點擊儲存按鈕
-        private void HandleSaveButtonClick(object sender, EventArgs e)
+        private async void HandleSaveButtonClick(object sender, EventArgs e)
         {
             const string MESSAGE_BOX_TITLE = "Save Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要儲存?";
+            const string MESSAGE_BOX_FINISH = "儲存完成";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
-                Task.Run(this._model.SaveShapes);
+            {
+                await Task.Run(this._model.SaveShapes);
+                MessageBox.Show(MESSAGE_BOX_FINISH, MESSAGE_BOX_TITLE);
+            }
         }
 
         // 點擊下載按鈕
@@ -117,6 +121,7 @@ namespace DrawingFormSpace
         {
             const string MESSAGE_BOX_TITLE = "Load Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
+            const string MESSAGE_BOX_FINISH = "下載完成";
             const string EXCEPTION_MESSAGE = "找不到儲存檔案";
             const string EXCEPTION_TITLE = "Load Error";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
@@ -125,6 +130,7 @@ namespace DrawingFormSpace
                 try
                 {
                     this._model.LoadShapesCommand();
+                    MessageBox.Show(MESSAGE_BOX_FINISH, MESSAGE_BOX_TITLE);
                 }
                 catch
                 {

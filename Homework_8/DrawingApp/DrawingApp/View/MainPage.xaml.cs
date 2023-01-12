@@ -109,9 +109,13 @@ namespace DrawingApp
         {
             const string MESSAGE_BOX_TITLE = "Save Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要儲存?";
+            const string MESSAGE_BOX_FINISH = "儲存完成";
             ContentDialogResult result = await ShowDialogAsync(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, CLOSE_TEXT, PRIMARY_TEXT);
             if (result == ContentDialogResult.Primary)
+            {
                 await Task.Run(this._model.SaveShapes);
+                await ShowDialogAsync(MESSAGE_BOX_FINISH, MESSAGE_BOX_TITLE);
+            }
         }
 
         
@@ -121,6 +125,7 @@ namespace DrawingApp
         {
             const string MESSAGE_BOX_TITLE = "Load Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
+            const string MESSAGE_BOX_FINISH = "下載完成";
             const string EXCEPTION_MESSAGE = "找不到儲存檔案";
             const string EXCEPTION_TITLE = "Load Error";
             ContentDialogResult result = await ShowDialogAsync(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, CLOSE_TEXT, PRIMARY_TEXT);
@@ -129,6 +134,7 @@ namespace DrawingApp
                 try
                 {
                     this._model.LoadShapesCommand();
+                    await ShowDialogAsync(MESSAGE_BOX_FINISH, MESSAGE_BOX_TITLE);
                 }
                 catch
                 {
