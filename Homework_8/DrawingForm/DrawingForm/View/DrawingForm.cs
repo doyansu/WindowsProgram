@@ -116,14 +116,15 @@ namespace DrawingFormSpace
             }
         }
 
+        const string EXCEPTION_MESSAGE = "找不到儲存檔案";
+        const string EXCEPTION_TITLE = "Load Error";
+
         // 點擊下載按鈕
         private void HandleLoadButtonClick(object sender, EventArgs e)
         {
             const string MESSAGE_BOX_TITLE = "Load Shapes";
             const string MESSAGE_BOX_CONTENT = "是否要重新載入?";
             const string MESSAGE_BOX_FINISH = "下載完成";
-            const string EXCEPTION_MESSAGE = "找不到儲存檔案";
-            const string EXCEPTION_TITLE = "Load Error";
             DialogResult result = MessageBox.Show(MESSAGE_BOX_CONTENT, MESSAGE_BOX_TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
