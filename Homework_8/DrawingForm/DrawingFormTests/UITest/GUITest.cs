@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using System;
 using System.IO;
 
@@ -19,6 +20,8 @@ namespace DrawingFormTests.UITest
         const string LINE_BUTTON_NAME = "Line";
         const string TRIANGLE_BUTTON_NAME = "Triangle";
         const string CLEAR_BUTTON_NAME = "Clear";
+        const string SAVE_BUTTON_NAME = "Save";
+        const string LOAD_BUTTON_NAME = "Load";
 
         // 取得目標應用路徑
         private string GetTargetPath(string projectName)
@@ -135,6 +138,37 @@ namespace DrawingFormTests.UITest
         }
 
         /// <summary>
+        /// 測試 Undo Button
+        /// </summary>
+        [TestMethod]
+        public void TestUndoButton()
+        {
+            DrawShape(TRIANGLE_BUTTON_NAME, 100, 100, 200, 200);
+            _robot.AssertEnableByName(UNDO_BUTTON_NAME, true);
+            _robot.AssertEnableByName(REDO_BUTTON_NAME, false);
+            _robot.ClickButtonByName(UNDO_BUTTON_NAME);
+            _robot.AssertEnableByName(UNDO_BUTTON_NAME, false);
+            _robot.AssertEnableByName(REDO_BUTTON_NAME, true);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            Assert.ThrowsException<WebDriverException>(() => _robot.AssertTextById(SELECTED_LABEL_ID, ""));
+        }
+
+        /// <summary>
+        /// 測試 Redo Button
+        /// </summary>
+        [TestMethod]
+        public void TestRedoButton()
+        {
+            DrawShape(TRIANGLE_BUTTON_NAME, 100, 100, 200, 200);
+            _robot.AssertEnableByName(UNDO_BUTTON_NAME, true);
+            _robot.AssertEnableByName(REDO_BUTTON_NAME, false);
+            _robot.ClickButtonByName(UNDO_BUTTON_NAME);
+            _robot.ClickButtonByName(REDO_BUTTON_NAME);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+        }
+
+        /// <summary>
         /// 測試 Draw
         /// </summary>
         [TestMethod]
@@ -143,14 +177,53 @@ namespace DrawingFormTests.UITest
             DrawShape(TRIANGLE_BUTTON_NAME, 100, 100, 200, 200);
             //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
             DrawShape(RECTANGLE_BUTTON_NAME, 100, 200, 200, 300);
-            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 200, 200, 300)");
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(100, 200, 200, 300)");
             DrawShape(TRIANGLE_BUTTON_NAME, 400, 100, 500, 200);
             //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(400, 100, 500, 200)");
             DrawShape(RECTANGLE_BUTTON_NAME, 400, 200, 500, 300);
-            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(400, 200, 500, 300)");
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(400, 200, 500, 300)");
             DrawShape(LINE_BUTTON_NAME, 150, 150, 450, 150);
             DrawShape(LINE_BUTTON_NAME, 150, 250, 450, 250);
+            for (int i = 0; i < 6; i++)
+                _robot.ClickButtonByName(UNDO_BUTTON_NAME);
+            for (int i = 0; i < 6; i++)
+                _robot.ClickButtonByName(REDO_BUTTON_NAME);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 150, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(100, 200, 200, 300)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(400, 100, 500, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(400, 200, 500, 300)");
+            _robot.ClickButtonByName(SAVE_BUTTON_NAME);
+            _robot.CloseMessageBox();
             _robot.ClickButtonByName(CLEAR_BUTTON_NAME);
+            _robot.Sleep(6);
+            _robot.CloseMessageBox();
+            _robot.ClickButtonByName(LOAD_BUTTON_NAME);
+            _robot.CloseMessageBox();
+            _robot.Sleep(4);
+            _robot.CloseMessageBox();
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 150, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(100, 200, 200, 300)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(400, 100, 500, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(400, 200, 500, 300)");
+            _robot.ClickButtonByName(UNDO_BUTTON_NAME);
+            Assert.ThrowsException<WebDriverException>(() => _robot.AssertTextById(SELECTED_LABEL_ID, ""));
+            _robot.ClickButtonByName(REDO_BUTTON_NAME);
+            _robot.ClickCanvas(CANVAS_ID, 150, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(100, 100, 200, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 150, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(100, 200, 200, 300)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 150);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Triangle(400, 100, 500, 200)");
+            _robot.ClickCanvas(CANVAS_ID, 450, 250);
+            //_robot.AssertTextById(SELECTED_LABEL_ID, "Selected：Rectangle(400, 200, 500, 300)");
         }
 
         // DrawShape
