@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using System.ComponentModel;
+using DrawingModel.GoogleDrive;
 
 namespace DrawingModel.Tests
 {
@@ -16,6 +17,7 @@ namespace DrawingModel.Tests
         Shapes _shapes;
         Mock<IGraphics> _mockIGraphics;
         Mock<IShapeFactory> _mockShapeFactory;
+        Mock<IFileBaseService> _mockIFileBaseService;
         PrivateObject _privateObject;
 
         // Initialize
@@ -24,6 +26,7 @@ namespace DrawingModel.Tests
         {
             _mockIGraphics = new Mock<IGraphics>();
             _mockShapeFactory = new Mock<IShapeFactory>();
+            _mockIFileBaseService = new Mock<IFileBaseService>();
             _shapes = new Shapes();
             _privateObject = new PrivateObject(_shapes);
         }
@@ -168,6 +171,78 @@ namespace DrawingModel.Tests
             _privateObject.Invoke("NotifyPropertyChanged", propertyName);
             Assert.AreEqual(1, receivedEvents.Count);
             Assert.AreEqual(propertyName, receivedEvents[0]);
+        }
+
+        const string TEMP_FILE_NAME = "DrawingShapes.txt";
+        const string CONTENT_TYPE = "text/xml";
+
+        // TestSaveFileService
+        [TestMethod()]
+        public void TestSaveFileService()
+        {
+            Assert.ThrowsException<Exception>(() => _privateObject.GetFieldOrProperty("SaveFileService"), "Service 未建立");
+            _shapes.SetFileBaseService(_mockIFileBaseService.Object);
+            Assert.ReferenceEquals(_mockIFileBaseService.Object, _privateObject.GetFieldOrProperty("SaveFileService"));
+        }
+
+        // TestSaveShapes
+        [TestMethod()]
+        public void TestSaveShapes()
+        {
+            _shapes.SetFileBaseService(_mockIFileBaseService.Object);
+            Shape rectangle = new Rectangle();
+            Shape triangle = new Triangle();
+            Line line = new Line();
+            line.StartShape = rectangle;
+            line.EndShape = triangle;
+            _shapes.SaveShapes();
+            _mockIFileBaseService.Verify(obj => obj.UploadFile(TEMP_FILE_NAME, "", CONTENT_TYPE), Times.Exactly(1));
+            _shapes.Add(rectangle);
+            _shapes.Add(triangle);
+            _shapes.Add(line);
+            _shapes.SaveShapes();
+            _mockIFileBaseService.Verify(obj => obj.UploadFile(TEMP_FILE_NAME, "{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":2}\n{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":3}\n{\"CanDraw\":true,\"StartShape\":{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":2},\"EndShape\":{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":3},\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":1}", CONTENT_TYPE), Times.Exactly(1));
+        }
+
+        // TestLoadShapes
+        [TestMethod()]
+        public void TestLoadShapes()
+        {
+            _shapes.SetFileBaseService(_mockIFileBaseService.Object);
+            _mockIFileBaseService.Setup(obj => obj.ReadFile(TEMP_FILE_NAME)).Returns("");
+            _shapes.LoadShapes();
+            Assert.AreEqual(0, _shapes.Count);
+
+            Shape rectangle = new Rectangle();
+            Shape triangle = new Triangle();
+            Line line = new Line();
+            line.StartShape = rectangle;
+            line.EndShape = triangle;
+            _shapes.Add(rectangle);
+            _shapes.Add(triangle);
+            _shapes.Add(line);
+            _shapes.SaveShapes();
+            _shapes.Clear();
+            _mockIFileBaseService.Setup(obj => obj.ReadFile(TEMP_FILE_NAME)).Returns("{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":2}\n{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":3}\n{\"CanDraw\":true,\"StartShape\":{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":2},\"EndShape\":{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":3},\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":1}");
+            _shapes.LoadShapes();
+            Assert.AreEqual(3, _shapes.Count);
+        }
+
+        // TestIsFileExist
+        [TestMethod()]
+        public void TestIsFileExist()
+        {
+            _shapes.SetFileBaseService(_mockIFileBaseService.Object);
+            _mockIFileBaseService.Setup(obj => obj.IsContain(TEMP_FILE_NAME)).Returns(false);
+            Assert.AreEqual(false, _shapes.IsFileExist());
+            _mockIFileBaseService.Verify(obj => obj.IsContain(TEMP_FILE_NAME), Times.Exactly(1));
+        }
+
+        // TestGetObject
+        [TestMethod()]
+        public void TestGetObject()
+        {
+            Assert.IsNull(_privateObject.Invoke("GetObject", new object[] { ShapeType.Null, "" }));
         }
     }
 }

@@ -232,7 +232,7 @@ namespace DrawingModel
         {
             set
             {
-                this._shapes.SaveFileService = value;
+                this._shapes.SetFileBaseService(value);
             }
         }
 

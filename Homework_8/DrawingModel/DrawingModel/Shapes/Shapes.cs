@@ -176,6 +176,23 @@ namespace DrawingModel
             }
         }
 
+        // SetFileBaseService
+        public void SetFileBaseService(IFileBaseService service)
+        {
+            _saveFileService = service;
+        }
+
+        private IFileBaseService SaveFileService
+        {
+            get
+            {
+                const string EXCEPTION_MESSAGE = "Service 未建立";
+                if (_saveFileService == null)
+                    throw new Exception(EXCEPTION_MESSAGE);
+                return _saveFileService;
+            }
+        }
+
         public string SelectedShapeInformation
         {
             get
@@ -184,21 +201,6 @@ namespace DrawingModel
                 const string SELECTED = "Selected：";
                 Shape selectedShape = _shapes.Find(shape => shape.IsSelected == true);
                 return selectedShape != null ? SELECTED + selectedShape.ShapeInformation() : NULL_VALUE;
-            }
-        }
-
-        public IFileBaseService SaveFileService 
-        {
-            get
-            {
-                const string EXCEPTION_MESSAGE = "Service 未建立";
-                if (SaveFileService == null)
-                    throw new Exception(EXCEPTION_MESSAGE);
-                return _saveFileService;
-            }
-            set
-            {
-                _saveFileService = value;
             }
         }
 

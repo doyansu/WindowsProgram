@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using DrawingModel.GoogleDrive;
 
 namespace DrawingModel.Tests
 {
@@ -17,6 +18,7 @@ namespace DrawingModel.Tests
         Model _model;
         Mock<IGraphics> _mockIGraphics;
         Mock<IDrawingState> _mockIDrawingState;
+        Mock<IFileBaseService> _mockIFileBaseService;
         PrivateObject _privateObject;
 
         // Initialize
@@ -26,6 +28,7 @@ namespace DrawingModel.Tests
             _model = new Model();
             _mockIGraphics = new Mock<IGraphics>();
             _mockIDrawingState = new Mock<IDrawingState>();
+            _mockIFileBaseService = new Mock<IFileBaseService>();
             _privateObject = new PrivateObject(_model);
         }
 
@@ -252,6 +255,33 @@ namespace DrawingModel.Tests
         {
             _model.SetDrawLineMode();
             Assert.IsInstanceOfType(_model.CurrentState, typeof(DrawLineState));
+        }
+
+        // TestSaveShapes
+        [TestMethod()]
+        public void TestSaveShapes()
+        {
+            const string TEMP_FILE_NAME = "DrawingShapes.txt";
+            const string CONTENT_TYPE = "text/xml";
+            _model.FileService = _mockIFileBaseService.Object;
+            _model.SaveShapes();
+            _mockIFileBaseService.Verify(obj => obj.UploadFile(TEMP_FILE_NAME, "", CONTENT_TYPE), Times.Exactly(1));
+        }
+
+        // TestLoadShapesCommand
+        [TestMethod()]
+        public void TestLoadShapesCommand()
+        {
+            const string EXCEPTION_MESSAGE = "找不到儲存檔案";
+            const string TEMP_FILE_NAME = "DrawingShapes.txt";
+            _model.FileService = _mockIFileBaseService.Object;
+            _mockIFileBaseService.Setup(obj => obj.ReadFile(TEMP_FILE_NAME)).Returns("");
+            _mockIFileBaseService.Setup(obj => obj.IsContain(TEMP_FILE_NAME)).Returns(false);
+            Assert.ThrowsException<Exception>(_model.LoadShapesCommand, EXCEPTION_MESSAGE);
+            _mockIFileBaseService.Setup(obj => obj.IsContain(TEMP_FILE_NAME)).Returns(true);
+            _model.LoadShapesCommand();
+            Assert.IsFalse(_model.CommandBindingObject.IsRedoEnabled);
+            Assert.IsTrue(_model.CommandBindingObject.IsUndoEnabled);
         }
     }
 }
