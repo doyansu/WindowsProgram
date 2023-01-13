@@ -186,16 +186,13 @@ namespace DrawingModel.GoogleDrive
         // DownloadFile
         public string ReadFile(string fileName)
         {
-            const string EXCEPTION_MESSAGE = "file not found";
-            var foundFiles = this.ListRootFileAndFolder().FindAll(item => 
-            { 
-                return item.Title == fileName; 
-            });
-            if (foundFiles.Count != 1)
-                throw new Exception(EXCEPTION_MESSAGE);
-            var fileToDownload = foundFiles[0];
             try
             {
+                var foundFiles = this.ListRootFileAndFolder().FindAll(item =>
+                {
+                    return item.Title == fileName;
+                });
+                var fileToDownload = foundFiles[0];
                 Task<byte[]> downloadByte = _service.HttpClient.GetByteArrayAsync(fileToDownload.DownloadUrl);
                 return Encoding.Default.GetString(downloadByte.Result);
             }
