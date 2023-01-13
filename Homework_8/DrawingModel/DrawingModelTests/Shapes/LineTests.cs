@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using System.Text.Json;
 
 namespace DrawingModel.Tests
 {
@@ -62,6 +63,14 @@ namespace DrawingModel.Tests
             Assert.IsFalse(_line.IsContains(-1, -2));
             Assert.IsFalse(_line.IsContains(100, 2));
             Assert.IsFalse(_line.IsContains(1, 200));
+        }
+
+        // TestGetObjectString
+        [TestMethod()]
+        public void TestGetObjectString()
+        {
+            _line = new Line();
+            Assert.AreEqual("{\"CanDraw\":false,\"StartShape\":null,\"EndShape\":null,\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":1}", _line.GetObjectString());
         }
     }
 }

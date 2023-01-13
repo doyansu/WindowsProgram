@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using System.Text.Json;
 
 namespace DrawingModel.Tests
 {
@@ -121,6 +122,20 @@ namespace DrawingModel.Tests
             _testShape.EndX = end.X;
             _testShape.EndY = end.Y;
             Assert.AreEqual("Shape(3, 6, 10, 10)", _testShape.ShapeInformation());
+        }
+
+        // TestGetObjectString
+        [TestMethod()]
+        public void TestGetObjectString()
+        {
+            Assert.AreEqual("{\"StartX\":0,\"StartY\":0,\"EndX\":0,\"EndY\":0,\"Left\":0,\"Top\":0,\"Right\":0,\"Bottom\":0,\"IsSelected\":false,\"ShapeType\":0}", _testShape.GetObjectString());
+            IPoint start = new IPoint(3, 6);
+            IPoint end = new IPoint(10, 10);
+            _testShape.StartX = start.X;
+            _testShape.StartY = start.Y;
+            _testShape.EndX = end.X;
+            _testShape.EndY = end.Y;
+            Assert.AreEqual("{\"StartX\":3,\"StartY\":6,\"EndX\":10,\"EndY\":10,\"Left\":3,\"Top\":6,\"Right\":10,\"Bottom\":10,\"IsSelected\":false,\"ShapeType\":0}", _testShape.GetObjectString());
         }
     }
 }

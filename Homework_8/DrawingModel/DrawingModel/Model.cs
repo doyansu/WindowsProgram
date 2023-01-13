@@ -230,10 +230,6 @@ namespace DrawingModel
 
         public IFileBaseService FileService 
         {
-            get
-            {
-                return this._shapes.SaveFileService;
-            }
             set
             {
                 this._shapes.SaveFileService = value;

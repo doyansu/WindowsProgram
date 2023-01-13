@@ -115,10 +115,6 @@ namespace DrawingModel
         // SaveShapes
         public void SaveShapes()
         {
-            const string EXCEPTION_MESSAGE = "Service 未建立";
-            if (SaveFileService == null)
-                throw new Exception(EXCEPTION_MESSAGE);
-
             const string CONTENT_TYPE = "text/xml";
             string content = "";
             foreach (Shape shape in this._shapes)
@@ -195,6 +191,9 @@ namespace DrawingModel
         {
             get
             {
+                const string EXCEPTION_MESSAGE = "Service 未建立";
+                if (SaveFileService == null)
+                    throw new Exception(EXCEPTION_MESSAGE);
                 return _saveFileService;
             }
             set
